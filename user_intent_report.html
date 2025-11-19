@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>意图识别框架 | Intent Recognition Framework</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  
+  :root {
+    --primary: #00ff88;
+    --primary-dark: #00cc6f;
+    --bg-dark: #000000;
+    --bg-secondary: #0a0a0a;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --border: rgba(255, 255, 255, 0.08);
+    --glass: rgba(255, 255, 255, 0.03);
+    --accent: #7da6ff;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 32px;
+    padding-top: 92px;
+    background: var(--bg-dark);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    position: relative;
+    opacity: 0;
+    animation: page-fade-in 1s ease-out forwards;
+  }
+  
+  @keyframes page-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .wrap {
+    max-width: 1200px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+  }
+  
+  h1 {
+    font-size: 42px;
+    margin: 0 0 12px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: title-appear 1s ease-out 0.3s forwards;
+  }
+  
+  @keyframes title-appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    opacity: 0;
+    animation: subtitle-appear 1s ease-out 0.5s forwards;
+  }
+  
+  @keyframes subtitle-appear {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Navigation Bar */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.8);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+  }
+  
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .navbar a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+  
+  .navbar a:hover {
+    background: var(--glass);
+    opacity: 1;
+  }
+  
+  .navbar .home-link {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+  }
+  
+  .navbar .home-link:hover {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: rgba(0, 255, 136, 0.3);
+  }
+
+  /* 交互模块：折叠卡片 */
+  .accordion {
+    margin-top: 40px;
+  }
+  
+  .acc-item {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: accordion-slide-in 0.6s ease-out forwards;
+  }
+  
+  .acc-item:nth-child(1) { animation-delay: 1.5s; }
+  .acc-item:nth-child(2) { animation-delay: 1.7s; }
+  .acc-item:nth-child(3) { animation-delay: 1.9s; }
+  .acc-item:nth-child(4) { animation-delay: 2.1s; }
+  
+  @keyframes accordion-slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .acc-item:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+    transform: translateX(4px);
+  }
+  
+  .acc-item.active {
+    border-color: rgba(0, 255, 136, 0.4);
+    background: rgba(0, 255, 136, 0.03);
+  }
+  
+  .acc-header {
+    padding: 24px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+    letter-spacing: -0.3px;
+    position: relative;
+  }
+  
+  .acc-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    transition: width 0.3s;
+    opacity: 0.1;
+  }
+  
+  .acc-header:hover::before {
+    width: 4px;
+  }
+  
+  .acc-header:hover {
+    background: rgba(255, 255, 255, 0.03);
+    padding-left: 28px;
+  }
+  
+  .acc-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s;
+    padding: 0 24px;
+  }
+  
+  .acc-item.active .acc-content {
+    padding: 0 24px;
+  }
+  
+  .acc-content-inner {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease-out;
+  }
+  
+  .acc-item.active .acc-content-inner {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+  }
+  
+  .acc-content-inner {
+    padding: 0 0 24px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  /* hero 区块 */
+  .hero {
+    margin-top: 40px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: hero-appear 1s ease-out 0.7s forwards;
+    transition: all 0.3s;
+  }
+  
+  @keyframes hero-appear {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hero:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 255, 136, 0.1);
+  }
+  
+  .hero-visual {
+    width: 240px;
+    height: 240px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    animation: visual-pulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes visual-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+    }
+    50% {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px 10px rgba(0, 255, 136, 0.2);
+    }
+  }
+  
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 3s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+  }
+
+  /* 信息分区 */
+  .grid3 {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  
+  .card3 {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: card-appear 0.8s ease-out forwards;
+  }
+  
+  .card3:nth-child(1) {
+    animation-delay: 0.9s;
+  }
+  
+  .card3:nth-child(2) {
+    animation-delay: 1.1s;
+  }
+  
+  .card3:nth-child(3) {
+    animation-delay: 1.3s;
+  }
+  
+  @keyframes card-appear {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .card3:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+    background: rgba(0, 255, 136, 0.05);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 255, 136, 0.15);
+  }
+  
+  .card-title {
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  
+  .pill {
+    display: inline-block;
+    padding: 8px 14px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 8px;
+    margin: 6px 6px 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--primary);
+    transition: all 0.3s;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: pill-appear 0.5s ease-out forwards;
+  }
+  
+  .pill:nth-child(1) { animation-delay: 1.5s; }
+  .pill:nth-child(2) { animation-delay: 1.6s; }
+  .pill:nth-child(3) { animation-delay: 1.7s; }
+  .pill:nth-child(4) { animation-delay: 1.8s; }
+  .pill:nth-child(5) { animation-delay: 1.9s; }
+  .pill:nth-child(6) { animation-delay: 2.0s; }
+  .pill:nth-child(7) { animation-delay: 2.1s; }
+  .pill:nth-child(8) { animation-delay: 2.2s; }
+  
+  @keyframes pill-appear {
+    from {
+      opacity: 0;
+      transform: scale(0.8) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  .pill:hover {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: rgba(0, 255, 136, 0.4);
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+  }
+
+  /* 动画箭头 */
+  .arrow {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s;
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: inline-block;
+  }
+  
+  .acc-item.active .arrow {
+    transform: rotate(90deg);
+    color: var(--primary);
+  }
+  
+  .acc-header:hover .arrow {
+    color: var(--primary);
+    transform: translateX(4px);
+  }
+  
+  .acc-item.active .acc-header:hover .arrow {
+    transform: rotate(90deg) translateX(4px);
+  }
+
+  /* 可视化意图生成流程 */
+  .flow {
+    margin-top: 48px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    padding: 40px;
+    border-radius: 24px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: flow-appear 1s ease-out 2.2s forwards;
+    transition: all 0.3s;
+  }
+  
+  @keyframes flow-appear {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .flow:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+    box-shadow: 0 12px 40px rgba(0, 255, 136, 0.1);
+  }
+  
+  .flow h3 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* 跳转体验按钮 */
+  .flow-cta {
+    margin-top: 40px;
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cta-appear 0.8s ease-out 3s forwards;
+  }
+  
+  @keyframes cta-appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .flow-cta-text {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+  
+  .flow-cta-subtext {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+  
+  .flow-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: var(--bg-dark);
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+    letter-spacing: -0.2px;
+  }
+  
+  .flow-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  .flow-cta-button:hover::before {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .flow-cta-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 255, 136, 0.5);
+  }
+  
+  .flow-cta-button:active {
+    transform: translateY(-2px) scale(1.02);
+  }
+  
+  .flow-cta-button span {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .flow-cta-button .arrow-icon {
+    transition: transform 0.3s;
+    font-size: 18px;
+  }
+  
+  .flow-cta-button:hover .arrow-icon {
+    transform: translateX(4px);
+  }
+  
+  /* 页面过渡动画 */
+  .page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-dark);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .page-transition.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .flow-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    gap: 24px;
+  }
+  
+  .step {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    padding: 32px 24px;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    animation: step-appear 0.8s ease-out forwards;
+  }
+  
+  .step:nth-child(1) { animation-delay: 2.3s; }
+  .step:nth-child(2) { animation-delay: 2.5s; }
+  .step:nth-child(3) { animation-delay: 2.7s; }
+  
+  @keyframes step-appear {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .step:hover {
+    border-color: rgba(0, 255, 136, 0.4);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 16px 48px rgba(0, 255, 136, 0.2);
+    background: rgba(0, 255, 136, 0.05);
+  }
+  
+  .step-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+  
+  .step:hover .step-title {
+    color: var(--primary);
+  }
+  
+  .step-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--bg-dark);
+    font-size: 20px;
+    transition: all 0.4s;
+    position: relative;
+    animation: circle-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes circle-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(0, 255, 136, 0);
+    }
+  }
+  
+  .step:hover .step-circle {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
+  }
+
+  @media(max-width: 968px) {
+    .grid3 {
+      grid-template-columns: 1fr;
+    }
+    
+    .flow-steps {
+      flex-direction: column;
+    }
+    
+    .hero {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .hero-visual {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+/* Auto-hide scrollbar for JSON box */
+#json-box {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+  
+#json-box::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+}
+  
+#json-box:hover::-webkit-scrollbar {
+    background: rgba(255, 255, 255, 0.02);
+}
+  
+#json-box::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+  
+#json-box:hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  button {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: var(--bg-dark);
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  button:hover {
+    background: #6b95ff;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(125, 166, 255, 0.4);
+  }
+  
+  button:active {
+    transform: translateY(-1px) scale(1.02);
+  }
+  
+  button span {
+    position: relative;
+    z-index: 1;
+  }
+  
+  pre {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 12px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-size: 13px;
+    color: var(--primary);
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: scroll;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-weight: 400;
+    transition: all 0.3s;
+    position: relative;
+  }
+  
+  pre:hover {
+    border-color: rgba(0, 255, 136, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 255, 136, 0.1);
+  }
+  
+  /* 打字动画光标 */
+  pre.typing::after {
+    content: '|';
+    animation: blink 1s infinite;
+    color: var(--primary);
+  }
+  
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+  
+  /* 滚动条美化 */
+  pre::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  pre::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  pre::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  
+  pre::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-brand">INTENT RECOGNITION</div>
+  <div class="navbar-links">
+    <a href="index.html" class="home-link">首页</a>
+    <a href="intent_interactive_demo.html">实时意图体验</a>
+  </div>
+</nav>
+<div class="wrap">
+
+  <header>
+    <h1>用户意图识别框架</h1>
+    <div class="sub">基于AI技术的四层意图识别架构 · 实时分析用户行为，生成精准购物意图画像</div>
+  </header>
+
+  <!-- hero 大摘要 -->
+  <div class="hero">
+    <div>
+      <h2 style="margin:0 0 16px; font-size: 28px; font-weight: 700; letter-spacing: -0.8px;">用户正在寻找"舒适 · 休闲 · 有型"的服装</h2>
+      <div class="sub" style="font-size: 15px;">反复停留首页＋舒适相关兴趣 → 推测仍在探索阶段，尚未产生强购买信号。</div>
+    </div>
+    <div class="hero-visual"></div>
+  </div>
+
+  <!-- 三大视觉模块 -->
+  <div class="grid3">
+    <div class="card3">
+      <div class="card-title">核心兴趣标签</div>
+      <span class="pill">Hoodie</span><span class="pill">Cozy</span><span class="pill">Loungewear</span><span class="pill">Athleisure</span>
+    </div>
+
+    <div class="card3">
+      <div class="card-title">产品侧重点（分析维度）</div>
+      <span class="pill">Oversized</span><span class="pill">Soft Inside</span><span class="pill">Recycled Cotton</span><span class="pill">Burgundy</span>
+    </div>
+
+    <div class="card3">
+      <div class="card-title">当前兴趣阶段</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+        <div style="width:12px;height:12px;border-radius:50%;background:var(--accent)"></div>
+        <span style="font-weight: 600;">Browsing（浏览阶段）</span>
+      </div>
+      <div class="sub" style="margin-top:8px">尚未浏览产品页 · 无疑虑点</div>
+    </div>
+  </div>
+
+  <!-- 交互式：意图结构解释 -->
+  <div class="accordion">
+
+    <div class="acc-item">
+      <div class="acc-header">1. 我们的意图框架是怎样构成的？ <span class="arrow">▶</span></div>
+      <div class="acc-content"><div class="acc-content-inner">
+        我们的意图结构分为四层：<br><br>
+        <strong style="color: var(--primary);">① 核心兴趣（Core Interests）</strong>：描述用户脑海里的"关键词云"，是他们正在逛店时的心理画像。<br>
+        <strong style="color: var(--primary);">② 产品侧重点（Product Focus）</strong>：从商品角度定义"这个产品吸引人的核心点是什么"。<br>
+        <strong style="color: var(--primary);">③ 购买信号（Purchase Signals）</strong>：反映用户目前在"购买漏斗"的哪一层。<br>
+        <strong style="color: var(--primary);">④ 行为摘要（Behavior Summary）</strong>：把所有行为转成一句话"用户是怎么逛的"。<br>
+        <br>
+        这四层共同构成"我们对用户心智与行为的理解"。
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header">2. 为什么我们能从"行为"看出用户的"意图"？ <span class="arrow">▶</span></div>
+      <div class="acc-content"><div class="acc-content-inner">
+        用户的所有行为都能被归类为三种信号：<br><br>
+        <strong style="color: var(--primary);">① 探索信号</strong>（如：停留首页、浏览分类页） → 用户还在看"整体风格"。<br>
+        <strong style="color: var(--primary);">② 比较信号</strong>（如：反复查看某商品、关注尺寸/价格）→ 用户在筛选选项。<br>
+        <strong style="color: var(--primary);">③ 决策信号</strong>（如：加入购物车、查看库存）→ 用户准备购买或犹豫。<br><br>
+        本例中用户主要表现为探索信号，因此我们判断其处于弱意图、早期阶段。
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header">3. 意图是如何"生成"的？（交互演示） <span class="arrow">▶</span></div>
+      <div class="acc-content"><div class="acc-content-inner">
+        基于用户行为，我们会执行三步：<br><br>
+        <strong style="color: var(--primary);">① 捕捉行为 → ② 提取信号 → ③ 生成意图</strong><br><br>
+        你可以在下方看到这个流程的可视化版本。
+      </div></div>
+    </div>
+
+  </div>
+
+    <!-- 新增：原始 JSON 数据展示（可播放打字动画） -->
+    <div class="acc-item">
+      <div class="acc-header">4. 原始意图数据（Raw JSON）<span class="arrow">▶</span></div>
+      <div class="acc-content">
+        <div class="acc-content-inner">
+          <div style="margin-bottom:16px; color: var(--text-secondary);">点击下方按钮，观看我们如何从结构化数据生成意图：</div>
+
+          <button id="play-json"><span>▶ 播放 JSON 生成动画</span></button>
+
+          <pre id="json-box"></pre>
+        </div>
+      </div>
+    </div>
+
+  <!-- 可视化流程 -->
+  <div class="flow">
+    <h3>意图生成流程（交互式心智模型）</h3>
+    <div class="sub">从用户行为 → 行为含义 → 意图推断，全链路透明化</div>
+
+    <div class="flow-steps">
+      <div class="step">
+        <div class="step-circle">1</div>
+        <div class="step-title">捕捉用户行为</div>
+        <div class="sub">如：停留首页、hover、未点产品页</div>
+      </div>
+
+      <div class="step">
+        <div class="step-circle">2</div>
+        <div class="step-title">推断行为含义</div>
+        <div class="sub">判断是"探索 / 比较 / 决策"哪类信号</div>
+      </div>
+
+      <div class="step">
+        <div class="step-circle">3</div>
+        <div class="step-title">生成用户意图</div>
+        <div class="sub">输出兴趣标签、阶段判断、潜在需求</div>
+      </div>
+    </div>
+    
+    <div class="flow-cta">
+      <div class="flow-cta-text">想要亲身体验意图识别？</div>
+      <div class="flow-cta-subtext">点击下方按钮，进入实时交互体验页面</div>
+      <a href="intent_interactive_demo.html" class="flow-cta-button" id="flowCtaButton">
+        <span>
+          立即体验
+          <span class="arrow-icon">→</span>
+        </span>
+      </a>
+    </div>
+  </div>
+  
+  <!-- 页面过渡层 -->
+  <div class="page-transition" id="pageTransition"></div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.acc-item').forEach(item => {
+    const header = item.querySelector('.acc-header');
+    const content = item.querySelector('.acc-content');
+    header.onclick = () => {
+      const active = item.classList.toggle('active');
+      content.style.maxHeight = active ? content.scrollHeight + 'px' : '0px';
+    }
+  });
+</script>
+
+<script>
+  // JSON 内容
+  const rawJSON = `{
+    "core_interests": [
+      "Comfortable Apparel",
+      "Loungewear Set",
+      "Athleisure Style",
+      "Hoodie",
+      "Cozy Feel"
+    ],
+    "product_focus": {
+      "key_attributes": [
+        "Oversized Fit",
+        "Soft Brushed Inside",
+        "Burgundy/Maroon Color",
+        "Recycled Cotton Blend",
+        "Kangaroo Pocket"
+      ],
+      "price_range": "mid-range",
+      "main_appeal": "Comfort & Style"
+    },
+    "purchase_signals": {
+      "stage": "browsing",
+      "concerns": null
+    },
+    "behavior_summary": {
+      "engagement": "Low engagement, primarily on the homepage with some general hovers. No specific product page views or add-to-cart actions.",
+      "browsing_path": "User has only visited the homepage multiple times across different sessions without navigating to any product pages or engaging with specific product elements. There's no browsing sequence to analyze."
+    },
+    "match_analysis": {
+      "user_fit": "Moderate fit. The user is browsing a store that appears to sell apparel, and the available product is a hoodie, which aligns with some of the general tags.",
+      "use_case": "Casual everyday wear, loungewear, or athleisure.",
+      "customer_portrait": "A shopper looking for comfortable, casual clothing, possibly for relaxed activities or everyday wear. They are in the early stages of browsing."
+    }
+  }`;
+
+  const box = document.getElementById('json-box');
+  const playBtn = document.getElementById('play-json');
+
+  let animating = false;
+
+  function typeJSON(text, i = 0) {
+    if (i === 0) {
+      box.textContent = "";
+      box.classList.add('typing');
+    }
+    if (i < text.length) {
+      box.textContent += text.charAt(i);
+      setTimeout(() => typeJSON(text, i + 1), 8);
+    } else {
+      animating = false;
+      setTimeout(() => {
+        box.classList.remove('typing');
+      }, 500);
+    }
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (animating) return;
+    animating = true;
+    typeJSON(rawJSON);
+  });
+  
+  // 页面跳转过渡动画
+  const flowCtaButton = document.getElementById('flowCtaButton');
+  const pageTransition = document.getElementById('pageTransition');
+  
+  if (flowCtaButton && pageTransition) {
+    flowCtaButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetUrl = flowCtaButton.getAttribute('href');
+      
+      // 显示过渡动画
+      pageTransition.classList.add('active');
+      
+      // 延迟跳转，让过渡动画完成
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 500);
+    });
+  }
+</script>
+
+</body>
+</html>
