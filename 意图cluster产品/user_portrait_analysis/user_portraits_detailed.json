@@ -1,0 +1,1165 @@
+[
+  {
+    "cluster_id": "0",
+    "segment_count": 6,
+    "unique_users": 3,
+    "avg_duration_minutes": 1.0931833333333334,
+    "avg_record_count": 4.5,
+    "time_patterns": {
+      "peak_hours": [
+        0,
+        7,
+        8
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 1.0931833333333334
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 6,
+        "sleep_quality": 6,
+        "neck_pain": 3,
+        "ai_technology": 6,
+        "app_tracking": 5,
+        "ergonomic": 6,
+        "mattress": 2
+      },
+      "price_range": {
+        "premium": 6
+      },
+      "purchase_stage": {
+        "browsing": 6
+      },
+      "main_appeal": {
+        "snore_reduction": 6
+      },
+      "concerns": {
+        "price": 4,
+        "comfort": 6,
+        "features": 6,
+        "shipping": 4,
+        "trial": 5,
+        "effectiveness": 5
+      }
+    },
+    "product_preferences": {
+      "A1": 3,
+      "Z6": 6,
+      "F1": 2,
+      "H02": 1
+    },
+    "behavior_patterns": {
+      "high_engagement": "2",
+      "quick_browsing": "4",
+      "deep_research": "0",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "1",
+    "segment_count": 65,
+    "unique_users": 58,
+    "avg_duration_minutes": 1.8221007692307694,
+    "avg_record_count": 4.815384615384615,
+    "time_patterns": {
+      "peak_hours": [
+        5,
+        6
+      ],
+      "peak_days": [
+        "Thursday"
+      ],
+      "avg_duration": 1.8221007692307694
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 65,
+        "sleep_quality": 65,
+        "ai_technology": 65,
+        "app_tracking": 43,
+        "ergonomic": 65,
+        "mattress": 22,
+        "neck_pain": 3
+      },
+      "price_range": {
+        "premium": 65
+      },
+      "purchase_stage": {
+        "browsing": 59,
+        "deciding": 5,
+        "comparing": 1
+      },
+      "main_appeal": {
+        "snore_reduction": 64,
+        "sleep_quality": 1
+      },
+      "concerns": {
+        "effectiveness": 64,
+        "price": 49,
+        "comfort": 53,
+        "features": 65,
+        "shipping": 13,
+        "trial": 17
+      }
+    },
+    "product_preferences": {
+      "Z6": 64,
+      "A1": 7,
+      "Z1": 8,
+      "G1": 4,
+      "H02": 2,
+      "F1": 3
+    },
+    "behavior_patterns": {
+      "high_engagement": "14",
+      "quick_browsing": "28",
+      "deep_research": "4",
+      "multi_session": "4"
+    }
+  },
+  {
+    "cluster_id": "2",
+    "segment_count": 44,
+    "unique_users": 43,
+    "avg_duration_minutes": 1.977816287878788,
+    "avg_record_count": 4.454545454545454,
+    "time_patterns": {
+      "peak_hours": [
+        23
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 1.977816287878788
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 44,
+        "sleep_quality": 44,
+        "neck_pain": 9,
+        "ai_technology": 44,
+        "app_tracking": 44,
+        "ergonomic": 44,
+        "mattress": 8
+      },
+      "price_range": {
+        "premium": 44
+      },
+      "purchase_stage": {
+        "browsing": 38,
+        "comparing": 2,
+        "deciding": 4
+      },
+      "main_appeal": {
+        "snore_reduction": 44
+      },
+      "concerns": {
+        "effectiveness": 33,
+        "price": 24,
+        "comfort": 44,
+        "features": 44,
+        "shipping": 1,
+        "trial": 10
+      }
+    },
+    "product_preferences": {
+      "A1": 44,
+      "Z6": 28,
+      "F1": 8,
+      "G1": 4,
+      "H02": 4,
+      "Z1": 7
+    },
+    "behavior_patterns": {
+      "high_engagement": "11",
+      "quick_browsing": "23",
+      "deep_research": "4",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "3",
+    "segment_count": 10,
+    "unique_users": 10,
+    "avg_duration_minutes": 0.41803833333333335,
+    "avg_record_count": 1.6,
+    "time_patterns": {
+      "peak_hours": [
+        20
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 0.41803833333333335
+    },
+    "intent_profile": {
+      "core_interests": {
+        "sleep_quality": 10,
+        "neck_pain": 10,
+        "ai_technology": 10,
+        "ergonomic": 10,
+        "snoring": 7,
+        "app_tracking": 3,
+        "mattress": 1
+      },
+      "price_range": {
+        "mid-range": 8,
+        "premium": 2
+      },
+      "purchase_stage": {
+        "browsing": 9,
+        "comparing": 1
+      },
+      "main_appeal": {
+        "sleep_quality": 7,
+        "pain_relief": 1,
+        "snore_reduction": 2
+      },
+      "concerns": {
+        "comfort": 10,
+        "features": 7,
+        "shipping": 1,
+        "effectiveness": 4,
+        "price": 1
+      }
+    },
+    "product_preferences": {
+      "H02": 10,
+      "Z6": 3
+    },
+    "behavior_patterns": {
+      "high_engagement": "1",
+      "quick_browsing": "9",
+      "deep_research": "0",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "4",
+    "segment_count": 11,
+    "unique_users": 11,
+    "avg_duration_minutes": 5.72114393939394,
+    "avg_record_count": 10.090909090909092,
+    "time_patterns": {
+      "peak_hours": [
+        1,
+        9
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 5.72114393939394
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 11,
+        "sleep_quality": 11,
+        "neck_pain": 11,
+        "ai_technology": 11,
+        "app_tracking": 10,
+        "ergonomic": 11,
+        "mattress": 8
+      },
+      "price_range": {
+        "premium": 11
+      },
+      "purchase_stage": {
+        "browsing": 11
+      },
+      "main_appeal": {
+        "snore_reduction": 11
+      },
+      "concerns": {
+        "effectiveness": 11,
+        "price": 11,
+        "comfort": 11,
+        "features": 11,
+        "trial": 8,
+        "shipping": 2
+      }
+    },
+    "product_preferences": {
+      "A1": 9,
+      "Z6": 11,
+      "F1": 7,
+      "H02": 11,
+      "G1": 5,
+      "Z1": 7
+    },
+    "behavior_patterns": {
+      "high_engagement": "3",
+      "quick_browsing": "1",
+      "deep_research": "4",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "5",
+    "segment_count": 22,
+    "unique_users": 20,
+    "avg_duration_minutes": 1.0662560606060607,
+    "avg_record_count": 3.0454545454545454,
+    "time_patterns": {
+      "peak_hours": [
+        2,
+        20
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 1.0662560606060607
+    },
+    "intent_profile": {
+      "core_interests": {
+        "sleep_quality": 20,
+        "neck_pain": 22,
+        "ai_technology": 22,
+        "ergonomic": 22,
+        "mattress": 19,
+        "snoring": 16,
+        "app_tracking": 11
+      },
+      "price_range": {
+        "premium": 21,
+        "mid-range": 1
+      },
+      "purchase_stage": {
+        "browsing": 21,
+        "comparing": 1
+      },
+      "main_appeal": {
+        "sleep_quality": 14,
+        "snore_reduction": 5,
+        "comfort": 3
+      },
+      "concerns": {
+        "comfort": 22,
+        "features": 21,
+        "effectiveness": 5,
+        "price": 11,
+        "shipping": 4,
+        "trial": 6
+      }
+    },
+    "product_preferences": {
+      "F1": 22,
+      "A1": 7,
+      "Z6": 12,
+      "G1": 5,
+      "Z1": 3,
+      "H02": 2
+    },
+    "behavior_patterns": {
+      "high_engagement": "5",
+      "quick_browsing": "14",
+      "deep_research": "0",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "6",
+    "segment_count": 19,
+    "unique_users": 19,
+    "avg_duration_minutes": 2.5693964912280705,
+    "avg_record_count": 4.368421052631579,
+    "time_patterns": {
+      "peak_hours": [
+        1,
+        6,
+        15
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 2.5693964912280705
+    },
+    "intent_profile": {
+      "core_interests": {
+        "sleep_quality": 19,
+        "neck_pain": 19,
+        "ai_technology": 19,
+        "app_tracking": 7,
+        "ergonomic": 19,
+        "snoring": 17,
+        "mattress": 6
+      },
+      "price_range": {
+        "mid-range": 9,
+        "premium": 10
+      },
+      "purchase_stage": {
+        "comparing": 7,
+        "browsing": 12
+      },
+      "main_appeal": {
+        "sleep_quality": 6,
+        "snore_reduction": 12,
+        "pain_relief": 1
+      },
+      "concerns": {
+        "comfort": 19,
+        "features": 18,
+        "effectiveness": 14,
+        "price": 9,
+        "shipping": 2,
+        "trial": 4
+      }
+    },
+    "product_preferences": {
+      "H02": 19,
+      "Z6": 13,
+      "F1": 4,
+      "Z1": 8,
+      "A1": 7,
+      "G1": 3
+    },
+    "behavior_patterns": {
+      "high_engagement": "5",
+      "quick_browsing": "11",
+      "deep_research": "4",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "7",
+    "segment_count": 7,
+    "unique_users": 7,
+    "avg_duration_minutes": 4.348890476190477,
+    "avg_record_count": 5.0,
+    "time_patterns": {
+      "peak_hours": [
+        2,
+        7,
+        10
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 4.348890476190477
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 7,
+        "sleep_quality": 7,
+        "ai_technology": 7,
+        "app_tracking": 5,
+        "ergonomic": 7,
+        "neck_pain": 4,
+        "mattress": 3
+      },
+      "price_range": {
+        "premium": 7
+      },
+      "purchase_stage": {
+        "browsing": 7
+      },
+      "main_appeal": {
+        "snore_reduction": 7
+      },
+      "concerns": {
+        "effectiveness": 7,
+        "price": 7,
+        "comfort": 7,
+        "features": 7,
+        "trial": 3
+      }
+    },
+    "product_preferences": {
+      "A1": 4,
+      "Z6": 7,
+      "F1": 5,
+      "Z1": 6,
+      "H02": 2,
+      "G1": 1
+    },
+    "behavior_patterns": {
+      "high_engagement": "2",
+      "quick_browsing": "4",
+      "deep_research": "1",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "8",
+    "segment_count": 10,
+    "unique_users": 10,
+    "avg_duration_minutes": 0.26452666666666663,
+    "avg_record_count": 1.4,
+    "time_patterns": {
+      "peak_hours": [
+        0,
+        1,
+        4
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 0.26452666666666663
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 10,
+        "sleep_quality": 10,
+        "ai_technology": 10,
+        "app_tracking": 10,
+        "ergonomic": 10
+      },
+      "price_range": {
+        "premium": 10
+      },
+      "purchase_stage": {
+        "deciding": 3,
+        "browsing": 7
+      },
+      "main_appeal": {
+        "snore_reduction": 10
+      },
+      "concerns": {
+        "effectiveness": 1,
+        "price": 9,
+        "comfort": 10,
+        "features": 10,
+        "trial": 1
+      }
+    },
+    "product_preferences": {
+      "A1": 9,
+      "Z6": 6
+    },
+    "behavior_patterns": {
+      "high_engagement": "2",
+      "quick_browsing": "8",
+      "deep_research": "0",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "9",
+    "segment_count": 16,
+    "unique_users": 16,
+    "avg_duration_minutes": 2.6365239583333335,
+    "avg_record_count": 6.875,
+    "time_patterns": {
+      "peak_hours": [
+        9,
+        10,
+        18
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 2.6365239583333335
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 16,
+        "sleep_quality": 16,
+        "neck_pain": 5,
+        "ai_technology": 16,
+        "app_tracking": 12,
+        "ergonomic": 16,
+        "mattress": 5
+      },
+      "price_range": {
+        "premium": 16
+      },
+      "purchase_stage": {
+        "browsing": 11,
+        "comparing": 1,
+        "deciding": 4
+      },
+      "main_appeal": {
+        "snore_reduction": 16
+      },
+      "concerns": {
+        "effectiveness": 14,
+        "price": 13,
+        "comfort": 9,
+        "features": 16,
+        "shipping": 3,
+        "trial": 9
+      }
+    },
+    "product_preferences": {
+      "A1": 8,
+      "Z6": 16,
+      "H02": 4,
+      "Z1": 11,
+      "F1": 6,
+      "G1": 2
+    },
+    "behavior_patterns": {
+      "high_engagement": "4",
+      "quick_browsing": "6",
+      "deep_research": "3",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "10",
+    "segment_count": 4,
+    "unique_users": 2,
+    "avg_duration_minutes": 1.3004,
+    "avg_record_count": 2.25,
+    "time_patterns": {
+      "peak_hours": [
+        3
+      ],
+      "peak_days": [
+        "Thursday"
+      ],
+      "avg_duration": 1.3004
+    },
+    "intent_profile": {
+      "core_interests": {
+        "ai_technology": 4,
+        "app_tracking": 3,
+        "ergonomic": 1
+      },
+      "price_range": {
+        "mid-range": 2,
+        "premium": 1
+      },
+      "purchase_stage": {
+        "browsing": 4
+      },
+      "main_appeal": {
+        "comfort": 1
+      },
+      "concerns": {
+        "comfort": 1,
+        "features": 2,
+        "price": 1
+      }
+    },
+    "product_preferences": {},
+    "behavior_patterns": {
+      "high_engagement": "1",
+      "quick_browsing": "3",
+      "deep_research": "0",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "11",
+    "segment_count": 14,
+    "unique_users": 14,
+    "avg_duration_minutes": 1.8109261904761904,
+    "avg_record_count": 5.571428571428571,
+    "time_patterns": {
+      "peak_hours": [
+        5
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 1.8109261904761904
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 14,
+        "sleep_quality": 14,
+        "ai_technology": 14,
+        "app_tracking": 12,
+        "ergonomic": 14,
+        "mattress": 5,
+        "neck_pain": 4
+      },
+      "price_range": {
+        "premium": 14
+      },
+      "purchase_stage": {
+        "browsing": 14
+      },
+      "main_appeal": {
+        "snore_reduction": 14
+      },
+      "concerns": {
+        "effectiveness": 11,
+        "comfort": 14,
+        "features": 14,
+        "price": 7,
+        "shipping": 1
+      }
+    },
+    "product_preferences": {
+      "Z6": 10,
+      "A1": 7,
+      "F1": 3,
+      "H02": 2,
+      "Z1": 1
+    },
+    "behavior_patterns": {
+      "high_engagement": "4",
+      "quick_browsing": "8",
+      "deep_research": "2",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "12",
+    "segment_count": 6,
+    "unique_users": 4,
+    "avg_duration_minutes": 0.8182999999999999,
+    "avg_record_count": 1.8333333333333333,
+    "time_patterns": {
+      "peak_hours": [
+        2,
+        5,
+        7
+      ],
+      "peak_days": [
+        "Thursday",
+        "Wednesday"
+      ],
+      "avg_duration": 0.8182999999999999
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 6,
+        "sleep_quality": 6,
+        "ai_technology": 6,
+        "app_tracking": 6,
+        "ergonomic": 6
+      },
+      "price_range": {
+        "mid-range": 5,
+        "premium": 1
+      },
+      "purchase_stage": {
+        "comparing": 4,
+        "browsing": 2
+      },
+      "main_appeal": {
+        "snore_reduction": 6
+      },
+      "concerns": {
+        "price": 5,
+        "comfort": 6,
+        "features": 6,
+        "effectiveness": 5,
+        "trial": 1
+      }
+    },
+    "product_preferences": {
+      "A1": 6,
+      "Z6": 6,
+      "Z1": 6
+    },
+    "behavior_patterns": {
+      "high_engagement": "2",
+      "quick_browsing": "4",
+      "deep_research": "0",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "13",
+    "segment_count": 2,
+    "unique_users": 1,
+    "avg_duration_minutes": 3.219,
+    "avg_record_count": 6.5,
+    "time_patterns": {
+      "peak_hours": [
+        7,
+        10
+      ],
+      "peak_days": [
+        "Thursday",
+        "Wednesday"
+      ],
+      "avg_duration": 3.219
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 2,
+        "sleep_quality": 2,
+        "ai_technology": 2,
+        "app_tracking": 2,
+        "ergonomic": 2
+      },
+      "price_range": {
+        "premium": 2
+      },
+      "purchase_stage": {
+        "comparing": 1,
+        "browsing": 1
+      },
+      "main_appeal": {
+        "snore_reduction": 2
+      },
+      "concerns": {
+        "effectiveness": 2,
+        "price": 2,
+        "comfort": 2,
+        "features": 2,
+        "trial": 1
+      }
+    },
+    "product_preferences": {
+      "A1": 2,
+      "Z6": 2,
+      "H02": 1,
+      "Z1": 1
+    },
+    "behavior_patterns": {
+      "high_engagement": "1",
+      "quick_browsing": "1",
+      "deep_research": "1",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "14",
+    "segment_count": 8,
+    "unique_users": 8,
+    "avg_duration_minutes": 2.22468125,
+    "avg_record_count": 5.125,
+    "time_patterns": {
+      "peak_hours": [
+        7
+      ],
+      "peak_days": [
+        "Thursday",
+        "Wednesday"
+      ],
+      "avg_duration": 2.22468125
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 5,
+        "sleep_quality": 8,
+        "neck_pain": 5,
+        "ai_technology": 8,
+        "app_tracking": 5,
+        "ergonomic": 8,
+        "mattress": 8
+      },
+      "price_range": {
+        "premium": 8
+      },
+      "purchase_stage": {
+        "browsing": 7,
+        "comparing": 1
+      },
+      "main_appeal": {
+        "snore_reduction": 5,
+        "sleep_quality": 3
+      },
+      "concerns": {
+        "effectiveness": 5,
+        "price": 5,
+        "comfort": 7,
+        "features": 8,
+        "trial": 4,
+        "shipping": 1
+      }
+    },
+    "product_preferences": {
+      "A1": 4,
+      "Z6": 5,
+      "F1": 3,
+      "H02": 4,
+      "G1": 8,
+      "Z1": 4
+    },
+    "behavior_patterns": {
+      "high_engagement": "2",
+      "quick_browsing": "4",
+      "deep_research": "2",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "15",
+    "segment_count": 37,
+    "unique_users": 36,
+    "avg_duration_minutes": 0.7453828828828829,
+    "avg_record_count": 2.054054054054054,
+    "time_patterns": {
+      "peak_hours": [
+        0
+      ],
+      "peak_days": [
+        "Thursday"
+      ],
+      "avg_duration": 0.7453828828828829
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 37,
+        "sleep_quality": 37,
+        "ai_technology": 37,
+        "app_tracking": 37,
+        "ergonomic": 37,
+        "mattress": 3,
+        "neck_pain": 1
+      },
+      "price_range": {
+        "premium": 37
+      },
+      "purchase_stage": {
+        "deciding": 9,
+        "browsing": 26,
+        "comparing": 2
+      },
+      "main_appeal": {
+        "snore_reduction": 36,
+        "sleep_quality": 1
+      },
+      "concerns": {
+        "effectiveness": 31,
+        "price": 16,
+        "comfort": 37,
+        "features": 37,
+        "trial": 6,
+        "shipping": 1
+      }
+    },
+    "product_preferences": {
+      "A1": 35,
+      "Z6": 27,
+      "F1": 1,
+      "Z1": 1
+    },
+    "behavior_patterns": {
+      "high_engagement": "9",
+      "quick_browsing": "30",
+      "deep_research": "1",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "16",
+    "segment_count": 8,
+    "unique_users": 7,
+    "avg_duration_minutes": 1.9739895833333334,
+    "avg_record_count": 4.5,
+    "time_patterns": {
+      "peak_hours": [
+        3,
+        19
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 1.9739895833333334
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 4,
+        "sleep_quality": 8,
+        "neck_pain": 2,
+        "ai_technology": 8,
+        "app_tracking": 7,
+        "ergonomic": 5,
+        "mattress": 8
+      },
+      "price_range": {
+        "premium": 8
+      },
+      "purchase_stage": {
+        "browsing": 8
+      },
+      "main_appeal": {
+        "snore_reduction": 2,
+        "sleep_quality": 6
+      },
+      "concerns": {
+        "effectiveness": 2,
+        "price": 8,
+        "comfort": 5,
+        "features": 8,
+        "trial": 2,
+        "shipping": 2
+      }
+    },
+    "product_preferences": {
+      "A1": 3,
+      "Z6": 2,
+      "F1": 7,
+      "H02": 2,
+      "G1": 8
+    },
+    "behavior_patterns": {
+      "high_engagement": "2",
+      "quick_browsing": "4",
+      "deep_research": "1",
+      "multi_session": "1"
+    }
+  },
+  {
+    "cluster_id": "17",
+    "segment_count": 20,
+    "unique_users": 20,
+    "avg_duration_minutes": 4.9779825,
+    "avg_record_count": 12.8,
+    "time_patterns": {
+      "peak_hours": [
+        3,
+        6
+      ],
+      "peak_days": [
+        "Thursday",
+        "Wednesday"
+      ],
+      "avg_duration": 4.9779825
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 20,
+        "sleep_quality": 20,
+        "ai_technology": 20,
+        "app_tracking": 17,
+        "ergonomic": 20,
+        "mattress": 8,
+        "neck_pain": 7
+      },
+      "price_range": {
+        "premium": 20
+      },
+      "purchase_stage": {
+        "browsing": 17,
+        "comparing": 3
+      },
+      "main_appeal": {
+        "snore_reduction": 19,
+        "sleep_quality": 1
+      },
+      "concerns": {
+        "effectiveness": 19,
+        "price": 19,
+        "comfort": 19,
+        "features": 20,
+        "trial": 10,
+        "shipping": 2
+      }
+    },
+    "product_preferences": {
+      "A1": 19,
+      "Z6": 20,
+      "Z1": 10,
+      "F1": 4,
+      "H02": 5,
+      "G1": 2
+    },
+    "behavior_patterns": {
+      "high_engagement": "4",
+      "quick_browsing": "8",
+      "deep_research": "7",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "18",
+    "segment_count": 5,
+    "unique_users": 5,
+    "avg_duration_minutes": 0.6283333333333333,
+    "avg_record_count": 1.4,
+    "time_patterns": {
+      "peak_hours": [
+        13
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 0.6283333333333333
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 4,
+        "sleep_quality": 4,
+        "neck_pain": 5,
+        "ai_technology": 5,
+        "ergonomic": 5,
+        "app_tracking": 1
+      },
+      "price_range": {
+        "mid-range": 3,
+        "premium": 2
+      },
+      "purchase_stage": {
+        "browsing": 5
+      },
+      "main_appeal": {
+        "sleep_quality": 2,
+        "snore_reduction": 1,
+        "pain_relief": 2
+      },
+      "concerns": {
+        "effectiveness": 1,
+        "comfort": 5,
+        "features": 3,
+        "price": 2
+      }
+    },
+    "product_preferences": {
+      "H02": 5,
+      "Z6": 1
+    },
+    "behavior_patterns": {
+      "high_engagement": "1",
+      "quick_browsing": "4",
+      "deep_research": "0",
+      "multi_session": "0"
+    }
+  },
+  {
+    "cluster_id": "19",
+    "segment_count": 8,
+    "unique_users": 2,
+    "avg_duration_minutes": 1.3311729166666666,
+    "avg_record_count": 3.75,
+    "time_patterns": {
+      "peak_hours": [
+        4
+      ],
+      "peak_days": [
+        "Wednesday"
+      ],
+      "avg_duration": 1.3311729166666666
+    },
+    "intent_profile": {
+      "core_interests": {
+        "snoring": 8,
+        "sleep_quality": 8,
+        "neck_pain": 5,
+        "ai_technology": 8,
+        "app_tracking": 8,
+        "ergonomic": 8,
+        "mattress": 3
+      },
+      "price_range": {
+        "premium": 8
+      },
+      "purchase_stage": {
+        "browsing": 8
+      },
+      "main_appeal": {
+        "snore_reduction": 8
+      },
+      "concerns": {
+        "effectiveness": 6,
+        "comfort": 8,
+        "features": 8,
+        "trial": 7,
+        "price": 3,
+        "shipping": 1
+      }
+    },
+    "product_preferences": {
+      "A1": 7,
+      "Z6": 7,
+      "H02": 3,
+      "F1": 3
+    },
+    "behavior_patterns": {
+      "high_engagement": "2",
+      "quick_browsing": "6",
+      "deep_research": "1",
+      "multi_session": "1"
+    }
+  }
+]

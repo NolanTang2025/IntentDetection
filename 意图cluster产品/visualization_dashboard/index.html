@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户意图分析平台 | Intent Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <div class="brand-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">Intent Analytics</span>
+                    <span class="brand-subtitle">用户意图分析平台</span>
+                </div>
+            </div>
+            
+            <div class="navbar-menu">
+                <a href="#" class="nav-link active" data-tab="home">首页</a>
+                <a href="#" class="nav-link" data-tab="overview">总览</a>
+                <a href="#" class="nav-link" data-tab="clusters">用户聚类</a>
+                <a href="#" class="nav-link" data-tab="portraits">用户画像</a>
+                <a href="#" class="nav-link" data-tab="insights">业务洞察</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- 仪表板头部（仅在非首页显示） -->
+        <header class="dashboard-header" id="dashboardHeader" style="display: none;">
+            <div class="header-content">
+                <div>
+                    <h1>数据总览</h1>
+                    <p class="subtitle">实时用户意图分析与业务洞察</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2v4M2 2v4M2 2h12M2 6h12v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        选择日期
+                    </button>
+                    <button class="btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        导出报告
+                    </button>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalUsers">276</div>
+                        <div class="stat-label">独立用户</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalSegments">344</div>
+                        <div class="stat-label">意图片段</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalClusters">15</div>
+                        <div class="stat-label">用户聚类</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="dashboard-main">
+            <!-- 首页标签页 -->
+            <div id="home" class="tab-content active">
+                <div class="homepage-hero">
+                    <div class="hero-content">
+                        <h1>用户意图聚类分析平台</h1>
+                        <p class="hero-subtitle">基于业务维度的智能用户细分，驱动精准营销策略</p>
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <div class="hero-stat-value" id="homeTotalUsers">276</div>
+                                <div class="hero-stat-label">独立用户</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-value" id="homeTotalClusters">15</div>
+                                <div class="hero-stat-label">用户聚类</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-value" id="homeTotalSegments">344</div>
+                                <div class="hero-stat-label">意图片段</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clustering-intro">
+                    <div class="intro-header">
+                        <h2>用户聚类方法论</h2>
+                        <p>基于业务维度的智能聚类，确保每个聚类都有明确的业务含义和差异化的营销策略</p>
+                    </div>
+
+                    <div class="clustering-dimensions">
+                        <div class="dimension-card">
+                            <div class="dimension-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>购买阶段</h3>
+                            <p>识别用户处于购买漏斗的哪个阶段</p>
+                            <div class="dimension-tags">
+                                <span class="dimension-tag">浏览阶段</span>
+                                <span class="dimension-tag">对比阶段</span>
+                                <span class="dimension-tag">决策阶段</span>
+                            </div>
+                        </div>
+
+                        <div class="dimension-card">
+                            <div class="dimension-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>价格敏感度</h3>
+                            <p>分析用户对价格的敏感程度</p>
+                            <div class="dimension-tags">
+                                <span class="dimension-tag">价格敏感型</span>
+                                <span class="dimension-tag">中等价格型</span>
+                                <span class="dimension-tag">高端价值型</span>
+                            </div>
+                        </div>
+
+                        <div class="dimension-card">
+                            <div class="dimension-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="22 4 12 14.01 9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>参与度</h3>
+                            <p>评估用户的浏览深度和参与程度</p>
+                            <div class="dimension-tags">
+                                <span class="dimension-tag">快速浏览者</span>
+                                <span class="dimension-tag">中等参与</span>
+                                <span class="dimension-tag">深度研究者</span>
+                            </div>
+                        </div>
+
+                        <div class="dimension-card">
+                            <div class="dimension-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 7h-4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>产品偏好</h3>
+                            <p>识别用户关注的产品类型和型号</p>
+                            <div class="dimension-tags">
+                                <span class="dimension-tag">Z6偏好</span>
+                                <span class="dimension-tag">A1偏好</span>
+                                <span class="dimension-tag">F1偏好</span>
+                                <span class="dimension-tag">多产品比较</span>
+                            </div>
+                        </div>
+
+                        <div class="dimension-card">
+                            <div class="dimension-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>关注点</h3>
+                            <p>了解用户最关心的产品特性</p>
+                            <div class="dimension-tags">
+                                <span class="dimension-tag">功能导向</span>
+                                <span class="dimension-tag">价格导向</span>
+                                <span class="dimension-tag">舒适度导向</span>
+                                <span class="dimension-tag">有效性导向</span>
+                            </div>
+                        </div>
+
+                        <div class="dimension-card">
+                            <div class="dimension-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>核心需求</h3>
+                            <p>识别用户的核心购买动机</p>
+                            <div class="dimension-tags">
+                                <span class="dimension-tag">止鼾需求</span>
+                                <span class="dimension-tag">颈部疼痛</span>
+                                <span class="dimension-tag">睡眠质量</span>
+                                <span class="dimension-tag">综合需求</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clustering-benefits">
+                    <div class="benefits-header">
+                        <h2>聚类价值</h2>
+                        <p>每个聚类都有明确的业务含义和差异化的营销策略</p>
+                    </div>
+
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-number">01</div>
+                            <h3>明确的业务区分</h3>
+                            <p>基于业务维度聚类，每个聚类都有清晰的标签和特征，易于理解和应用</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-number">02</div>
+                            <h3>差异化营销策略</h3>
+                            <p>针对不同聚类提供独特的营销建议，确保每个群体都有针对性的策略</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-number">03</div>
+                            <h3>可执行的行动建议</h3>
+                            <p>提供具体的营销活动、内容策略和转化优化建议，可直接应用到业务中</p>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-number">04</div>
+                            <h3>数据驱动决策</h3>
+                            <p>基于真实的用户行为数据，确保营销策略的科学性和有效性</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>快速开始</h2>
+                    <div class="actions-grid">
+                        <a href="#" class="action-card" data-tab="overview">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="18" y1="20" x2="18" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="12" y1="20" x2="12" y2="4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="6" y1="20" x2="6" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h3>查看数据总览</h3>
+                            <p>了解整体用户意图分布和关键指标</p>
+                        </a>
+                        <a href="#" class="action-card" data-tab="clusters">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>分析用户聚类</h3>
+                            <p>深入了解每个用户群体的特征</p>
+                        </a>
+                        <a href="#" class="action-card" data-tab="insights">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>业务洞察与产品偏好</h3>
+                            <p>查看营销策略建议和产品偏好分析</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 总览标签页 -->
+            <div id="overview" class="tab-content">
+                <div class="section-title">
+                    <h2>数据总览</h2>
+                    <p>整体用户意图分析概览与关键指标</p>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>用户聚类分布</h3>
+                        <canvas id="clusterDistributionChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>购买阶段分布</h3>
+                        <canvas id="purchaseStageChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>价格偏好分布</h3>
+                        <canvas id="pricePreferenceChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>核心关注点</h3>
+                        <canvas id="concernsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="insights-summary">
+                    <div class="section-header">
+                        <h3>关键洞察</h3>
+                        <span class="section-badge">实时更新</span>
+                    </div>
+                    <div class="insights-grid" id="keyInsights">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 用户聚类标签页 -->
+            <div id="clusters" class="tab-content">
+                <div class="section-title">
+                    <h2>用户聚类分析</h2>
+                    <p>深入了解每个用户群体的特征与行为模式</p>
+                </div>
+
+                <div class="cluster-selector">
+                    <label for="clusterSelect">选择聚类：</label>
+                    <select id="clusterSelect" onchange="showClusterDetails(this.value)">
+                        <option value="">-- 选择聚类 --</option>
+                    </select>
+                </div>
+
+                <div id="clusterDetails" class="cluster-details">
+                    <!-- 动态生成聚类详情 -->
+                </div>
+            </div>
+
+            <!-- 用户画像标签页 -->
+            <div id="portraits" class="tab-content">
+                <div class="section-title">
+                    <h2>用户画像分析</h2>
+                    <p>详细的用户特征、行为模式与偏好分析</p>
+                </div>
+
+                <div class="portrait-cards" id="portraitCards">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+
+            <!-- 业务洞察标签页 -->
+            <div id="insights" class="tab-content">
+                <div class="section-title">
+                    <h2>业务洞察与建议</h2>
+                    <p>针对每个用户群体的营销策略、产品偏好与行动建议</p>
+                </div>
+
+                <!-- 产品偏好分析部分 -->
+                <div class="insights-section">
+                    <div class="section-header">
+                        <h3>产品偏好分析</h3>
+                        <p class="section-description">用户对不同产品的关注度与偏好分析</p>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-card full-width">
+                            <h3>产品关注度排名</h3>
+                            <canvas id="productPreferenceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="product-details" id="productDetails">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 业务洞察部分 -->
+                <div class="insights-section">
+                    <div class="section-header">
+                        <h3>营销策略建议</h3>
+                        <p class="section-description">针对每个用户群体的详细营销策略与行动建议</p>
+                    </div>
+
+                    <div class="insights-container" id="insightsContainer">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>© 2025 Intent Analytics Platform. All rights reserved.</p>
+                </div>
+                <div class="footer-right">
+                    <a href="#">帮助文档</a>
+                    <a href="#">API文档</a>
+                    <a href="#">联系我们</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+

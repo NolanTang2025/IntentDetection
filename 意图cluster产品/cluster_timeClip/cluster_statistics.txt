@@ -1,0 +1,52 @@
+================================================================================
+聚类分析统计报告
+================================================================================
+
+总片段数: 322
+总用户数: 267
+平均片段时长: 2.00 分钟
+平均片段记录数: 4.75
+
+KMeans 聚类分布:
+  聚类 0: 6 个片段 (1.9%)
+  聚类 1: 65 个片段 (20.2%)
+  聚类 2: 44 个片段 (13.7%)
+  聚类 3: 10 个片段 (3.1%)
+  聚类 4: 11 个片段 (3.4%)
+  聚类 5: 22 个片段 (6.8%)
+  聚类 6: 19 个片段 (5.9%)
+  聚类 7: 7 个片段 (2.2%)
+  聚类 8: 10 个片段 (3.1%)
+  聚类 9: 16 个片段 (5.0%)
+  聚类 10: 4 个片段 (1.2%)
+  聚类 11: 14 个片段 (4.3%)
+  聚类 12: 6 个片段 (1.9%)
+  聚类 13: 2 个片段 (0.6%)
+  聚类 14: 8 个片段 (2.5%)
+  聚类 15: 37 个片段 (11.5%)
+  聚类 16: 8 个片段 (2.5%)
+  聚类 17: 20 个片段 (6.2%)
+  聚类 18: 5 个片段 (1.6%)
+  聚类 19: 8 个片段 (2.5%)
+
+各聚类主要意图主题:
+  聚类 0: sleep, product, snoring, user, account, smart, customer, anti-snore, user's, they
+  聚类 1: product, smart, snoring, anti-snore, sleep, user, nitetronic, they, pillow, this
+  聚类 2: sleep, product, anti-snore, nitetronic, snoring, user, pillow, they, this, smart
+  聚类 3: pain, sleep, neck, relief, product, support, ergonomic, user, user's, seeking
+  聚类 4: sleep, anti-snore, product, smart, pillow, nitetronic, user, neck, snoring, interest
+  聚类 5: sleep, product, pillow, nitetronic, floating, user, adjustable, neck, support, this
+  聚类 6: neck, pain, product, sleep, pillow, nitetronic, cervical, relief, anti-snore, care
+  聚类 7: anti-snore, sleep, smart, product, pillow, nitetronic, user, snoring, user's, interest
+  聚类 8: sleep, anti-snore, snoring, product, user, solution, premium, snore, potential, quality
+  聚类 9: anti-snore, product, smart, nitetronic, sleep, snoring, pillow, user, they, premium
+  聚类 10: chiffon, user, product, patterned, home, this, vintage, page, 'french, interest
+  聚类 11: sleep, snoring, apnea, pillow, product, they, user, solutions, smart, user's
+  聚类 12: anti-snore, sleep, product, nitetronic, smart, pillow, snoring, they, reduction, user
+  聚类 13: anti-snore, sleep, product, smart, snoring, reduction, user, nitetronic, interest, pillow
+  聚类 14: sleep, smart, product, anti-snore, mattress, user, interest, technology, advanced, snoring
+  聚类 15: sleep, product, snoring, anti-snore, user, reduction, smart, quality, tracking, they
+  聚类 16: sleep, smart, mattress, product, nitetronic, user, they, interest, their, technology
+  聚类 17: anti-snore, sleep, nitetronic, product, smart, pillow, snoring, user, they, premium
+  聚类 18: sleep, neck, pain, apnea, relief, cervical, this, ergonomic, pillow, interest
+  聚类 19: sleep, product, order, user, they, their, nitetronic, anti-snore, snoring, pillow

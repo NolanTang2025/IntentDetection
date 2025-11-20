@@ -1,0 +1,728 @@
+================================================================================
+意图聚类分析摘要
+================================================================================
+
+总片段数: 322
+
+KMeans 聚类结果:
+  聚类数: 20
+  各聚类大小: {0: 6, 1: 65, 2: 44, 3: 10, 4: 11, 5: 22, 6: 19, 7: 7, 8: 10, 9: 16, 10: 4, 11: 14, 12: 6, 13: 2, 14: 8, 15: 37, 16: 8, 17: 20, 18: 5, 19: 8}
+
+DBSCAN 聚类结果:
+  聚类数: 2
+  噪声点: 56
+  各聚类大小: {0: 262, 1: 4}
+
+各聚类详细信息:
+
+聚类 0 (共 6 个片段):
+  片段 1:
+    用户: b33bd015-0a34-4680-9334-d5c5720e0cfa
+    时间: 2025-11-05T08:57:13.022Z 到 2025-11-05T08:57:14.830Z
+    时长: 0.03 分钟
+    记录数: 2
+    文本: Nitetronic F1 Floating Pillow Adjustable firmness Neck support Cool sleep US Free Shipping + 30-Night Trial Air-water tech Adjustable height Neck support Cool sleep Firmness control Comfort & Support premium deciding Product features Value proposition (e.g., free shipping, trial period) The user has...
+
+  片段 2:
+    用户: b33bd015-0a34-4680-9334-d5c5720e0cfa
+    时间: 2025-11-05T10:45:52.314Z 到 2025-11-05T10:45:52.314Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Comfort and Support 30-Night Trial Smart Technology Adjustable Height Memory Foam MEMS Sensors Position Sensors Snoring Solution premium deciding price (original vs sale price), effectiveness (clinically proven) The user has exhibit...
+
+  片段 3:
+    用户: b33bd015-0a34-4680-9334-d5c5720e0cfa
+    时间: 2025-11-05T17:55:05.338Z 到 2025-11-05T17:55:05.483Z
+    时长: 0.00 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Comfort and Support Product Effectiveness Smart Technology Adjustable Height Memory Foam MEMS Sensors Position Sensors Snoring Solution premium deciding effectiveness (clinically proven), product features (sensors, adjustability) Th...
+
+  片段 4:
+    用户: b33bd015-0a34-4680-9334-d5c5720e0cfa
+    时间: 2025-11-06T07:17:11.174Z 到 2025-11-06T07:21:46.325Z
+    时长: 4.59 分钟
+    记录数: 7
+    文本: Smart Home Health Sleep Quality Data Anti-Snore Pillow Sleep Device AI Analysis AI detection and reduction of snoring Smart auto-adjustment for sleep posture App connectivity for sleep tracking Ergonomic design Quiet operation Snore Reduction premium browsing The user has repeatedly interacted with ...
+
+  片段 5:
+    用户: holosession-1762357981391-cihjinf
+    时间: 2025-11-05T15:53:10.419Z 到 2025-11-05T15:53:20.920Z
+    时长: 0.18 分钟
+    记录数: 4
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Personalized Sleep Settings Health Gadget Smart Technology Anti-Snoring Mechanism Adjustable Height Memory Foam Comfort App Integration Snore Relief premium browsing effectiveness of snoring reduction comfort and adjustability of th...
+
+
+聚类 1 (共 65 个片段):
+  片段 1:
+    用户: 9a33a09f-4a00-42c3-9df2-262b8e6aa6a6
+    时间: 2025-11-06T07:25:07.036Z 到 2025-11-06T07:26:11.474Z
+    时长: 1.07 分钟
+    记录数: 5
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Product Features Comparison Smart Technology (MEMS sensors, position sensors) Adjustable Height (9-13 cm) Memory Foam Clinically Proven Automatic Head Position Change Snoring Solution premium browsing Potential interest in discounts...
+
+  片段 2:
+    用户: 87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7
+    时间: 2025-11-06T05:41:58.107Z 到 2025-11-06T05:44:52.786Z
+    时长: 2.91 分钟
+    记录数: 14
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Product Features User Benefits Smart Technology (MEMS sensors, position sensors) Adjustable Height (9-13 cm) Memory Foam Pads Snoring Detection Head Position Adjustment Snoring Solution premium browsing The user has engaged with the...
+
+  片段 3:
+    用户: 87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7
+    时间: 2025-11-06T06:02:49.028Z 到 2025-11-06T06:03:41.941Z
+    时长: 0.88 分钟
+    记录数: 5
+    文本: Smart Anti-Snore Pillow Snoring Reduction Technology Sleep Quality Improvement Product Features (Sensors, Adjustability, Memory Foam) Premium Products MEMS sensors Position sensors Adjustable height (9-13 cm) Memory foam pads Clinically proven anti-snore effectiveness Snoring Reduction premium brows...
+
+  片段 4:
+    用户: 87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7
+    时间: 2025-11-06T06:17:20.415Z 到 2025-11-06T06:18:36.140Z
+    时长: 1.26 分钟
+    记录数: 7
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Smart Technology User Benefits (Undisturbed Sleep, Quiet Nights) Smart Technology Snoring Detection/Reduction Adjustable Height/Comfort Memory Foam App Integration/Monitoring Snoring Solution premium browsing/comparing Product effec...
+
+  片段 5:
+    用户: 87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7
+    时间: 2025-11-06T06:35:29.381Z 到 2025-11-06T06:37:57.075Z
+    时长: 2.46 分钟
+    记录数: 9
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Product Features (MEMS sensors, position sensors, adjustable height, memory foam) Clinical Proven Effectiveness Smart Technology (MEMS sensors, position sensors) Snoring Detection and Intervention Adjustable Height Memory Foam Comfo...
+
+
+聚类 2 (共 44 个片段):
+  片段 1:
+    用户: a56221f5-c37d-4516-8315-f430629e7e3a
+    时间: 2025-11-06T07:07:54.590Z 到 2025-11-06T07:09:57.745Z
+    时长: 2.05 分钟
+    记录数: 8
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Product Features (MEMS sensors, position sensors, adjustable height) Price and Discounts (sale price, 10% off) Anti-snore technology Smart sensors (MEMS, position) Adjustable height Memory foam Clinically proven Snoring Solution pre...
+
+  片段 2:
+    用户: 39a40361-dfdc-4961-aaa0-ae3f48ca213f
+    时间: 2025-11-06T07:14:58.345Z 到 2025-11-06T07:14:58.345Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Anti-Snore Pillow Sleep Quality Improvement AI Technology Product Features Sleep Tracking AI detection and reduction of snoring Smart auto-adjustment for sleep posture App connectivity for sleep tracking Ergonomic design Quiet operation Snore Reduction premium comparing effectiveness of snorin...
+
+  片段 3:
+    用户: d9a5983a-ae6b-4ca7-9120-6b4b45a95ac6
+    时间: 2025-11-05T16:21:28.031Z 到 2025-11-05T16:23:04.893Z
+    时长: 1.61 分钟
+    记录数: 4
+    文本: Nitetronic A1 AI Anti-Snore Pillow Snoring reduction Sleep quality improvement AI technology in sleep products Ergonomic design AI-powered snoring detection and reduction Smart auto-adjustment Sleep posture improvement App connectivity for sleep tracking Ergonomic design Snore Reduction premium brow...
+
+  片段 4:
+    用户: 96b19ffd-05fb-4e8f-8f3c-b525127554e4
+    时间: 2025-11-06T00:49:36.065Z 到 2025-11-06T00:54:35.567Z
+    时长: 4.99 分钟
+    记录数: 10
+    文本: Nitetronic A1 AI Anti-Snore Pillow Nitetronic Z6 Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Smart Pillow Technology AI detection Smart auto-adjustment Sleep tracking Ergonomic design Adjustable height MEMS sensors Position sensors Snore reduction premium deciding Product fea...
+
+  片段 5:
+    用户: 568AAF84-4ae2-4873-bee2-eec9f8f30cdf
+    时间: 2025-11-05T21:13:10.388Z 到 2025-11-05T21:13:46.378Z
+    时长: 0.60 分钟
+    记录数: 2
+    文本: Smart anti-snore pillow AI analysis Sleep quality improvement Ergonomic design Sleep tracking app AI technology Snore reduction Ergonomic design Sleep tracking Automatic adjustment Snore Reduction premium browsing product effectiveness (snore reduction), sleep quality improvement, advanced technolog...
+
+
+聚类 3 (共 10 个片段):
+  片段 1:
+    用户: holosession-1762413597784-zmztynb
+    时间: 2025-11-06T07:20:16.880Z 到 2025-11-06T07:20:52.570Z
+    时长: 0.59 分钟
+    记录数: 2
+    文本: Ergonomic Neck Support Pain Relief Cervical Traction Customizable Comfort Sleep Improvement Ergonomic design Cervical support Pain relief Customizable comfort Memory foam Neck pain relief mid-range browsing None explicitly identified. The user has engaged with the website by interacting with promoti...
+
+  片段 2:
+    用户: 06464541-a64c-4cae-b47a-031c63feff8f
+    时间: 2025-11-06T06:12:37.635Z 到 2025-11-06T06:12:37.635Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Ergonomic Pillow Design Neck Pain Relief Cervical Support Memory Foam Adjustable Pillow ergonomic design cervical neck care memory foam adjustable height pain relief Pain Relief mid-range comparing product features and benefits for pain relief and comfort High engagement, user interacted with variou...
+
+  片段 3:
+    用户: 545640df-2201-4164-8ab1-213f3a073d5e
+    时间: 2025-11-06T03:25:50.188Z 到 2025-11-06T03:25:50.188Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Cervical Neck Care Pillow Pain Relief Ergonomic Support Sleep Improvement Shipping Information Ergonomic design Cervical support Pain relief Adjustable features Memory foam Pain Relief mid-range browsing shipping information Moderate engagement, with focused interaction on product details and shippi...
+
+  片段 4:
+    用户: f10c6077-3f4b-4883-a260-150090ede39c
+    时间: 2025-11-05T20:01:38.024Z 到 2025-11-05T20:04:26.935Z
+    时长: 2.82 分钟
+    记录数: 4
+    文本: Product Functionality Neck Pain Relief Snoring Solutions Customer Support Product Features Ergonomic neck support Cervical traction Memory foam Pain relief Snoring intervention Neck and sleep quality mid-range comparing Product effectiveness for snoring, potential operational noise, product differen...
+
+  片段 5:
+    用户: b68cfef4-20b7-4769-a68f-241bff2d6bfb
+    时间: 2025-11-06T04:12:51.646Z 到 2025-11-06T04:12:51.646Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Cervical Neck Care Pillow Pain Relief Sleep Improvement Product Features Customer Support/FAQ ergonomic design neck support pain relief adjustable/customizable comfort memory foam Pain Relief mid-range comparing/deciding product functionality (APP connection, data) effectiveness (snoring interventio...
+
+
+聚类 4 (共 11 个片段):
+  片段 1:
+    用户: 29994531-0f0f-4b05-a7c8-c47bb9078cc0
+    时间: 2025-11-06T07:21:03.713Z 到 2025-11-06T07:25:57.017Z
+    时长: 4.89 分钟
+    记录数: 8
+    文本: Smart Anti-Snore Pillows Sleep Quality Improvement Snoring Reduction Technology App Integration for Sleep Tracking anti-snoring technology smart features app integration comfort sleep tracking Snoring Solution premium comparing product effectiveness, advanced features, price point High engagement wi...
+
+  片段 2:
+    用户: 5d003df2-d113-4187-a4ae-4c7c20c8c953
+    时间: 2025-11-05T17:14:21.680Z 到 2025-11-05T17:22:14.846Z
+    时长: 7.89 分钟
+    记录数: 7
+    文本: Nitetronic A1 AI Anti-Snore Pillow Snoring problem solutions Smart sleep technology Sleep quality improvement AI detection and reduction of snoring Smart auto-adjustment Ergonomic design App integration for sleep tracking Comfort Snore Reduction & Sleep Quality premium deciding While no explicit con...
+
+  片段 3:
+    用户: 37e82892-d165-4e75-bf1b-8b89d5baffef
+    时间: 2025-11-06T06:05:49.703Z 到 2025-11-06T06:22:37.832Z
+    时长: 16.80 分钟
+    记录数: 22
+    文本: Smart Anti-Snore Pillow Sleep Quality Improvement AI Technology Sleep Tracking Product Features AI-powered snoring detection and reduction Smart auto-adjustment for sleep posture App integration for sleep tracking and analysis Ergonomic design Quiet and efficient operation Snore Reduction premium br...
+
+  片段 4:
+    用户: f10c6077-3f4b-4883-a260-150090ede39c
+    时间: 2025-11-05T20:22:54.161Z 到 2025-11-05T20:36:31.161Z
+    时长: 13.62 分钟
+    记录数: 11
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Product Features (Sensors, Height Adjustment) Customer Support (FAQ, Contact) smart technology anti-snore adjustable height memory foam sensors Snore Reduction premium browsing/deciding pillow inflation while not snoring loud operat...
+
+  片段 5:
+    用户: holosession-1760685312591-f9ene7q
+    时间: 2025-11-05T16:08:31.354Z 到 2025-11-05T16:11:11.063Z
+    时长: 2.66 分钟
+    记录数: 18
+    文本: Nitetronic A1 AI Anti-Snore Pillow snoring reduction sleep posture ergonomic design smart sleep tracking AI detection auto-adjustment sleep tracking ergonomic design quiet operation Snore Reduction premium browsing The user has shown significant engagement with the Nitetronic A1 AI Anti-Snore Pillow...
+
+
+聚类 5 (共 22 个片段):
+  片段 1:
+    用户: f01c2db7-cf17-46d0-9e8f-02c9a310eb0c
+    时间: 2025-11-05T17:21:14.114Z 到 2025-11-05T17:21:14.114Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Nitetronic F1 Floating Pillow Adjustable Pillow Firmness Neck Support Cool Sleep Premium Pillow Features Air-water tech Adjustable height Optimal firmness Neck support Cool sleep Advanced Comfort premium browsing Product features and benefits Comfort and support The user has engaged with the Nitetro...
+
+  片段 2:
+    用户: 545640df-2201-4164-8ab1-213f3a073d5e
+    时间: 2025-11-05T18:19:45.887Z 到 2025-11-05T18:23:57.828Z
+    时长: 4.20 分钟
+    记录数: 13
+    文本: Nitetronic A1 AI Anti-Snore Pillow Snore reduction Sleep quality AI technology Ergonomic design AI-powered snore detection and reduction Ergonomic design Sleep tracking and analysis (app integration) Automatic adjustment for sleep posture Comfort Snore Solution premium browsing Effectiveness of snor...
+
+  片段 3:
+    用户: b98606ed-e76f-43f4-b4ac-34f1a729a5f0
+    时间: 2025-11-05T16:07:45.650Z 到 2025-11-05T16:08:56.646Z
+    时长: 1.18 分钟
+    记录数: 5
+    文本: Nitetronic F1 Floating Pillow Adjustable Pillow Firmness Neck Support Cool Sleep Technology Product Assembly/Setup Air-water technology Adjustable height/firmness Neck support Cooling Customizable Comfort premium browsing/deciding ease of setup and maintenance, effectiveness of the 'floating' sensat...
+
+  片段 4:
+    用户: 568AAF84-4ae2-4873-bee2-eec9f8f30cdf
+    时间: 2025-11-05T21:24:20.246Z 到 2025-11-05T21:26:53.988Z
+    时长: 2.56 分钟
+    记录数: 9
+    文本: Nitetronic A1 AI Anti-Snore Pillow Snoring Problem Sleep Quality Improvement AI Technology Smart Sleep Aid AI technology Snore reduction Sleep tracking Ergonomic design App integration Snore Reduction premium browsing effectiveness of the anti-snore solution integration with the app Moderate engagem...
+
+  片段 5:
+    用户: 7fcba61b-bdd3-4a67-ab0c-8424d653ff28
+    时间: 2025-11-05T23:06:55.315Z 到 2025-11-05T23:08:22.679Z
+    时长: 1.46 分钟
+    记录数: 3
+    文本: Product Assembly Guide Sleep Comfort Adjustable Pillow Neck Support Innovative Design Air-water tech Adjustable height Optimal firmness Neck support Cool sleep Comfort & Support premium browsing Moderate engagement, primarily driven by informational content related to sleep and product features. The...
+
+
+聚类 6 (共 19 个片段):
+  片段 1:
+    用户: 9d3f551e-2def-496e-85ff-330b586fddc5
+    时间: 2025-11-06T07:00:08.071Z 到 2025-11-06T07:00:08.071Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Nitetronic H02 Lotus Cervical Neck Care Pillow Cervical Neck Pillow Ergonomic Neck Support Pain Relief Customizable Comfort Ergonomic design Cervical traction Neck pain relief Adjustable support Memory foam Neck Pain Relief mid-range comparing Product features Neck support benefits The user showed h...
+
+  片段 2:
+    用户: 06464541-a64c-4cae-b47a-031c63feff8f
+    时间: 2025-11-06T06:50:03.742Z 到 2025-11-06T06:50:37.572Z
+    时长: 0.56 分钟
+    记录数: 2
+    文本: ergonomic pillow features neck pain relief cervical support adjustable pillow height memory foam ergonomic design neck support pain relief adjustable height memory foam Pain Relief mid-range comparing product effectiveness for neck pain, adjustability for different needs High engagement with product...
+
+  片段 3:
+    用户: f10c6077-3f4b-4883-a260-150090ede39c
+    时间: 2025-11-05T19:28:26.501Z 到 2025-11-05T19:50:13.151Z
+    时长: 21.78 分钟
+    记录数: 28
+    文本: Nitetronic Z6 Smart Anti-Snore Pillow Snoring Reduction Technology Sleep Quality Improvement Product Features (MEMS sensors, adjustable height, memory foam) Product Comparison (Z6 vs Z1) Smart Technology Anti-Snoring Adjustable Height Memory Foam Sensors (MEMS, Position) Snoring Solution premium bro...
+
+  片段 4:
+    用户: 770b6136-4349-4983-93dd-10a6830ab5a4
+    时间: 2025-11-05T17:44:13.231Z 到 2025-11-05T17:45:46.081Z
+    时长: 1.55 分钟
+    记录数: 4
+    文本: smart anti-snore pillow snoring reduction sleep quality improvement head position detection adjustable pillow height MEMS sensors position sensors adjustable height memory foam pads clinically proven snoring solution premium browsing product effectiveness (clinically proven), customization (adjustab...
+
+  片段 5:
+    用户: 2ee7fa5c-291c-4fe3-955b-84ce233a3320
+    时间: 2025-11-05T20:09:01.005Z 到 2025-11-05T20:10:17.089Z
+    时长: 1.27 分钟
+    记录数: 3
+    文本: snoring problems anti-snore pillow neck pain relief ergonomic pillow sleep improvement anti-snore technology neck support ergonomic design customizable comfort pain relief sleep solution premium comparing product effectiveness (snoring reduction), comfort, and specific pain relief needs The user has...
+
+
+聚类 7 (共 7 个片段):
+  片段 1:
+    用户: dcc77ce0-ae5f-4aba-9a0e-fb5a28673293
+    时间: 2025-11-06T07:04:04.569Z 到 2025-11-06T07:04:04.569Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Anti-Snore Pillow Snoring Solution Sleep Quality Improvement AI Technology Product Features Anti-Snore AI Technology Sleep Tracking Ergonomic Design Automatic Adjustment Snore Reduction premium browsing/comparing Product effectiveness, understanding features Moderate engagement, with hovering ...
+
+  片段 2:
+    用户: c441d18b-f71e-4af6-9262-751452e76ee1
+    时间: 2025-11-05T20:15:40.214Z 到 2025-11-05T20:19:02.993Z
+    时长: 3.38 分钟
+    记录数: 5
+    文本: Smart Anti-Snore Pillow AI Technology Sleep Quality Improvement Ergonomic Design Sleep Tracking AI-powered snore detection and reduction Automatic posture adjustment Sleep tracking and analysis via app Ergonomic design for comfort Quiet operation Snore Reduction premium browsing/comparing Product ef...
+
+  片段 3:
+    用户: 25befc51-401a-4ac3-97ab-492f899db3a1
+    时间: 2025-11-05T15:51:15.611Z 到 2025-11-05T16:13:04.546Z
+    时长: 21.82 分钟
+    记录数: 14
+    文本: Nitetronic A1 AI Anti-Snore Pillow Snoring reduction Sleep quality improvement AI sleep tracking Ergonomic pillow design AI snoring detection and reduction Smart auto-adjustment Sleep posture improvement App-based sleep tracking Ergonomic design Snore Reduction premium deciding effectiveness of snor...
+
+  片段 4:
+    用户: f03c7ad9-1eb3-4c20-9d4b-595d386a65d1
+    时间: 2025-11-05T18:45:01.597Z 到 2025-11-05T18:48:40.441Z
+    时长: 3.65 分钟
+    记录数: 8
+    文本: Nitetronic Z6 Smart Anti-Snore Pillow Nitetronic Z1 Smart Anti-Snore Pillow Nitetronic F1 Floating Pillow Pillows Anti-snore technology anti-snore adjustable firmness smart technology neck support cooling Sleep improvement premium comparing price, effectiveness of anti-snore features, comfort adjust...
+
+  片段 5:
+    用户: 27542ec7-c9dd-4381-8085-4c55c82b110f
+    时间: 2025-11-05T10:10:44.987Z 到 2025-11-05T10:11:35.787Z
+    时长: 0.85 分钟
+    记录数: 3
+    文本: Nitetronic F1 Floating Pillow Air-water tech Adjustable height Neck support Sleep comfort Air-water technology Adjustable height Neck support Cool sleep Firmness control Comfort and Support premium browsing The user has not exhibited any explicit concerns yet, but the focus on 'adjustable height' an...
+
+
+聚类 8 (共 10 个片段):
+  片段 1:
+    用户: 1c3499ce-be32-4603-8102-1c5325c3dae5
+    时间: 2025-11-06T06:34:52.114Z 到 2025-11-06T06:36:03.613Z
+    时长: 1.19 分钟
+    记录数: 3
+    文本: AI Anti-Snore Pillow Sleep Quality Improvement Snoring Solution Sleep Tracking 30-Night Trial AI technology Snore detection and reduction Sleep posture adjustment Sleep tracking app Ergonomic design Effective snoring solution premium deciding Effectiveness of the snoring solution, app features, and ...
+
+  片段 2:
+    用户: 002f5060-fecf-49d5-b59d-4f498a6c9b8a
+    时间: 2025-11-05T16:56:28.487Z 到 2025-11-05T16:56:28.487Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: AI Anti-Snore Pillow Sleep Quality Improvement Snore Reduction Personalized Sleep Insights Smart Sleep Tracking AI Technology Snore Detection/Reduction Sleep Tracking Ergonomic Design App Integration Snore Solution premium browsing potential discount/offer Low to moderate. User viewed the product pa...
+
+  片段 3:
+    用户: 431048db-e4e2-486f-a663-1a2b2956f1f6
+    时间: 2025-11-05T12:21:14.660Z 到 2025-11-05T12:21:14.660Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Anti-Snore Pillow AI Sleep Tracking Ergonomic Pillow Design Snore Reduction Sleep Quality Improvement AI Technology Sleep Tracking Ergonomic Design Snore Reduction App Connectivity Advanced Sleep Solution premium browsing potential interest in discounts (clicked newsletter popup) Highly engage...
+
+  片段 4:
+    用户: 46c27cc8-531a-48e0-b33b-dff1f8d268d0
+    时间: 2025-11-05T14:30:46.167Z 到 2025-11-05T14:30:46.167Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: AI Anti-Snore Pillow Sleep Quality Improvement Snore Reduction Ergonomic Design App Connectivity AI technology Snore reduction Sleep posture adjustment Sleep tracking Ergonomic design Snore Solution premium deciding potential discount (clicked on newsletter popup) High engagement with product featur...
+
+  片段 5:
+    用户: 9dc01fb6-09b6-4e5f-b146-2a5bbf5b36c7
+    时间: 2025-11-05T09:55:09.547Z 到 2025-11-05T09:55:09.547Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Anti-Snore Pillow Sleep Quality Improvement AI Technology for Sleep Ergonomic Design Sleep Tracking App AI-powered snoring detection Automatic pillow adjustment Sleep posture improvement Sleep tracking and data analysis Ergonomic and comfortable design Snore Reduction premium browsing Low enga...
+
+
+聚类 9 (共 16 个片段):
+  片段 1:
+    用户: c205567c-52e6-46dc-bb3b-204c85058ec7
+    时间: 2025-11-05T08:13:38.681Z 到 2025-11-05T08:19:06.325Z
+    时长: 5.46 分钟
+    记录数: 32
+    文本: Ergonomic Neck Support Pain Relief Cervical Traction Adjustable Comfort Sleep Improvement Ergonomic design Cervical traction Memory foam Natural mugwort warmth Multi-position support Pain Relief mid-range browsing product functionality and care (e.g., washability) Moderate engagement, with hovers an...
+
+  片段 2:
+    用户: f10c6077-3f4b-4883-a260-150090ede39c
+    时间: 2025-11-05T18:55:33.525Z 到 2025-11-05T18:59:51.345Z
+    时长: 4.30 分钟
+    记录数: 8
+    文本: Nitetronic Z6 Smart Anti-Snore Pillow anti-snoring technology adjustable pillow height memory foam comfort clinically proven solution Smart Anti-Snore Technology Adjustable Height (9-13 cm) Memory Foam MEMS and Position Sensors Clinically Proven Snore Reduction premium deciding effectiveness of the ...
+
+  片段 3:
+    用户: f0f7cb18-bebb-4e7d-9af9-b6bd380f4fb2
+    时间: 2025-11-05T22:18:56.472Z 到 2025-11-05T22:27:27.234Z
+    时长: 8.51 分钟
+    记录数: 7
+    文本: Smart Anti-Snore Pillow Snoring Reduction Technology Sleep Quality Improvement AI-Powered Sleep Solutions Ergonomic Pillow Design Smart technology Anti-snoring features Adjustable height Ergonomic design App integration/Sleep tracking Snoring Solution premium deciding Effectiveness of snoring reduct...
+
+  片段 4:
+    用户: f3c363dc-3277-4eaf-98e4-0a2528676a2d
+    时间: 2025-11-05T18:51:18.330Z 到 2025-11-05T18:52:49.505Z
+    时长: 1.52 分钟
+    记录数: 4
+    文本: Nitetronic Z6 Smart Anti-Snore Pillow Nitetronic A1 AI Anti-Snore Pillow Snoring reduction Sleep quality improvement Smart pillow technology anti-snore technology smart sensors adjustable height app integration ergonomic design Snoring Solution premium comparing product features price difference The...
+
+  片段 5:
+    用户: d443b5ab-e75f-4b83-8f6c-14b89c53a3a4
+    时间: 2025-11-05T22:10:48.727Z 到 2025-11-05T22:11:11.472Z
+    时长: 0.38 分钟
+    记录数: 3
+    文本: Nitetronic Z6 Smart Anti-Snore Pillow Anti-snore pillows Smart pillow technology Adjustable pillow height Neck support anti-snore smart technology adjustable height neck support clinically proven Snoring solution premium browsing price (due to sale) The user is actively exploring the Nitetronic Z6 S...
+
+
+聚类 10 (共 4 个片段):
+  片段 1:
+    用户: 4a1a4f63-d76f-4f2f-b224-30bcaf28c9b9
+    时间: 2025-11-05T09:03:55.464Z 到 2025-11-05T09:03:55.464Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: French chiffon tie patterned shirt Blouses Autumn Wear Floral Print V-Neckline Chiffon fabric Tie neckline Floral print V-neckline Lightweight Elegant Style N/A browsing N/A The user has shown some engagement with the website, including page views and hovers. However, there are no explicit purchase-...
+
+  片段 2:
+    用户: db44f036-1720-4d37-8748-5b78da171d5a
+    时间: 2025-11-06T02:43:21.596Z 到 2025-11-06T02:43:38.134Z
+    时长: 0.28 分钟
+    记录数: 2
+    文本: American Classic Hoodie Heavyweight Fleece Embroidery Detail Vintage Wash Treatment Made in South Central, LA 100% Cotton 20oz Heavy Weight Fleece Embroidery Detail Vintage Wash Made in South Central, LA vintage aesthetic mid-range browsing potential color variance and intentional pilling due to vin...
+
+  片段 3:
+    用户: db44f036-1720-4d37-8748-5b78da171d5a
+    时间: 2025-11-06T03:00:09.331Z 到 2025-11-06T03:00:09.331Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: American Classic Hoodie 100% Cotton 20oz Heavy Weight Fleece Embroidery Detail Vintage Wash Treatment 100% Cotton 20oz Heavy Weight Fleece Embroidery Detail Vintage Wash Treatment Made in South Central, LA vintage aesthetic mid-range browsing potential color variance and intentional pilling due to v...
+
+  片段 4:
+    用户: db44f036-1720-4d37-8748-5b78da171d5a
+    时间: 2025-11-06T03:10:55.263Z 到 2025-11-06T03:15:50.821Z
+    时长: 4.93 分钟
+    记录数: 5
+    文本: American Classic Hoodie Heavy Weight Fleece 100% Cotton Vintage Wash Treatment Embroidery Detail 100% Cotton 20oz Heavy Weight Fleece Embroidery Detail Vintage Wash Treatment Made in South Central, LA vintage aesthetic mid-range browsing potential color variance and intentional pilling due to vintag...
+
+
+聚类 11 (共 14 个片段):
+  片段 1:
+    用户: 7fcba61b-bdd3-4a67-ab0c-8424d653ff28
+    时间: 2025-11-06T04:37:37.552Z 到 2025-11-06T04:38:07.099Z
+    时长: 0.49 分钟
+    记录数: 3
+    文本: Smart anti-snore pillow Snoring reduction Sleep quality improvement Sleep technology Health and wellness Smart technology Anti-snoring mechanism Adjustable height Memory foam Sensor technology Snoring Solution premium browsing Effectiveness of the anti-snore solution, product technology and features...
+
+  片段 2:
+    用户: 1a003707-c54d-481f-862a-772a10d33169
+    时间: 2025-11-05T19:15:56.712Z 到 2025-11-05T19:23:20.573Z
+    时长: 7.40 分钟
+    记录数: 10
+    文本: Snoring Problem Sleep Quality Improvement Smart Pillow Features AI Analysis Product Mechanism AI-powered snoring detection and reduction Smart auto-adjustment Sleep posture improvement App-based sleep tracking Ergonomic design Snore Reduction premium browsing The user is likely researching solutions...
+
+  片段 3:
+    用户: 48f572e8-0bae-4103-b964-bf336025e84f
+    时间: 2025-11-05T20:04:55.406Z 到 2025-11-05T20:06:32.764Z
+    时长: 1.62 分钟
+    记录数: 8
+    文本: Smart Anti-Snore Pillow Sleep Apnea Solution CPAP Alternative Pillow Technology Snoring Reduction Snoring Reduction Smart Sensors (MEMS, Position) Adjustable Height Memory Foam Clinically Proven Snoring Solution premium browsing effectiveness of snoring solution alternative to CPAP pillow comfort an...
+
+  片段 4:
+    用户: b62b53da-9adb-49df-881e-4114ecd8e9de
+    时间: 2025-11-05T18:24:58.606Z 到 2025-11-05T18:25:58.565Z
+    时长: 1.00 分钟
+    记录数: 4
+    文本: Nitetronic F1 Floating Pillow Air-water tech for cool sleep Adjustable height Optimal firmness Neck support Air-water technology Cooling Adjustable height Firmness control Neck support Customizable comfort premium browsing User has engaged with content related to sleep apnea and pillow solutions, in...
+
+  片段 5:
+    用户: 29b87d08-858d-4400-a9f1-3b83aad3c3f8
+    时间: 2025-11-05T14:48:53.741Z 到 2025-11-05T14:49:30.054Z
+    时长: 0.61 分钟
+    记录数: 2
+    文本: Snoring Problem Sleep Quality Improvement Smart Sleep Aid Product Mechanism AI Analysis AI Detection Automatic Adjustment Sleep Tracking Ergonomic Design Snore Reduction Snore Reduction premium browsing Snoring Problem Sleep Disturbance The user has shown initial engagement by hovering over an image...
+
+
+聚类 12 (共 6 个片段):
+  片段 1:
+    用户: 66b301d7-8d8f-44b6-9601-708d4b83ab4f
+    时间: 2025-11-06T07:35:10.568Z 到 2025-11-06T07:36:42.848Z
+    时长: 1.54 分钟
+    记录数: 2
+    文本: Nitetronic A1 AI Anti-Snore Pillow Checkout Cart Snoring Problem Sleep Quality Improvement AI technology Snore reduction Sleep tracking Ergonomic design Automatic adjustment Snore Reduction mid-range deciding High engagement with product pages and checkout actions. The user initially explored the Ni...
+
+  片段 2:
+    用户: c95fc03f-641f-4703-9de5-960cec3bfd61
+    时间: 2025-11-05T23:45:50.245Z 到 2025-11-05T23:49:12.553Z
+    时长: 3.37 分钟
+    记录数: 5
+    文本: Nitetronic A1 AI Anti-Snore Pillow Smart Sleep Tracking Snore Reduction AI Technology Ergonomic Design AI technology Smart auto-adjustment Sleep posture improvement App connectivity Ergonomic design Snore Reduction mid-range deciding effectiveness of snore reduction product features and benefits pri...
+
+  片段 3:
+    用户: c95fc03f-641f-4703-9de5-960cec3bfd61
+    时间: 2025-11-06T02:24:22.663Z 到 2025-11-06T02:24:22.663Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Nitetronic A1 AI Anti-Snore Pillow Snoring Problem Sleep Quality AI Technology Product Features AI detection and reduction of snoring Smart auto-adjustment for sleep posture App connectivity for sleep tracking Ergonomic design Comfort Snore Reduction mid-range browsing/comparing Effectiveness of AI,...
+
+  片段 4:
+    用户: c95fc03f-641f-4703-9de5-960cec3bfd61
+    时间: 2025-11-06T05:15:31.792Z 到 2025-11-06T05:15:31.792Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Anti-Snore Pillows AI Technology Sleep Quality Improvement Snoring Reduction Product Comparison AI Technology Snore Detection/Reduction Sleep Tracking Ergonomic Design App Integration AI-powered snore reduction mid-range comparing product effectiveness, advanced features Moderate to high engag...
+
+  片段 5:
+    用户: d0ff5228-9f04-4dc4-8ce7-9bcdc7f39e13
+    时间: 2025-11-05T22:41:32.652Z 到 2025-11-05T22:41:32.652Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Anti-Snore Pillow AI-powered Snore Reduction Sleep Quality Improvement Product Features Sleep Tracking App AI detection/analysis Snore reduction Ergonomic design Sleep tracking app Automatic adjustment Snore reduction mid-range comparing effectiveness of snore reduction, sleep quality improvem...
+
+
+聚类 13 (共 2 个片段):
+  片段 1:
+    用户: 97d29e2f-c85b-4fd8-8bc0-475dc1556e1f
+    时间: 2025-11-05T10:32:33.107Z 到 2025-11-05T10:32:33.107Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Nitetronic Z6 Smart Anti-Snore Pillow Snoring reduction Sleep posture Sleep tracking Anti-snoring technology AI detection auto-adjustment sleep tracking app ergonomic design MEMS sensors position sensors adjustable height Snore Reduction premium comparing effectiveness of snoring reduction comfort a...
+
+  片段 2:
+    用户: 97d29e2f-c85b-4fd8-8bc0-475dc1556e1f
+    时间: 2025-11-06T07:35:31.081Z 到 2025-11-06T07:41:57.361Z
+    时长: 6.44 分钟
+    记录数: 12
+    文本: Smart Anti-Snore Pillow AI Technology Sleep Quality Improvement Product Features Sleep Tracking AI-powered snore detection Automatic adjustment Sleep posture improvement Sleep tracking Ergonomic design Snore Reduction premium browsing/comparing Product effectiveness Technological features Moderate t...
+
+
+聚类 14 (共 8 个片段):
+  片段 1:
+    用户: 5d003df2-d113-4187-a4ae-4c7c20c8c953
+    时间: 2025-11-06T07:22:23.160Z 到 2025-11-06T07:23:41.583Z
+    时长: 1.31 分钟
+    记录数: 4
+    文本: smart anti-snore pillows mattress pads sleep improvement sleep technology neck support anti-snoring technology smart features sleep tracking comfort ergonomic design sleep quality premium comparing return policy, warranty High engagement with a wide variety of products, indicating thorough research ...
+
+  片段 2:
+    用户: 37e82892-d165-4e75-bf1b-8b89d5baffef
+    时间: 2025-11-06T07:11:59.410Z 到 2025-11-06T07:19:10.178Z
+    时长: 7.18 分钟
+    记录数: 17
+    文本: Smart Anti-Snore Pillow Ergonomic Neck Support Sleep Quality Improvement Adjustable Height Pillow Memory Foam Comfort Anti-snoring technology Adjustable height Ergonomic design Memory foam Comfortable sleep Snoring reduction premium browsing/comparing Product effectiveness for snoring, comfort, and ...
+
+  片段 3:
+    用户: 3c27f356-6573-4574-af54-0d67d3df24a7
+    时间: 2025-11-05T19:05:12.823Z 到 2025-11-05T19:05:27.738Z
+    时长: 0.25 分钟
+    记录数: 2
+    文本: Smart mattress pad Anti-snore pillow Sleep improvement Product features Sleep technology Smart features Sleep improvement Comfort Anti-snoring Adjustable settings Sleep enhancement premium comparing None explicitly indicated, but exploration of multiple high-ticket items suggests consideration of va...
+
+  片段 4:
+    用户: fafa3778-5858-4d53-b815-ddd51ff0d3e7
+    时间: 2025-11-05T21:56:55.397Z 到 2025-11-05T22:00:17.762Z
+    时长: 3.37 分钟
+    记录数: 5
+    文本: Ergonomic Neck Support Pain Relief Cervical Traction Customizable Firmness Sleep Improvement ergonomic design cervical support pain relief adjustable firmness memory foam Pain Relief mid-range browsing comfort, effectiveness for pain relief Moderate engagement, with hovers and clicks indicating expl...
+
+  片段 5:
+    用户: 2ac375a2-e204-4d74-8091-1cf0a5003019
+    时间: 2025-11-05T17:17:58.454Z 到 2025-11-05T17:18:14.723Z
+    时长: 0.27 分钟
+    记录数: 2
+    文本: smart mattress pad anti-snore pillow sleep improvement sleep technology product features smart technology anti-snoring sleep improvement comfort ergonomic design sleep enhancement premium browsing/comparing product effectiveness, technological features, sleep quality improvement High engagement with...
+
+
+聚类 15 (共 37 个片段):
+  片段 1:
+    用户: 4e7cbc54-f344-4a12-8b9f-d02be3c6fc76
+    时间: 2025-11-06T07:09:24.952Z 到 2025-11-06T07:10:00.227Z
+    时长: 0.59 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillow Sleep Quality Improvement AI Analysis App Connectivity Snore Reduction AI-powered snoring detection and reduction Sleep posture adjustment Sleep tracking via app Ergonomic design Quiet operation Sleep Solution premium deciding effectiveness of snore reduction, advanced techno...
+
+  片段 2:
+    用户: holosession-1762359331512-h6l49rk
+    时间: 2025-11-05T16:15:48.030Z 到 2025-11-05T16:16:24.128Z
+    时长: 0.60 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillow AI Technology Sleep Quality Improvement Sleep Tracking Product Features AI-powered snore detection and reduction Ergonomic design Sleep posture adjustment App integration for sleep tracking Comfort Snore Reduction premium deciding effectiveness of snore reduction comfort and ...
+
+  片段 3:
+    用户: f8f89b3e-3c8f-4134-b2ca-1f70cbfc392f
+    时间: 2025-11-05T17:33:40.765Z 到 2025-11-05T17:34:15.585Z
+    时长: 0.58 分钟
+    记录数: 2
+    文本: AI Anti-Snore Pillow Sleep Quality Improvement Snoring Reduction Smart Sleep Tracking Ergonomic Design AI technology snoring reduction sleep posture improvement sleep tracking ergonomic design Sleep Solution premium browsing Moderate engagement, focused on understanding product features and benefits...
+
+  片段 4:
+    用户: 963174e4-955f-4799-935b-33438d5bc132
+    时间: 2025-11-05T23:18:02.810Z 到 2025-11-05T23:18:02.834Z
+    时长: 0.00 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillow Sleep Tracking AI Analysis Product Features AI detection and reduction of snoring Smart auto-adjustment Sleep posture improvement App connectivity for sleep tracking Ergonomic design Snore Reduction premium browsing High engagement with product details and features. The user ...
+
+  片段 5:
+    用户: a6f8dd26-a736-4d4d-8b6e-efb855e57c8a
+    时间: 2025-11-05T14:48:37.341Z 到 2025-11-05T14:49:13.421Z
+    时长: 0.60 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillow Sleep Quality Improvement AI Technology Product Features Promotional Offers AI-powered snoring detection and reduction Smart auto-adjustment for sleep posture App integration for sleep tracking Ergonomic design Comfortable sleep Snore Reduction premium deciding potential effe...
+
+
+聚类 16 (共 8 个片段):
+  片段 1:
+    用户: 4a03a5a7-0683-4a36-b969-cd2e071a1db6
+    时间: 2025-11-05T15:06:16.747Z 到 2025-11-05T15:16:54.380Z
+    时长: 10.63 分钟
+    记录数: 16
+    文本: Nitetronic G1 Smart Mattress Pad Add to cart Sleep quality Health monitoring Smart sleep system Health monitoring Sleep cycle optimization Comfort Sleep enhancement premium deciding None explicitly identified, but engagement with product features suggests a desire for quality and advanced technology...
+
+  片段 2:
+    用户: fb0e17ee-2005-4d3f-9e84-ed2d83b908ff
+    时间: 2025-11-05T19:15:04.840Z 到 2025-11-05T19:17:14.257Z
+    时长: 2.16 分钟
+    记录数: 3
+    文本: Smart Mattress Pad Sleep Technology Sleep Improvement Health Monitoring Airfloating Deep Sleep System Smart Sleep System Sleep Cycle Optimization Relaxation Wake-up Assistance Health Data Advanced Sleep Technology premium browsing potential discount/offer (clicked on newsletter popup) The user has s...
+
+  片段 3:
+    用户: fb0e17ee-2005-4d3f-9e84-ed2d83b908ff
+    时间: 2025-11-05T19:46:18.422Z 到 2025-11-05T19:46:18.422Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Smart Mattress Pad Sleep Technology Health Monitoring Sleep Improvement Airfloating Deep Sleep System Smart Sleep System Sleep Cycle Optimization Health Data Relaxation Features Wake-up Assistance Advanced Sleep Technology premium browsing price (viewed sale and compare-at price), product features (...
+
+  片段 4:
+    用户: 4a3de437-dc88-4b91-8ae2-9b90772c481c
+    时间: 2025-11-05T22:08:42.154Z 到 2025-11-05T22:08:42.154Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Nitetronic G1 Smart Mattress Pad Sleep Cycle Management Smart Mattress Technology Sleep Improvement Stress Relief AirfloatingÂ® Al deep sleep system Intelligent sleep cycle management Sleep improvement Stress relief Smart technology Sleep Enhancement premium browsing Price (indicated by viewing sale...
+
+  片段 5:
+    用户: 2235e592-16f5-4099-97d1-c881d9d3032e
+    时间: 2025-11-05T14:21:15.583Z 到 2025-11-05T14:22:53.333Z
+    时长: 1.63 分钟
+    记录数: 5
+    文本: Nitetronic T3 Pro Smart Mattress Pad Sleep improvement Comfort benefits Lumbar support Product demonstration Smart technology Comfort Sleep improvement Lumbar support Rhythmic movement Sleep enhancement mid-range browsing/comparing None explicitly stated, but interest in features suggests a focus on...
+
+
+聚类 17 (共 20 个片段):
+  片段 1:
+    用户: bf01d96f-07c7-417f-ae39-af135b9afd90
+    时间: 2025-11-06T06:49:16.390Z 到 2025-11-06T07:02:19.544Z
+    时长: 13.05 分钟
+    记录数: 26
+    文本: AI Anti-Snore Pillow Sleep Quality Improvement Snoring Reduction Smart Sleep Tracking Ergonomic Design AI Technology Snore Reduction Sleep Tracking Ergonomic Design App Connectivity Sleep Solution premium browsing potential discount/offer (interaction with newsletter popup) High engagement with prod...
+
+  片段 2:
+    用户: 1c3499ce-be32-4603-8102-1c5325c3dae5
+    时间: 2025-11-06T06:48:25.463Z 到 2025-11-06T06:53:05.885Z
+    时长: 4.67 分钟
+    记录数: 10
+    文本: Nitetronic Z6 Smart Anti-Snore Pillow Nitetronic A1 AI Anti-Snore Pillow Anti-Snoring Technology Sleep Quality Improvement Smart Pillow Features Smart technology AI detection Sleep posture adjustment App integration Ergonomic design Snoring Reduction premium comparing Product effectiveness Technolog...
+
+  片段 3:
+    用户: c205567c-52e6-46dc-bb3b-204c85058ec7
+    时间: 2025-11-05T20:59:41.903Z 到 2025-11-05T21:13:26.482Z
+    时长: 13.74 分钟
+    记录数: 83
+    文本: Nitetronic H02 Lotus Cervical Neck Care Pillow Nitetronic Z6 Smart Anti-Snore Pillow Cervical Neck Care Pain Relief Ergonomic Design ergonomic design cervical traction memory foam pain relief adjustable height Neck Support budget/mid-range browsing product features price comparison The user is explo...
+
+  片段 4:
+    用户: 7ba0215e-0b91-4cd4-90ce-34cfd4213dae
+    时间: 2025-11-05T18:17:42.454Z 到 2025-11-05T18:18:04.765Z
+    时长: 0.37 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillows AI Sleep Tracking Snoring Reduction Ergonomic Pillow Design App Connectivity for Sleep Data AI Technology App Connectivity Ergonomic Design Snore Detection/Reduction Sleep Tracking Advanced Sleep Technology mid-range/premium comparing effectiveness of snoring reduction, adva...
+
+  片段 5:
+    用户: b68cfef4-20b7-4769-a68f-241bff2d6bfb
+    时间: 2025-11-05T15:03:19.542Z 到 2025-11-05T15:16:49.550Z
+    时长: 13.50 分钟
+    记录数: 12
+    文本: Smart Home Health Sleep Quality Data Anti-Snore Pillow Personalized Sleep Insights Sleep Tracking App AI technology snore reduction sleep tracking ergonomic design app integration Sleep Improvement premium deciding product effectiveness for snoring, sleep quality improvement, data insights The user ...
+
+
+聚类 18 (共 5 个片段):
+  片段 1:
+    用户: 0fad8f07-3b8f-4a5c-9626-ebeb3c24543a
+    时间: 2025-11-05T20:55:23.524Z 到 2025-11-05T20:55:23.524Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Ergonomic Neck Support Pain Relief Cervical Traction Sleep Improvement Smart Pillow Technology Ergonomic design Cervical support Adjustable firmness/air cushion Pain relief (neck, shoulder) Multi-position support Pain Relief mid-range browsing Effectiveness for snoring/apnea Comfort for various slee...
+
+  片段 2:
+    用户: 2bac7a74-7d01-415d-a65e-4e86880f60f0
+    时间: 2025-11-05T10:36:29.957Z 到 2025-11-05T10:39:38.457Z
+    时长: 3.14 分钟
+    记录数: 3
+    文本: Smart Anti-Snore Pillow Sleep Apnea Relief Product Features (MEMS sensors, position sensors, adjustable height) Promotions (10% off first order) anti-snore technology sleep quality improvement adjustable height smart sensors memory foam Snoring Solution premium browsing None explicitly identified in...
+
+  片段 3:
+    用户: e9010401-54cb-4e82-b4f0-28b9aecc4f05
+    时间: 2025-11-05T13:26:02.429Z 到 2025-11-05T13:26:02.429Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Nitetronic H02 Lotus Cervical Neck Care Pillow Cervical Neck Care Neck Pain Relief Ergonomic Support Sleep Apnea Ergonomic design Cervical traction Neck pain relief Memory foam Adjustable support Pain Relief mid-range browsing None explicitly stated, but focus on pain relief and ergonomic support su...
+
+  片段 4:
+    用户: 0f95b94f-b91f-4907-b7e2-29b2f862c241
+    时间: 2025-11-05T13:54:53.236Z 到 2025-11-05T13:54:53.236Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Neck Pain Relief Cervical Support Ergonomic Pillow Sleep Improvement Customizable Comfort Ergonomic Design Cervical Neck Care Pain Relief Adjustable Support Memory Foam Pain Relief mid-range browsing sleep apnea, neck pain, snoring The user is actively researching solutions for sleep-related issues,...
+
+  片段 5:
+    用户: f3c8802b-1228-4fdc-a496-1b6c11bcfd43
+    时间: 2025-11-05T11:39:20.573Z 到 2025-11-05T11:39:20.573Z
+    时长: 0.00 分钟
+    记录数: 1
+    文本: Neck Pain Relief Ergonomic Pillow Sleep Apnea Solutions Cervical Neck Care Ergonomic Design Neck Support Pain Relief Adjustable Comfort Cervical Traction Pain Relief & Support premium browsing Snoring Sleep Apnea Neck Pain The user has engaged with content related to sleep apnea and pillow solutions...
+
+
+聚类 19 (共 8 个片段):
+  片段 1:
+    用户: 96b19ffd-05fb-4e8f-8f3c-b525127554e4
+    时间: 2025-11-05T16:43:14.924Z 到 2025-11-05T16:43:15.254Z
+    时长: 0.01 分钟
+    记录数: 5
+    文本: Nitetronic A1 AI Anti-Snore Pillow Sleep Quality Improvement Snoring Solution Smart Sleep Technology Personalized Sleep Insights AI analysis Snore reduction Sleep tracking Ergonomic design Automatic adjustment Sleep Improvement premium deciding None explicitly identified, but past order history sugg...
+
+  片段 2:
+    用户: 96b19ffd-05fb-4e8f-8f3c-b525127554e4
+    时间: 2025-11-05T18:40:31.717Z 到 2025-11-05T18:44:22.342Z
+    时长: 3.84 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillow Sleep Quality Improvement AI Analysis Order Details AI-powered snoring detection and reduction Smart auto-adjustment Sleep tracking via app Ergonomic design Quiet operation Snore Reduction premium deciding Effectiveness of snoring solution, sleep quality improvement Moderate ...
+
+  片段 3:
+    用户: 96b19ffd-05fb-4e8f-8f3c-b525127554e4
+    时间: 2025-11-05T20:29:27.673Z 到 2025-11-05T20:30:07.092Z
+    时长: 0.66 分钟
+    记录数: 6
+    文本: Smart Anti-Snore Pillow Snoring Reduction Sleep Quality Improvement Product Features (MEMS sensors, position sensors, adjustable height, memory foam) Customer Account/Order History Anti-Snoring Technology Smart Sensors (MEMS, Position) Adjustable Height Memory Foam Clinically Proven Snoring Solution...
+
+  片段 4:
+    用户: 96b19ffd-05fb-4e8f-8f3c-b525127554e4
+    时间: 2025-11-05T21:43:02.609Z 到 2025-11-05T21:43:04.928Z
+    时长: 0.04 分钟
+    记录数: 2
+    文本: Smart Anti-Snore Pillow Sleep Quality Improvement AI Sleep Tracking Product Functionality Order Details AI detection and reduction of snoring Smart auto-adjustment Sleep posture improvement Detailed sleep tracking via app Ergonomic design Snore Reduction premium deciding The user has previously view...
+
+  片段 5:
+    用户: 96b19ffd-05fb-4e8f-8f3c-b525127554e4
+    时间: 2025-11-05T23:28:07.296Z 到 2025-11-05T23:33:08.194Z
+    时长: 5.01 分钟
+    记录数: 8
+    文本: Product Demonstration Ergonomic Pillow Neck Pain Relief Customizable Comfort Sleep Improvement Ergonomic design Neck support Customizable firmness Pain relief Multi-position support Pain Relief mid-range browsing The user's actions indicate they are likely a returning customer who has previously pur...
+

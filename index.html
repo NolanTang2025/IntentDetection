@@ -133,7 +133,7 @@
   
   .cards {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     margin-top: 80px;
   }
@@ -229,6 +229,12 @@
     font-size: 28px;
   }
   
+  @media (max-width: 1200px) {
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
   @media (max-width: 968px) {
     .cards {
       grid-template-columns: 1fr;
@@ -288,6 +294,15 @@
         <p>体验实时意图生成功能。通过模拟用户行为，观看系统如何实时捕捉、分析并生成用户意图，查看从行为信号到意图构建的完整流程。</p>
         <div class="card-footer">
           开始体验 <span class="arrow">→</span>
+        </div>
+      </a>
+      
+      <a href="意图cluster产品/visualization_dashboard/index.html" class="card">
+        <div class="card-icon">📈</div>
+        <h2>数据分析仪表板</h2>
+        <p>查看用户意图聚类分析结果。深入了解用户群体特征、购买阶段分布、价格偏好和产品关注度，获取针对性的营销策略建议和业务洞察。</p>
+        <div class="card-footer">
+          查看分析 <span class="arrow">→</span>
         </div>
       </a>
     </div>

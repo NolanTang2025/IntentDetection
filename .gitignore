@@ -3,3 +3,7 @@ node_modules
 *.log
 .vercel
 
+# 大文件 - 超过GitHub限制
+意图cluster产品/raw_data1106.csv
+**/raw_data*.csv
+
