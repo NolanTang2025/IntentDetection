@@ -1211,6 +1211,7 @@
   .shop-panel {
     opacity: 0;
     animation: panel-fade-in 1.2s ease-out 0.5s forwards;
+    position: relative;
   }
   
   @keyframes panel-fade-in {
@@ -1221,6 +1222,125 @@
     to {
       opacity: 1;
       transform: translateX(0);
+    }
+  }
+  
+  /* 视频播放器组件（9:16格式，作为独立插件悬浮在模拟网页上方） */
+  .video-player-widget {
+    position: fixed;
+    bottom: 20px;
+    right: calc(50% + 20px);
+    width: 180px;
+    aspect-ratio: 9 / 16;
+    z-index: 10000;
+    overflow: hidden;
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .video-player-widget.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .product-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .video-controls-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    opacity: 1;
+  }
+  
+  .video-controls-top {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: auto;
+    z-index: 10;
+  }
+  
+  .video-controls-right {
+    position: absolute;
+    top: 60px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: auto;
+    z-index: 10;
+  }
+  
+  .video-control-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .video-control-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .video-control-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .video-title {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    flex: 1;
+    text-align: center;
+    padding: 0 12px;
+  }
+  
+  .video-player-widget.zoomed {
+    width: 360px;
+  }
+  
+  .video-player-widget.zoomed-out {
+    width: 120px;
+  }
+  
+  @media (max-width: 1024px) {
+    .video-player-widget {
+      width: 150px;
+    }
+    
+    .video-player-widget.zoomed {
+      width: 300px;
+    }
+    
+    .video-player-widget.zoomed-out {
+      width: 100px;
     }
   }
   
@@ -2675,6 +2795,14 @@ window.addEventListener('load', () => {
         loading.style.display = 'none';
       }, 1000);
     }
+    
+    // 模拟网页加载完成后显示视频播放器
+    setTimeout(() => {
+      const videoWidget = document.getElementById('videoPlayerWidget');
+      if (videoWidget) {
+        videoWidget.classList.add('loaded');
+      }
+    }, 2500); // 在页面加载动画完成后显示
   }, 2000);
   
   // 确保所有产品卡片在动画完成后可见
@@ -3271,6 +3399,143 @@ setInterval(() => {
     }
   }
 }, 1000);
+
+// 视频播放器控制
+const videoPlayer = document.getElementById('productVideo');
+const videoWidget = document.getElementById('videoPlayerWidget');
+const zoomInBtn = document.getElementById('zoomInBtn');
+const zoomOutBtn = document.getElementById('zoomOutBtn');
+const muteBtn = document.getElementById('muteBtn');
+const muteIcon = document.getElementById('muteIcon');
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const closeBtn = document.getElementById('closeBtn');
+
+let isMuted = true; // 初始为静音（autoplay需要）
+let currentZoom = 'normal'; // normal, zoomed, zoomed-out
+
+// 放大功能
+zoomInBtn.addEventListener('click', () => {
+  videoWidget.classList.remove('zoomed-out');
+  if (currentZoom === 'normal') {
+    videoWidget.classList.add('zoomed');
+    currentZoom = 'zoomed';
+  } else if (currentZoom === 'zoomed-out') {
+    videoWidget.classList.remove('zoomed-out');
+    currentZoom = 'normal';
+  }
+});
+
+// 缩小功能
+zoomOutBtn.addEventListener('click', () => {
+  videoWidget.classList.remove('zoomed');
+  if (currentZoom === 'normal') {
+    videoWidget.classList.add('zoomed-out');
+    currentZoom = 'zoomed-out';
+  } else if (currentZoom === 'zoomed') {
+    videoWidget.classList.remove('zoomed');
+    currentZoom = 'normal';
+  }
+});
+
+// 静音/取消静音功能
+muteBtn.addEventListener('click', () => {
+  if (videoPlayer.muted) {
+    videoPlayer.muted = false;
+    muteIcon.innerHTML = `
+      <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
+    `;
+    isMuted = false;
+  } else {
+    videoPlayer.muted = true;
+    muteIcon.innerHTML = `
+      <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+    `;
+    isMuted = true;
+  }
+});
+
+// 全屏功能
+fullscreenBtn.addEventListener('click', () => {
+  if (videoPlayer.requestFullscreen) {
+    videoPlayer.requestFullscreen();
+  } else if (videoPlayer.webkitRequestFullscreen) {
+    videoPlayer.webkitRequestFullscreen();
+  } else if (videoPlayer.mozRequestFullScreen) {
+    videoPlayer.mozRequestFullScreen();
+  } else if (videoPlayer.msRequestFullscreen) {
+    videoPlayer.msRequestFullscreen();
+  }
+});
+
+// 更新静音图标状态
+videoPlayer.addEventListener('volumechange', () => {
+  if (videoPlayer.muted) {
+    muteIcon.innerHTML = `
+      <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+    `;
+  } else {
+    muteIcon.innerHTML = `
+      <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
+    `;
+  }
+});
+
+// 视频加载错误处理
+videoPlayer.addEventListener('error', () => {
+  console.warn('视频加载失败，请确保 products/product-video.mp4 文件存在');
+});
+
+// 确保视频循环播放
+videoPlayer.addEventListener('ended', () => {
+  videoPlayer.currentTime = 0;
+  videoPlayer.play();
+});
 </script>
+
+<!-- 视频播放器插件（独立悬浮在模拟网页上方） -->
+<div class="video-player-widget" id="videoPlayerWidget">
+  <video id="productVideo" class="product-video" autoplay loop muted playsinline>
+    <source src="products/product-video.mp4" type="video/mp4">
+    <source src="products/product-video.webm" type="video/webm">
+    您的浏览器不支持视频播放。
+  </video>
+  <div class="video-controls-overlay">
+    <!-- 顶部控制栏 -->
+    <div class="video-controls-top">
+      <button class="video-control-btn" id="closeBtn" title="关闭" style="display: none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="video-title">产品视频</div>
+      <button class="video-control-btn" id="fullscreenBtn" title="全屏">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- 右侧控制按钮 -->
+    <div class="video-controls-right">
+      <button class="video-control-btn" id="zoomInBtn" title="放大">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+        </svg>
+      </button>
+      <button class="video-control-btn" id="zoomOutBtn" title="缩小">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35M8 11h6"/>
+        </svg>
+      </button>
+      <button class="video-control-btn" id="muteBtn" title="静音/取消静音">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="muteIcon">
+          <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

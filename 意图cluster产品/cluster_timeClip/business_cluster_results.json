@@ -10,12 +10,13 @@
       "record_count": 26,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 3.295836866004329,
+      "duration_minutes_log": 2.642876218842722
     },
     {
       "user_id": "97d29e2f-c85b-4fd8-8bc0-475dc1556e1f",
@@ -27,12 +28,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 14
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "97d29e2f-c85b-4fd8-8bc0-475dc1556e1f",
@@ -44,12 +46,13 @@
       "record_count": 12,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.5649493574615367,
+      "duration_minutes_log": 2.0067364312092044
     },
     {
       "user_id": "9a33a09f-4a00-42c3-9df2-262b8e6aa6a6",
@@ -61,12 +64,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.729945089296602
     },
     {
       "user_id": "29994531-0f0f-4b05-a7c8-c47bb9078cc0",
@@ -78,12 +82,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.7731541249024856
     },
     {
       "user_id": "87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7",
@@ -95,12 +100,13 @@
       "record_count": 14,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.70805020110221,
+      "duration_minutes_log": 1.3641296964084269
     },
     {
       "user_id": "87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7",
@@ -112,12 +118,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.632804289886898
     },
     {
       "user_id": "87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7",
@@ -129,12 +136,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 0.8167281902479651
     },
     {
       "user_id": "87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7",
@@ -146,12 +154,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 1.2420101252390534
     },
     {
       "user_id": "87f7c13b-4d0c-46aa-98fc-fbb95b5ba3d7",
@@ -163,12 +172,13 @@
       "record_count": 14,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.70805020110221,
+      "duration_minutes_log": 1.3877141860246363
     },
     {
       "user_id": "5d003df2-d113-4187-a4ae-4c7c20c8c953",
@@ -180,12 +190,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 2.1846007870841637
     },
     {
       "user_id": "5d003df2-d113-4187-a4ae-4c7c20c8c953",
@@ -197,12 +208,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.8364030121893598
     },
     {
       "user_id": "1c3499ce-be32-4603-8102-1c5325c3dae5",
@@ -214,12 +226,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.7851108579753093
     },
     {
       "user_id": "1c3499ce-be32-4603-8102-1c5325c3dae5",
@@ -231,12 +244,13 @@
       "record_count": 10,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.3978952727983707,
+      "duration_minutes_log": 1.7360176985340223
     },
     {
       "user_id": "7b984ad0-ba97-4d8c-aa09-fa5788884bd3",
@@ -248,12 +262,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.9991724825715549
     },
     {
       "user_id": "a56221f5-c37d-4516-8315-f430629e7e3a",
@@ -265,12 +280,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.1163157643953885
     },
     {
       "user_id": "9d3f551e-2def-496e-85ff-330b586fddc5",
@@ -282,12 +298,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 0,
       "core_need": 1,
       "intent_score": 0.85,
-      "business_cluster": 4
+      "business_cluster": 10,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "39a40361-dfdc-4961-aaa0-ae3f48ca213f",
@@ -299,12 +316,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 7
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "37e82892-d165-4e75-bf1b-8b89d5baffef",
@@ -316,12 +334,13 @@
       "record_count": 22,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 3.1354942159291497,
+      "duration_minutes_log": 2.8793754079334875
     },
     {
       "user_id": "37e82892-d165-4e75-bf1b-8b89d5baffef",
@@ -333,12 +352,13 @@
       "record_count": 17,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.8903717578961645,
+      "duration_minutes_log": 2.101749198702134
     },
     {
       "user_id": "dcc77ce0-ae5f-4aba-9a0e-fb5a28673293",
@@ -350,12 +370,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 7
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "b33bd015-0a34-4680-9334-d5c5720e0cfa",
@@ -367,12 +388,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.030658520953792685
     },
     {
       "user_id": "b33bd015-0a34-4680-9334-d5c5720e0cfa",
@@ -384,12 +406,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "b33bd015-0a34-4680-9334-d5c5720e0cfa",
@@ -401,12 +424,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.003410843122081655
     },
     {
       "user_id": "b33bd015-0a34-4680-9334-d5c5720e0cfa",
@@ -418,12 +442,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.7204156220765037
     },
     {
       "user_id": "dd59d3f1-5d96-4b21-aacb-e0e6e85df4fb",
@@ -435,12 +460,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.7577325755989179
     },
     {
       "user_id": "holosession-1762413597784-zmztynb",
@@ -452,12 +478,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4673960658386547
     },
     {
       "user_id": "",
@@ -469,12 +496,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 2.8746723121363207
     },
     {
       "user_id": "",
@@ -486,12 +514,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.8145901770478158
     },
     {
       "user_id": "",
@@ -503,12 +532,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "",
@@ -520,12 +550,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.01968824166942602
     },
     {
       "user_id": "",
@@ -537,12 +568,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "",
@@ -554,12 +586,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 1.8059444954562418
     },
     {
       "user_id": "",
@@ -571,12 +604,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "",
@@ -588,12 +622,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "",
@@ -605,12 +640,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "",
@@ -622,12 +658,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 2.1783343114895057
     },
     {
       "user_id": "",
@@ -639,12 +676,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "",
@@ -656,12 +694,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "",
@@ -673,12 +712,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "06464541-a64c-4cae-b47a-031c63feff8f",
@@ -690,12 +730,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 1,
       "intent_score": 0.9,
-      "business_cluster": 10
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "06464541-a64c-4cae-b47a-031c63feff8f",
@@ -707,12 +748,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.44777932204835535
     },
     {
       "user_id": "66b301d7-8d8f-44b6-9601-708d4b83ab4f",
@@ -724,12 +766,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.9317703027225414
     },
     {
       "user_id": "4e7cbc54-f344-4a12-8b9f-d02be3c6fc76",
@@ -741,12 +784,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4630524422943073
     },
     {
       "user_id": "cdc05947-dad2-43cb-9f1f-f4a5efec2b16",
@@ -758,12 +802,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.0033111786590245065
     },
     {
       "user_id": "c205567c-52e6-46dc-bb3b-204c85058ec7",
@@ -775,12 +820,13 @@
       "record_count": 32,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 3.4965075614664802,
+      "duration_minutes_log": 1.8658975996571703
     },
     {
       "user_id": "c205567c-52e6-46dc-bb3b-204c85058ec7",
@@ -792,12 +838,13 @@
       "record_count": 83,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 4.430816798843313,
+      "duration_minutes_log": 2.690835089963555
     },
     {
       "user_id": "f01c2db7-cf17-46d0-9e8f-02c9a310eb0c",
@@ -809,12 +856,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 2,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "545640df-2201-4164-8ab1-213f3a073d5e",
@@ -826,12 +874,13 @@
       "record_count": 13,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.6390573296152584,
+      "duration_minutes_log": 1.6486618307104506
     },
     {
       "user_id": "545640df-2201-4164-8ab1-213f3a073d5e",
@@ -843,12 +892,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.85,
-      "business_cluster": 3
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "f10c6077-3f4b-4883-a260-150090ede39c",
@@ -860,12 +910,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.667329390849878
     },
     {
       "user_id": "f10c6077-3f4b-4883-a260-150090ede39c",
@@ -877,12 +928,13 @@
       "record_count": 28,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 3.367295829986474,
+      "duration_minutes_log": 3.125817108616596
     },
     {
       "user_id": "f10c6077-3f4b-4883-a260-150090ede39c",
@@ -894,12 +946,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 1.3392507957583415
     },
     {
       "user_id": "f10c6077-3f4b-4883-a260-150090ede39c",
@@ -911,12 +964,13 @@
       "record_count": 11,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.4849066497880004,
+      "duration_minutes_log": 2.6822308428611907
     },
     {
       "user_id": "d9a5983a-ae6b-4ca7-9120-6b4b45a95ac6",
@@ -928,12 +982,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.9614043043859778
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -945,12 +1000,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.006478966097709123
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -962,12 +1018,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 1.5778956444242218
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -979,12 +1036,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 0.5056020043907653
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -996,12 +1054,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.03888411804996634
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -1013,12 +1072,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.7944170458520468
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -1030,12 +1090,13 @@
       "record_count": 10,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.3978952727983707,
+      "duration_minutes_log": 1.7905420618216163
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -1047,12 +1108,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.10767284017369454
     },
     {
       "user_id": "96b19ffd-05fb-4e8f-8f3c-b525127554e4",
@@ -1064,12 +1126,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.6820103961490286
     },
     {
       "user_id": "770b6136-4349-4983-93dd-10a6830ab5a4",
@@ -1081,12 +1144,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.9355049507979593
     },
     {
       "user_id": "7c4c9cb0-e1c8-4aef-9f55-07edf311a7b2",
@@ -1098,12 +1162,13 @@
       "record_count": 14,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.70805020110221,
+      "duration_minutes_log": 1.384843308852576
     },
     {
       "user_id": "b98606ed-e76f-43f4-b4ac-34f1a729a5f0",
@@ -1115,12 +1180,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.7812801505511455
     },
     {
       "user_id": "7ba0215e-0b91-4cd4-90ce-34cfd4213dae",
@@ -1132,12 +1198,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.316888870999721
     },
     {
       "user_id": "568AAF84-4ae2-4873-bee2-eec9f8f30cdf",
@@ -1149,12 +1216,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.470524326992465
     },
     {
       "user_id": "568AAF84-4ae2-4873-bee2-eec9f8f30cdf",
@@ -1166,12 +1234,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 1.2707057908620412
     },
     {
       "user_id": "c441d18b-f71e-4af6-9262-751452e76ee1",
@@ -1183,12 +1252,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.477197115204377
     },
     {
       "user_id": "7fcba61b-bdd3-4a67-ab0c-8424d653ff28",
@@ -1200,12 +1270,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.8989682265314058
     },
     {
       "user_id": "7fcba61b-bdd3-4a67-ab0c-8424d653ff28",
@@ -1217,12 +1288,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.4010888797071852
     },
     {
       "user_id": "holosession-1760685312591-f9ene7q",
@@ -1234,12 +1306,13 @@
       "record_count": 19,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.995732273553991,
+      "duration_minutes_log": 1.3637803112375515
     },
     {
       "user_id": "holosession-1760685312591-f9ene7q",
@@ -1251,12 +1324,13 @@
       "record_count": 18,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.9444389791664403,
+      "duration_minutes_log": 1.2982324324940817
     },
     {
       "user_id": "3c27f356-6573-4574-af54-0d67d3df24a7",
@@ -1268,12 +1342,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.22281016241297208
     },
     {
       "user_id": "holosession-1762359331512-h6l49rk",
@@ -1285,12 +1360,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4716481096796163
     },
     {
       "user_id": "0f31fb6e-2085-4c40-87df-c5fdb3ff2f45",
@@ -1302,12 +1378,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.1602351049331165
     },
     {
       "user_id": "b68cfef4-20b7-4769-a68f-241bff2d6bfb",
@@ -1319,12 +1396,13 @@
       "record_count": 12,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.5649493574615367,
+      "duration_minutes_log": 2.6742268072916633
     },
     {
       "user_id": "b68cfef4-20b7-4769-a68f-241bff2d6bfb",
@@ -1336,12 +1414,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 3,
       "core_need": 1,
       "intent_score": 0.85,
-      "business_cluster": 9
+      "business_cluster": 13,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "4a03a5a7-0683-4a36-b969-cd2e071a1db6",
@@ -1353,12 +1432,13 @@
       "record_count": 16,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.833213344056216,
+      "duration_minutes_log": 2.4534346157073017
     },
     {
       "user_id": "1a003707-c54d-481f-862a-772a10d33169",
@@ -1370,12 +1450,13 @@
       "record_count": 10,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.3978952727983707,
+      "duration_minutes_log": 2.1280749475315788
     },
     {
       "user_id": "97e20d5c-1ad9-4d53-9a8a-9f5d7623e420",
@@ -1387,12 +1468,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 1.1359080734118066
     },
     {
       "user_id": "25befc51-401a-4ac3-97ab-492f899db3a1",
@@ -1404,12 +1486,13 @@
       "record_count": 14,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.70805020110221,
+      "duration_minutes_log": 2.577425057432529
     },
     {
       "user_id": "25befc51-401a-4ac3-97ab-492f899db3a1",
@@ -1421,12 +1504,13 @@
       "record_count": 14,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.70805020110221,
+      "duration_minutes_log": 3.127487610758729
     },
     {
       "user_id": "343e3987-9097-465f-93f7-2ef3d485bf15",
@@ -1438,12 +1522,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.5572319965801464
     },
     {
       "user_id": "2ee7fa5c-291c-4fe3-955b-84ce233a3320",
@@ -1455,12 +1540,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.8193685868851008
     },
     {
       "user_id": "c95fc03f-641f-4703-9de5-960cec3bfd61",
@@ -1472,12 +1558,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.4754035361916664
     },
     {
       "user_id": "c95fc03f-641f-4703-9de5-960cec3bfd61",
@@ -1489,12 +1576,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 10
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "c95fc03f-641f-4703-9de5-960cec3bfd61",
@@ -1506,12 +1594,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 10
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "d0ff5228-9f04-4dc4-8ce7-9bcdc7f39e13",
@@ -1523,12 +1612,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 10
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "1c2ecfbc-4a68-4e6f-993c-aa4aed1581b7",
@@ -1540,12 +1630,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "32103cff-a1a0-45dd-a973-c3405038aeba",
@@ -1557,12 +1648,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "5d51aee4-5921-4b05-97f6-b85e9198d96d",
@@ -1574,12 +1666,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.080544489021202
     },
     {
       "user_id": "fb0e17ee-2005-4d3f-9e84-ed2d83b908ff",
@@ -1591,12 +1684,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 1.149923082902537
     },
     {
       "user_id": "fb0e17ee-2005-4d3f-9e84-ed2d83b908ff",
@@ -1608,12 +1702,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 4,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.95,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "f03c7ad9-1eb3-4c20-9d4b-595d386a65d1",
@@ -1625,12 +1720,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.5365230743665814
     },
     {
       "user_id": "5013fcbb-e9dd-4018-8b9a-4b62bc87e55f",
@@ -1642,12 +1738,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.9421468949193507
     },
     {
       "user_id": "5013fcbb-e9dd-4018-8b9a-4b62bc87e55f",
@@ -1659,12 +1756,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.8613698129743983
     },
     {
       "user_id": "156390d4-f621-424b-9edd-929d5086eb27",
@@ -1676,12 +1774,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.5515356120137774
     },
     {
       "user_id": "f0f7cb18-bebb-4e7d-9af9-b6bd380f4fb2",
@@ -1693,12 +1792,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 2.252732865034478
     },
     {
       "user_id": "f2e0062d-997e-43f4-94cb-0a3a957453c0",
@@ -1710,12 +1810,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.7459656448788874
     },
     {
       "user_id": "f2e0062d-997e-43f4-94cb-0a3a957453c0",
@@ -1727,12 +1828,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.3931338339465792
     },
     {
       "user_id": "fd288b53-65f4-4af2-9113-24cc06c17a80",
@@ -1744,12 +1846,13 @@
       "record_count": 11,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.4849066497880004,
+      "duration_minutes_log": 2.5871473037345476
     },
     {
       "user_id": "48f572e8-0bae-4103-b964-bf336025e84f",
@@ -1761,12 +1864,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 0.9645601255455323
     },
     {
       "user_id": "f8f89b3e-3c8f-4134-b2ca-1f70cbfc392f",
@@ -1778,12 +1882,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.45826837302731466
     },
     {
       "user_id": "0fad8f07-3b8f-4a5c-9626-ebeb3c24543a",
@@ -1795,12 +1900,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 1,
       "intent_score": 0.8,
-      "business_cluster": 3
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "54e8f4ce-A67F-46A3-40A9-081E3588C7AE",
@@ -1812,12 +1918,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.9065231843151027
     },
     {
       "user_id": "e0e4b573-9ed6-4060-8b39-98567df7d760",
@@ -1829,12 +1936,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "963174e4-955f-4799-935b-33438d5bc132",
@@ -1846,12 +1954,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.001399020913707341
     },
     {
       "user_id": "a6f8dd26-a736-4d4d-8b6e-efb855e57c8a",
@@ -1863,12 +1972,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4714609002437139
     },
     {
       "user_id": "f3c363dc-3277-4eaf-98e4-0a2528676a2d",
@@ -1880,12 +1990,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.9244903562171091
     },
     {
       "user_id": "fc04be19-935f-41f1-b22d-c07274fbd982",
@@ -1897,12 +2008,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.20934208100052948
     },
     {
       "user_id": "fc04be19-935f-41f1-b22d-c07274fbd982",
@@ -1914,12 +2026,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.21738030902509844
     },
     {
       "user_id": "dd24a3b4-67df-4ec1-8b84-231672ce5f24",
@@ -1931,12 +2044,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.8655376424268313
     },
     {
       "user_id": "b7b6f969-5133-433e-b041-a869508a4e15",
@@ -1948,12 +2062,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.24272393169315062
     },
     {
       "user_id": "dd093775-4c88-4c73-a5f0-842435c0f73e",
@@ -1965,12 +2080,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.8,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "dd093775-4c88-4c73-a5f0-842435c0f73e",
@@ -1982,12 +2098,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 11
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "55c5ed27-BA4F-4D87-EB98-E72F75167114",
@@ -1999,12 +2116,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.75,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1761833834625-182c2df",
@@ -2016,12 +2134,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 3,
       "intent_score": 0.95,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "ddd0062a-edf3-4f4b-a1bb-b52f9147fda7",
@@ -2033,12 +2152,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 0,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "04827119-1b9d-4586-a55a-201a4f4be259",
@@ -2050,12 +2170,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 0,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "500f01b6-ccff-4a84-8579-3b7ebb59b523",
@@ -2067,12 +2188,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 1.706404295733515
     },
     {
       "user_id": "878589d5-2964-420e-9b5c-29ec63efae86",
@@ -2084,12 +2206,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 1.110315757344275
     },
     {
       "user_id": "2c61487a-eca0-4700-b86e-f76306443b9a",
@@ -2101,12 +2224,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.9967764183411734
     },
     {
       "user_id": "1f8deedd-7dd4-45e9-84d9-60cf66e0e32e",
@@ -2118,12 +2242,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "2b41e8b2-630f-4585-af53-7345f59d3795",
@@ -2135,12 +2260,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.843376322375935
     },
     {
       "user_id": "d443b5ab-e75f-4b83-8f6c-14b89c53a3a4",
@@ -2152,12 +2278,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.3221438838193536
     },
     {
       "user_id": "002f5060-fecf-49d5-b59d-4f498a6c9b8a",
@@ -2169,12 +2296,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.75,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "002f5060-fecf-49d5-b59d-4f498a6c9b8a",
@@ -2186,12 +2314,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 9
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762365805455-g7xn5pe",
@@ -2203,12 +2332,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.2500115678139525
     },
     {
       "user_id": "7a51e966-e366-4f6f-ba61-b2d3eec99138",
@@ -2220,12 +2350,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4675109417466923
     },
     {
       "user_id": "b62b53da-9adb-49df-881e-4114ecd8e9de",
@@ -2237,12 +2368,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.6933055013598795
     },
     {
       "user_id": "71aa52d9-66b4-4c08-a5a8-4d10afec8cd5",
@@ -2254,12 +2386,13 @@
       "record_count": 10,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.3978952727983707,
+      "duration_minutes_log": 1.665742628644568
     },
     {
       "user_id": "220547d1-54c1-4d41-ba02-b1c57ed413b8",
@@ -2271,12 +2404,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.3851728991831265
     },
     {
       "user_id": "220547d1-54c1-4d41-ba02-b1c57ed413b8",
@@ -2288,12 +2422,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.2535531324240865
     },
     {
       "user_id": "ecc441ef-681f-48c6-98f4-5983dfccff2d",
@@ -2305,12 +2440,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "55edd888-C934-40CD-CF1C-50FE5E23E5A5",
@@ -2322,12 +2458,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.4705857227750847
     },
     {
       "user_id": "55edd888-C934-40CD-CF1C-50FE5E23E5A5",
@@ -2339,12 +2476,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.0242478733792473
     },
     {
       "user_id": "4a3de437-dc88-4b91-8ae2-9b90772c481c",
@@ -2356,12 +2494,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 4,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762375020638-u9vf67i",
@@ -2373,12 +2512,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "741fae6a-69e5-4971-bf70-9865726ba91f",
@@ -2390,12 +2530,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "29b87d08-858d-4400-a9f1-3b83aad3c3f8",
@@ -2407,12 +2548,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4738815171762821
     },
     {
       "user_id": "b99e1569-0d91-4e0e-b23c-f8dad9e91ae5",
@@ -2424,12 +2566,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762357981391-cihjinf",
@@ -2441,12 +2584,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.16213302171160948
     },
     {
       "user_id": "holosession-1762378376536-d3vt2cn",
@@ -2458,12 +2602,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 14
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762352434413-helhi0m",
@@ -2475,12 +2620,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762352434413-helhi0m",
@@ -2492,12 +2638,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "635567e6-a6fd-41d4-8c6f-908c7ddf6b80",
@@ -2509,12 +2656,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "0baa5371-5f39-4ef3-b4d0-4ff97dbaae67",
@@ -2526,12 +2674,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "0baa5371-5f39-4ef3-b4d0-4ff97dbaae67",
@@ -2543,12 +2692,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 3
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "0baa5371-5f39-4ef3-b4d0-4ff97dbaae67",
@@ -2560,12 +2710,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 3
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "d10a9a60-e4ba-4df0-bdaa-da0ee2d66944",
@@ -2577,12 +2728,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "fafa3778-5858-4d53-b815-ddd51ff0d3e7",
@@ -2594,12 +2746,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.4756207646997608
     },
     {
       "user_id": "340b820a-6193-4346-aa9c-7d688f5320d1",
@@ -2611,12 +2764,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.0012325734025455822
     },
     {
       "user_id": "holosession-1762352364177-gt6fjj6",
@@ -2628,12 +2782,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4642370343513985
     },
     {
       "user_id": "holosession-1762352364177-gt6fjj6",
@@ -2645,12 +2800,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 1,
       "intent_score": 0.85,
-      "business_cluster": 3
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "ee329aab-3731-4535-8193-b168f41faaa3",
@@ -2662,12 +2818,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "1555aa5f-5d67-44f3-9eab-1509fa0cf664",
@@ -2679,12 +2836,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.872387606653111
     },
     {
       "user_id": "dd537440-0265-4a64-8b89-af50837f8ecf",
@@ -2696,12 +2854,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.0870625127176494
     },
     {
       "user_id": "48e344ac-5186-46e9-9a20-8ffa8f544871",
@@ -2713,12 +2872,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 2.4826582907887946
     },
     {
       "user_id": "5941bba1-c203-4007-acce-41c92e279419",
@@ -2730,12 +2890,13 @@
       "record_count": 26,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 3.295836866004329,
+      "duration_minutes_log": 1.8714200526193554
     },
     {
       "user_id": "cffa2bc9-6278-49e8-bdf6-0b0c9517f6fa",
@@ -2747,12 +2908,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 7
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762337439743-x16khm7",
@@ -2764,12 +2926,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.2183046115861145
     },
     {
       "user_id": "e6aba888-9ccc-41e9-92e5-1ab4a5605356",
@@ -2781,12 +2944,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 0.8234734422355195
     },
     {
       "user_id": "fa06e03f-a258-436f-b4d6-37d37f96e48f",
@@ -2798,12 +2962,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.16684124150084675
     },
     {
       "user_id": "90075bc4-7d98-4f83-96d6-c70eba5ad67b",
@@ -2815,12 +2980,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 2.3396400009450566
     },
     {
       "user_id": "holosession-1762112462220-ug1zfu9",
@@ -2832,12 +2998,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762352440696-grsg076",
@@ -2849,12 +3016,13 @@
       "record_count": 20,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 3.044522437723423,
+      "duration_minutes_log": 2.7368222861959657
     },
     {
       "user_id": "holosession-1762349047615-od4xk69",
@@ -2866,12 +3034,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 2.3033664543184305
     },
     {
       "user_id": "c94e80d7-fa16-4f2f-8a6a-a337f707f457",
@@ -2883,12 +3052,13 @@
       "record_count": 29,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 3.4011973816621555,
+      "duration_minutes_log": 2.353176807998992
     },
     {
       "user_id": "holosession-1762334489125-0r03gcd",
@@ -2900,12 +3070,13 @@
       "record_count": 15,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.772588722239781,
+      "duration_minutes_log": 2.309103799981161
     },
     {
       "user_id": "holosession-1762334489125-0r03gcd",
@@ -2917,12 +3088,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "5d37278b-3161-4185-977e-7b47057a3eef",
@@ -2934,12 +3106,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.5984426506460268
     },
     {
       "user_id": "77c67f9b-184a-4497-bf81-df5c0d220c1f",
@@ -2951,12 +3124,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.75,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "29a6c75f-fa0d-46f2-a6af-575c2a843a89",
@@ -2968,12 +3142,13 @@
       "record_count": 14,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.70805020110221,
+      "duration_minutes_log": 1.5060014704846385
     },
     {
       "user_id": "92015117-82ae-413b-a722-2c5a663a6f2d",
@@ -2985,12 +3160,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.7066555305847375
     },
     {
       "user_id": "346de937-ccde-4451-a78d-fee80710bbc2",
@@ -3002,12 +3178,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 1.3550014728866044
     },
     {
       "user_id": "7c77d083-0e09-46ff-b61a-9a7222e98caa",
@@ -3019,12 +3196,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.099800471388252
     },
     {
       "user_id": "fdc40b30-ae59-42d0-9a51-81ac7cc7d4e9",
@@ -3036,12 +3214,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.1858154460482104
     },
     {
       "user_id": "fdc40b30-ae59-42d0-9a51-81ac7cc7d4e9",
@@ -3053,12 +3232,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.8910002739431995
     },
     {
       "user_id": "e34279d3-cd12-413b-82d7-d6256a30bb88",
@@ -3070,12 +3250,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.9511751337276568
     },
     {
       "user_id": "2bac7a74-7d01-415d-a65e-4e86880f60f0",
@@ -3087,12 +3268,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 1.4213397028626913
     },
     {
       "user_id": "ae4ac37e-676c-47a6-ba3b-d5dbe101536b",
@@ -3104,12 +3286,13 @@
       "record_count": 11,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.4849066497880004,
+      "duration_minutes_log": 1.3296578698781736
     },
     {
       "user_id": "holosession-1762334276474-k2mpe80",
@@ -3121,12 +3304,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.0018316548289699925
     },
     {
       "user_id": "2235e592-16f5-4099-97d1-c881d9d3032e",
@@ -3138,12 +3322,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.9670472155379406
     },
     {
       "user_id": "e9010401-54cb-4e82-b4f0-28b9aecc4f05",
@@ -3155,12 +3340,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 2,
       "core_need": 1,
       "intent_score": 0.65,
-      "business_cluster": 3
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762329936547-h8kk4zo",
@@ -3172,12 +3358,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.47657573556611715
     },
     {
       "user_id": "holosession-1762329936547-h8kk4zo",
@@ -3189,12 +3376,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.3361507563805488
     },
     {
       "user_id": "e6e6f639-fa17-4dee-8ad0-48171fcc49fe",
@@ -3206,12 +3394,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.46130969629407537
     },
     {
       "user_id": "27542ec7-c9dd-4381-8085-4c55c82b110f",
@@ -3223,12 +3412,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.6139235817695579
     },
     {
       "user_id": "c78f6b27-fe41-41e9-95a8-fd27cc51044b",
@@ -3240,12 +3430,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.5632567705538977
     },
     {
       "user_id": "431048db-e4e2-486f-a663-1a2b2956f1f6",
@@ -3257,12 +3448,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.95,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "404eb81a-734a-4fc2-998b-1b1c71c36aeb",
@@ -3274,12 +3466,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 1.3492758879217925
     },
     {
       "user_id": "2ac375a2-e204-4d74-8091-1cf0a5003019",
@@ -3291,12 +3484,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 1,
       "intent_score": 0.95,
-      "business_cluster": 10
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "2ac375a2-e204-4d74-8091-1cf0a5003019",
@@ -3308,12 +3502,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.24070838249368165
     },
     {
       "user_id": "e78de406-18bd-4d30-b0a0-0bef6ae15e64",
@@ -3325,12 +3520,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.3901709689551474
     },
     {
       "user_id": "536b44a0-87c5-427a-9e8c-0933fa55ee7f",
@@ -3342,12 +3538,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.533193814232956
     },
     {
       "user_id": "4a1a4f63-d76f-4f2f-b224-30bcaf28c9b9",
@@ -3359,12 +3556,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.75,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "1bc67f2f-f5ce-4cd7-aa30-1359a5ca4837",
@@ -3376,12 +3574,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 11
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762331287416-deumco8",
@@ -3393,12 +3592,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 1.4104868486685798
     },
     {
       "user_id": "86e54f5d-6ee7-4927-8045-89ab71d64aaf",
@@ -3410,12 +3610,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4818704393105697
     },
     {
       "user_id": "3684a812-0c28-4350-b062-c3ceb85a84a1",
@@ -3427,12 +3628,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 4
+      "business_cluster": 10,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "4365173c-6a64-4c91-ac68-9d9188a2bfaa",
@@ -3444,12 +3646,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.006478966097709123
     },
     {
       "user_id": "4365173c-6a64-4c91-ac68-9d9188a2bfaa",
@@ -3461,12 +3664,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 12
+      "business_cluster": 10,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "46c27cc8-531a-48e0-b33b-dff1f8d268d0",
@@ -3478,12 +3682,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "8eb12260-e06d-430f-ae50-d664416576ab",
@@ -3495,12 +3700,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4641113035408978
     },
     {
       "user_id": "b9cd5012-b0ed-4fc7-a8ba-bdd404fe59a0",
@@ -3512,12 +3718,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.9490934578397063
     },
     {
       "user_id": "1cd1695f-cafe-44f3-ae0d-b778c9ff08b9",
@@ -3529,12 +3736,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "0f95b94f-b91f-4907-b7e2-29b2f862c241",
@@ -3546,12 +3754,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.85,
-      "business_cluster": 3
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "17ea3d41-6892-4abc-901d-39ed914daf95",
@@ -3563,12 +3772,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 1.095485182140845
     },
     {
       "user_id": "bcdd9375-5226-46a1-9773-044b8b34e600",
@@ -3580,12 +3790,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "bcdd9375-5226-46a1-9773-044b8b34e600",
@@ -3597,12 +3808,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762331652826-bv17qvf",
@@ -3614,12 +3826,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 1.6711881749890256
     },
     {
       "user_id": "9dc01fb6-09b6-4e5f-b146-2a5bbf5b36c7",
@@ -3631,12 +3844,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.75,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "3fa7f804-dd23-4a59-b5cd-9355e863dff0",
@@ -3648,12 +3862,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 0.9379543715101814
     },
     {
       "user_id": "f3c8802b-1228-4fdc-a496-1b6c11bcfd43",
@@ -3665,12 +3880,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.75,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "f65d56bb-86ae-4ad7-90ba-33c481f4b7cb",
@@ -3682,12 +3898,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.75,
-      "business_cluster": 3
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "369a5855-9db2-4c25-8383-c1b3b157694d",
@@ -3699,12 +3916,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 0
+      "business_cluster": 13,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "ef9ab564-c4bb-4b4a-93f7-06d14a64c9c9",
@@ -3716,12 +3934,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 14
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "02afb351-e7d3-4bf6-bf22-cc8c26f00c77",
@@ -3733,12 +3952,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "4f456fcf-103d-4962-b822-8d5e6730ebd7",
@@ -3750,12 +3970,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.46494921049846405
     },
     {
       "user_id": "7d67946b-26e8-4115-bbec-2e54001df3a7",
@@ -3767,12 +3988,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "7d67946b-26e8-4115-bbec-2e54001df3a7",
@@ -3784,12 +4006,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 0,
       "core_need": 3,
       "intent_score": 0.8,
-      "business_cluster": 5
+      "business_cluster": 10,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "85cf059e-b136-4642-8207-65d0e7441cfd",
@@ -3801,12 +4024,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.85,
-      "business_cluster": 10
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "ba4f3b72-bfca-491c-96a7-95d7f9fddc5e",
@@ -3818,12 +4042,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762353137556-y7lnfix",
@@ -3835,12 +4060,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "00ffbfd3-84d2-42e3-b8a1-7c7e273613ed",
@@ -3852,12 +4078,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 0,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "b7455247-7f97-4561-abff-f834b1828553",
@@ -3869,12 +4096,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 1,
       "intent_score": 0.8,
-      "business_cluster": 3
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762338954977-5ck2fm5",
@@ -3886,12 +4114,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762333693339-3ole1qv",
@@ -3903,12 +4132,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "88829899-d4ed-4c00-b829-99ac031baced",
@@ -3920,12 +4150,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "23733420-d707-4ca1-a6e1-d023469d42c1",
@@ -3937,12 +4168,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.5,
-      "business_cluster": 3
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "1c702fff-8298-45ff-95ca-8ed1c8d6c78b",
@@ -3954,12 +4186,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.465755033397089
     },
     {
       "user_id": "629207b8-dde2-44ef-b5d9-4e1651157a5f",
@@ -3971,12 +4204,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 14
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762368222647-6jgygvt",
@@ -3988,12 +4222,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 1.1249187744160967
     },
     {
       "user_id": "e8b377a2-78dc-43a5-958c-f514aba2ae68",
@@ -4005,12 +4240,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "55184d1a-D65F-489E-7B38-D084957C2303",
@@ -4022,12 +4258,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 0,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "2716c1ec-c0b2-47e0-bc32-c0b3f5f7d760",
@@ -4039,12 +4276,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "926a6b97-8d37-499a-99a7-df8df5fc434a",
@@ -4056,12 +4294,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.19934254112825753
     },
     {
       "user_id": "3bd44c8b-5897-4755-a467-30a13bbe7ec0",
@@ -4073,12 +4312,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "5c9aad42-7682-4732-b4ea-8503b6703707",
@@ -4090,12 +4330,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.37960014191311
     },
     {
       "user_id": "c3321bf4-485e-4fc0-8420-db3f51534a36",
@@ -4107,12 +4348,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.65,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "cf79d987-eed0-4d81-b5b9-eac2cd1807a9",
@@ -4124,12 +4366,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.75,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "502460a2-09ff-4a7e-9995-ad55465d1a08",
@@ -4141,12 +4384,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 3,
       "core_need": 1,
       "intent_score": 0.8,
-      "business_cluster": 10
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "holosession-1762379887371-b9qclw3",
@@ -4158,12 +4402,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.393662395989013
     },
     {
       "user_id": "34688c4b-fe6f-4094-887e-ba2165afa448",
@@ -4175,12 +4420,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.75,
-      "business_cluster": 3
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "213566e6-221e-42d9-a9e8-5f9c21b549fd",
@@ -4192,12 +4438,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "240a5dcb-dc10-47a4-b536-58b455ef7a4a",
@@ -4209,12 +4456,13 @@
       "record_count": 19,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.995732273553991,
+      "duration_minutes_log": 2.080274527983728
     },
     {
       "user_id": "79ff4a0c-c36a-43c5-96db-6771c338d9fe",
@@ -4226,12 +4474,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.2202397767898079
     },
     {
       "user_id": "f230fcef-bc29-40f6-9cca-3013635d50c2",
@@ -4243,12 +4492,13 @@
       "record_count": 10,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.3978952727983707,
+      "duration_minutes_log": 1.9589908885938438
     },
     {
       "user_id": "c1810c20-0604-4315-ba45-2ef36af07120",
@@ -4260,12 +4510,13 @@
       "record_count": 31,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 3.4657359027997265,
+      "duration_minutes_log": 2.7180819367827294
     },
     {
       "user_id": "70f9b0b4-5031-4d2e-954d-30777c42c8e5",
@@ -4277,12 +4528,13 @@
       "record_count": 18,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 14,
+      "record_count_log": 2.9444389791664403,
+      "duration_minutes_log": 2.5588758226270034
     },
     {
       "user_id": "700f83d0-5597-46d9-9e00-26afc3ee054d",
@@ -4294,12 +4546,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.8984118529868634
     },
     {
       "user_id": "dca2006a-0524-48b5-9242-ece80f2a9074",
@@ -4311,12 +4564,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "9487b52a-912c-4c27-b74a-56ba1144e806",
@@ -4328,12 +4582,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.527319997451022
     },
     {
       "user_id": "e84b48c1-8a68-4891-a166-086356cdb2ec",
@@ -4345,12 +4600,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 0.7898427638858441
     },
     {
       "user_id": "bc6b67d0-c27f-4e3f-a965-a4983a9fb5bf",
@@ -4362,12 +4618,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.699303193371282
     },
     {
       "user_id": "30A402EF-3b90-4123-a0af-926f65097b34",
@@ -4379,12 +4636,13 @@
       "record_count": 11,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.4849066497880004,
+      "duration_minutes_log": 1.0176492502126833
     },
     {
       "user_id": "791af217-3905-4cba-b368-debda7522a5d",
@@ -4396,12 +4654,13 @@
       "record_count": 25,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 3.258096538021482,
+      "duration_minutes_log": 1.7290562998386263
     },
     {
       "user_id": "3c7393ee-ded0-4531-8708-01ed8a9f61b8",
@@ -4413,12 +4672,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 0.866925402328826
     },
     {
       "user_id": "b6e9d2e9-335a-467a-82cd-23b3008dd104",
@@ -4430,12 +4690,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.2596771059013432
     },
     {
       "user_id": "32fe3b83-bf69-4ed7-befa-9355fe3ff261",
@@ -4447,12 +4708,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "9d682456-6b42-40a3-a325-76e5b7abc088",
@@ -4464,12 +4726,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.3977465073140899
     },
     {
       "user_id": "0b55d710-82f7-4026-91b7-3a55eca7598a",
@@ -4481,12 +4744,13 @@
       "record_count": 12,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.5649493574615367,
+      "duration_minutes_log": 1.64494983343546
     },
     {
       "user_id": "78589227-84d9-4ea8-9d9d-a96a6f25ffab",
@@ -4498,12 +4762,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.7947631943127887
     },
     {
       "user_id": "e5f89f15-9ea1-42cf-b97b-9147de8da8d8",
@@ -4515,12 +4780,13 @@
       "record_count": 15,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.772588722239781,
+      "duration_minutes_log": 1.946312449074189
     },
     {
       "user_id": "6aa468ec-4141-439b-8458-a6b4ce92e2d2",
@@ -4532,12 +4798,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.46538883075738385
     },
     {
       "user_id": "d7dd2f48-25fa-4501-9805-3d3dfe85e2c3",
@@ -4549,12 +4816,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 1.4686919861054786
     },
     {
       "user_id": "d63718c4-27ee-4c4f-a4da-d15960ff8db5",
@@ -4566,12 +4834,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.4097585772637626
     },
     {
       "user_id": "aa0ca0b6-61ee-46e5-84b2-de24403c47ac",
@@ -4583,12 +4852,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.8979706051307875
     },
     {
       "user_id": "6dfbf3d5-0828-4a27-8b44-2ab92ff7b8f3",
@@ -4600,12 +4870,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.436238620969394
     },
     {
       "user_id": "204abc00-6b36-4c10-8196-dd574236ec99",
@@ -4617,12 +4888,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.2157580842931484
     },
     {
       "user_id": "512d8a94-8ef4-4121-8869-69cda6f97e2b",
@@ -4634,12 +4906,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.6587886279235063
     },
     {
       "user_id": "1f888e18-f015-4e9a-8d1d-5a4936057f47",
@@ -4651,12 +4924,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 0.5315787795589472
     },
     {
       "user_id": "355aeefc-cdd0-4c9e-aaff-16f4c30a4ffb",
@@ -4668,12 +4942,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 1.8593324442500732
     },
     {
       "user_id": "ed43ff84-2de9-47fa-9026-40a5193fa7bd",
@@ -4685,12 +4960,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.6372556109926487
     },
     {
       "user_id": "4e49bf5f-cc09-430b-9796-7bee4f60e35a",
@@ -4702,12 +4978,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "4e49bf5f-cc09-430b-9796-7bee4f60e35a",
@@ -4719,12 +4996,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.4589637467133165
     },
     {
       "user_id": "4e1a417b-cd15-479c-8da8-978e46111b1e",
@@ -4736,12 +5014,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.2606413759905708
     },
     {
       "user_id": "21ccb1f6-dc8d-4f3a-a40d-1794afa5db60",
@@ -4753,12 +5032,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.595802031610935
     },
     {
       "user_id": "dea8fe76-6f16-44b6-bdb1-c19f5d1d2a07",
@@ -4770,12 +5050,13 @@
       "record_count": 8,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.1972245773362196,
+      "duration_minutes_log": 1.2559436191446762
     },
     {
       "user_id": "5e3a7c4d-4fc8-47c7-9965-a0c0dd17ebb6",
@@ -4787,12 +5068,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "7ff66935-1cda-4470-97b8-1048d9a250f5",
@@ -4804,12 +5086,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.75,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "fb2126cc-fa94-4013-b266-90143366ba2a",
@@ -4821,12 +5104,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.0592417865192392
     },
     {
       "user_id": "dc8392d8-99c5-438f-b35e-49349a1e5daf",
@@ -4838,12 +5122,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 12
+      "business_cluster": 10,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "52ab2ad8-de88-40ad-9372-2f46dfe9d62d",
@@ -4855,12 +5140,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.6833577534277459
     },
     {
       "user_id": "aa1a9f26-6440-4b41-8398-4ffb4c73a0de",
@@ -4872,12 +5158,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "f5d63329-72db-4a11-9cfe-6c62260238ce",
@@ -4889,12 +5176,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.9416702208689192
     },
     {
       "user_id": "ba88f716-d723-4502-8e93-677c1d68c1f6",
@@ -4906,12 +5194,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.2796784281257587
     },
     {
       "user_id": "aa47ab59-db15-4228-b15e-4be79133779d",
@@ -4923,12 +5212,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 1.018859353821187
     },
     {
       "user_id": "5b3838e5-1b82-4cba-a00e-c26e3861122c",
@@ -4940,12 +5230,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.8931039848988193
     },
     {
       "user_id": "516bd6b3-6357-462a-aa57-8e25fb43d26c",
@@ -4957,12 +5248,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.718668717790023
     },
     {
       "user_id": "320333e6-641c-47e7-ae88-269084d717ec",
@@ -4974,12 +5266,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 3,
       "concern_focus": 4,
       "core_need": 1,
       "intent_score": 0.85,
-      "business_cluster": 3
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "9af598c3-086d-4eac-b5bd-75b9a9784010",
@@ -4991,12 +5284,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.847576393021959
     },
     {
       "user_id": "e7c1481a-46aa-491d-8b26-7860259b3aef",
@@ -5008,12 +5302,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 6
+      "business_cluster": 8,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "d39d707e-510c-4d63-b253-2a862eccab2a",
@@ -5025,12 +5320,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 2.341374623457841
     },
     {
       "user_id": "d39d707e-510c-4d63-b253-2a862eccab2a",
@@ -5042,12 +5338,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "b2a23af3-0ff8-4255-a0e1-8bbd3b979f67",
@@ -5059,12 +5356,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.08004270767353644
     },
     {
       "user_id": "63dfea55-75b4-441d-a3fb-4c81364b704a",
@@ -5076,12 +5374,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.6783549800850732
     },
     {
       "user_id": "9a0bd96b-1ffb-4cc7-8aaf-c5b4ec129461",
@@ -5093,12 +5392,13 @@
       "record_count": 9,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 5,
+      "record_count_log": 2.302585092994046,
+      "duration_minutes_log": 1.6628712486311503
     },
     {
       "user_id": "9a0bd96b-1ffb-4cc7-8aaf-c5b4ec129461",
@@ -5110,12 +5410,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 7
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "593b530f-aab5-4bed-9936-0dc56b756cf2",
@@ -5127,12 +5428,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 1.4857663232272131
     },
     {
       "user_id": "593b530f-aab5-4bed-9936-0dc56b756cf2",
@@ -5144,12 +5446,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 0
+      "business_cluster": 13,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "190f71fb-0ea6-4ef0-8aee-21119c0aeea7",
@@ -5161,12 +5464,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.5262881606720675
     },
     {
       "user_id": "25e25e3b-e322-4c12-b609-6565f375b9d8",
@@ -5178,12 +5482,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.377785539001422
     },
     {
       "user_id": "d875f2a9-8910-4149-801f-153d974df44e",
@@ -5195,12 +5500,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.7729821743547551
     },
     {
       "user_id": "42fa8d27-1549-45a2-860d-466363706d67",
@@ -5212,12 +5518,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.2027820957137145
     },
     {
       "user_id": "7b897907-1a17-4046-ae6a-05af4a57d56d",
@@ -5229,12 +5536,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.7818370092721737
     },
     {
       "user_id": "ae0e6fe1-f86c-4d11-a6df-7140af10a88b",
@@ -5246,12 +5554,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.5618608848658156
     },
     {
       "user_id": "43b4d845-1c30-4b51-aee4-956f94179728",
@@ -5263,12 +5572,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.39920108557509876
     },
     {
       "user_id": "db44f036-1720-4d37-8748-5b78da171d5a",
@@ -5280,12 +5590,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.2442264045230074
     },
     {
       "user_id": "db44f036-1720-4d37-8748-5b78da171d5a",
@@ -5297,12 +5608,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 1,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.3,
-      "business_cluster": 13
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "db44f036-1720-4d37-8748-5b78da171d5a",
@@ -5314,12 +5626,13 @@
       "record_count": 5,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.791759469228055,
+      "duration_minutes_log": 1.779512558809233
     },
     {
       "user_id": "451be6b0-9519-4d9b-ad12-413fb5016df3",
@@ -5331,12 +5644,13 @@
       "record_count": 7,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 9,
+      "record_count_log": 2.0794415416798357,
+      "duration_minutes_log": 0.8152689384818628
     },
     {
       "user_id": "398e8f88-5490-4d68-92d0-a835878ab379",
@@ -5348,12 +5662,13 @@
       "record_count": 3,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.3862943611198906,
+      "duration_minutes_log": 0.7736128756847519
     },
     {
       "user_id": "8a19c9e7-a6e4-4748-a58b-5a302c0697cd",
@@ -5365,12 +5680,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 1.8125229637194946
     },
     {
       "user_id": "85214b37-fce6-4c30-a9eb-86ebb47112c7",
@@ -5382,12 +5698,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "df8d0e21-638a-4d08-86f2-d669e4c19c31",
@@ -5399,12 +5716,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "a2be719e-178c-40ff-bef7-e4394f911290",
@@ -5416,12 +5734,13 @@
       "record_count": 6,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 2,
+      "record_count_log": 1.9459101490553132,
+      "duration_minutes_log": 2.0292594717588837
     },
     {
       "user_id": "ece58ac6-9dcd-4d00-bfcd-096565677dee",
@@ -5433,12 +5752,13 @@
       "record_count": 4,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 11,
+      "record_count_log": 1.6094379124341003,
+      "duration_minutes_log": 0.8662948411084654
     },
     {
       "user_id": "5dc34309-2e8a-47db-844d-d8ce89ca92de",
@@ -5450,12 +5770,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.8,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "d808025f-fb81-4a79-b872-a09852c05a1a",
@@ -5467,12 +5788,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "662b9daf-4805-4f54-bf3f-81dc9d733910",
@@ -5484,12 +5806,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 11
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "82f5544b-fccf-4a59-8262-986ea36fa11a",
@@ -5501,12 +5824,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "93654291-2931-4e08-b292-a1080e34bc1a",
@@ -5518,12 +5842,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 1,
       "concern_focus": 3,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 12
+      "business_cluster": 10,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "0c629947-31b1-49ad-b948-46da545795f9",
@@ -5535,12 +5860,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.6107795501245163
     },
     {
       "user_id": "81be350a-a154-47ca-b3ca-a58ca63ff0f5",
@@ -5552,12 +5878,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "3157b8bc-58a8-4a48-9750-293a9ff640a9",
@@ -5569,12 +5896,13 @@
       "record_count": 2,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 1.0986122886681098,
+      "duration_minutes_log": 0.3918956806626289
     },
     {
       "user_id": "a249c4c6-8ecf-4b19-b3ba-871fbda01dca",
@@ -5586,12 +5914,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "17361842-e402-4111-8b02-d42cf45b984e",
@@ -5603,12 +5932,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "6627ce8b-13a2-425d-a034-488730f3cd85",
@@ -5620,12 +5950,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 0,
       "core_need": 3,
       "intent_score": 0.85,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "195eab79-8ffa-4965-b97d-5a71b409c8e6",
@@ -5637,12 +5968,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 11
+      "business_cluster": 7,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "dfde19ee-d14c-46b4-8842-10342d5c9b2f",
@@ -5654,12 +5986,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 0
+      "business_cluster": 13,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "e753fafa-4b0c-4505-80d1-55cb9c4ae12d",
@@ -5671,12 +6004,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 4,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 0
+      "business_cluster": 13,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "0147d142-ac66-4962-868e-3019ba1788a3",
@@ -5688,12 +6022,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 11
+      "business_cluster": 12,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "a3812865-df8a-40de-82cc-0ac4c432a746",
@@ -5705,12 +6040,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 14
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "dae66e48-4cc8-48b8-8d38-f44f23d7cf29",
@@ -5722,12 +6058,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "7cd91370-cb0c-4513-ae29-febe92fa17a6",
@@ -5739,12 +6076,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 14
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "2c037b7c-50e7-49d2-acb2-04ff1970a45d",
@@ -5756,12 +6094,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 5,
       "concern_focus": 4,
       "core_need": 3,
       "intent_score": 0.5,
-      "business_cluster": 17
+      "business_cluster": 0,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "56203742-0315-46a7-8625-6675ef86c878",
@@ -5773,12 +6112,13 @@
       "record_count": 1,
       "purchase_stage": 1,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 3,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 7
+      "business_cluster": 1,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "a9370381-9a00-4cef-b921-f284f6b70968",
@@ -5790,12 +6130,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 4,
       "concern_focus": 1,
       "core_need": 3,
       "intent_score": 0.9,
-      "business_cluster": 5
+      "business_cluster": 4,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "ea10039e-5dac-4a93-a2a6-99b5d4bfdeea",
@@ -5807,12 +6148,13 @@
       "record_count": 1,
       "purchase_stage": 0,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 2,
       "core_need": 0,
       "intent_score": 0.85,
-      "business_cluster": 2
+      "business_cluster": 3,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "f612a131-20c5-44ec-9c54-bf7e5e32ef65",
@@ -5824,12 +6166,13 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 0,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.95,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     },
     {
       "user_id": "c68d37c7-382c-436f-a071-71aaf31cbcd3",
@@ -5841,312 +6184,358 @@
       "record_count": 1,
       "purchase_stage": 2,
       "price_sensitivity": 2,
-      "engagement_level": 0,
       "product_preference": 2,
       "concern_focus": 1,
       "core_need": 0,
       "intent_score": 0.9,
-      "business_cluster": 8
+      "business_cluster": 6,
+      "record_count_log": 0.6931471805599453,
+      "duration_minutes_log": 0.0009995003330835331
     }
   ],
   "clustering": {
     "n_clusters": 15,
     "cluster_labels": {
       "0": {
-        "short_label": "高端价值型·决策型",
-        "full_label": "高端价值型·决策型·F1偏好·止鼾需求",
+        "short_label": "快速浏览·低紧迫",
+        "full_label": "快速浏览·低紧迫·综合关注·综合需求",
+        "action_priority": "中优先级",
+        "recommended_action": "优化首屏内容，快速抓住注意力",
         "characteristics": {
-          "stage": "决策阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
+          "behavior": "快速浏览",
+          "urgency": "低紧迫",
+          "stage": "浏览阶段",
+          "product": "多产品比较",
+          "concern": "综合关注",
+          "need": "综合需求"
+        },
+        "avg_features": {
+          "record_count": 1.8840579710144927,
+          "duration_minutes": 0.2863009661835749,
+          "intent_score": 0.49710144927536226,
+          "purchase_stage": 0.0,
+          "product_preference": 5,
+          "concern_focus": 4,
+          "core_need": 3
+        }
+      },
+      "1": {
+        "short_label": "👁️单次浏览·中紧迫",
+        "full_label": "👁️单次浏览·中紧迫·F1偏好·止鼾需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
+        "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "中紧迫",
+          "stage": "对比阶段",
           "product": "F1偏好",
           "concern": "有效性导向",
           "need": "止鼾需求"
         },
         "avg_features": {
-          "purchase_stage": 2.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.8676470588235294,
+          "purchase_stage": 1.0,
           "product_preference": 2,
           "concern_focus": 3,
           "core_need": 0
         }
       },
       "2": {
-        "short_label": "高端价值型·快速浏览",
-        "full_label": "高端价值型·快速浏览·Z6偏好·止鼾需求",
+        "short_label": "🔍深度研究·低紧迫",
+        "full_label": "🔍深度研究·低紧迫·综合关注·综合需求",
+        "action_priority": "高优先级",
+        "recommended_action": "提供专业咨询和转化激励",
         "characteristics": {
+          "behavior": "深度研究",
+          "urgency": "低紧迫",
           "stage": "浏览阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
-          "product": "Z6偏好",
-          "concern": "价格导向",
-          "need": "止鼾需求"
-        },
-        "avg_features": {
-          "purchase_stage": 0.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
-          "product_preference": 0,
-          "concern_focus": 1,
-          "core_need": 0
-        }
-      },
-      "3": {
-        "short_label": "中等价格型·快速浏览",
-        "full_label": "中等价格型·快速浏览·F1偏好·颈部疼痛",
-        "characteristics": {
-          "stage": "浏览阶段",
-          "price": "中等价格型",
-          "engagement": "快速浏览者",
-          "product": "F1偏好",
-          "concern": "综合关注",
-          "need": "颈部疼痛"
-        },
-        "avg_features": {
-          "purchase_stage": 0.0,
-          "price_sensitivity": 1.0,
-          "engagement_level": 0.0,
-          "product_preference": 2,
-          "concern_focus": 4,
-          "core_need": 1
-        }
-      },
-      "4": {
-        "short_label": "中等价格型·对比型",
-        "full_label": "中等价格型·对比型·A1偏好·颈部疼痛",
-        "characteristics": {
-          "stage": "对比阶段",
-          "price": "中等价格型",
-          "engagement": "快速浏览者",
-          "product": "A1偏好",
-          "concern": "功能导向",
-          "need": "颈部疼痛"
-        },
-        "avg_features": {
-          "purchase_stage": 1.0,
-          "price_sensitivity": 1.0,
-          "engagement_level": 0.0,
-          "product_preference": 1,
-          "concern_focus": 0,
-          "core_need": 1
-        }
-      },
-      "5": {
-        "short_label": "高端价值型·快速浏览",
-        "full_label": "高端价值型·快速浏览·F1偏好·综合需求",
-        "characteristics": {
-          "stage": "浏览阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
-          "product": "F1偏好",
-          "concern": "价格导向",
-          "need": "综合需求"
-        },
-        "avg_features": {
-          "purchase_stage": 0.07692307692307693,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
-          "product_preference": 2,
-          "concern_focus": 1,
-          "core_need": 3
-        }
-      },
-      "6": {
-        "short_label": "高端价值型·快速浏览",
-        "full_label": "高端价值型·快速浏览·H02偏好·综合需求",
-        "characteristics": {
-          "stage": "浏览阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
-          "product": "H02偏好",
-          "concern": "综合关注",
-          "need": "综合需求"
-        },
-        "avg_features": {
-          "purchase_stage": 0.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
-          "product_preference": 3,
-          "concern_focus": 4,
-          "core_need": 3
-        }
-      },
-      "7": {
-        "short_label": "高端价值型·对比型",
-        "full_label": "高端价值型·对比型·F1偏好·止鼾需求",
-        "characteristics": {
-          "stage": "对比阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
-          "product": "F1偏好",
-          "concern": "有效性导向",
-          "need": "止鼾需求"
-        },
-        "avg_features": {
-          "purchase_stage": 1.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
-          "product_preference": 2,
-          "concern_focus": 3,
-          "core_need": 0
-        }
-      },
-      "8": {
-        "short_label": "高端价值型·决策型",
-        "full_label": "高端价值型·决策型·Z6偏好·止鼾需求",
-        "characteristics": {
-          "stage": "决策阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
-          "product": "Z6偏好",
-          "concern": "价格导向",
-          "need": "止鼾需求"
-        },
-        "avg_features": {
-          "purchase_stage": 2.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
-          "product_preference": 0,
-          "concern_focus": 1,
-          "core_need": 0
-        }
-      },
-      "9": {
-        "short_label": "中等价格型·决策型",
-        "full_label": "中等价格型·决策型·F1偏好·止鼾需求",
-        "characteristics": {
-          "stage": "决策阶段",
-          "price": "中等价格型",
-          "engagement": "快速浏览者",
-          "product": "F1偏好",
-          "concern": "价格导向",
-          "need": "止鼾需求"
-        },
-        "avg_features": {
-          "purchase_stage": 2.0,
-          "price_sensitivity": 1.0,
-          "engagement_level": 0.0,
-          "product_preference": 2,
-          "concern_focus": 1,
-          "core_need": 0
-        }
-      },
-      "10": {
-        "short_label": "中等价格型·对比型",
-        "full_label": "中等价格型·对比型·F1偏好·颈部疼痛",
-        "characteristics": {
-          "stage": "对比阶段",
-          "price": "中等价格型",
-          "engagement": "快速浏览者",
-          "product": "F1偏好",
-          "concern": "有效性导向",
-          "need": "颈部疼痛"
-        },
-        "avg_features": {
-          "purchase_stage": 1.0,
-          "price_sensitivity": 1.0,
-          "engagement_level": 0.0,
-          "product_preference": 2,
-          "concern_focus": 3,
-          "core_need": 1
-        }
-      },
-      "11": {
-        "short_label": "高端价值型·快速浏览",
-        "full_label": "高端价值型·快速浏览·F1偏好·止鼾需求",
-        "characteristics": {
-          "stage": "浏览阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
-          "product": "F1偏好",
-          "concern": "综合关注",
-          "need": "止鼾需求"
-        },
-        "avg_features": {
-          "purchase_stage": 0.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
-          "product_preference": 2,
-          "concern_focus": 4,
-          "core_need": 0
-        }
-      },
-      "12": {
-        "short_label": "高端价值型·决策型",
-        "full_label": "高端价值型·决策型·A1偏好·综合需求",
-        "characteristics": {
-          "stage": "决策阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
-          "product": "A1偏好",
-          "concern": "价格导向",
-          "need": "综合需求"
-        },
-        "avg_features": {
-          "purchase_stage": 2.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
-          "product_preference": 1,
-          "concern_focus": 1,
-          "core_need": 3
-        }
-      },
-      "13": {
-        "short_label": "中等价格型·快速浏览",
-        "full_label": "中等价格型·快速浏览·综合关注·综合需求",
-        "characteristics": {
-          "stage": "浏览阶段",
-          "price": "中等价格型",
-          "engagement": "快速浏览者",
           "product": "多产品比较",
           "concern": "综合关注",
           "need": "综合需求"
         },
         "avg_features": {
+          "record_count": 5.222222222222222,
+          "duration_minutes": 6.144578395061728,
+          "intent_score": 0.5,
           "purchase_stage": 0.0,
-          "price_sensitivity": 1.0,
-          "engagement_level": 0.0,
           "product_preference": 5,
           "concern_focus": 4,
           "core_need": 3
         }
       },
-      "14": {
-        "short_label": "高端价值型·对比型",
-        "full_label": "高端价值型·对比型·Z6偏好·止鼾需求",
+      "3": {
+        "short_label": "👁️单次浏览·中紧迫",
+        "full_label": "👁️单次浏览·中紧迫·Z6偏好·止鼾需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
         "characteristics": {
-          "stage": "对比阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
+          "behavior": "单次浏览",
+          "urgency": "中紧迫",
+          "stage": "浏览阶段",
           "product": "Z6偏好",
           "concern": "价格导向",
           "need": "止鼾需求"
         },
         "avg_features": {
-          "purchase_stage": 1.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.8600000000000001,
+          "purchase_stage": 0.05,
           "product_preference": 0,
           "concern_focus": 1,
           "core_need": 0
         }
       },
-      "17": {
-        "short_label": "高端价值型·快速浏览",
-        "full_label": "高端价值型·快速浏览·综合关注·综合需求",
+      "4": {
+        "short_label": "👁️单次浏览·中紧迫",
+        "full_label": "👁️单次浏览·中紧迫·F1偏好·综合需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
         "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "中紧迫",
           "stage": "浏览阶段",
-          "price": "高端价值型",
-          "engagement": "快速浏览者",
+          "product": "F1偏好",
+          "concern": "价格导向",
+          "need": "综合需求"
+        },
+        "avg_features": {
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.875,
+          "purchase_stage": 0.0,
+          "product_preference": 2,
+          "concern_focus": 1,
+          "core_need": 3
+        }
+      },
+      "5": {
+        "short_label": "🔍深度研究·低紧迫",
+        "full_label": "🔍深度研究·低紧迫·综合关注·综合需求",
+        "action_priority": "高优先级",
+        "recommended_action": "提供专业咨询和转化激励",
+        "characteristics": {
+          "behavior": "深度研究",
+          "urgency": "低紧迫",
+          "stage": "浏览阶段",
           "product": "多产品比较",
           "concern": "综合关注",
           "need": "综合需求"
         },
         "avg_features": {
+          "record_count": 15.090909090909092,
+          "duration_minutes": 4.80539393939394,
+          "intent_score": 0.5,
           "purchase_stage": 0.0,
-          "price_sensitivity": 2.0,
-          "engagement_level": 0.0,
+          "product_preference": 5,
+          "concern_focus": 4,
+          "core_need": 3
+        }
+      },
+      "6": {
+        "short_label": "⚡高紧迫·单次浏览",
+        "full_label": "⚡高紧迫·单次浏览·Z6偏好·止鼾需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
+        "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "高紧迫",
+          "stage": "决策阶段",
+          "product": "Z6偏好",
+          "concern": "价格导向",
+          "need": "止鼾需求"
+        },
+        "avg_features": {
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.9125000000000001,
+          "purchase_stage": 2.0,
+          "product_preference": 0,
+          "concern_focus": 1,
+          "core_need": 0
+        }
+      },
+      "7": {
+        "short_label": "👁️单次浏览·中紧迫",
+        "full_label": "👁️单次浏览·中紧迫·F1偏好·止鼾需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
+        "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "中紧迫",
+          "stage": "浏览阶段",
+          "product": "F1偏好",
+          "concern": "综合关注",
+          "need": "止鼾需求"
+        },
+        "avg_features": {
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.825,
+          "purchase_stage": 0.0,
+          "product_preference": 2,
+          "concern_focus": 4,
+          "core_need": 0
+        }
+      },
+      "8": {
+        "short_label": "👁️单次浏览·中紧迫",
+        "full_label": "👁️单次浏览·中紧迫·H02偏好·综合需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
+        "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "中紧迫",
+          "stage": "浏览阶段",
+          "product": "H02偏好",
+          "concern": "综合关注",
+          "need": "综合需求"
+        },
+        "avg_features": {
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.8227272727272728,
+          "purchase_stage": 0.0,
+          "product_preference": 3,
+          "concern_focus": 4,
+          "core_need": 3
+        }
+      },
+      "9": {
+        "short_label": "中等参与·低紧迫",
+        "full_label": "中等参与·低紧迫·综合关注·综合需求",
+        "action_priority": "中高优先级",
+        "recommended_action": "提供详细信息和引导",
+        "characteristics": {
+          "behavior": "中等参与",
+          "urgency": "低紧迫",
+          "stage": "浏览阶段",
+          "product": "多产品比较",
+          "concern": "综合关注",
+          "need": "综合需求"
+        },
+        "avg_features": {
+          "record_count": 7.275,
+          "duration_minutes": 2.3797566666666667,
+          "intent_score": 0.5,
+          "purchase_stage": 0.0,
+          "product_preference": 5,
+          "concern_focus": 4,
+          "core_need": 3
+        }
+      },
+      "10": {
+        "short_label": "⚡高紧迫·单次浏览",
+        "full_label": "⚡高紧迫·单次浏览·A1偏好·综合需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
+        "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "高紧迫",
+          "stage": "决策阶段",
+          "product": "A1偏好",
+          "concern": "价格导向",
+          "need": "综合需求"
+        },
+        "avg_features": {
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.8666666666666668,
+          "purchase_stage": 1.5,
+          "product_preference": 1,
+          "concern_focus": 1,
+          "core_need": 3
+        }
+      },
+      "11": {
+        "short_label": "中等参与·低紧迫",
+        "full_label": "中等参与·低紧迫·综合关注·综合需求",
+        "action_priority": "中高优先级",
+        "recommended_action": "提供详细信息和引导",
+        "characteristics": {
+          "behavior": "中等参与",
+          "urgency": "低紧迫",
+          "stage": "浏览阶段",
+          "product": "多产品比较",
+          "concern": "综合关注",
+          "need": "综合需求"
+        },
+        "avg_features": {
+          "record_count": 3.5689655172413794,
+          "duration_minutes": 1.3883359195402298,
+          "intent_score": 0.5,
+          "purchase_stage": 0.0,
+          "product_preference": 5,
+          "concern_focus": 4,
+          "core_need": 3
+        }
+      },
+      "12": {
+        "short_label": "👁️单次浏览·中紧迫",
+        "full_label": "👁️单次浏览·中紧迫·F1偏好·止鼾需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
+        "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "中紧迫",
+          "stage": "浏览阶段",
+          "product": "F1偏好",
+          "concern": "舒适度导向",
+          "need": "止鼾需求"
+        },
+        "avg_features": {
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.8464285714285714,
+          "purchase_stage": 0.0,
+          "product_preference": 2,
+          "concern_focus": 2,
+          "core_need": 0
+        }
+      },
+      "13": {
+        "short_label": "⚡高紧迫·单次浏览",
+        "full_label": "⚡高紧迫·单次浏览·F1偏好·止鼾需求",
+        "action_priority": "低优先级",
+        "recommended_action": "观察，无需立即反应",
+        "characteristics": {
+          "behavior": "单次浏览",
+          "urgency": "高紧迫",
+          "stage": "决策阶段",
+          "product": "F1偏好",
+          "concern": "有效性导向",
+          "need": "止鼾需求"
+        },
+        "avg_features": {
+          "record_count": 1.0,
+          "duration_minutes": 0.0,
+          "intent_score": 0.9199999999999999,
+          "purchase_stage": 2.0,
+          "product_preference": 2,
+          "concern_focus": 3,
+          "core_need": 0
+        }
+      },
+      "14": {
+        "short_label": "🔍深度研究·低紧迫",
+        "full_label": "🔍深度研究·低紧迫·综合关注·综合需求",
+        "action_priority": "高优先级",
+        "recommended_action": "提供专业咨询和转化激励",
+        "characteristics": {
+          "behavior": "深度研究",
+          "urgency": "低紧迫",
+          "stage": "浏览阶段",
+          "product": "多产品比较",
+          "concern": "综合关注",
+          "need": "综合需求"
+        },
+        "avg_features": {
+          "record_count": 23.333333333333332,
+          "duration_minutes": 13.898500000000002,
+          "intent_score": 0.5,
+          "purchase_stage": 0.0,
           "product_preference": 5,
           "concern_focus": 4,
           "core_need": 3
@@ -6154,21 +6543,21 @@
       }
     },
     "cluster_counts": {
-      "17": 230,
-      "2": 20,
-      "11": 19,
-      "5": 13,
-      "3": 12,
+      "0": 69,
+      "11": 58,
+      "9": 40,
+      "2": 27,
+      "5": 22,
+      "3": 20,
+      "1": 17,
+      "7": 16,
+      "14": 15,
+      "12": 14,
+      "6": 12,
+      "4": 12,
       "8": 11,
-      "6": 9,
-      "10": 7,
-      "14": 6,
-      "7": 5,
-      "0": 4,
-      "12": 3,
-      "4": 2,
-      "9": 2,
-      "13": 1
+      "10": 6,
+      "13": 5
     }
   }
 }

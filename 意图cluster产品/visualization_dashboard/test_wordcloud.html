@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>词云测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/build/wordcloud2.min.js"></script>
+    <style>
+        body {
+            background: #0E1624;
+            color: #ECF2F5;
+            padding: 2rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        canvas {
+            background: #111827;
+            border: 1px solid #1F2937;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .info {
+            background: #1F2937;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>词云测试</h1>
+        <div class="info">
+            <h3>测试数据：</h3>
+            <pre id="testData"></pre>
+        </div>
+        <canvas id="wordcloud-test" width="600" height="300"></canvas>
+        <div class="info">
+            <h3>渲染结果：</h3>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟用户画像数据
+        const testPortrait = {
+            cluster_id: "1",
+            characteristics: {
+                behavior: "深度研究",
+                urgency: "中紧迫",
+                stage: "对比阶段",
+                product: "F1偏好",
+                concern: "有效性导向",
+                need: "止鼾需求"
+            },
+            intent_profile: {
+                main_appeal: {
+                    "止鼾需求": 17
+                },
+                concerns: {
+                    "有效性导向": 17
+                },
+                price_range: {
+                    "高端价值型": 17
+                }
+            },
+            product_preferences: {
+                "F1偏好": 17
+            }
+        };
+
+        const testInsight = {
+            cluster_id: "1",
+            user_segment_name: "👁️单次浏览·中紧迫",
+            key_characteristics: [
+                "用户规模: 16 个独立用户，17 个意图片段",
+                "平均浏览时长: 瞬时浏览（单次交互）",
+                "平均交互次数: 1.0 次",
+                "平均意图强度: 0.87",
+                "购买阶段: 对比阶段",
+                "价格敏感度: 高端价值型",
+                "参与度: 快速浏览者",
+                "产品偏好: F1偏好",
+                "关注点: 有效性导向",
+                "核心需求: 止鼾需求"
+            ],
+            product_recommendations: [
+                "【主推产品】F1偏好",
+                "重点展示F1偏好的核心功能和优势",
+                "提供F1偏好的详细页面、视频、用户评价"
+            ]
+        };
+
+        // 准备词云数据
+        function prepareWordCloudData(portrait, insight) {
+            const words = [];
+            
+            console.log('开始准备词云数据...');
+            console.log('Portrait:', portrait);
+            console.log('Insight:', insight);
+            
+            // 从特征中提取关键词（权重较高）
+            if (portrait.characteristics) {
+                Object.entries(portrait.characteristics).forEach(([key, value]) => {
+                    if (value && typeof value === 'string' && value !== '未知') {
+                        // 根据特征类型设置不同权重
+                        const weightMap = {
+                            'behavior': 50,  // 行为模式最重要
+                            'urgency': 45,   // 紧迫度次重要
+                            'stage': 40,     // 购买阶段
+                            'product': 35,   // 产品偏好
+                            'concern': 30,   // 关注点
+                            'need': 40       // 核心需求
+                        };
+                        const size = weightMap[key] || 30;
+                        words.push({ text: value, size: size });
+                        console.log(`添加特征词: ${value} (权重: ${size})`);
+                    }
+                });
+            }
+            
+            // 从核心需求中提取（高权重）
+            if (portrait.intent_profile?.main_appeal) {
+                Object.keys(portrait.intent_profile.main_appeal).forEach(key => {
+                    if (key && key !== '综合需求') {
+                        words.push({ text: key, size: 45 });
+                        console.log(`添加核心需求: ${key} (权重: 45)`);
+                    }
+                });
+            }
+            
+            // 从关注点中提取
+            if (portrait.intent_profile?.concerns) {
+                Object.keys(portrait.intent_profile.concerns).forEach(key => {
+                    if (key && key !== '综合关注') {
+                        words.push({ text: key, size: 35 });
+                        console.log(`添加关注点: ${key} (权重: 35)`);
+                    }
+                });
+            }
+            
+            // 从产品偏好中提取
+            if (portrait.product_preferences) {
+                Object.keys(portrait.product_preferences).forEach(key => {
+                    if (key && key !== '多产品比较' && !key.includes('偏好')) {
+                        const cleanKey = key.replace('偏好', '').trim();
+                        if (cleanKey) {
+                            words.push({ text: cleanKey, size: 30 });
+                            console.log(`添加产品: ${cleanKey} (权重: 30)`);
+                        }
+                    } else if (key.includes('偏好')) {
+                        // 提取产品名称（如"F1偏好" -> "F1"）
+                        const productName = key.replace('偏好', '').trim();
+                        if (productName) {
+                            words.push({ text: productName, size: 30 });
+                            console.log(`添加产品名: ${productName} (权重: 30)`);
+                        }
+                    }
+                });
+            }
+            
+            // 从价格偏好中提取
+            if (portrait.intent_profile?.price_range) {
+                Object.keys(portrait.intent_profile.price_range).forEach(key => {
+                    if (key && key !== '高端价值型') {
+                        words.push({ text: key, size: 25 });
+                        console.log(`添加价格偏好: ${key} (权重: 25)`);
+                    }
+                });
+            }
+            
+            // 从业务洞察中提取关键词
+            if (insight) {
+                if (insight.product_recommendations) {
+                    insight.product_recommendations.forEach(rec => {
+                        const keywords = rec.match(/【([^】]+)】/g);
+                        if (keywords) {
+                            keywords.forEach(kw => {
+                                const text = kw.replace(/【|】/g, '');
+                                words.push({ text: text, size: 20 });
+                                console.log(`添加推荐关键词: ${text} (权重: 20)`);
+                            });
+                        }
+                    });
+                }
+                
+                // 从核心需求中提取
+                if (insight.key_characteristics) {
+                    insight.key_characteristics.forEach(char => {
+                        if (char.includes('核心需求:')) {
+                            const need = char.split('核心需求:')[1]?.trim();
+                            if (need && need !== '综合需求') {
+                                words.push({ text: need, size: 40 });
+                                console.log(`从特征中提取核心需求: ${need} (权重: 40)`);
+                            }
+                        }
+                        if (char.includes('产品偏好:')) {
+                            const product = char.split('产品偏好:')[1]?.trim();
+                            if (product && product !== '多产品比较') {
+                                const cleanProduct = product.replace('偏好', '').trim();
+                                if (cleanProduct) {
+                                    words.push({ text: cleanProduct, size: 35 });
+                                    console.log(`从特征中提取产品: ${cleanProduct} (权重: 35)`);
+                                }
+                            }
+                        }
+                        if (char.includes('关注点:')) {
+                            const concern = char.split('关注点:')[1]?.trim();
+                            if (concern && concern !== '综合关注') {
+                                words.push({ text: concern, size: 30 });
+                                console.log(`从特征中提取关注点: ${concern} (权重: 30)`);
+                            }
+                        }
+                    });
+                }
+            }
+            
+            // 去重并合并相同词的权重
+            const wordMap = {};
+            words.forEach(w => {
+                if (wordMap[w.text]) {
+                    wordMap[w.text] = Math.max(wordMap[w.text], w.size); // 取最大值而不是累加
+                } else {
+                    wordMap[w.text] = w.size;
+                }
+            });
+            
+            console.log('词云数据映射:', wordMap);
+            
+            // 转换为词云格式 [text, size]，确保至少有一些词
+            const result = Object.entries(wordMap)
+                .filter(([text]) => text && text.length > 0)
+                .map(([text, size]) => [text, Math.min(Math.max(size, 15), 60)]);
+            
+            console.log('最终词云数据:', result);
+            
+            // 如果结果为空，添加默认词
+            if (result.length === 0) {
+                console.warn('词云数据为空，使用默认词');
+                return [['用户画像', 40], ['数据分析', 30], ['聚类分析', 25]];
+            }
+            
+            return result;
+        }
+
+        // 渲染词云
+        function renderWordCloud(canvasId, words) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.error('Canvas not found:', canvasId);
+                return;
+            }
+            
+            if (!words || words.length === 0) {
+                console.error('Word cloud data is empty');
+                canvas.parentElement.innerHTML = '<div style="padding: 40px; text-align: center; color: #8FA0B8;"><p>暂无词云数据</p></div>';
+                return;
+            }
+            
+            // 检查WordCloud是否可用
+            if (typeof WordCloud === 'undefined') {
+                console.error('WordCloud library not loaded');
+                canvas.parentElement.innerHTML = '<div style="padding: 40px; text-align: center; color: #8FA0B8;"><p>词云库未加载</p></div>';
+                return;
+            }
+            
+            console.log('开始渲染词云，数据:', words);
+            
+            // 计算频率范围，用于动态调整字体大小
+            const frequencies = words.map(w => w[1]);
+            const minFreq = Math.min(...frequencies);
+            const maxFreq = Math.max(...frequencies);
+            const freqRange = maxFreq - minFreq || 1;
+            
+            console.log('频率范围:', minFreq, '-', maxFreq);
+            
+            try {
+                WordCloud(canvas, {
+                    list: words,
+                    gridSize: Math.round(16 * 600 / 1024),
+                    weightFactor: function(size) {
+                        // 根据频率范围动态调整字体大小
+                        const normalizedFreq = (size - minFreq) / freqRange;
+                        const normalizedSize = Math.sqrt(normalizedFreq);
+                        
+                        const minFontSize = 12;
+                        const maxFontSize = 60;
+                        const fontSize = minFontSize + normalizedSize * (maxFontSize - minFontSize);
+                        
+                        return fontSize;
+                    },
+                    fontFamily: 'Arial, "Microsoft YaHei", sans-serif',
+                    color: function() {
+                        const colors = ['#7FE8C1', '#7DA6FF', '#A78BFA', '#F472B6', '#60A5FA', '#34D399', '#FBBF24'];
+                        return colors[Math.floor(Math.random() * colors.length)];
+                    },
+                    rotateRatio: 0.3,
+                    rotationSteps: 2,
+                    backgroundColor: 'transparent',
+                    minSize: 12,
+                    drawOutOfBound: false
+                });
+                console.log('词云渲染成功');
+                document.getElementById('result').innerHTML = '<p style="color: #7FE8C1;">✓ 词云渲染成功！</p>';
+            } catch (e) {
+                console.error('Error rendering word cloud:', e);
+                document.getElementById('result').innerHTML = `<p style="color: #FB7185;">✗ 渲染失败: ${e.message}</p>`;
+            }
+        }
+
+        // 显示测试数据
+        document.getElementById('testData').textContent = JSON.stringify({
+            portrait: testPortrait,
+            insight: testInsight
+        }, null, 2);
+
+        // 测试词云
+        window.addEventListener('load', function() {
+            console.log('页面加载完成，开始测试词云...');
+            const wordCloudData = prepareWordCloudData(testPortrait, testInsight);
+            console.log('准备的数据:', wordCloudData);
+            renderWordCloud('wordcloud-test', wordCloudData);
+        });
+    </script>
+</body>
+</html>
+
