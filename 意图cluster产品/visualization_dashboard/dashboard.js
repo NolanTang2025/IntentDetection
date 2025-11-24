@@ -135,7 +135,15 @@ function loadOverview() {
             const stage = stageMatch.split(':')[1]?.trim() || '未知';
             const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
             if (stage && size > 0) {
-                stageData[stage] = (stageData[stage] || 0) + size;
+                // 翻译阶段名称
+                const stageTranslations = {
+                    '浏览阶段': t('stages.browsing'),
+                    '对比阶段': t('stages.comparison'),
+                    '决策阶段': t('stages.decision'),
+                    '未知': currentLanguage === 'zh' ? '未知' : 'Unknown'
+                };
+                const translatedStage = stageTranslations[stage] || stage;
+                stageData[translatedStage] = (stageData[translatedStage] || 0) + size;
             }
         }
     });
@@ -152,7 +160,13 @@ function loadOverview() {
             const price = priceMatch.split(':')[1]?.trim() || '未知';
             const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
             if (price && size > 0) {
-                priceData[price] = (priceData[price] || 0) + size;
+                // 翻译价格偏好类型
+                let translatedPrice = price;
+                if (currentLanguage === 'en' && typeof translateKeyCharacteristic === 'function') {
+                    const translated = translateKeyCharacteristic(`价格敏感度: ${price}`);
+                    translatedPrice = translated.split(':')[1]?.trim() || price;
+                }
+                priceData[translatedPrice] = (priceData[translatedPrice] || 0) + size;
             }
         }
     });
@@ -169,7 +183,13 @@ function loadOverview() {
             const concern = concernMatch.split(':')[1]?.trim() || '未知';
             const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
             if (concern && size > 0) {
-                concernsData[concern] = (concernsData[concern] || 0) + size;
+                // 翻译关注点
+                let translatedConcern = concern;
+                if (currentLanguage === 'en' && typeof translateKeyCharacteristic === 'function') {
+                    const translated = translateKeyCharacteristic(`关注点: ${concern}`);
+                    translatedConcern = translated.split(':')[1]?.trim() || concern;
+                }
+                concernsData[translatedConcern] = (concernsData[translatedConcern] || 0) + size;
             }
         }
     });
