@@ -22,13 +22,12 @@ function showTab(tabName, element) {
         }
     });
     
-    // 更新页面标题和头部显示
+    // 更新页面标题和头部显示（使用多语言）
     const titleMap = {
-        'home': '用户意图聚类分析平台',
-        'overview': '数据总览',
-        'journey': '转化分析',
-        'clusters': '用户分析',
-        'insights': '业务洞察与建议'
+        'home': typeof t === 'function' ? t('home.title') : '用户意图聚类分析平台',
+        'overview': typeof t === 'function' ? t('header.overview') : '数据总览',
+        'journey': typeof t === 'function' ? t('journey.title') : '转化分析',
+        'clusters': typeof t === 'function' ? t('clusters.title') : '用户分析'
     };
     
     const dashboardHeader = document.getElementById('dashboardHeader');
@@ -41,6 +40,11 @@ function showTab(tabName, element) {
             const headerTitle = dashboardHeader.querySelector('h1');
             if (headerTitle && titleMap[tabName]) {
                 headerTitle.textContent = titleMap[tabName];
+            }
+            // 更新副标题
+            const headerSubtitle = dashboardHeader.querySelector('.subtitle');
+            if (headerSubtitle && tabName === 'overview') {
+                headerSubtitle.textContent = typeof t === 'function' ? t('header.overviewSubtitle') : '实时用户意图分析与业务洞察';
             }
         }
     }
@@ -59,11 +63,10 @@ function showTab(tabName, element) {
 // 获取标签页显示名称
 function getTabName(tabId) {
     const names = {
-        'home': '首页',
-        'overview': '总览',
-        'clusters': '用户聚类',
-        'portraits': '用户画像',
-        'insights': '业务洞察'
+        'home': t('nav.home'),
+        'overview': t('nav.overview'),
+        'clusters': t('nav.clusters'),
+        'portraits': t('clusters.portrait.title'),
     };
     return names[tabId] || tabId;
 }
@@ -91,9 +94,6 @@ function loadTabContent(tabName) {
             case 'clusters':
                 loadUserAnalysisPage();
                 break;
-            case 'insights':
-                loadInsights(); // loadInsights内部会调用loadProducts
-                break;
         }
         
         // 恢复显示
@@ -118,12 +118,13 @@ function loadOverview() {
     businessInsights.forEach(insight => {
         const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
         if (size > 0) {
-            clusterData[`聚类 ${insight.cluster_id}`] = size;
+            const clusterLabel = currentLanguage === 'zh' ? `聚类 ${insight.cluster_id}` : `Cluster ${insight.cluster_id}`;
+            clusterData[clusterLabel] = size;
         }
     });
     
     if (Object.keys(clusterData).length > 0) {
-        createPieChart('clusterDistributionChart', clusterData, '用户聚类分布');
+        createPieChart('clusterDistributionChart', clusterData, t('overview.charts.clusterDistribution'));
     }
     
     // 购买阶段分布
@@ -140,7 +141,7 @@ function loadOverview() {
     });
     
     if (Object.keys(stageData).length > 0) {
-        createDoughnutChart('purchaseStageChart', stageData, '购买阶段分布');
+        createDoughnutChart('purchaseStageChart', stageData, t('overview.charts.purchaseStage'));
     }
     
     // 价格偏好分布
@@ -157,7 +158,7 @@ function loadOverview() {
     });
     
     if (Object.keys(priceData).length > 0) {
-        createBarChart('pricePreferenceChart', priceData, '价格偏好分布');
+        createBarChart('pricePreferenceChart', priceData, t('overview.charts.pricePreference'));
     }
     
     // 核心关注点
@@ -174,7 +175,7 @@ function loadOverview() {
     });
     
     if (Object.keys(concernsData).length > 0) {
-        createHorizontalBarChart('concernsChart', concernsData, '核心关注点');
+        createHorizontalBarChart('concernsChart', concernsData, t('overview.charts.concerns'));
     }
     
     // 关键洞察
@@ -205,12 +206,19 @@ function displayKeyInsights() {
     topClusters.forEach(cluster => {
         const card = document.createElement('div');
         card.className = 'insight-card';
+        const clusterLabel = t('cluster.label');
+        const sizeLabel = t('cluster.size');
+        const strategyLabel = currentLanguage === 'zh' ? '策略' : 'Strategy';
+        const segmentsLabel = t('cluster.segments');
+        const noStrategyLabel = t('cluster.noStrategy');
         card.innerHTML = `
-            <h4>聚类 ${cluster.cluster_id}: ${removeEmojiFromClusterName(cluster.user_segment_name)}</h4>
-            <p><strong>规模:</strong> ${cluster.size} 个片段</p>
-            <p><strong>策略:</strong> ${cluster.marketing_strategy && cluster.marketing_strategy.length > 0 
-                ? cluster.marketing_strategy[0] 
-                : '暂无策略建议'}</p>
+            <h4>${clusterLabel} ${cluster.cluster_id}: ${getClusterDisplayName(cluster.user_segment_name)}</h4>
+            <p><strong>${sizeLabel}:</strong> ${cluster.size} ${segmentsLabel}</p>
+            <p><strong>${strategyLabel}:</strong> ${cluster.marketing_strategy && cluster.marketing_strategy.length > 0 
+                ? (typeof translateStrategyText === 'function' 
+                    ? translateStrategyText(cluster.marketing_strategy[0]) 
+                    : cluster.marketing_strategy[0])
+                : noStrategyLabel}</p>
         `;
         container.appendChild(card);
     });
@@ -226,12 +234,13 @@ function loadClusters() {
     const select = document.getElementById('clusterSelect');
     if (!select) return;
     
-    select.innerHTML = '<option value="">-- 选择聚类 --</option>';
+    select.innerHTML = `<option value="">${t('cluster.selectPlaceholder')}</option>`;
     
     businessInsights.forEach(insight => {
         const option = document.createElement('option');
         option.value = insight.cluster_id;
-        option.textContent = `聚类 ${insight.cluster_id}: ${removeEmojiFromClusterName(insight.user_segment_name)}`;
+        const clusterLabel = t('cluster.label');
+        option.textContent = `${clusterLabel} ${insight.cluster_id}: ${getClusterDisplayName(insight.user_segment_name)}`;
         select.appendChild(option);
     });
 }
@@ -287,65 +296,104 @@ function showClusterDetails(clusterId) {
     const container = document.getElementById('clusterDetails');
     container.classList.add('active');
     
+    const clusterLabel = t('cluster.label');
     container.innerHTML = `
         <div class="cluster-info-card">
-            <h3>聚类 ${clusterId}: ${removeEmojiFromClusterName(insight.user_segment_name)}</h3>
+            <h3>${clusterLabel} ${clusterId}: ${getClusterDisplayName(insight.user_segment_name)}</h3>
             
             <div class="info-grid">
-                ${insight.key_characteristics.map(char => `
+                ${insight.key_characteristics.map(char => {
+                    const translatedChar = typeof translateKeyCharacteristic === 'function' 
+                        ? translateKeyCharacteristic(char) 
+                        : char;
+                    const parts = translatedChar.split(':');
+                    const key = parts[0]?.trim() || '';
+                    const value = parts.slice(1).join(':').trim() || '';
+                    return `
                     <div class="info-item">
-                        <strong>${char.split(':')[0]}</strong>
-                        <span>${char.split(':')[1] || char}</span>
+                        <strong>${key}</strong>
+                        <span>${value || translatedChar}</span>
                     </div>
-                `).join('')}
+                `;
+                }).join('')}
             </div>
             
             <div class="strategy-section">
-                <h4>营销策略建议</h4>
+                <h4>${t('strategy.marketing')}</h4>
                 <ul class="strategy-list">
-                    ${insight.marketing_strategy.map(s => `<li>${s}</li>`).join('')}
+                    ${insight.marketing_strategy.map(s => {
+                        const translated = typeof translateStrategyText === 'function' 
+                            ? translateStrategyText(s) 
+                            : s;
+                        return `<li>${translated}</li>`;
+                    }).join('')}
                 </ul>
             </div>
             
             <div class="strategy-section">
-                <h4>产品推荐</h4>
+                <h4>${t('strategy.product')}</h4>
                 <ul class="strategy-list">
                     ${insight.product_recommendations.length > 0 
-                        ? insight.product_recommendations.map(r => `<li>${r}</li>`).join('')
-                        : '<li>需要进一步分析产品偏好</li>'}
+                        ? insight.product_recommendations.map(r => {
+                            const translated = typeof translateStrategyText === 'function' 
+                                ? translateStrategyText(r) 
+                                : r;
+                            return `<li>${translated}</li>`;
+                        }).join('')
+                        : `<li>${t('strategy.noProductRecommendation')}</li>`}
                 </ul>
             </div>
             
             <div class="strategy-section">
-                <h4>转化优化建议</h4>
+                <h4>${t('strategy.conversion')}</h4>
                 <ul class="strategy-list">
-                    ${insight.conversion_optimization.map(o => `<li>${o}</li>`).join('')}
+                    ${insight.conversion_optimization.map(o => {
+                        const translated = typeof translateStrategyText === 'function' 
+                            ? translateStrategyText(o) 
+                            : o;
+                        return `<li>${translated}</li>`;
+                    }).join('')}
                 </ul>
             </div>
             
             ${insight.pricing_strategy && insight.pricing_strategy.length > 0 ? `
             <div class="strategy-section">
-                <h4>价格策略建议</h4>
+                <h4>${t('strategy.pricing')}</h4>
                 <ul class="strategy-list">
-                    ${insight.pricing_strategy.map(p => `<li>${p}</li>`).join('')}
+                    ${insight.pricing_strategy.map(p => {
+                        const translated = typeof translateStrategyText === 'function' 
+                            ? translateStrategyText(p) 
+                            : p;
+                        return `<li>${translated}</li>`;
+                    }).join('')}
                 </ul>
             </div>
             ` : ''}
             
             <div class="strategy-section">
-                <h4>内容策略建议</h4>
+                <h4>${t('strategy.content')}</h4>
                 <ul class="strategy-list">
                     ${insight.content_strategy && insight.content_strategy.length > 0 
-                        ? insight.content_strategy.map(c => `<li>${c}</li>`).join('')
-                        : '<li>暂无内容策略建议</li>'}
+                        ? insight.content_strategy.map(c => {
+                            const translated = typeof translateStrategyText === 'function' 
+                                ? translateStrategyText(c) 
+                                : c;
+                            return `<li>${translated}</li>`;
+                        }).join('')
+                        : `<li>${t('strategy.noContentStrategy')}</li>`}
                 </ul>
             </div>
             
             ${insight.campaign_differentiation && insight.campaign_differentiation.length > 0 ? `
             <div class="strategy-section">
-                <h4>差异化营销活动</h4>
+                <h4>${t('strategy.campaign')}</h4>
                 <ul class="strategy-list">
-                    ${insight.campaign_differentiation.map(c => `<li>${c}</li>`).join('')}
+                    ${insight.campaign_differentiation.map(c => {
+                        const translated = typeof translateStrategyText === 'function' 
+                            ? translateStrategyText(c) 
+                            : c;
+                        return `<li>${translated}</li>`;
+                    }).join('')}
                 </ul>
             </div>
             ` : ''}
@@ -371,7 +419,8 @@ function loadPortraits() {
         
         // 获取聚类名称
         const insight = businessInsights.find(i => i.cluster_id === portrait.cluster_id);
-        const clusterName = insight ? removeEmojiFromClusterName(insight.user_segment_name) : `聚类 ${portrait.cluster_id}`;
+        const clusterLabel = t('cluster.label');
+        const clusterName = insight ? getClusterDisplayName(insight.user_segment_name) : `${clusterLabel} ${portrait.cluster_id}`;
         
         // 准备词云数据（优先使用从实际数据中提取的关键词）
         let wordCloudData = [];
@@ -406,7 +455,7 @@ function loadPortraits() {
         card.innerHTML = `
             <div class="portrait-header">
                 <div class="portrait-title-section">
-                    <h3>聚类 ${portrait.cluster_id}</h3>
+                    <h3>${t('cluster.label')} ${portrait.cluster_id}</h3>
                     <h2>${clusterName}</h2>
                 </div>
                 <div class="portrait-stats-mini">
@@ -416,11 +465,11 @@ function loadPortraits() {
                     </div>
                     <div class="stat-mini">
                         <span class="stat-mini-value">${portrait.segment_count}</span>
-                        <span class="stat-mini-label">片段</span>
+                        <span class="stat-mini-label">${currentLanguage === 'zh' ? '片段' : 'Segments'}</span>
                     </div>
                     <div class="stat-mini">
                         <span class="stat-mini-value">${(portrait.avg_duration_seconds || 0).toFixed(0)}s</span>
-                        <span class="stat-mini-label">时长</span>
+                        <span class="stat-mini-label">${currentLanguage === 'zh' ? '时长' : 'Duration'}</span>
                     </div>
                 </div>
             </div>
@@ -429,16 +478,16 @@ function loadPortraits() {
                 <!-- 第一行：词云和价格偏好 -->
                 <div class="visualization-section visualization-compact">
                     <div class="visualization-header">
-                        <h4>用户关注词云</h4>
+                        <h4>${currentLanguage === 'zh' ? '用户关注词云' : 'User Attention Word Cloud'}</h4>
                     </div>
                     <div class="visualization-content">
-                        <canvas id="wordcloud-${portrait.cluster_id}" class="wordcloud-canvas"></canvas>
+                    <canvas id="wordcloud-${portrait.cluster_id}" class="wordcloud-canvas"></canvas>
                     </div>
                 </div>
                 
                 <div class="visualization-section visualization-compact">
                     <div class="visualization-header">
-                        <h4>价格偏好</h4>
+                        <h4>${currentLanguage === 'zh' ? '价格偏好' : 'Price Preference'}</h4>
                     </div>
                     <div class="visualization-content price-preference-content">
                         <div id="pricePreference-${portrait.cluster_id}" class="price-preference-display"></div>
@@ -448,8 +497,8 @@ function loadPortraits() {
                 <!-- 第二行：使用场景偏好热力图（全宽） -->
                 <div class="visualization-section visualization-fullwidth">
                     <div class="visualization-header">
-                        <h4>使用场景偏好热力图</h4>
-                        <p class="visualization-subtitle">展示用户在不同场景维度的偏好强度</p>
+                        <h4>${currentLanguage === 'zh' ? '使用场景偏好热力图' : 'Scenario Preference Heatmap'}</h4>
+                        <p class="visualization-subtitle">${currentLanguage === 'zh' ? '展示用户在不同场景维度的偏好强度' : 'Display user preference intensity across different scenario dimensions'}</p>
                     </div>
                     <div class="visualization-content visualization-heatmap">
                         <canvas id="scenarioChart-${portrait.cluster_id}" class="heatmap-canvas"></canvas>
@@ -459,8 +508,8 @@ function loadPortraits() {
                 <!-- 第三行：特征雷达图（全宽） -->
                 <div class="visualization-section visualization-fullwidth">
                     <div class="visualization-header">
-                        <h4>用户特征雷达图</h4>
-                        <p class="visualization-subtitle">多维度用户特征分析</p>
+                        <h4>${currentLanguage === 'zh' ? '用户特征雷达图' : 'User Characteristics Radar Chart'}</h4>
+                        <p class="visualization-subtitle">${currentLanguage === 'zh' ? '多维度用户特征分析' : 'Multi-dimensional user characteristics analysis'}</p>
                     </div>
                     <div class="visualization-content">
                         <canvas id="radarChart-${portrait.cluster_id}" class="chart-canvas chart-radar"></canvas>
@@ -716,7 +765,14 @@ function prepareRadarData(portrait) {
     const needMap = { '止鼾需求': 1, '颈部疼痛': 2, '睡眠质量': 2.5, '综合需求': 2 };
     
     return {
-        labels: ['行为模式', '意图紧迫度', '购买阶段', '价格敏感度', '关注点', '核心需求'],
+        labels: [
+            t('dataFields.behaviorPattern'),
+            t('dataFields.intentUrgency'),
+            t('dataFields.purchaseStage'),
+            t('dataFields.priceSensitivity'),
+            t('dataFields.concerns'),
+            t('dataFields.coreNeeds')
+        ],
         values: [
             (behaviorMap[characteristics.behavior] || 2) * 25,
             (urgencyMap[characteristics.urgency] || 1) * 25,
@@ -1106,151 +1162,7 @@ function createRadarChart(canvasId, data) {
     });
 }
 
-// 加载业务洞察页面
-function loadInsights() {
-    if (typeof businessInsights === 'undefined') {
-        console.error('businessInsights 数据未加载');
-        return;
-    }
-    
-    // 加载产品偏好数据（显示在产品偏好分析部分）
-    if (typeof userPortraits !== 'undefined') {
-        // 统计所有产品的关注度
-        const productData = {};
-        
-        userPortraits.forEach(portrait => {
-            if (portrait.product_preferences) {
-                Object.entries(portrait.product_preferences).forEach(([product, count]) => {
-                    productData[product] = (productData[product] || 0) + count;
-                });
-            }
-        });
-        
-        if (Object.keys(productData).length > 0) {
-            createBarChart('productPreferenceChart', productData, '产品关注度');
-        }
-        
-        // 显示产品详情
-        const productContainer = document.getElementById('productDetails');
-        if (productContainer) {
-            productContainer.innerHTML = '';
-            
-            const sortedProducts = Object.entries(productData)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10);
-            
-            sortedProducts.forEach(([product, count]) => {
-                // 找出关注这个产品的聚类
-                const clusters = userPortraits
-                    .filter(p => p.product_preferences && p.product_preferences[product] > 0)
-                    .map(p => ({
-                        cluster: p.cluster_id,
-                        count: p.product_preferences[product]
-                    }))
-                    .sort((a, b) => b.count - a.count)
-                    .slice(0, 3);
-                
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <h4>${product}</h4>
-                    <div class="product-stats">
-                        <div class="product-stat">
-                            <div class="product-stat-value">${count}</div>
-                            <div class="product-stat-label">总关注次数</div>
-                        </div>
-                        <div class="product-stat">
-                            <div class="product-stat-value">${clusters.length}</div>
-                            <div class="product-stat-label">相关聚类</div>
-                        </div>
-                    </div>
-                    ${clusters.length > 0 ? `
-                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                        <strong>主要关注聚类:</strong>
-                        <div style="margin-top: 0.5rem;">
-                            ${clusters.map(c => `<span style="display: inline-block; padding: 0.25rem 0.75rem; margin: 0.25rem; background: var(--glass); border: 1px solid var(--border); border-radius: 4px;">聚类 ${c.cluster} (${c.count}次)</span>`).join('')}
-                        </div>
-                    </div>
-                    ` : ''}
-                `;
-                productContainer.appendChild(card);
-            });
-        }
-    }
-    
-    // 加载业务洞察内容
-    const container = document.getElementById('insightsContainer');
-    if (!container) return;
-    
-    container.innerHTML = '';
-    
-    businessInsights.forEach(insight => {
-        const card = document.createElement('div');
-        card.className = 'insight-card-large';
-        
-        card.innerHTML = `
-            <h3>聚类 ${insight.cluster_id}: ${insight.user_segment_name}</h3>
-            
-            <div class="insight-section">
-                <h4>关键特征</h4>
-                <ul>
-                    ${insight.key_characteristics.map(c => `<li>${c}</li>`).join('')}
-                </ul>
-            </div>
-            
-            <div class="insight-section">
-                <h4>营销策略建议</h4>
-                <ul>
-                    ${insight.marketing_strategy.map(s => `<li>${s}</li>`).join('')}
-                </ul>
-            </div>
-            
-            <div class="insight-section">
-                <h4>产品推荐建议</h4>
-                <ul>
-                    ${insight.product_recommendations.length > 0 
-                        ? insight.product_recommendations.map(r => `<li>${r}</li>`).join('')
-                        : '<li>需要进一步分析产品偏好</li>'}
-                </ul>
-            </div>
-            
-            <div class="insight-section">
-                <h4>转化优化建议</h4>
-                <ul>
-                    ${insight.conversion_optimization.map(o => `<li>${o}</li>`).join('')}
-                </ul>
-            </div>
-            
-            ${insight.pricing_strategy && insight.pricing_strategy.length > 0 ? `
-            <div class="insight-section">
-                <h4>价格策略建议</h4>
-                <ul>
-                    ${insight.pricing_strategy.map(p => `<li>${p}</li>`).join('')}
-                </ul>
-            </div>
-            ` : ''}
-            
-            <div class="insight-section">
-                <h4>内容策略建议</h4>
-                <ul>
-                    ${insight.content_strategy && insight.content_strategy.length > 0 
-                        ? insight.content_strategy.map(c => `<li>${c}</li>`).join('')
-                        : '<li>暂无内容策略建议</li>'}
-                </ul>
-            </div>
-            
-            ${insight.campaign_differentiation && insight.campaign_differentiation.length > 0 ? `
-            <div class="insight-section">
-                <h4>差异化营销活动</h4>
-                <ul>
-                    ${insight.campaign_differentiation.map(c => `<li>${c}</li>`).join('')}
-                </ul>
-            </div>
-            ` : ''}
-        `;
-        container.appendChild(card);
-    });
-}
+// 加载业务洞察页面（已删除）
 
 // 加载首页
 function loadHomepage() {
@@ -1421,7 +1333,7 @@ function renderPricePreference(containerId, priceData) {
     if (!container) return;
     
     if (!priceData || Object.keys(priceData).length === 0) {
-        container.innerHTML = '<div class="price-preference-empty">暂无价格偏好数据</div>';
+        container.innerHTML = `<div class="price-preference-empty">${currentLanguage === 'zh' ? '暂无价格偏好数据' : 'No price preference data'}</div>`;
         return;
     }
     
@@ -1451,10 +1363,10 @@ function renderPricePreference(containerId, priceData) {
                         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                     </svg>
                 </div>
-                <div class="price-preference-info">
-                    <div class="price-preference-label">价格偏好类型</div>
-                    <div class="price-preference-value" style="color: ${priceColor}">${priceType}</div>
-                    <div class="price-preference-count">${priceValue} 个片段</div>
+                    <div class="price-preference-info">
+                    <div class="price-preference-label">${currentLanguage === 'zh' ? '价格偏好类型' : 'Price Preference Type'}</div>
+                    <div class="price-preference-value" style="color: ${priceColor}">${typeof translateKeyCharacteristic === 'function' ? translateKeyCharacteristic(`价格敏感度: ${priceType}`).split(':')[1]?.trim() || priceType : priceType}</div>
+                    <div class="price-preference-count">${priceValue} ${currentLanguage === 'zh' ? '个片段' : ' segments'}</div>
                 </div>
             </div>
         `;
@@ -1472,8 +1384,8 @@ function renderPricePreference(containerId, priceData) {
                         </svg>
                     </div>
                     <div class="price-preference-item-info">
-                        <div class="price-preference-item-label" style="color: ${priceColor}">${priceType}</div>
-                        <div class="price-preference-item-count">${priceValue} 个片段</div>
+                        <div class="price-preference-item-label" style="color: ${priceColor}">${typeof translateKeyCharacteristic === 'function' ? translateKeyCharacteristic(`价格敏感度: ${priceType}`).split(':')[1]?.trim() || priceType : priceType}</div>
+                        <div class="price-preference-item-count">${priceValue} ${currentLanguage === 'zh' ? '个片段' : ' segments'}</div>
                     </div>
                 </div>
             `;
@@ -1680,20 +1592,25 @@ function createScenarioHeatmap(canvasId, scenarioData, clusterId) {
     // 收集所有场景数据
     const allScenarios = [];
     const scenarioCategories = {
-        '核心需求': scenarioData.main_appeal || {},
-        '关注点': scenarioData.concerns || {},
-        '购买阶段': scenarioData.purchase_stage || {},
-        '价格偏好': scenarioData.price_range || {},
-        '产品偏好': scenarioData.product_preferences || {}
+        [t('dataFields.coreNeeds')]: scenarioData.main_appeal || {},
+        [t('dataFields.concerns')]: scenarioData.concerns || {},
+        [t('dataFields.purchaseStage')]: scenarioData.purchase_stage || {},
+        [t('dataFields.priceSensitivity')]: scenarioData.price_range || {},
+        [t('dataFields.productPreference')]: scenarioData.product_preferences || {}
     };
     
     // 构建场景列表（排除通用术语）
-    const genericTerms = ['综合需求', '综合关注', '多产品比较', '未知'];
+    const genericTerms = currentLanguage === 'zh' 
+        ? ['综合需求', '综合关注', '多产品比较', '未知']
+        : ['Comprehensive Needs', 'Comprehensive Concerns', 'Multi-Product Comparison', 'Unknown'];
     const scenarioList = [];
     
     Object.entries(scenarioCategories).forEach(([category, data]) => {
         Object.entries(data).forEach(([scenario, value]) => {
-            if (scenario && !genericTerms.includes(scenario) && value > 0) {
+            // 检查是否在通用术语中（支持中英文）
+            const isGeneric = genericTerms.includes(scenario) || 
+                            (currentLanguage === 'en' && ['综合需求', '综合关注', '多产品比较', '未知'].includes(scenario));
+            if (scenario && !isGeneric && value > 0) {
                 scenarioList.push({
                     category: category,
                     name: scenario,
@@ -1704,7 +1621,8 @@ function createScenarioHeatmap(canvasId, scenarioData, clusterId) {
     });
     
     if (scenarioList.length === 0) {
-        canvas.parentElement.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>暂无使用场景数据</p></div>';
+        const noDataText = currentLanguage === 'zh' ? '暂无使用场景数据' : 'No scenario data available';
+        canvas.parentElement.innerHTML = `<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>${noDataText}</p></div>`;
         return;
     }
     
@@ -1786,22 +1704,26 @@ function createScenarioHeatmap(canvasId, scenarioData, clusterId) {
     ctx.fillStyle = '#ECF2F5';
     ctx.font = 'bold 18px Arial, "Microsoft YaHei", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('场景偏好强度分析', 20, 40);
+    const heatmapTitle = currentLanguage === 'zh' ? '场景偏好强度分析' : 'Scenario Preference Intensity Analysis';
+    ctx.fillText(heatmapTitle, 20, 40);
     
     // 绘制副标题
     ctx.fillStyle = '#8FA0B8';
     ctx.font = '13px Arial, "Microsoft YaHei", sans-serif';
-    ctx.fillText(`共 ${sortedScenarios.length} 个场景 | 强度范围: ${minValue} - ${maxValue}`, 20, 60);
+    const subtitle = currentLanguage === 'zh' 
+        ? `共 ${sortedScenarios.length} 个场景 | 强度范围: ${minValue} - ${maxValue}`
+        : `${sortedScenarios.length} scenarios | Intensity range: ${minValue} - ${maxValue}`;
+    ctx.fillText(subtitle, 20, 60);
     
     // 绘制类别标签和图例
     let currentY = startY;
     let currentCategory = '';
     const categoryColors = {
-        '核心需求': '#7FE8C1',
-        '关注点': '#7DA6FF',
-        '购买阶段': '#A78BFA',
-        '价格偏好': '#F472B6',
-        '产品偏好': '#60A5FA'
+        [t('dataFields.coreNeeds')]: '#7FE8C1',
+        [t('dataFields.concerns')]: '#7DA6FF',
+        [t('dataFields.purchaseStage')]: '#A78BFA',
+        [t('dataFields.priceSensitivity')]: '#F472B6',
+        [t('dataFields.productPreference')]: '#60A5FA'
     };
     
     sortedScenarios.forEach((scenario, index) => {
@@ -1891,8 +1813,15 @@ function createScenarioHeatmap(canvasId, scenarioData, clusterId) {
         ctx.fillStyle = '#ECF2F5';
         ctx.font = '14px Arial, "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'left';
+        // 翻译场景名称
+        let translatedName = scenario.name;
+        if (currentLanguage === 'en' && typeof translateKeyCharacteristic === 'function') {
+            // 尝试翻译场景名称
+            const translated = translateKeyCharacteristic(`场景: ${scenario.name}`);
+            translatedName = translated.split(':')[1]?.trim() || scenario.name;
+        }
         const maxNameLength = Math.floor((labelWidth - 40) / 9);
-        const displayName = scenario.name.length > maxNameLength ? scenario.name.substring(0, maxNameLength) + '...' : scenario.name;
+        const displayName = translatedName.length > maxNameLength ? translatedName.substring(0, maxNameLength) + '...' : translatedName;
         ctx.fillText(displayName, 25, cellY + cellHeight / 2 + 5);
         
         // 绘制数值（带背景）
@@ -2015,15 +1944,15 @@ function loadJourney() {
     container.innerHTML = `
         <div class="journey-visualization-container">
             <div class="journey-funnel-section">
-                <h3>转化漏斗分析</h3>
-                <p class="section-subtitle">查看用户在不同阶段的流失情况</p>
+                <h3>${t('journey.path.funnelAnalysis')}</h3>
+                <p class="section-subtitle">${t('journey.path.funnelSubtitle')}</p>
                 <div class="funnel-container">
                     <canvas id="journeyFunnelChart"></canvas>
                 </div>
             </div>
             <div class="journey-flow-section">
-                <h3>转化路径流程</h3>
-                <p class="section-subtitle">探索用户从浏览到决策的完整路径</p>
+                <h3>${t('journey.path.flowChart')}</h3>
+                <p class="section-subtitle">${t('journey.path.flowSubtitle')}</p>
                 <div class="flow-diagram-container">
                     <canvas id="journeyFlowChart"></canvas>
                 </div>
@@ -2127,10 +2056,16 @@ function createJourneyFunnelChart(canvasId, funnelData) {
         ctx.stroke();
         
         // 绘制数值和标签
+        const stageTranslations = {
+            '浏览阶段': t('stages.browsing'),
+            '对比阶段': t('stages.comparison'),
+            '决策阶段': t('stages.decision')
+        };
+        const displayStage = stageTranslations[stage] || stage;
         ctx.fillStyle = '#ECF2F5';
         ctx.font = 'bold 16px Arial, "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(stage, centerX, y + stageHeight / 2 - 20);
+        ctx.fillText(displayStage, centerX, y + stageHeight / 2 - 20);
         
         ctx.font = 'bold 24px Arial, "Microsoft YaHei", sans-serif';
         ctx.fillText(value.toString(), centerX, y + stageHeight / 2 + 10);
@@ -2141,7 +2076,9 @@ function createJourneyFunnelChart(canvasId, funnelData) {
             ctx.font = '12px Arial, "Microsoft YaHei", sans-serif';
             const rate = conversionRates[index];
             const lossRate = (100 - rate).toFixed(1);
-            ctx.fillText(`转化率: ${rate}% (流失: ${lossRate}%)`, centerX, y + stageHeight / 2 + 30);
+            const conversionLabel = currentLanguage === 'zh' ? '转化率' : 'Conversion Rate';
+            const lossLabel = currentLanguage === 'zh' ? '流失' : 'Loss';
+            ctx.fillText(`${conversionLabel}: ${rate}% (${lossLabel}: ${lossRate}%)`, centerX, y + stageHeight / 2 + 30);
         }
     });
     
@@ -2149,7 +2086,8 @@ function createJourneyFunnelChart(canvasId, funnelData) {
     ctx.fillStyle = '#ECF2F5';
     ctx.font = 'bold 18px Arial, "Microsoft YaHei", sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('用户转化漏斗', 20, 30);
+    const funnelTitle = t('journey.path.funnelChart');
+    ctx.fillText(funnelTitle, 20, 30);
 }
 
 // 创建转化路径流程图
@@ -2222,8 +2160,10 @@ function createJourneyFlowChart(canvasId, stages) {
         ctx.fillStyle = '#8FA0B8';
         ctx.font = '12px Arial, "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(`转化: ${conversionRate}%`, labelX, centerY - 15);
-        ctx.fillText(`流失: ${lossRate}%`, labelX, centerY + 30);
+        const conversionLabel = currentLanguage === 'zh' ? '转化' : 'Conversion';
+        const lossLabel = currentLanguage === 'zh' ? '流失' : 'Loss';
+        ctx.fillText(`${conversionLabel}: ${conversionRate}%`, labelX, centerY - 15);
+        ctx.fillText(`${lossLabel}: ${lossRate}%`, labelX, centerY + 30);
     }
     
     // 绘制节点
@@ -2242,10 +2182,16 @@ function createJourneyFlowChart(canvasId, stages) {
         ctx.stroke();
         
         // 绘制阶段名称
+        const stageTranslations = {
+            '浏览阶段': t('stages.browsing'),
+            '对比阶段': t('stages.comparison'),
+            '决策阶段': t('stages.decision')
+        };
+        const displayStage = stageTranslations[stage] || stage;
         ctx.fillStyle = '#ECF2F5';
         ctx.font = 'bold 14px Arial, "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(stage, config.x, centerY - 15);
+        ctx.fillText(displayStage, config.x, centerY - 15);
         
         // 绘制数值
         ctx.font = 'bold 20px Arial, "Microsoft YaHei", sans-serif';
@@ -2264,17 +2210,20 @@ function generateJourneyHTML(stages) {
         '浏览阶段': {
             color: '#60A5FA',
             gradient: 'linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)',
-            description: '用户开始探索产品，了解基本信息'
+            description: t('stages.browsingDesc'),
+            name: t('stages.browsing')
         },
         '对比阶段': {
             color: '#FBBF24',
             gradient: 'linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%)',
-            description: '用户比较不同选项，评估产品价值'
+            description: t('stages.comparisonDesc'),
+            name: t('stages.comparison')
         },
         '决策阶段': {
             color: '#7FE8C1',
             gradient: 'linear-gradient(135deg, #7FE8C1 0%, #34D399 100%)',
-            description: '用户准备购买，需要转化激励'
+            description: t('stages.decisionDesc'),
+            name: t('stages.decision')
         }
     };
     
@@ -2299,17 +2248,17 @@ function generateJourneyHTML(stages) {
                         </svg>
                     </div>
                     <div class="stage-info">
-                        <h2>${stageName}</h2>
+                        <h2>${config.name || stageName}</h2>
                         <p>${config.description}</p>
                         <div class="stage-stats">
                             <span class="stat-item">
-                                <strong>${clusters.length}</strong> 个画像
+                                <strong>${clusters.length}</strong> ${t('stages.personas')}
                             </span>
                             <span class="stat-item">
-                                <strong>${totalUsers}</strong> 个片段
+                                <strong>${totalUsers}</strong> ${t('stages.segments')}
                             </span>
                             <span class="stat-item">
-                                <strong>${percentage}%</strong> 占比
+                                <strong>${percentage}%</strong> ${t('stages.percentage')}
                             </span>
                         </div>
                     </div>
@@ -2323,29 +2272,32 @@ function generateJourneyHTML(stages) {
                             <div class="cluster-card" data-cluster-id="${cluster.cluster_id}" style="animation-delay: ${idx * 0.1}s">
                                 <div class="cluster-header">
                                     <div class="cluster-badge" style="background: ${config.gradient}">
-                                        聚类 ${cluster.cluster_id}
+                                        ${t('cluster.label')} ${cluster.cluster_id}
                                     </div>
                                     <div class="cluster-size">
-                                        ${size} 个片段
+                                        ${size} ${t('cluster.segments')}
                                     </div>
                                 </div>
-                                <h3 class="cluster-name">${removeEmojiFromClusterName(cluster.user_segment_name)}</h3>
+                                <h3 class="cluster-name">${getClusterDisplayName(cluster.user_segment_name)}</h3>
                                 <div class="cluster-progress">
                                     <div class="progress-bar" style="width: ${sizePercentage}%; background: ${config.gradient}"></div>
                                     <span class="progress-text">${sizePercentage}%</span>
                                 </div>
                                 <div class="cluster-characteristics">
                                     ${cluster.key_characteristics.slice(1, 4).map(char => {
-                                        const [key, value] = char.split(':');
+                                        const translatedChar = typeof translateKeyCharacteristic === 'function' 
+                                            ? translateKeyCharacteristic(char) 
+                                            : char;
+                                        const [key, value] = translatedChar.split(':');
                                         return `<div class="char-item">
-                                            <span class="char-key">${key}:</span>
+                                            <span class="char-key">${key?.trim() || ''}:</span>
                                             <span class="char-value">${value?.trim() || ''}</span>
                                         </div>`;
                                     }).join('')}
                                 </div>
                                 <div class="cluster-actions">
                                     <button class="btn-view-details" data-cluster-id="${cluster.cluster_id}">
-                                        <span class="btn-text">查看详情</span>
+                                        <span class="btn-text">${currentLanguage === 'zh' ? '查看详情' : 'View Details'}</span>
                                         <span class="btn-arrow">→</span>
                                     </button>
                                 </div>
@@ -2623,69 +2575,75 @@ function renderUserTrajectories(users) {
                 <div class="overview-card stage-overview">
                     <div class="overview-header">
                         <span class="overview-icon">📊</span>
-                        <span class="overview-title">阶段分布</span>
+                        <span class="overview-title">${t('trajectory.stageDistribution')}</span>
                     </div>
                     <div class="stage-bars">
                         ${['浏览阶段', '对比阶段', '决策阶段'].map(stage => {
+                            const stageTranslations = {
+                                '浏览阶段': t('stages.browsing'),
+                                '对比阶段': t('stages.comparison'),
+                                '决策阶段': t('stages.decision')
+                            };
+                            const displayStage = stageTranslations[stage] || stage;
                             const count = stageCounts[stage] || 0;
                             const percentage = segments.length > 0 ? (count / segments.length * 100).toFixed(0) : 0;
                             const stageColors = {
                                 '浏览阶段': '#60A5FA',
                                 '对比阶段': '#FBBF24',
                                 '决策阶段': '#7FE8C1'
-                            };
-                            return `
+                    };
+                    return `
                                 <div class="stage-bar-item">
                                     <div class="stage-bar-label">
-                                        <span>${stage}</span>
+                                        <span>${displayStage}</span>
                                         <span class="stage-bar-value">${count} (${percentage}%)</span>
-                                    </div>
+                            </div>
                                     <div class="stage-bar-container">
                                         <div class="stage-bar-fill" style="width: ${percentage}%; background: ${stageColors[stage]}"></div>
                                     </div>
-                                </div>
+                                    </div>
                             `;
                         }).join('')}
-                    </div>
-                </div>
+                                </div>
+                                    </div>
                 
                 <div class="overview-card path-overview">
                     <div class="overview-header">
                         <span class="overview-icon">🔄</span>
-                        <span class="overview-title">转化路径</span>
-                    </div>
+                        <span class="overview-title">${t('trajectory.conversionPath')}</span>
+                                    </div>
                     <div class="path-visualization">
                         <canvas id="pathCanvas-${user.user_id}" class="path-canvas"></canvas>
-                    </div>
-                </div>
+                                    </div>
+                                    </div>
                 
                 ${stuckPoint ? `
                 <div class="overview-card stuck-point-card" style="border-left: 4px solid ${stuckPoint.color}">
                     <div class="overview-header">
                         <span class="overview-icon" style="color: ${stuckPoint.color}">⚠️</span>
-                        <span class="overview-title">卡点分析</span>
-                    </div>
+                        <span class="overview-title">${currentLanguage === 'zh' ? '卡点分析' : 'Stuck Point Analysis'}</span>
+                                </div>
                     <p class="stuck-point-message" style="color: ${stuckPoint.color}">${stuckPoint.message}</p>
-                </div>
+                            </div>
                 ` : ''}
-            </div>
+                        </div>
             
             <!-- 用户轨迹时间线可视化（包含片段信息） -->
             <div class="user-trajectory-timeline">
                 <div class="timeline-header">
-                    <h4>行为时间线</h4>
+                    <h4>${currentLanguage === 'zh' ? '行为时间线' : 'Behavior Timeline'}</h4>
                     <div class="timeline-legend">
                         <span class="legend-item">
                             <span class="legend-dot" style="background: #60A5FA"></span>
-                            <span>浏览阶段</span>
+                            <span>${t('stages.browsing')}</span>
                         </span>
                         <span class="legend-item">
                             <span class="legend-dot" style="background: #FBBF24"></span>
-                            <span>对比阶段</span>
+                            <span>${t('stages.comparison')}</span>
                         </span>
                         <span class="legend-item">
                             <span class="legend-dot" style="background: #7FE8C1"></span>
-                            <span>决策阶段</span>
+                            <span>${t('stages.decision')}</span>
                         </span>
                     </div>
                 </div>
@@ -2844,8 +2802,16 @@ function waitForWordCloud(callback, maxAttempts = 10) {
 // 移除聚类名中的emoji
 function removeEmojiFromClusterName(name) {
     if (!name) return name;
-    // 移除常见的emoji字符
-    return name.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F600}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]/gu, '').trim();
+    // 移除所有emoji和variation selector（包括FE0F）
+    return name.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F600}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{FE00}-\u{FE0F}]|[\u{200D}]/gu, '').trim();
+}
+
+// 获取聚类显示名称（支持多语言）
+function getClusterDisplayName(clusterName) {
+    if (typeof translateClusterName === 'function') {
+        return translateClusterName(clusterName);
+    }
+    return removeEmojiFromClusterName(clusterName);
 }
 
 // 页面加载完成后处理词云队列
@@ -2856,9 +2822,293 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(processWordCloudQueue, 2000);
 });
 
+// 聚类更新功能
+let updateIntervalId = null;
+let lastUpdateTime = null;
+
+// 初始化更新设置
+function initUpdateSettings() {
+    const updateSelect = document.getElementById('autoUpdateInterval');
+    const updateBtn = document.getElementById('updateClustersBtn');
+    
+    if (!updateSelect || !updateBtn) return;
+    
+    // 从本地存储加载设置
+    const savedInterval = localStorage.getItem('clusterAutoUpdateInterval') || 'manual';
+    updateSelect.value = savedInterval;
+    
+    // 加载上次更新时间
+    const savedLastUpdate = localStorage.getItem('clusterLastUpdateTime');
+    if (savedLastUpdate) {
+        lastUpdateTime = new Date(savedLastUpdate);
+    }
+    
+    // 监听选择器变化
+    updateSelect.addEventListener('change', (e) => {
+        const interval = e.target.value;
+        localStorage.setItem('clusterAutoUpdateInterval', interval);
+        setupAutoUpdate(interval);
+    });
+    
+    // 监听手动更新按钮
+    updateBtn.addEventListener('click', () => {
+        triggerClusterUpdate();
+    });
+    
+    // 初始化自动更新
+    setupAutoUpdate(savedInterval);
+}
+
+// 设置自动更新
+function setupAutoUpdate(interval) {
+    // 清除现有定时器
+    if (updateIntervalId) {
+        clearInterval(updateIntervalId);
+        updateIntervalId = null;
+    }
+    
+    if (interval === 'manual') {
+        return;
+    }
+    
+    // 计算更新间隔（毫秒）
+    const intervals = {
+        '3days': 3 * 24 * 60 * 60 * 1000,
+        '1week': 7 * 24 * 60 * 60 * 1000,
+        '1month': 30 * 24 * 60 * 60 * 1000,
+        '3months': 90 * 24 * 60 * 60 * 1000
+    };
+    
+    const intervalMs = intervals[interval];
+    if (!intervalMs) return;
+    
+    // 如果上次更新时间存在，检查是否需要立即更新
+    if (lastUpdateTime) {
+        const timeSinceLastUpdate = Date.now() - lastUpdateTime.getTime();
+        if (timeSinceLastUpdate >= intervalMs) {
+            // 已经超过更新间隔，立即更新
+            triggerClusterUpdate();
+        } else {
+            // 设置定时器，在剩余时间后更新
+            const remainingTime = intervalMs - timeSinceLastUpdate;
+            updateIntervalId = setTimeout(() => {
+                triggerClusterUpdate();
+                // 然后设置定期更新
+                updateIntervalId = setInterval(() => {
+                    triggerClusterUpdate();
+                }, intervalMs);
+            }, remainingTime);
+        }
+    } else {
+        // 没有上次更新时间，立即更新一次，然后设置定期更新
+        triggerClusterUpdate();
+        updateIntervalId = setInterval(() => {
+            triggerClusterUpdate();
+        }, intervalMs);
+    }
+}
+
+// 触发聚类更新
+async function triggerClusterUpdate() {
+    const updateBtn = document.getElementById('updateClustersBtn');
+    if (!updateBtn) return;
+    
+    // 显示加载状态
+    updateBtn.disabled = true;
+    updateBtn.classList.add('updating');
+    const btnSpan = updateBtn.querySelector('span');
+    if (btnSpan) btnSpan.textContent = t('header.updating');
+    
+    // 显示状态提示
+        showUpdateStatus('info', t('update.updating'));
+    
+    try {
+        // 调用后端API更新聚类
+        // 注意：这里需要根据实际的后端API进行调整
+        // 如果没有后端API，可以调用Python脚本
+        const response = await fetch('/api/update-clusters', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            // 如果没有后端API，尝试调用本地Python脚本
+            throw new Error('后端API不可用，请手动运行更新脚本');
+        }
+        
+        const result = await response.json();
+        
+        // 更新成功
+        lastUpdateTime = new Date();
+        localStorage.setItem('clusterLastUpdateTime', lastUpdateTime.toISOString());
+        
+        // 重新加载数据
+        await reloadClusterData();
+        
+        // 显示成功提示
+        showUpdateStatus('success', t('update.success'));
+        
+        // 刷新当前页面内容
+        const currentTab = document.querySelector('.tab-content.active');
+        if (currentTab) {
+            const tabName = currentTab.id;
+            loadTabContent(tabName);
+        }
+        
+    } catch (error) {
+        console.error('更新聚类失败:', error);
+        // 提供手动更新提示
+        showUpdateStatus('error', t('update.error'));
+    } finally {
+        // 恢复按钮状态
+        updateBtn.disabled = false;
+        updateBtn.classList.remove('updating');
+        const btnSpan = updateBtn.querySelector('span');
+        if (btnSpan) btnSpan.textContent = t('header.updateClusters');
+    }
+}
+
+// 重新加载聚类数据
+async function reloadClusterData() {
+    try {
+        // 重新加载data.js中的数据
+        // 注意：这里需要根据实际的数据加载方式进行调整
+        return new Promise((resolve, reject) => {
+            const dataScript = document.createElement('script');
+            dataScript.src = 'data.js?t=' + Date.now(); // 添加时间戳防止缓存
+            dataScript.onload = () => {
+                console.log('数据重新加载完成');
+                resolve();
+            };
+            dataScript.onerror = () => {
+                console.error('数据重新加载失败');
+                reject(new Error('数据加载失败'));
+            };
+            document.head.appendChild(dataScript);
+        });
+    } catch (error) {
+        console.error('重新加载数据失败:', error);
+        throw error;
+    }
+}
+
+// 显示更新状态提示
+function showUpdateStatus(type, message) {
+    // 移除现有状态提示
+    const existingStatus = document.querySelector('.update-status');
+    if (existingStatus) {
+        existingStatus.remove();
+    }
+    
+    // 创建新状态提示
+    const statusDiv = document.createElement('div');
+    statusDiv.className = `update-status ${type} show`;
+    
+    const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : '⏳';
+    statusDiv.innerHTML = `
+        <span style="font-size: 18px;">${icon}</span>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(statusDiv);
+    
+    // 3秒后自动隐藏
+    setTimeout(() => {
+        statusDiv.classList.remove('show');
+        setTimeout(() => {
+            statusDiv.remove();
+        }, 300);
+    }, 3000);
+}
+
+// 初始化语言切换器
+function initLanguageSwitcher() {
+    const langBtn = document.getElementById('langBtn');
+    const currentLangSpan = document.getElementById('currentLang');
+    
+    if (!langBtn || !currentLangSpan) {
+        console.warn('Language switcher elements not found');
+        return;
+    }
+    
+    // 更新当前语言显示
+    function updateLangDisplay() {
+        // 从localStorage或全局变量获取当前语言
+        const currentLang = typeof currentLanguage !== 'undefined' ? currentLanguage : (localStorage.getItem('dashboardLanguage') || 'zh');
+        currentLangSpan.textContent = currentLang === 'zh' ? '中文' : 'English';
+    }
+    
+    // 初始化显示
+    updateLangDisplay();
+    
+    // 点击切换语言
+    langBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // 获取当前语言
+        const currentLang = typeof currentLanguage !== 'undefined' ? currentLanguage : (localStorage.getItem('dashboardLanguage') || 'zh');
+        const newLang = currentLang === 'zh' ? 'en' : 'zh';
+        
+        console.log('Switching language from', currentLang, 'to', newLang);
+        
+        // 添加按钮点击动画
+        langBtn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            langBtn.style.transform = 'scale(1)';
+        }, 100);
+        
+        // 切换语言 - 确保函数存在
+        if (typeof switchLanguage === 'function') {
+            switchLanguage(newLang);
+        } else if (typeof window.switchLanguage === 'function') {
+            window.switchLanguage(newLang);
+        } else {
+            // 如果函数不存在，手动切换
+            console.warn('switchLanguage function not found, using fallback');
+            if (typeof i18n !== 'undefined' && i18n[newLang]) {
+                if (typeof currentLanguage !== 'undefined') {
+                    currentLanguage = newLang;
+                } else if (typeof window.currentLanguage !== 'undefined') {
+                    window.currentLanguage = newLang;
+                }
+                localStorage.setItem('dashboardLanguage', newLang);
+                if (typeof updatePageLanguage === 'function') {
+                    updatePageLanguage();
+                } else if (typeof window.updatePageLanguage === 'function') {
+                    window.updatePageLanguage();
+                }
+            }
+        }
+        
+        // 更新显示
+        setTimeout(() => {
+            updateLangDisplay();
+        }, 100);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // 初始化导航栏
     initNavbar();
+    
+    // 初始化语言切换器（延迟确保i18n.js已加载）
+    setTimeout(() => {
+        initLanguageSwitcher();
+    }, 100);
+    
+    // 初始化更新设置
+    initUpdateSettings();
+    
+    // 初始化页面语言（延迟确保i18n.js已加载）
+    setTimeout(() => {
+        if (typeof updatePageLanguage === 'function') {
+            updatePageLanguage();
+        }
+    }, 150);
+    
     // 更新统计数据（带动画效果）
     if (typeof stats !== 'undefined') {
         const totalUsersEl = document.getElementById('totalUsers');
@@ -2923,8 +3173,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadJourneyPage();
             } else if (currentTabId === 'clusters') {
                 loadUserAnalysisPage();
-            } else if (currentTabId === 'insights') {
-                loadInsights();
             }
         }, 300);
     }
@@ -2961,13 +3209,22 @@ function analyzeUserStuckPoint(user) {
     const lastStage = lastSegment.purchase_stage || '浏览阶段';
     const stageIndex = stages.indexOf(lastStage);
     
+    const stageNames = {
+        '浏览阶段': t('stages.browsing'),
+        '对比阶段': t('stages.comparison'),
+        '决策阶段': t('stages.decision')
+    };
+    
     // 如果用户在浏览阶段停留很久
     if (lastStage === '浏览阶段' && user.segments.length >= 2) {
         const browseSegments = user.segments.filter(s => s.purchase_stage === '浏览阶段');
         if (browseSegments.length >= 2) {
+            const message = currentLanguage === 'zh' 
+                ? `用户在浏览阶段停留，${browseSegments.length}个片段未进入对比阶段，可能需要优化产品介绍或引导`
+                : `User stuck in ${stageNames['浏览阶段']} stage, ${browseSegments.length} segments haven't entered ${stageNames['对比阶段']} stage, may need to optimize product introduction or guidance`;
             return {
                 color: '#F472B6',
-                message: `用户在浏览阶段停留，${browseSegments.length}个片段未进入对比阶段，可能需要优化产品介绍或引导`
+                message: message
             };
         }
     }
@@ -2976,27 +3233,36 @@ function analyzeUserStuckPoint(user) {
     if (lastStage === '对比阶段' && user.segments.length >= 3) {
         const compareSegments = user.segments.filter(s => s.purchase_stage === '对比阶段');
         if (compareSegments.length >= 2) {
+            const message = currentLanguage === 'zh'
+                ? `用户在对比阶段停留，${compareSegments.length}个片段未进入决策阶段，可能需要提供更清晰的对比信息或优惠`
+                : `User stuck in ${stageNames['对比阶段']} stage, ${compareSegments.length} segments haven't entered ${stageNames['决策阶段']} stage, may need clearer comparison information or offers`;
             return {
                 color: '#FBBF24',
-                message: `用户在对比阶段停留，${compareSegments.length}个片段未进入决策阶段，可能需要提供更清晰的对比信息或优惠`
+                message: message
             };
         }
     }
     
     // 如果用户从未进入决策阶段
     if (stageIndex < 2 && user.segments.length >= 3) {
+        const message = currentLanguage === 'zh'
+            ? `用户未进入决策阶段，在${lastStage}停留，可能需要更强的转化激励`
+            : `User hasn't entered ${stageNames['决策阶段']} stage, stuck at ${stageNames[lastStage] || lastStage}, may need stronger conversion incentives`;
         return {
             color: '#FB7185',
-            message: `用户未进入决策阶段，在${lastStage}停留，可能需要更强的转化激励`
+            message: message
         };
     }
     
     // 如果用户意图强度低
     const avgIntentScore = user.segments.reduce((sum, s) => sum + (s.intent_score || 0), 0) / user.segments.length;
     if (avgIntentScore < 0.5 && user.segments.length >= 2) {
+        const message = currentLanguage === 'zh'
+            ? `用户意图强度较低(${(avgIntentScore * 100).toFixed(0)}%)，可能需要重新激活用户兴趣`
+            : `User intent score is low (${(avgIntentScore * 100).toFixed(0)}%), may need to reactivate user interest`;
         return {
             color: '#8FA0B8',
-            message: `用户意图强度较低(${(avgIntentScore * 100).toFixed(0)}%)，可能需要重新激活用户兴趣`
+            message: message
         };
     }
     
@@ -3137,7 +3403,8 @@ function renderUserTrajectoryTimeline(canvasId, user) {
         
         // 绘制片段信息文本（增大字体）
         const startDate = new Date(segment.start_time);
-        const timeStr = startDate.toLocaleString('zh-CN', { 
+        const locale = currentLanguage === 'zh' ? 'zh-CN' : 'en-US';
+        const timeStr = startDate.toLocaleString(locale, { 
             month: 'short', 
             day: 'numeric', 
             hour: '2-digit', 
@@ -3145,28 +3412,39 @@ function renderUserTrajectoryTimeline(canvasId, user) {
         });
         
         // 片段编号和聚类
+        const segmentLabel = currentLanguage === 'zh' ? '片段' : 'Segment';
+        const clusterLabel = t('cluster.label');
         ctx.fillStyle = '#ECF2F5';
         ctx.font = 'bold 13px Arial, "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(`片段 ${segment.segment_index || index + 1}`, x, 40);
+        ctx.fillText(`${segmentLabel} ${segment.segment_index || index + 1}`, x, 40);
         
         ctx.fillStyle = clusterColor;
         ctx.font = '12px Arial, "Microsoft YaHei", sans-serif';
-        ctx.fillText(`聚类 ${segment.cluster_id}`, x, 58);
+        ctx.fillText(`${clusterLabel} ${segment.cluster_id}`, x, 58);
         
         // 阶段和意图强度
+        const stageTranslations = {
+            '浏览阶段': currentLanguage === 'zh' ? '浏览阶段' : 'Browsing',
+            '对比阶段': currentLanguage === 'zh' ? '对比阶段' : 'Comparison',
+            '决策阶段': currentLanguage === 'zh' ? '决策阶段' : 'Decision'
+        };
+        const purchaseStage = segment.purchase_stage || (currentLanguage === 'zh' ? '浏览阶段' : 'Browsing');
+        const displayStage = stageTranslations[purchaseStage] || purchaseStage;
         ctx.fillStyle = stageColor;
         ctx.font = '12px Arial, "Microsoft YaHei", sans-serif';
-        ctx.fillText(segment.purchase_stage || '浏览阶段', x, 76);
+        ctx.fillText(displayStage, x, 76);
         
         const intentScore = segment.intent_score || 0;
+        const intentLabel = currentLanguage === 'zh' ? '意图' : 'Intent';
         ctx.fillStyle = '#8FA0B8';
         ctx.font = '11px Arial, "Microsoft YaHei", sans-serif';
-        ctx.fillText(`意图: ${(intentScore * 100).toFixed(0)}%`, x, 94);
+        ctx.fillText(`${intentLabel}: ${(intentScore * 100).toFixed(0)}%`, x, 94);
         
         // 持续时间
         const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(1);
-        ctx.fillText(`${duration}秒`, x, 112);
+        const durationUnit = currentLanguage === 'zh' ? '秒' : 's';
+        ctx.fillText(`${duration}${durationUnit}`, x, 112);
         
         // 绘制意图强度指示器（背景）
         const intentHeight = intentScore * 35;
@@ -3210,23 +3488,32 @@ function renderUserTrajectoryTimeline(canvasId, user) {
             tooltip.style.pointerEvents = 'none';
             
             const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(2);
+            const segmentLabel = currentLanguage === 'zh' ? '片段' : 'Segment';
+            const clusterLabel = t('cluster.label');
+            const stageTranslations = {
+                '浏览阶段': currentLanguage === 'zh' ? '浏览阶段' : 'Browsing',
+                '对比阶段': currentLanguage === 'zh' ? '对比阶段' : 'Comparison',
+                '决策阶段': currentLanguage === 'zh' ? '决策阶段' : 'Decision'
+            };
+            const purchaseStage = segment.purchase_stage || (currentLanguage === 'zh' ? '浏览阶段' : 'Browsing');
+            const displayStage = stageTranslations[purchaseStage] || purchaseStage;
             tooltip.innerHTML = `
                 <div class="tooltip-header">
-                    <span class="tooltip-title">片段 ${segment.segment_index || index + 1}</span>
+                    <span class="tooltip-title">${segmentLabel} ${segment.segment_index || index + 1}</span>
                     <span class="tooltip-time">${timeStr}</span>
                 </div>
                 <div class="tooltip-cluster" style="background: ${clusterColor}20; border-left: 3px solid ${clusterColor}">
-                    <span class="cluster-label">聚类 ${segment.cluster_id}</span>
-                    ${segment.cluster_name ? `<span class="cluster-name">${removeEmojiFromClusterName(segment.cluster_name)}</span>` : ''}
+                    <span class="cluster-label">${clusterLabel} ${segment.cluster_id}</span>
+                    ${segment.cluster_name ? `<span class="cluster-name">${getClusterDisplayName(segment.cluster_name)}</span>` : ''}
                 </div>
                 <div class="tooltip-details">
                     <div class="tooltip-detail-item">
-                        <span class="tooltip-label">购买阶段:</span>
-                        <span class="tooltip-value stage-badge" style="background: ${stageColor}20; color: ${stageColor}; border-left: 3px solid ${stageColor}">${segment.purchase_stage || '浏览阶段'}</span>
+                        <span class="tooltip-label">${currentLanguage === 'zh' ? '购买阶段' : 'Purchase Stage'}:</span>
+                        <span class="tooltip-value stage-badge" style="background: ${stageColor}20; color: ${stageColor}; border-left: 3px solid ${stageColor}">${displayStage}</span>
                     </div>
                     <div class="tooltip-detail-item">
-                        <span class="tooltip-label">持续时间:</span>
-                        <span class="tooltip-value">${duration} 秒</span>
+                        <span class="tooltip-label">${currentLanguage === 'zh' ? '持续时间' : 'Duration'}:</span>
+                        <span class="tooltip-value">${duration} ${currentLanguage === 'zh' ? '秒' : 's'}</span>
                     </div>
                     <div class="tooltip-detail-item">
                         <span class="tooltip-label">交互次数:</span>
@@ -3452,6 +3739,11 @@ function renderUserPathVisualization(canvasId, user) {
     ctx.scale(dpr, dpr);
     
     const stages = ['浏览阶段', '对比阶段', '决策阶段'];
+    const stageNames = {
+        '浏览阶段': t('stages.browsing'),
+        '对比阶段': t('stages.comparison'),
+        '决策阶段': t('stages.decision')
+    };
     const stageColors = {
         '浏览阶段': '#60A5FA',
         '对比阶段': '#FBBF24',
@@ -3522,7 +3814,8 @@ function renderUserPathVisualization(canvasId, user) {
         ctx.fillStyle = isReached ? '#ECF2F5' : '#8FA0B8';
         ctx.font = '11px Arial, "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(stage, x, centerY + 4);
+        const displayStage = stageNames[stage] || stage;
+        ctx.fillText(displayStage, x, centerY + 4);
     });
 }
 
