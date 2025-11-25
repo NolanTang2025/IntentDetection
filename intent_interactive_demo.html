@@ -1238,6 +1238,9 @@
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    background: #000;
   }
   
   .video-player-widget.loaded {
@@ -1260,18 +1263,166 @@
     bottom: 0;
     pointer-events: none;
     opacity: 1;
+    display: flex;
+    flex-direction: column;
   }
   
   .video-controls-top {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     pointer-events: auto;
     z-index: 10;
+  }
+  
+  .video-controls-top-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .video-controls-top-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  /* 顶部中央文本 */
+  .video-intro-text {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 5;
+    letter-spacing: 0.5px;
+  }
+  
+  /* 右侧垂直标签 */
+  .video-side-label {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 12px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    pointer-events: none;
+    z-index: 5;
+    letter-spacing: 1px;
+  }
+  
+  /* 底部产品信息覆盖层 */
+  .video-product-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+    padding: 16px 12px 12px;
+    pointer-events: auto;
+    z-index: 10;
+  }
+  
+  .video-product-text {
+    color: white;
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+  
+  .video-product-card {
+    background: rgba(60, 60, 60, 0.95);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .video-product-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #7da6ff 0%, #60a5fa 100%);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .video-product-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .video-product-thumbnail .thumbnail-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+  }
+  
+  .video-product-thumbnail.has-image .thumbnail-placeholder {
+    display: none;
+  }
+  
+  .video-product-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .video-product-name {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .video-product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  
+  .video-product-original-price {
+    color: #999;
+    font-size: 11px;
+    text-decoration: line-through;
+  }
+  
+  .video-product-discount-price {
+    color: #ff4444;
+    font-size: 16px;
+    font-weight: 700;
   }
   
   .video-controls-right {
@@ -1286,9 +1437,9 @@
   }
   
   .video-control-btn {
-    width: 36px;
-    height: 36px;
-    background: rgba(0, 0, 0, 0.7);
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.75);
     border: none;
     border-radius: 50%;
     display: flex;
@@ -1298,28 +1449,23 @@
     transition: all 0.2s ease;
     color: white;
     backdrop-filter: blur(10px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
   }
   
   .video-control-btn:hover {
     background: rgba(0, 0, 0, 0.9);
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   }
   
   .video-control-btn:active {
     transform: scale(0.95);
   }
   
-  .video-title {
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    pointer-events: none;
-    flex: 1;
-    text-align: center;
-    padding: 0 12px;
+  .video-control-btn svg {
+    width: 16px;
+    height: 16px;
   }
   
   .video-player-widget.zoomed {
@@ -1341,6 +1487,22 @@
     
     .video-player-widget.zoomed-out {
       width: 100px;
+    }
+    
+    .video-intro-text {
+      font-size: 11px;
+    }
+    
+    .video-product-text {
+      font-size: 11px;
+    }
+    
+    .video-product-name {
+      font-size: 12px;
+    }
+    
+    .video-product-discount-price {
+      font-size: 14px;
     }
   }
   
@@ -2207,7 +2369,8 @@ class IntentRecognition {
       'pants': { category: 'Athleisure', tags: ['Pants', 'Active', 'Comfort'] },
       'jacket': { category: 'Outerwear', tags: ['Jacket', 'Style', 'Warm'] },
       'shirt': { category: 'Basics', tags: ['T-Shirt', 'Casual', 'Essential'] },
-      'shoes': { category: 'Footwear', tags: ['Sneakers', 'Active', 'Comfort'] }
+      'shoes': { category: 'Footwear', tags: ['Sneakers', 'Active', 'Comfort'] },
+      'F1 Floating Pillow': { category: 'Home & Bedding', tags: ['Pillow', 'Comfort', 'Sleep', 'Premium', 'Floating'] }
     };
   }
   
@@ -2227,6 +2390,11 @@ class IntentRecognition {
     const scrollEvents = this.behaviors.filter(b => b.type === 'scroll');
     const hoverEvents = this.behaviors.filter(b => b.type === 'hover');
     const clickEvents = this.behaviors.filter(b => b.type === 'click');
+    const videoEvents = this.behaviors.filter(b => 
+      b.type === 'video-play' || b.type === 'video-pause' || 
+      b.type === 'video-watch' || b.type === 'video-hover-end'
+    );
+    const videoWatchEvents = this.behaviors.filter(b => b.type === 'video-watch');
     
     // 更新核心兴趣
     const interestSet = new Set();
@@ -2236,10 +2404,34 @@ class IntentRecognition {
         product.tags.forEach(tag => interestSet.add(tag));
       }
     });
+    
+    // 视频观看行为也反映兴趣
+    videoEvents.forEach(event => {
+      const product = this.productMap[event.data.product];
+      if (product) {
+        product.tags.forEach(tag => interestSet.add(tag));
+      }
+    });
+    
     this.intentData.core_interests = Array.from(interestSet);
     
-    // 更新产品侧重点
-    if (hoverEvents.length > 0) {
+    // 更新产品侧重点（优先考虑视频交互的产品）
+    const videoProductEvents = this.behaviors.filter(b => 
+      b.data && b.data.product === 'F1 Floating Pillow'
+    );
+    
+    if (videoProductEvents.length > 0) {
+      const product = this.productMap['F1 Floating Pillow'];
+      if (product) {
+        this.intentData.product_focus = {
+          category: product.category,
+          key_attributes: product.tags,
+          price_range: 'premium',
+          main_appeal: this.getMainAppeal(product.tags),
+          source: 'video-interaction'
+        };
+      }
+    } else if (hoverEvents.length > 0) {
       const lastHover = hoverEvents[hoverEvents.length - 1];
       const product = this.productMap[lastHover.data.product];
       if (product) {
@@ -2255,18 +2447,25 @@ class IntentRecognition {
     // 更新购买信号和转化阶段
     const addCartEvents = this.behaviors.filter(b => b.type === 'click' && b.data.action === 'add-cart');
     const viewEvents = this.behaviors.filter(b => b.type === 'click' && b.data.action === 'view');
+    const videoProductClick = this.behaviors.filter(b => 
+      b.type === 'click' && b.data.product === 'F1 Floating Pillow'
+    );
     
     // 转化阶段判断：浏览 → 兴趣 → 考虑 → 购买
+    // 视频观看超过10秒或点击视频产品卡片表示高兴趣
+    const hasVideoEngagement = videoWatchEvents.some(e => e.data.watchDuration >= 10) || 
+                               videoProductClick.length > 0;
+    
     if (addCartEvents.length > 0) {
       this.intentData.purchase_signals.stage = 'purchasing';
       this.intentData.conversion_stage = 'purchase';
-    } else if (viewEvents.length > 0) {
+    } else if (viewEvents.length > 0 || videoProductClick.length > 0) {
       this.intentData.purchase_signals.stage = 'considering';
       this.intentData.conversion_stage = 'consideration';
-    } else if (hoverEvents.length >= 3) {
+    } else if (hasVideoEngagement || hoverEvents.length >= 3) {
       this.intentData.purchase_signals.stage = 'exploring';
       this.intentData.conversion_stage = 'interest';
-    } else if (hoverEvents.length > 0 || scrollEvents.length > 2) {
+    } else if (hoverEvents.length > 0 || scrollEvents.length > 2 || videoEvents.length > 0) {
       this.intentData.purchase_signals.stage = 'browsing';
       this.intentData.conversion_stage = 'awareness';
     } else {
@@ -2274,11 +2473,13 @@ class IntentRecognition {
       this.intentData.conversion_stage = 'awareness';
     }
     
-    // 更新行为摘要
+    // 更新行为摘要（视频交互增加参与度）
+    const totalInteractions = scrollEvents.length + hoverEvents.length + clickEvents.length + videoEvents.length;
     this.intentData.behavior_summary.engagement = 
-      scrollEvents.length > 5 ? 'high' : scrollEvents.length > 2 ? 'medium' : 'low';
+      totalInteractions > 8 || videoWatchEvents.some(e => e.data.watchDuration >= 15) ? 'high' : 
+      totalInteractions > 4 || videoEvents.length > 0 ? 'medium' : 'low';
     this.intentData.behavior_summary.browsing_path = this.behaviors
-      .filter(b => b.type === 'hover' || b.type === 'click')
+      .filter(b => b.type === 'hover' || b.type === 'click' || b.type === 'video-play' || b.type === 'video-watch')
       .map(b => b.data.product || b.data.element);
   }
   
@@ -2319,6 +2520,16 @@ class IntentRecognition {
     
     // 行为统计图表
     html += this.renderBehaviorChart();
+    
+    // 视频交互展示（如果有视频交互）
+    const videoInteractions = this.behaviors.filter(b => 
+      b.type === 'video-play' || b.type === 'video-pause' || 
+      b.type === 'video-watch' || b.type === 'video-hover-end' ||
+      (b.type === 'click' && b.data.element && b.data.element.includes('video'))
+    );
+    if (videoInteractions.length > 0) {
+      html += this.renderVideoInteractions();
+    }
     
     // 参与度仪表盘
     html += this.renderEngagementGauge();
@@ -2461,13 +2672,18 @@ class IntentRecognition {
     const hoverCount = this.behaviors.filter(b => b.type === 'hover').length;
     const clickCount = this.behaviors.filter(b => b.type === 'click').length;
     const viewCount = this.behaviors.filter(b => b.type === 'view').length;
+    const videoCount = this.behaviors.filter(b => 
+      b.type === 'video-play' || b.type === 'video-pause' || 
+      b.type === 'video-watch' || b.type === 'video-hover-end'
+    ).length;
     
-    const maxCount = Math.max(scrollCount, hoverCount, clickCount, viewCount, 1);
+    const maxCount = Math.max(scrollCount, hoverCount, clickCount, viewCount, videoCount, 1);
     
     const scrollHeight = (scrollCount / maxCount) * 100;
     const hoverHeight = (hoverCount / maxCount) * 100;
     const clickHeight = (clickCount / maxCount) * 100;
     const viewHeight = (viewCount / maxCount) * 100;
+    const videoHeight = (videoCount / maxCount) * 100;
     
     return `
       <div class="intent-card show">
@@ -2493,6 +2709,11 @@ class IntentRecognition {
               <div class="bar" style="height: ${viewHeight}%"></div>
               <div class="bar-label">查看</div>
               <div class="bar-value"><span class="animated-number">${viewCount}</span></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar" style="height: ${videoHeight}%"></div>
+              <div class="bar-label">视频</div>
+              <div class="bar-value"><span class="animated-number">${videoCount}</span></div>
             </div>
           </div>
         </div>
@@ -2608,6 +2829,165 @@ class IntentRecognition {
                 <span style="color: var(--text-secondary);">${item.label}</span>
               </div>
             `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  renderVideoInteractions() {
+    const videoPlayEvents = this.behaviors.filter(b => b.type === 'video-play');
+    const videoPauseEvents = this.behaviors.filter(b => b.type === 'video-pause');
+    const videoWatchEvents = this.behaviors.filter(b => b.type === 'video-watch');
+    const videoHoverEvents = this.behaviors.filter(b => b.type === 'video-hover-end');
+    const videoControlEvents = this.behaviors.filter(b => 
+      b.type === 'click' && b.data.element === 'video-control'
+    );
+    const videoClickEvents = this.behaviors.filter(b => 
+      b.type === 'click' && b.data.element === 'product-video'
+    );
+    const productCardClicks = this.behaviors.filter(b => 
+      b.type === 'click' && b.data.element === 'video-product-card'
+    );
+    
+    // 计算总观看时长
+    let totalWatchDuration = 0;
+    videoWatchEvents.forEach(e => {
+      if (e.data.watchDuration) {
+        totalWatchDuration = Math.max(totalWatchDuration, e.data.watchDuration);
+      }
+    });
+    videoPauseEvents.forEach(e => {
+      if (e.data.watchDuration) {
+        totalWatchDuration = Math.max(totalWatchDuration, e.data.watchDuration);
+      }
+    });
+    
+    const formatDuration = (seconds) => {
+      if (seconds < 60) return `${seconds}秒`;
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return secs > 0 ? `${mins}分${secs}秒` : `${mins}分钟`;
+    };
+    
+    // 获取最近5个视频交互事件
+    const recentVideoBehaviors = this.behaviors
+      .filter(b => 
+        b.type === 'video-play' || b.type === 'video-pause' || 
+        b.type === 'video-watch' || b.type === 'video-hover-end' ||
+        (b.type === 'click' && (b.data.element === 'video-control' || 
+                                b.data.element === 'product-video' || 
+                                b.data.element === 'video-product-card'))
+      )
+      .slice(-8)
+      .reverse();
+    
+    const actionLabels = {
+      'video-play': '播放视频',
+      'video-pause': '暂停视频',
+      'video-watch': '观看视频',
+      'video-hover-end': '悬停视频',
+      'click': (data) => {
+        if (data.element === 'video-control') {
+          const actionMap = {
+            'zoom-in': '放大视频',
+            'zoom-out': '缩小视频',
+            'zoom-reset': '重置大小',
+            'mute': '静音',
+            'unmute': '取消静音',
+            'fullscreen': '全屏'
+          };
+          return actionMap[data.action] || '控制视频';
+        } else if (data.element === 'product-video') {
+          return '点击视频';
+        } else if (data.element === 'video-product-card') {
+          return '查看产品详情';
+        }
+        return '点击操作';
+      }
+    };
+    
+    return `
+      <div class="intent-card show">
+        <h3>🎬 视频交互分析</h3>
+        <div class="chart-container">
+          <!-- 视频交互统计 -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
+            <div style="background: rgba(125, 166, 255, 0.1); border-radius: 8px; padding: 12px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 700; color: #7da6ff; margin-bottom: 4px;">
+                <span class="animated-number">${videoPlayEvents.length}</span>
+              </div>
+              <div style="font-size: 12px; color: var(--text-secondary);">播放次数</div>
+            </div>
+            <div style="background: rgba(0, 255, 136, 0.1); border-radius: 8px; padding: 12px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 700; color: #00ff88; margin-bottom: 4px;">
+                ${formatDuration(totalWatchDuration)}
+              </div>
+              <div style="font-size: 12px; color: var(--text-secondary);">观看时长</div>
+            </div>
+            <div style="background: rgba(255, 68, 68, 0.1); border-radius: 8px; padding: 12px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 700; color: #ff4444; margin-bottom: 4px;">
+                <span class="animated-number">${videoControlEvents.length}</span>
+              </div>
+              <div style="font-size: 12px; color: var(--text-secondary);">控制操作</div>
+            </div>
+            <div style="background: rgba(255, 193, 7, 0.1); border-radius: 8px; padding: 12px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 700; color: #ffc107; margin-bottom: 4px;">
+                <span class="animated-number">${productCardClicks.length}</span>
+              </div>
+              <div style="font-size: 12px; color: var(--text-secondary);">查看详情</div>
+            </div>
+          </div>
+          
+          <!-- 视频交互时间线 -->
+          ${recentVideoBehaviors.length > 0 ? `
+            <div style="margin-top: 16px;">
+              <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">
+                最近交互记录
+              </div>
+              <div class="timeline-chart" style="max-height: 200px; overflow-y: auto;">
+                <div class="timeline-line"></div>
+                ${recentVideoBehaviors.map((behavior, index) => {
+                  const time = new Date(behavior.timestamp);
+                  const timeStr = time.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                  let label = actionLabels[behavior.type];
+                  if (typeof label === 'function') {
+                    label = label(behavior.data);
+                  } else if (!label) {
+                    label = behavior.type;
+                  }
+                  
+                  // 如果是观看事件，显示观看时长
+                  let extraInfo = '';
+                  if (behavior.type === 'video-watch' && behavior.data.watchDuration) {
+                    extraInfo = ` (${formatDuration(behavior.data.watchDuration)})`;
+                  } else if (behavior.type === 'video-hover-end' && behavior.data.hoverDuration) {
+                    extraInfo = ` (${behavior.data.hoverDuration}秒)`;
+                  }
+                  
+                  return `
+                    <div class="timeline-item" style="animation-delay: ${index * 0.1}s">
+                      <div class="timeline-dot" style="background: #7da6ff;"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-time">${timeStr}</div>
+                        <div class="timeline-text">${label}${extraInfo}</div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          ` : ''}
+          
+          <!-- 产品信息 -->
+          <div style="margin-top: 16px; padding: 12px; background: rgba(125, 166, 255, 0.05); border-radius: 8px; border-left: 3px solid #7da6ff;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">
+              F1 Floating Pillow
+            </div>
+            <div style="font-size: 12px; color: var(--text-secondary);">
+              价格: <span style="color: #ff4444; font-weight: 600;">USD 139.0</span>
+              <span style="text-decoration: line-through; color: #999; margin-left: 8px;">USD 169.0</span>
+            </div>
           </div>
         </div>
       </div>
@@ -3409,53 +3789,171 @@ const muteBtn = document.getElementById('muteBtn');
 const muteIcon = document.getElementById('muteIcon');
 const fullscreenBtn = document.getElementById('fullscreenBtn');
 const closeBtn = document.getElementById('closeBtn');
+const videoProductCard = document.querySelector('.video-product-card');
 
 let isMuted = true; // 初始为静音（autoplay需要）
 let currentZoom = 'normal'; // normal, zoomed, zoomed-out
+let videoWatchStartTime = null;
+let videoWatchDuration = 0;
+let videoHoverStartTime = null;
+let isVideoHovered = false;
+
+// 视频观看时长追踪
+videoPlayer.addEventListener('play', () => {
+  videoWatchStartTime = Date.now();
+  intentEngine.recordBehavior('video-play', {
+    element: 'product-video',
+    product: 'F1 Floating Pillow',
+    action: 'play'
+  });
+});
+
+videoPlayer.addEventListener('pause', () => {
+  if (videoWatchStartTime) {
+    videoWatchDuration += Date.now() - videoWatchStartTime;
+    intentEngine.recordBehavior('video-pause', {
+      element: 'product-video',
+      product: 'F1 Floating Pillow',
+      action: 'pause',
+      watchDuration: Math.round((Date.now() - videoWatchStartTime) / 1000)
+    });
+    videoWatchStartTime = null;
+  }
+});
+
+// 视频观看时长定期记录（每5秒）
+setInterval(() => {
+  if (videoWatchStartTime && !videoPlayer.paused) {
+    const currentWatchTime = Math.round((Date.now() - videoWatchStartTime + videoWatchDuration) / 1000);
+    if (currentWatchTime % 5 === 0) { // 每5秒记录一次
+      intentEngine.recordBehavior('video-watch', {
+        element: 'product-video',
+        product: 'F1 Floating Pillow',
+        action: 'watching',
+        watchDuration: currentWatchTime
+      });
+    }
+  }
+}, 1000);
+
+// 视频悬停事件
+videoWidget.addEventListener('mouseenter', () => {
+  if (!isVideoHovered) {
+    isVideoHovered = true;
+    videoHoverStartTime = Date.now();
+    intentEngine.recordBehavior('hover', {
+      element: 'product-video-widget',
+      product: 'F1 Floating Pillow',
+      type: 'video-hover'
+    });
+  }
+});
+
+videoWidget.addEventListener('mouseleave', () => {
+  if (isVideoHovered && videoHoverStartTime) {
+    const hoverDuration = Math.round((Date.now() - videoHoverStartTime) / 1000);
+    intentEngine.recordBehavior('video-hover-end', {
+      element: 'product-video-widget',
+      product: 'F1 Floating Pillow',
+      hoverDuration: hoverDuration
+    });
+    isVideoHovered = false;
+    videoHoverStartTime = null;
+  }
+});
+
+// 视频点击事件
+videoPlayer.addEventListener('click', (e) => {
+  if (e.target === videoPlayer) {
+    intentEngine.recordBehavior('click', {
+      element: 'product-video',
+      product: 'F1 Floating Pillow',
+      action: 'video-click'
+    });
+  }
+});
 
 // 放大功能
-zoomInBtn.addEventListener('click', () => {
+zoomInBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
   videoWidget.classList.remove('zoomed-out');
   if (currentZoom === 'normal') {
     videoWidget.classList.add('zoomed');
     currentZoom = 'zoomed';
+    intentEngine.recordBehavior('click', {
+      element: 'video-control',
+      action: 'zoom-in',
+      product: 'F1 Floating Pillow',
+      zoomLevel: 'zoomed'
+    });
   } else if (currentZoom === 'zoomed-out') {
     videoWidget.classList.remove('zoomed-out');
     currentZoom = 'normal';
+    intentEngine.recordBehavior('click', {
+      element: 'video-control',
+      action: 'zoom-reset',
+      product: 'F1 Floating Pillow',
+      zoomLevel: 'normal'
+    });
   }
 });
 
 // 缩小功能
-zoomOutBtn.addEventListener('click', () => {
+zoomOutBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
   videoWidget.classList.remove('zoomed');
   if (currentZoom === 'normal') {
     videoWidget.classList.add('zoomed-out');
     currentZoom = 'zoomed-out';
+    intentEngine.recordBehavior('click', {
+      element: 'video-control',
+      action: 'zoom-out',
+      product: 'F1 Floating Pillow',
+      zoomLevel: 'zoomed-out'
+    });
   } else if (currentZoom === 'zoomed') {
     videoWidget.classList.remove('zoomed');
     currentZoom = 'normal';
+    intentEngine.recordBehavior('click', {
+      element: 'video-control',
+      action: 'zoom-reset',
+      product: 'F1 Floating Pillow',
+      zoomLevel: 'normal'
+    });
   }
 });
 
 // 静音/取消静音功能
-muteBtn.addEventListener('click', () => {
+muteBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
   if (videoPlayer.muted) {
     videoPlayer.muted = false;
     muteIcon.innerHTML = `
       <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
     `;
     isMuted = false;
+    intentEngine.recordBehavior('click', {
+      element: 'video-control',
+      action: 'unmute',
+      product: 'F1 Floating Pillow'
+    });
   } else {
     videoPlayer.muted = true;
     muteIcon.innerHTML = `
       <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
     `;
     isMuted = true;
+    intentEngine.recordBehavior('click', {
+      element: 'video-control',
+      action: 'mute',
+      product: 'F1 Floating Pillow'
+    });
   }
 });
 
 // 全屏功能
-fullscreenBtn.addEventListener('click', () => {
+fullscreenBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
   if (videoPlayer.requestFullscreen) {
     videoPlayer.requestFullscreen();
   } else if (videoPlayer.webkitRequestFullscreen) {
@@ -3465,7 +3963,27 @@ fullscreenBtn.addEventListener('click', () => {
   } else if (videoPlayer.msRequestFullscreen) {
     videoPlayer.msRequestFullscreen();
   }
+  intentEngine.recordBehavior('click', {
+    element: 'video-control',
+    action: 'fullscreen',
+    product: 'F1 Floating Pillow'
+  });
 });
+
+// 产品卡片点击事件
+if (videoProductCard) {
+  videoProductCard.addEventListener('click', (e) => {
+    e.stopPropagation();
+    intentEngine.recordBehavior('click', {
+      element: 'video-product-card',
+      product: 'F1 Floating Pillow',
+      action: 'view-product-details',
+      price: 'USD 139.0'
+    });
+  });
+  
+  videoProductCard.style.cursor = 'pointer';
+}
 
 // 更新静音图标状态
 videoPlayer.addEventListener('volumechange', () => {
@@ -3500,37 +4018,76 @@ videoPlayer.addEventListener('ended', () => {
     您的浏览器不支持视频播放。
   </video>
   <div class="video-controls-overlay">
-    <!-- 顶部控制栏 -->
+    <!-- 顶部控制区域 -->
     <div class="video-controls-top">
-      <button class="video-control-btn" id="closeBtn" title="关闭" style="display: none;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M18 6L6 18M6 6l12 12"/>
-        </svg>
-      </button>
-      <button class="video-control-btn" id="fullscreenBtn" title="全屏">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
-        </svg>
-      </button>
+      <!-- 左上角：关闭按钮 -->
+      <div class="video-controls-top-left">
+        <button class="video-control-btn" id="closeBtn" title="关闭" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- 右上角：全屏和静音按钮 -->
+      <div class="video-controls-top-right">
+        <button class="video-control-btn" id="fullscreenBtn" title="全屏">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
+          </svg>
+        </button>
+        <button class="video-control-btn" id="muteBtn" title="静音/取消静音">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="muteIcon">
+            <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+          </svg>
+        </button>
+      </div>
     </div>
     
-    <!-- 右侧控制按钮 -->
+    <!-- 右侧垂直标签：Reviews -->
+    <div class="video-side-label">Reviews</div>
+    
+    <!-- 底部产品信息覆盖层 -->
+    <div class="video-product-overlay">
+      <div class="video-product-card">
+        <div class="video-product-thumbnail">
+          <img src="products/pillow.jpg" alt="F1 Floating Pillow" 
+               onerror="this.onerror=null; this.style.display='none'; this.parentElement.querySelector('.thumbnail-placeholder').style.display='block';"
+               onload="this.parentElement.classList.add('has-image'); this.parentElement.querySelector('.thumbnail-placeholder').style.display='none';">
+          <svg width="50" height="50" viewBox="0 0 50 50" class="thumbnail-placeholder" style="position: absolute; top: 0; left: 0; z-index: 1;">
+            <defs>
+              <linearGradient id="pillowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#7da6ff;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="50" height="50" rx="6" fill="url(#pillowGradient)"/>
+            <rect x="8" y="12" width="34" height="26" rx="4" fill="rgba(255,255,255,0.3)"/>
+            <rect x="12" y="16" width="26" height="18" rx="3" fill="rgba(255,255,255,0.2)"/>
+          </svg>
+        </div>
+        <div class="video-product-info">
+          <div class="video-product-name">Nitetronic F1 Floating Pillow</div>
+          <div class="video-product-price">
+            <span class="video-product-original-price">USD 169.0</span>
+            <span class="video-product-discount-price">USD 139.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 右侧控制按钮（缩放） -->
     <div class="video-controls-right">
       <button class="video-control-btn" id="zoomInBtn" title="放大">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/>
           <path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
         </svg>
       </button>
       <button class="video-control-btn" id="zoomOutBtn" title="缩小">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/>
           <path d="M21 21l-4.35-4.35M8 11h6"/>
-        </svg>
-      </button>
-      <button class="video-control-btn" id="muteBtn" title="静音/取消静音">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="muteIcon">
-          <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
         </svg>
       </button>
     </div>
