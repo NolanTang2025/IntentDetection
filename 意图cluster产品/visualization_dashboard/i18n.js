@@ -7,7 +7,8 @@ const i18n = {
             overview: '总览',
             journey: '转化分析',
             clusters: '用户分析',
-            insights: '业务洞察'
+            insights: '业务洞察',
+            businessInsights: '业务洞察'
         },
         // 品牌
         brand: {
@@ -122,6 +123,10 @@ const i18n = {
                 insights: {
                     title: '业务洞察与产品偏好',
                     desc: '查看营销策略建议和产品偏好分析'
+                },
+                businessInsights: {
+                    title: '业务洞察分析',
+                    desc: '基于金融特征的智能用户细分与运营策略'
                 }
             }
         },
@@ -295,7 +300,8 @@ const i18n = {
             overview: 'Overview',
             journey: 'Conversion',
             clusters: 'User Analysis',
-            insights: 'Insights'
+            insights: 'Insights',
+            businessInsights: 'Business Insights'
         },
         // Brand
         brand: {
@@ -410,6 +416,10 @@ const i18n = {
                 insights: {
                     title: 'Business Insights & Product Preferences',
                     desc: 'View marketing strategy recommendations and product preference analysis'
+                },
+                businessInsights: {
+                    title: 'Business Insights Analysis',
+                    desc: 'Intelligent user segmentation and operational strategies based on financial features'
                 }
             }
         },
@@ -941,6 +951,28 @@ function updatePageLanguage() {
             el.placeholder = text;
         } else if (el.tagName === 'OPTION') {
             el.textContent = text;
+        } else if (el.tagName === 'SPAN') {
+            // 对于 span 标签，直接更新文本内容（因为 data-i18n 在 span 上，说明它就是要被翻译的元素）
+            el.textContent = text;
+        } else if (el.tagName === 'A') {
+            // 对于 a 标签，检查是否有子元素需要保留
+            const childNodes = Array.from(el.childNodes);
+            const hasOtherElements = childNodes.some(node => 
+                node.nodeType === 1 && !node.hasAttribute('data-i18n')
+            );
+            
+            if (hasOtherElements) {
+                // 如果有其他子元素（如 beta-badge），只更新文本节点，保留其他元素
+                childNodes.forEach(node => {
+                    if (node.nodeType === 3) { // 文本节点
+                        node.textContent = text;
+                    }
+                    // 子元素中的 data-i18n 会在后续循环中被处理，这里不需要处理
+                });
+            } else {
+                // 没有其他子元素，直接更新文本
+                el.textContent = text;
+            }
         } else {
             el.textContent = text;
         }

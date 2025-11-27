@@ -76,6 +76,18 @@
                 <a href="#" class="nav-link" data-tab="clusters" data-i18n="nav.clusters">用户分析</a>
             </div>
             
+            <!-- 店铺选择器 -->
+            <div class="shop-selector-nav" id="shopSelectorContainer">
+                <select id="shopSelector" class="shop-select-dropdown">
+                    <option value="">选择店铺...</option>
+                    <option value="28">店铺 28</option>
+                    <option value="29">店铺 29</option>
+                    <option value="39">店铺 39</option>
+                    <option value="49">店铺 49</option>
+                    <option value="53">店铺 53</option>
+                </select>
+            </div>
+            
             <!-- 语言切换器 -->
             <div class="language-switcher">
                 <button class="lang-btn" id="langBtn" title="Switch Language">
@@ -363,6 +375,20 @@
                             <h3 data-i18n="home.quickActions.clusters.title">分析用户聚类</h3>
                             <p data-i18n="home.quickActions.clusters.desc">深入了解每个用户群体的特征</p>
                         </a>
+                        <a href="#" class="action-card business-insights-card" data-tab="financial" style="position: relative;">
+                            <div class="action-icon" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <h3 data-i18n="home.quickActions.businessInsights.title">业务洞察分析</h3>
+                                <span class="beta-badge" style="font-size: 0.65rem; padding: 0.15rem 0.4rem;">BETA</span>
+                            </div>
+                            <p data-i18n="home.quickActions.businessInsights.desc">基于金融特征的智能用户细分与运营策略</p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -516,6 +542,127 @@
                 </div>
             </div>
 
+            <!-- 金融市场分析标签页 (Beta) -->
+            <div id="financial" class="tab-content">
+                <!-- 顶部业务概览 -->
+                <div class="financial-dashboard-header" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 2rem; border-radius: 16px; margin-bottom: 2rem; border: 1px solid var(--border);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div>
+                            <h2 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.75rem;">YUP用户行为分析 <span class="beta-badge">BETA</span></h2>
+                            <p style="margin: 0; color: var(--text-secondary);">基于用户行为特征的智能细分，帮助您精准运营和转化</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 核心业务指标 -->
+                    <div id="financialStats" class="financial-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 快速洞察卡片 -->
+                <div id="financialQuickInsights" style="margin-bottom: 2rem;">
+                    <!-- 动态生成 -->
+                </div>
+
+                <!-- 子标签页切换 -->
+                <div class="sub-tabs">
+                    <button class="sub-tab-btn active" data-sub-tab="financial-overview" onclick="switchFinancialSubTab('overview')">
+                        <span>📊 用户分组</span>
+                    </button>
+                    <button class="sub-tab-btn" data-sub-tab="financial-portrait" onclick="switchFinancialSubTab('portrait')">
+                        <span>🔄 用户轨迹</span>
+                    </button>
+                    <button class="sub-tab-btn" data-sub-tab="financial-clusters" onclick="switchFinancialSubTab('clusters')">
+                        <span>🎯 运营策略</span>
+                    </button>
+                </div>
+
+                <!-- 聚类总览子页面 -->
+                <div id="subTab-financial-overview" class="sub-tab-content active">
+                    <!-- 用户分组卡片 -->
+                    <div id="financialUserGroups" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                        <!-- 动态生成 -->
+                    </div>
+
+                    <!-- 数据分布图表 -->
+                    <div class="section-title" style="margin-top: 2rem; margin-bottom: 1.5rem;">
+                        <h3>数据分布</h3>
+                        <p>用户状态和行为分布概览</p>
+                    </div>
+
+                    <div class="charts-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                        <div class="chart-card">
+                            <h3>用户状态分布</h3>
+                            <canvas id="financialTransactionStatusChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>身份验证进度</h3>
+                            <canvas id="financialKYCStatusChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>用户行为偏好</h3>
+                            <canvas id="financialMainActivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 用户轨迹子页面 -->
+                <div id="subTab-financial-portrait" class="sub-tab-content">
+                    <div class="section-title" style="margin-top: 0;">
+                        <h3>用户意图轨迹分析</h3>
+                        <p>查看每个用户在不同时间段的意图切片及其对应的聚类分布</p>
+                    </div>
+
+                    <!-- 搜索和筛选 -->
+                    <div class="user-filters" style="margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                        <div class="search-box" style="flex: 1; min-width: 300px;">
+                            <input type="text" id="financialUserSearch" placeholder="搜索用户ID..." style="width: 100%; padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
+                        </div>
+                        <div class="filter-group">
+                            <label style="margin-right: 0.5rem; color: var(--text-secondary);">筛选:</label>
+                            <select id="financialClusterFilter" style="padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
+                                <option value="">所有聚类</option>
+                            </select>
+                        </div>
+                        <div class="sort-group">
+                            <label style="margin-right: 0.5rem; color: var(--text-secondary);">排序:</label>
+                            <select id="financialSortOption" style="padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
+                                <option value="time">按时间</option>
+                                <option value="segments">按片段数</option>
+                                <option value="clusters">按聚类数</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 用户列表 -->
+                    <div id="financialUserTrajectories" class="user-trajectories">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 运营策略子页面 -->
+                <div id="subTab-financial-clusters" class="sub-tab-content">
+                    <div class="section-title" style="margin-top: 0;">
+                        <h3>精准运营策略</h3>
+                        <p>针对不同用户群体的个性化运营建议和行动方案</p>
+                    </div>
+
+                    <div class="cluster-selector" style="margin-bottom: 2rem;">
+                        <label for="financialClusterSelect" style="font-weight: 600; color: var(--text); margin-right: 1rem;">选择用户群体：</label>
+                        <select id="financialClusterSelect" onchange="showFinancialClusterDetails(this.value)" style="padding: 0.75rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem; min-width: 300px;">
+                            <option value="">-- 请选择用户群体 --</option>
+                        </select>
+                    </div>
+
+                    <div id="financialClusterDetails" class="cluster-details">
+                        <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">👆</div>
+                            <p style="font-size: 1.1rem;">请在上方选择用户群体，查看详细的运营策略</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- 页脚 -->
@@ -534,8 +681,151 @@
     </div>
 
     <script src="i18n.js"></script>
-    <script src="data.js"></script>
+    <!-- 优先加载多店铺数据，如果不存在则加载默认数据 -->
+    <script src="multi_shop_data.js" onerror="loadDefaultData()"></script>
+    <script>
+        function loadDefaultData() {
+            const script = document.createElement('script');
+            script.src = 'data.js';
+            document.head.appendChild(script);
+        }
+    </script>
     <script src="dashboard.js"></script>
+    <script>
+        // 店铺切换功能
+        let currentShopId = null;
+        
+        // 初始化店铺选择器
+        function initShopSelector() {
+            const shopSelector = document.getElementById('shopSelector');
+            if (!shopSelector) return;
+            
+            // 检查是否有多店铺数据
+            if (typeof shopSummary === 'undefined' || typeof shopData === 'undefined') {
+                // 如果没有多店铺数据，隐藏选择器并使用默认数据
+                shopSelector.style.display = 'none';
+                console.log('使用默认数据文件');
+                return;
+            }
+            
+            // 填充店铺选项（排除YUP，YUP只在金融分析tab中显示）
+            shopSelector.innerHTML = '<option value="">选择店铺...</option>';
+            shopSummary.shops.forEach(shopId => {
+                // 排除YUP，因为YUP只在金融分析tab中显示
+                if (shopId === 'YUP') return;
+                const option = document.createElement('option');
+                option.value = shopId;
+                const stats = shopSummary.shop_stats[shopId];
+                option.textContent = `店铺 ${shopId} (${stats.total_users}用户)`;
+                shopSelector.appendChild(option);
+            });
+            
+            // 监听选择变化
+            shopSelector.addEventListener('change', function(e) {
+                const selectedShop = e.target.value;
+                if (selectedShop) {
+                    switchShop(selectedShop);
+                } else {
+                    // 如果选择"选择店铺..."，使用默认数据
+                    loadDefaultShopData();
+                }
+            });
+        }
+        
+        // 切换店铺
+        function switchShop(shopId) {
+            if (!shopData || !shopData[shopId]) {
+                console.error(`店铺 ${shopId} 的数据不存在`);
+                return;
+            }
+            
+            currentShopId = shopId;
+            
+            // 更新全局数据变量
+            window.businessInsights = shopData[shopId].businessInsights || [];
+            window.userPortraits = shopData[shopId].userPortraits || [];
+            window.stats = shopData[shopId].stats || {};
+            window.timeSeries = shopData[shopId].timeSeries || [];
+            window.userTrajectories = shopData[shopId].userTrajectories || [];
+            
+            // 更新店铺指示器
+            updateShopIndicator(shopId);
+            
+            // 更新页面顶部的统计数据
+            if (typeof stats !== 'undefined' && stats) {
+                const totalUsersEl = document.getElementById('totalUsers');
+                const totalSegmentsEl = document.getElementById('totalSegments');
+                const totalClustersEl = document.getElementById('totalClusters');
+                
+                if (totalUsersEl && typeof animateValue === 'function') {
+                    animateValue(totalUsersEl, parseInt(totalUsersEl.textContent) || 0, stats.totalUsers || 0, 1500);
+                } else if (totalUsersEl) {
+                    totalUsersEl.textContent = stats.totalUsers || 0;
+                }
+                
+                if (totalSegmentsEl && typeof animateValue === 'function') {
+                    animateValue(totalSegmentsEl, parseInt(totalSegmentsEl.textContent) || 0, stats.totalSegments || 0, 1500);
+                } else if (totalSegmentsEl) {
+                    totalSegmentsEl.textContent = stats.totalSegments || 0;
+                }
+                
+                if (totalClustersEl && typeof animateValue === 'function') {
+                    animateValue(totalClustersEl, parseInt(totalClustersEl.textContent) || 0, stats.totalClusters || 0, 1500);
+                } else if (totalClustersEl) {
+                    totalClustersEl.textContent = stats.totalClusters || 0;
+                }
+            }
+            
+            // 重新加载当前标签页内容
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const tabName = activeTab.id;
+                if (typeof loadTabContent === 'function') {
+                    loadTabContent(tabName);
+                }
+            }
+        }
+        
+        // 加载默认店铺数据
+        function loadDefaultShopData() {
+            // 如果存在默认的data.js数据，使用它
+            if (typeof businessInsights !== 'undefined') {
+                currentShopId = null;
+                const activeTab = document.querySelector('.tab-content.active');
+                if (activeTab && typeof loadTabContent === 'function') {
+                    loadTabContent(activeTab.id);
+                }
+            }
+        }
+        
+        // 更新店铺指示器
+        function updateShopIndicator(shopId) {
+            const shopStats = shopSummary.shop_stats[shopId];
+            if (shopStats) {
+                const shopSelector = document.getElementById('shopSelector');
+                if (shopSelector) {
+                    shopSelector.title = `店铺 ${shopId} - ${shopStats.total_users} 用户, ${shopStats.total_segments} 片段, ${shopStats.total_clusters} 聚类`;
+                }
+            }
+        }
+        
+    // 页面加载完成后初始化
+    window.addEventListener('load', function() {
+        // 延迟初始化，确保数据已加载
+        setTimeout(function() {
+            initShopSelector();
+            
+            // 如果有多店铺数据且没有选择店铺，自动选择第一个店铺（排除YUP）
+            if (typeof shopSummary !== 'undefined' && typeof shopData !== 'undefined' && shopSummary.shops.length > 0) {
+                const shopsWithoutYUP = shopSummary.shops.filter(s => s !== 'YUP');
+                if (shopsWithoutYUP.length > 0 && !currentShopId) {
+                    const firstShop = shopsWithoutYUP[0];
+                    switchShop(firstShop);
+                }
+            }
+        }, 1000);
+    });
+    </script>
 </body>
 </html>
 

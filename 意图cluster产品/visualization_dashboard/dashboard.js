@@ -27,13 +27,14 @@ function showTab(tabName, element) {
         'home': typeof t === 'function' ? t('home.title') : '用户意图聚类分析平台',
         'overview': typeof t === 'function' ? t('header.overview') : '数据总览',
         'journey': typeof t === 'function' ? t('journey.title') : '转化分析',
-        'clusters': typeof t === 'function' ? t('clusters.title') : '用户分析'
+        'clusters': typeof t === 'function' ? t('clusters.title') : '用户分析',
+        'financial': '业务洞察'
     };
     
     const dashboardHeader = document.getElementById('dashboardHeader');
     if (dashboardHeader) {
-        // 首页、转化分析、用户分析页面不显示banner，直接展示主要内容
-        if (tabName === 'home' || tabName === 'journey' || tabName === 'clusters') {
+        // 首页、转化分析、用户分析、金融市场分析页面不显示banner，直接展示主要内容
+        if (tabName === 'home' || tabName === 'journey' || tabName === 'clusters' || tabName === 'financial') {
             dashboardHeader.style.display = 'none';
         } else {
             dashboardHeader.style.display = 'block';
@@ -46,6 +47,16 @@ function showTab(tabName, element) {
             if (headerSubtitle && tabName === 'overview') {
                 headerSubtitle.textContent = typeof t === 'function' ? t('header.overviewSubtitle') : '实时用户意图分析与业务洞察';
             }
+        }
+    }
+    
+    // 金融市场分析tab：隐藏店铺选择器，显示YUP数据
+    const shopSelectorContainer = document.getElementById('shopSelectorContainer');
+    if (shopSelectorContainer) {
+        if (tabName === 'financial') {
+            shopSelectorContainer.style.display = 'none';
+        } else {
+            shopSelectorContainer.style.display = 'block';
         }
     }
     
@@ -94,6 +105,9 @@ function loadTabContent(tabName) {
             case 'clusters':
                 loadUserAnalysisPage();
                 break;
+            case 'financial':
+                loadFinancialAnalysisPage();
+                break;
         }
         
         // 恢复显示
@@ -108,16 +122,25 @@ function loadTabContent(tabName) {
 
 // 加载总览页面
 function loadOverview() {
-    if (typeof businessInsights === 'undefined') {
-        console.error('businessInsights 数据未加载');
+    if (typeof businessInsights === 'undefined' || !Array.isArray(businessInsights) || businessInsights.length === 0) {
+        console.error('businessInsights 数据未加载或为空');
+        // 显示提示信息
+        const chartsGrid = document.querySelector('.charts-grid');
+        if (chartsGrid) {
+            chartsGrid.innerHTML = '<div class="no-data-message"><p>数据加载中，请稍候...</p></div>';
+        }
         return;
     }
     
     // 用户聚类分布
     const clusterData = {};
     businessInsights.forEach(insight => {
-        const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
-        if (size > 0) {
+        if (!insight || !insight.key_characteristics || !Array.isArray(insight.key_characteristics) || insight.key_characteristics.length === 0) {
+            return;
+        }
+        const sizeMatch = insight.key_characteristics[0].match(/(\d+)\s*个意图片段/);
+        const size = sizeMatch ? parseInt(sizeMatch[1]) : 0;
+        if (size > 0 && !isNaN(size)) {
             const clusterLabel = currentLanguage === 'zh' ? `聚类 ${insight.cluster_id}` : `Cluster ${insight.cluster_id}`;
             clusterData[clusterLabel] = size;
         }
@@ -130,11 +153,15 @@ function loadOverview() {
     // 购买阶段分布
     const stageData = {};
     businessInsights.forEach(insight => {
-        const stageMatch = insight.key_characteristics.find(c => c.includes('购买阶段'));
+        if (!insight || !insight.key_characteristics || !Array.isArray(insight.key_characteristics)) {
+            return;
+        }
+        const stageMatch = insight.key_characteristics.find(c => c && c.includes('购买阶段'));
         if (stageMatch) {
             const stage = stageMatch.split(':')[1]?.trim() || '未知';
-            const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
-            if (stage && size > 0) {
+            const sizeMatch = insight.key_characteristics[0].match(/(\d+)\s*个意图片段/);
+            const size = sizeMatch ? parseInt(sizeMatch[1]) : 0;
+            if (stage && size > 0 && !isNaN(size)) {
                 // 翻译阶段名称
                 const stageTranslations = {
                     '浏览阶段': t('stages.browsing'),
@@ -155,11 +182,15 @@ function loadOverview() {
     // 价格偏好分布
     const priceData = {};
     businessInsights.forEach(insight => {
-        const priceMatch = insight.key_characteristics.find(c => c.includes('价格敏感度'));
+        if (!insight || !insight.key_characteristics || !Array.isArray(insight.key_characteristics)) {
+            return;
+        }
+        const priceMatch = insight.key_characteristics.find(c => c && c.includes('价格敏感度'));
         if (priceMatch) {
             const price = priceMatch.split(':')[1]?.trim() || '未知';
-            const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
-            if (price && size > 0) {
+            const sizeMatch = insight.key_characteristics[0].match(/(\d+)\s*个意图片段/);
+            const size = sizeMatch ? parseInt(sizeMatch[1]) : 0;
+            if (price && size > 0 && !isNaN(size)) {
                 // 翻译价格偏好类型
                 let translatedPrice = price;
                 if (currentLanguage === 'en' && typeof translateKeyCharacteristic === 'function') {
@@ -178,11 +209,15 @@ function loadOverview() {
     // 核心关注点
     const concernsData = {};
     businessInsights.forEach(insight => {
-        const concernMatch = insight.key_characteristics.find(c => c.includes('关注点'));
+        if (!insight || !insight.key_characteristics || !Array.isArray(insight.key_characteristics)) {
+            return;
+        }
+        const concernMatch = insight.key_characteristics.find(c => c && c.includes('关注点'));
         if (concernMatch) {
             const concern = concernMatch.split(':')[1]?.trim() || '未知';
-            const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
-            if (concern && size > 0) {
+            const sizeMatch = insight.key_characteristics[0].match(/(\d+)\s*个意图片段/);
+            const size = sizeMatch ? parseInt(sizeMatch[1]) : 0;
+            if (concern && size > 0 && !isNaN(size)) {
                 // 翻译关注点
                 let translatedConcern = concern;
                 if (currentLanguage === 'en' && typeof translateKeyCharacteristic === 'function') {
@@ -209,12 +244,25 @@ function displayKeyInsights() {
     
     container.innerHTML = '';
     
+    if (typeof businessInsights === 'undefined' || !Array.isArray(businessInsights) || businessInsights.length === 0) {
+        container.innerHTML = '<p>暂无数据</p>';
+        return;
+    }
+    
     // 找出最大的几个聚类
     const topClusters = businessInsights
         .map(insight => {
-            const size = parseInt(insight.key_characteristics[0].match(/(\d+)\s*个意图片段/)?.[1] || 0);
+            if (!insight || !insight.key_characteristics || !Array.isArray(insight.key_characteristics) || insight.key_characteristics.length === 0) {
+                return null;
+            }
+            const sizeMatch = insight.key_characteristics[0].match(/(\d+)\s*个意图片段/);
+            const size = sizeMatch ? parseInt(sizeMatch[1]) : 0;
+            if (isNaN(size)) {
+                return null;
+            }
             return { ...insight, size };
         })
+        .filter(item => item !== null && item.size > 0)
         .sort((a, b) => b.size - a.size)
         .slice(0, 4);
     
@@ -322,20 +370,67 @@ function showClusterDetails(clusterId) {
             <h3>${clusterLabel} ${clusterId}: ${getClusterDisplayName(insight.user_segment_name)}</h3>
             
             <div class="info-grid">
-                ${insight.key_characteristics.map(char => {
-                    const translatedChar = typeof translateKeyCharacteristic === 'function' 
-                        ? translateKeyCharacteristic(char) 
-                        : char;
-                    const parts = translatedChar.split(':');
-                    const key = parts[0]?.trim() || '';
-                    const value = parts.slice(1).join(':').trim() || '';
-                    return `
-                    <div class="info-item">
-                        <strong>${key}</strong>
-                        <span>${value || translatedChar}</span>
-                    </div>
-                `;
-                }).join('')}
+                ${(function() {
+                    // 支持两种格式：数组（电商）和对象（金融）
+                    let characteristics = [];
+                    if (Array.isArray(insight.key_characteristics)) {
+                        // 电商场景：数组格式
+                        characteristics = insight.key_characteristics.map(char => {
+                            const translatedChar = typeof translateKeyCharacteristic === 'function' 
+                                ? translateKeyCharacteristic(char) 
+                                : char;
+                            const parts = translatedChar.split(':');
+                            const key = parts[0]?.trim() || '';
+                            const value = parts.slice(1).join(':').trim() || '';
+                            return { key, value: value || translatedChar };
+                        });
+                    } else if (typeof insight.key_characteristics === 'object') {
+                        // 金融场景：对象格式
+                        const chars = insight.key_characteristics;
+                        // 金融特征映射
+                        const financialLabels = {
+                            'user_count': '用户数',
+                            'segment_count': '片段数',
+                            'avg_duration_minutes': '平均浏览时长（分钟）',
+                            'avg_interactions': '平均交互次数',
+                            'avg_intent_score': '平均意图强度',
+                            'behavior': '行为模式',
+                            'urgency': '紧迫度',
+                            'main_activity': '主要活动',
+                            'kyc_status': 'KYC状态',
+                            'transaction_status': '交易状态',
+                            'stage': '购买阶段',
+                            'price_sensitivity': '价格敏感度',
+                            'engagement_level': '参与度',
+                            'product_preference': '产品偏好',
+                            'concern_focus': '关注点',
+                            'core_need': '核心需求'
+                        };
+                        Object.keys(chars).forEach(key => {
+                            if (chars[key] !== null && chars[key] !== undefined) {
+                                const label = financialLabels[key] || key;
+                                let value = chars[key];
+                                if (typeof value === 'number') {
+                                    if (key.includes('duration')) {
+                                        value = value.toFixed(2);
+                                    } else if (key.includes('score')) {
+                                        value = value.toFixed(2);
+                                    } else {
+                                        value = value.toFixed(0);
+                                    }
+                                }
+                                characteristics.push({ key: label, value: String(value) });
+                            }
+                        });
+                    }
+                    
+                    return characteristics.map(char => `
+                        <div class="info-item">
+                            <strong>${char.key}</strong>
+                            <span>${char.value}</span>
+                        </div>
+                    `).join('');
+                })()}
             </div>
             
             <div class="strategy-section">
@@ -2368,6 +2463,1596 @@ function loadUserAnalysisPage() {
     switchSubTab('portrait');
 }
 
+// 加载金融市场分析页面
+function loadFinancialAnalysisPage() {
+    // 加载YUP数据
+    loadYUPData();
+    // 默认显示聚类总览
+    switchFinancialSubTab('overview');
+}
+
+// 加载YUP数据
+function loadYUPData() {
+    // 检查是否已加载YUP数据
+    if (typeof window.yupDataLoaded !== 'undefined' && window.yupDataLoaded) {
+        // 数据已加载，直接使用
+        return;
+    }
+    
+    // 尝试从multi_shop_data.js加载YUP数据
+    if (typeof shopData !== 'undefined' && shopData['YUP']) {
+        window.financialBusinessInsights = shopData['YUP'].businessInsights || [];
+        window.financialUserPortraits = shopData['YUP'].userPortraits || [];
+        window.financialStats = shopData['YUP'].stats || {};
+        window.financialTimeSeries = shopData['YUP'].timeSeries || [];
+        window.financialUserTrajectories = shopData['YUP'].userTrajectories || [];
+        window.yupDataLoaded = true;
+        console.log('YUP数据已从multi_shop_data.js加载');
+        return;
+    }
+    
+    // 尝试从data_shop_YUP.js加载
+    const script = document.createElement('script');
+    script.src = 'data_shop_YUP.js';
+    script.onload = function() {
+        if (typeof businessInsights !== 'undefined') {
+            window.financialBusinessInsights = businessInsights;
+            window.financialUserPortraits = userPortraits || [];
+            window.financialStats = stats || {};
+            window.financialTimeSeries = timeSeries || [];
+            window.financialUserTrajectories = userTrajectories || [];
+            window.yupDataLoaded = true;
+            console.log('YUP数据已从data_shop_YUP.js加载');
+            // 重新加载当前页面
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab && activeTab.id === 'financial') {
+                loadFinancialAnalysisPage();
+            }
+        }
+    };
+    script.onerror = function() {
+        console.error('无法加载YUP数据文件');
+        const container = document.getElementById('financialPortraitCards');
+        if (container) {
+            container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>无法加载YUP数据，请确保data_shop_YUP.js文件存在</p></div>';
+        }
+    };
+    document.head.appendChild(script);
+}
+
+// 切换金融分析子标签页（优化性能）
+function switchFinancialSubTab(subTabName) {
+    const financialTab = document.getElementById('financial');
+    if (!financialTab) return;
+    
+    // 使用requestAnimationFrame优化切换
+    requestAnimationFrame(() => {
+        // 更新按钮状态
+        financialTab.querySelectorAll('.sub-tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-sub-tab') === `financial-${subTabName}`) {
+                btn.classList.add('active');
+            }
+        });
+        
+        // 更新内容显示
+        financialTab.querySelectorAll('.sub-tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        const targetContent = document.getElementById(`subTab-financial-${subTabName}`);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+        
+        // 根据子标签页加载相应内容（延迟加载）
+        setTimeout(() => {
+            if (subTabName === 'overview') {
+                loadFinancialOverview();
+            } else if (subTabName === 'portrait') {
+                loadFinancialUserTrajectories();
+            } else if (subTabName === 'clusters') {
+                loadFinancialClusters();
+            }
+        }, 50);
+    });
+}
+
+// 加载金融分析总览（优化性能）
+function loadFinancialOverview() {
+    if (!window.financialBusinessInsights || window.financialBusinessInsights.length === 0) {
+        console.warn('金融分析数据未加载，尝试加载YUP数据...');
+        loadYUPData();
+        setTimeout(() => loadFinancialOverview(), 500);
+        return;
+    }
+    
+    // 使用requestAnimationFrame优化渲染
+    requestAnimationFrame(() => {
+        // 计算业务指标
+        const insights = window.financialBusinessInsights;
+        const totalUsers = window.financialStats?.totalUsers || 0;
+        const totalSegments = window.financialStats?.totalSegments || 0;
+        
+        // 计算交易完成率
+        const completedUsers = insights.reduce((sum, i) => {
+            return sum + (i.key_characteristics?.transaction_status === '已完成' ? (i.key_characteristics?.user_count || 0) : 0);
+        }, 0);
+        const transactionRate = totalUsers > 0 ? ((completedUsers / totalUsers) * 100).toFixed(1) : 0;
+        
+        // 计算KYC完成率
+        const kycStartedUsers = insights.reduce((sum, i) => {
+            return sum + (i.key_characteristics?.kyc_status === '已开始' ? (i.key_characteristics?.user_count || 0) : 0);
+        }, 0);
+        const kycRate = totalUsers > 0 ? ((kycStartedUsers / totalUsers) * 100).toFixed(1) : 0;
+        
+        // 计算平均意图强度
+        const avgIntentScore = totalUsers > 0 ? insights.reduce((sum, i) => {
+            return sum + ((i.key_characteristics?.avg_intent_score || 0) * (i.key_characteristics?.user_count || 0));
+        }, 0) / totalUsers : 0;
+        const intentScorePercent = (avgIntentScore * 100).toFixed(0);
+        
+        // 更新核心业务指标
+        const statsContainer = document.getElementById('financialStats');
+        if (statsContainer) {
+            statsContainer.innerHTML = `
+            <div class="kpi-card" style="background: var(--card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%); border-radius: 0 0 0 100%;"></div>
+                <div style="display: flex; align-items: center; gap: 1rem; position: relative; z-index: 1;">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">👥</div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${totalUsers}</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">总用户数</div>
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card" style="background: var(--card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: linear-gradient(135deg, rgba(79, 172, 254, 0.2) 0%, rgba(0, 242, 254, 0.2) 100%); border-radius: 0 0 0 100%;"></div>
+                <div style="display: flex; align-items: center; gap: 1rem; position: relative; z-index: 1;">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">✅</div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${transactionRate}%</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">交易完成率</div>
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card" style="background: var(--card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: linear-gradient(135deg, rgba(67, 233, 123, 0.2) 0%, rgba(56, 249, 215, 0.2) 100%); border-radius: 0 0 0 100%;"></div>
+                <div style="display: flex; align-items: center; gap: 1rem; position: relative; z-index: 1;">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">🔐</div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${kycRate}%</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">身份验证率</div>
+                    </div>
+                </div>
+            </div>
+            <div class="kpi-card" style="background: var(--card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%); border-radius: 0 0 0 100%;"></div>
+                <div style="display: flex; align-items: center; gap: 1rem; position: relative; z-index: 1;">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">⚡</div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${intentScorePercent}%</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">平均意图强度</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        }
+        
+        // 延迟加载非关键内容
+        setTimeout(() => {
+            // 加载快速洞察
+            loadFinancialQuickInsights();
+            
+            // 加载用户分组
+            loadFinancialUserGroups();
+        }, 100);
+        
+        // 延迟加载图表（最耗时）
+        setTimeout(() => {
+            loadFinancialCharts();
+        }, 300);
+    });
+}
+
+// 图表实例缓存
+const financialChartInstances = {};
+
+// 加载金融分析图表（延迟加载优化性能）
+function loadFinancialCharts() {
+    if (!window.financialBusinessInsights || window.financialBusinessInsights.length === 0) return;
+    
+    // 使用IntersectionObserver延迟加载图表，只在可见时渲染
+    const chartCanvases = [
+        { id: 'financialClusterDistributionChart', render: renderFinancialClusterDistributionChart },
+        { id: 'financialKYCStatusChart', render: renderFinancialKYCStatusChart },
+        { id: 'financialTransactionStatusChart', render: renderFinancialTransactionStatusChart },
+        { id: 'financialMainActivityChart', render: renderFinancialMainActivityChart }
+    ];
+    
+    chartCanvases.forEach(({ id, render }) => {
+        const canvas = document.getElementById(id);
+        if (!canvas) return;
+        
+        // 销毁旧图表实例
+        if (financialChartInstances[id]) {
+            financialChartInstances[id].destroy();
+            delete financialChartInstances[id];
+        }
+        
+        // 使用IntersectionObserver延迟加载
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 延迟渲染，避免阻塞
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            render(canvas);
+                        }, 100);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '50px' });
+        
+        observer.observe(canvas);
+    });
+}
+
+// 渲染聚类分布图
+function renderFinancialClusterDistributionChart(canvas) {
+    if (!window.financialBusinessInsights || typeof Chart === 'undefined') return;
+    
+    // 如果已有实例，先销毁
+    if (financialChartInstances['financialClusterDistributionChart']) {
+        financialChartInstances['financialClusterDistributionChart'].destroy();
+    }
+    
+    const insights = window.financialBusinessInsights;
+    
+    // 计算每个聚类的用户数
+    const clusterData = insights.map(insight => ({
+        label: insight.user_segment_name || `聚类 ${insight.cluster_id}`,
+        value: insight.key_characteristics?.user_count || 0,
+        clusterId: insight.cluster_id
+    })).filter(d => d.value > 0);
+    
+    if (clusterData.length === 0) return;
+    
+    // 使用Chart.js渲染
+    financialChartInstances['financialClusterDistributionChart'] = new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+            labels: clusterData.map(d => d.label),
+            datasets: [{
+                data: clusterData.map(d => d.value),
+                backgroundColor: [
+                    '#667eea', '#764ba2', '#f093fb', '#f5576c',
+                    '#4facfe', '#00f2fe', '#43e97b', '#38f9d7'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#ECF2F5',
+                        font: { size: 11 },
+                        padding: 10,
+                        usePointStyle: true
+                    }
+                }
+            }
+        }
+    });
+}
+
+// 渲染KYC状态分布图
+function renderFinancialKYCStatusChart(canvas) {
+    if (!window.financialBusinessInsights || typeof Chart === 'undefined') return;
+    
+    // 如果已有实例，先销毁
+    if (financialChartInstances['financialKYCStatusChart']) {
+        financialChartInstances['financialKYCStatusChart'].destroy();
+    }
+    
+    const insights = window.financialBusinessInsights;
+    
+    // 统计KYC状态
+    const kycStatusCounts = {};
+    insights.forEach(insight => {
+        const status = insight.key_characteristics?.kyc_status || '未知';
+        kycStatusCounts[status] = (kycStatusCounts[status] || 0) + (insight.key_characteristics?.user_count || 0);
+    });
+    
+    const labels = Object.keys(kycStatusCounts);
+    const data = Object.values(kycStatusCounts);
+    
+    if (labels.length === 0) return;
+    
+    financialChartInstances['financialKYCStatusChart'] = new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '用户数',
+                data: data,
+                backgroundColor: '#667eea'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: '#ECF2F5', font: { size: 11 } },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                },
+                x: {
+                    ticks: { color: '#ECF2F5', font: { size: 11 } },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                }
+            }
+        }
+    });
+}
+
+// 渲染交易状态分布图
+function renderFinancialTransactionStatusChart(canvas) {
+    if (!window.financialBusinessInsights || typeof Chart === 'undefined') return;
+    
+    // 如果已有实例，先销毁
+    if (financialChartInstances['financialTransactionStatusChart']) {
+        financialChartInstances['financialTransactionStatusChart'].destroy();
+    }
+    
+    const insights = window.financialBusinessInsights;
+    
+    // 统计交易状态
+    const transactionStatusCounts = {};
+    insights.forEach(insight => {
+        const status = insight.key_characteristics?.transaction_status || '未知';
+        transactionStatusCounts[status] = (transactionStatusCounts[status] || 0) + (insight.key_characteristics?.user_count || 0);
+    });
+    
+    const labels = Object.keys(transactionStatusCounts);
+    const data = Object.values(transactionStatusCounts);
+    
+    if (labels.length === 0) return;
+    
+    financialChartInstances['financialTransactionStatusChart'] = new Chart(canvas, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: ['#4facfe', '#00f2fe', '#43e97b', '#f5576c']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#ECF2F5', font: { size: 11 }, padding: 10, usePointStyle: true }
+                }
+            }
+        }
+    });
+}
+
+// 渲染主要活动分布图
+function renderFinancialMainActivityChart(canvas) {
+    if (!window.financialBusinessInsights || typeof Chart === 'undefined') return;
+    
+    // 如果已有实例，先销毁
+    if (financialChartInstances['financialMainActivityChart']) {
+        financialChartInstances['financialMainActivityChart'].destroy();
+    }
+    
+    const insights = window.financialBusinessInsights;
+    
+    // 统计主要活动
+    const activityCounts = {};
+    insights.forEach(insight => {
+        const activity = insight.key_characteristics?.main_activity || '未知';
+        activityCounts[activity] = (activityCounts[activity] || 0) + (insight.key_characteristics?.user_count || 0);
+    });
+    
+    const labels = Object.keys(activityCounts);
+    const data = Object.values(activityCounts);
+    
+    if (labels.length === 0) return;
+    
+    financialChartInstances['financialMainActivityChart'] = new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '用户数',
+                data: data,
+                backgroundColor: '#f093fb'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            },
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { color: '#ECF2F5', font: { size: 11 } },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                },
+                y: {
+                    ticks: { color: '#ECF2F5', font: { size: 11 } },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                }
+            }
+        }
+    });
+}
+
+// 加载快速洞察
+function loadFinancialQuickInsights() {
+    if (!window.financialBusinessInsights) return;
+    
+    const container = document.getElementById('financialQuickInsights');
+    if (!container) return;
+    
+    const insights = window.financialBusinessInsights;
+    
+    // 找出需要关注的用户群体
+    const needsAttention = insights.filter(i => {
+        const chars = i.key_characteristics || {};
+        return (chars.transaction_status === '未开始' || chars.transaction_status === '进行中') && 
+               (chars.user_count || 0) > 0;
+    });
+    
+    // 找出高价值用户群体
+    const highValue = insights.filter(i => {
+        const chars = i.key_characteristics || {};
+        return chars.transaction_status === '已完成' && (chars.user_count || 0) > 0;
+    });
+    
+    container.innerHTML = '';
+    
+    // 需要关注的用户
+    if (needsAttention.length > 0) {
+        const card = document.createElement('div');
+        card.style.cssText = 'background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 113, 133, 0.15) 100%); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); margin-bottom: 1rem;';
+        card.innerHTML = `
+            <div style="display: flex; align-items: start; gap: 1rem;">
+                <div style="font-size: 2rem; flex-shrink: 0;">⚠️</div>
+                <div style="flex: 1;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.1rem;">需要关注的用户群体</h4>
+                    <p style="margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.95rem;">有 ${needsAttention.length} 个用户群体尚未完成交易，建议优先跟进</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        ${needsAttention.slice(0, 3).map(i => {
+                            const chars = i.key_characteristics || {};
+                            return `<span style="padding: 0.5rem 1rem; background: rgba(251, 191, 36, 0.2); border-radius: 6px; font-size: 0.9rem; color: #FBBF24; border: 1px solid rgba(251, 191, 36, 0.3);">
+                                ${i.user_segment_name || `群体${i.cluster_id}`} (${chars.user_count || 0}人)
+                            </span>`;
+                        }).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+    
+    // 高价值用户
+    if (highValue.length > 0) {
+        const card = document.createElement('div');
+        card.style.cssText = 'background: linear-gradient(135deg, rgba(67, 233, 123, 0.15) 0%, rgba(56, 249, 215, 0.15) 100%); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(67, 233, 123, 0.3);';
+        card.innerHTML = `
+            <div style="display: flex; align-items: start; gap: 1rem;">
+                <div style="font-size: 2rem; flex-shrink: 0;">✨</div>
+                <div style="flex: 1;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.1rem;">高价值用户群体</h4>
+                    <p style="margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.95rem;">有 ${highValue.length} 个用户群体已完成交易，建议重点维护和复购营销</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        ${highValue.slice(0, 3).map(i => {
+                            const chars = i.key_characteristics || {};
+                            return `<span style="padding: 0.5rem 1rem; background: rgba(67, 233, 123, 0.2); border-radius: 6px; font-size: 0.9rem; color: #43e97b; border: 1px solid rgba(67, 233, 123, 0.3);">
+                                ${i.user_segment_name || `群体${i.cluster_id}`} (${chars.user_count || 0}人)
+                            </span>`;
+                        }).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+}
+
+// 防抖函数
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// 节流函数
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// 加载用户分组卡片（优化性能）
+function loadFinancialUserGroups() {
+    if (!window.financialBusinessInsights) return;
+    
+    const container = document.getElementById('financialUserGroups');
+    if (!container) return;
+    
+    // 清空容器，避免重复添加
+    container.innerHTML = '';
+    
+    // 使用DocumentFragment批量操作DOM
+    const fragment = document.createDocumentFragment();
+    
+    // 去重：按 cluster_id 去重，保留用户数最多的
+    const uniqueInsights = {};
+    window.financialBusinessInsights.forEach(insight => {
+        const clusterId = insight.cluster_id;
+        if (!uniqueInsights[clusterId]) {
+            uniqueInsights[clusterId] = insight;
+        } else {
+            // 如果已存在，保留用户数更多的
+            const existingCount = uniqueInsights[clusterId].key_characteristics?.user_count || 0;
+            const newCount = insight.key_characteristics?.user_count || 0;
+            if (newCount > existingCount) {
+                uniqueInsights[clusterId] = insight;
+            }
+        }
+    });
+    
+    const insights = Object.values(uniqueInsights).sort((a, b) => {
+        return (b.key_characteristics?.user_count || 0) - (a.key_characteristics?.user_count || 0);
+    });
+    
+    // 使用requestAnimationFrame分批渲染
+    let index = 0;
+    const batchSize = 5;
+    
+    const renderBatch = () => {
+        const endIndex = Math.min(index + batchSize, insights.length);
+        
+        for (let i = index; i < endIndex; i++) {
+            const insight = insights[i];
+            const chars = insight.key_characteristics || {};
+            const userCount = chars.user_count || 0;
+            if (userCount === 0) continue;
+            
+            const card = document.createElement('div');
+            card.className = 'financial-group-card';
+            card.dataset.clusterId = insight.cluster_id;
+            card.style.cssText = 'background: var(--card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; cursor: pointer; will-change: transform;';
+            
+            // 根据状态确定颜色
+            let statusColor = '#667eea';
+            let statusBg = 'rgba(102, 126, 234, 0.1)';
+            let statusIcon = '👤';
+            
+            if (chars.transaction_status === '已完成') {
+                statusColor = '#43e97b';
+                statusBg = 'rgba(67, 233, 123, 0.1)';
+                statusIcon = '✅';
+            } else if (chars.transaction_status === '进行中') {
+                statusColor = '#4facfe';
+                statusBg = 'rgba(79, 172, 254, 0.1)';
+                statusIcon = '🔄';
+            } else if (chars.transaction_status === '未开始') {
+                statusColor = '#FBBF24';
+                statusBg = 'rgba(251, 191, 36, 0.1)';
+                statusIcon = '⏳';
+            }
+            
+            card.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                            <div style="width: 40px; height: 40px; background: ${statusBg}; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 2px solid ${statusColor};">${statusIcon}</div>
+                            <div>
+                                <h4 style="margin: 0; color: var(--text); font-size: 1.1rem; font-weight: 600;">${insight.user_segment_name || `用户群体 ${insight.cluster_id}`}</h4>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">${userCount} 位用户</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: ${statusColor};">${userCount}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary);">用户数</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                    ${chars.transaction_status ? `<span style="padding: 0.4rem 0.8rem; background: ${statusBg}; color: ${statusColor}; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid ${statusColor}40;">${chars.transaction_status}</span>` : ''}
+                    ${chars.kyc_status ? `<span style="padding: 0.4rem 0.8rem; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid rgba(102, 126, 234, 0.3);">${chars.kyc_status === '已开始' ? '已验证' : '未验证'}</span>` : ''}
+                    ${chars.main_activity ? `<span style="padding: 0.4rem 0.8rem; background: rgba(240, 147, 251, 0.1); color: #f093fb; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid rgba(240, 147, 251, 0.3);">${chars.main_activity}</span>` : ''}
+                </div>
+                
+                ${insight.marketing_strategy && insight.marketing_strategy.length > 0 ? `
+                    <div style="padding-top: 1rem; border-top: 1px solid var(--border);">
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">💡 运营建议</div>
+                        <div style="font-size: 0.9rem; color: var(--text); line-height: 1.6;">${insight.marketing_strategy[0].replace(/【.*?】/g, '').substring(0, 60)}${insight.marketing_strategy[0].length > 60 ? '...' : ''}</div>
+                    </div>
+                ` : ''}
+                
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center;">
+                    <span style="color: var(--accent); font-size: 0.9rem; font-weight: 500;">点击查看详情 →</span>
+                </div>
+            `;
+            
+            fragment.appendChild(card);
+        }
+        
+        index = endIndex;
+        
+        if (index < insights.length) {
+            requestAnimationFrame(renderBatch);
+        } else {
+            container.appendChild(fragment);
+            // 使用事件委托优化事件监听
+            initFinancialCardEvents(container);
+        }
+    };
+    
+    requestAnimationFrame(renderBatch);
+}
+
+// 使用事件委托优化卡片事件
+function initFinancialCardEvents(container) {
+    // 移除旧的事件监听器
+    const newContainer = container.cloneNode(true);
+    container.parentNode.replaceChild(newContainer, container);
+    
+    // 使用事件委托
+    newContainer.addEventListener('mouseenter', throttle((e) => {
+        const card = e.target.closest('.financial-group-card');
+        if (card) {
+            card.style.transform = 'translateY(-4px)';
+            card.style.boxShadow = '0 8px 16px rgba(0,0,0,0.2)';
+            card.style.borderColor = 'rgba(102, 126, 234, 0.5)';
+        }
+    }, 50), true);
+    
+    newContainer.addEventListener('mouseleave', throttle((e) => {
+        const card = e.target.closest('.financial-group-card');
+        if (card) {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = 'none';
+            card.style.borderColor = 'var(--border)';
+        }
+    }, 50), true);
+    
+    newContainer.addEventListener('click', (e) => {
+        const card = e.target.closest('.financial-group-card');
+        if (card) {
+            const clusterId = card.dataset.clusterId;
+            showTab('financial');
+            setTimeout(() => {
+                switchFinancialSubTab('clusters');
+                setTimeout(() => {
+                    const select = document.getElementById('financialClusterSelect');
+                    if (select) {
+                        select.value = clusterId;
+                        showFinancialClusterDetails(clusterId);
+                    }
+                }, 100);
+            }, 300);
+        }
+    });
+}
+
+// 加载金融用户轨迹（参考主页面实现）
+function loadFinancialUserTrajectories() {
+    if (!window.financialUserTrajectories || window.financialUserTrajectories.length === 0) {
+        console.warn('金融用户轨迹数据未加载');
+        const container = document.getElementById('financialUserTrajectories');
+        if (container) {
+            container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>暂无用户轨迹数据</p></div>';
+        }
+        return;
+    }
+    
+    // 过滤掉用户ID为空的用户
+    const validUsers = window.financialUserTrajectories.filter(user => user.user_id && user.user_id.trim() !== '');
+    
+    if (validUsers.length === 0) {
+        const container = document.getElementById('financialUserTrajectories');
+        if (container) {
+            container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>暂无有效用户轨迹数据</p></div>';
+        }
+        return;
+    }
+    
+    // 加载聚类筛选选项
+    if (window.financialBusinessInsights && window.financialBusinessInsights.length > 0) {
+        const clusterFilter = document.getElementById('financialClusterFilter');
+        if (clusterFilter) {
+            clusterFilter.innerHTML = '<option value="">所有聚类</option>';
+            window.financialBusinessInsights.forEach(insight => {
+                const option = document.createElement('option');
+                option.value = insight.cluster_id;
+                option.textContent = `聚类 ${insight.cluster_id}: ${insight.user_segment_name || ''}`;
+                clusterFilter.appendChild(option);
+            });
+        }
+    }
+    
+    // 渲染用户列表
+    renderFinancialUserTrajectories(validUsers);
+    
+    // 绑定搜索和筛选事件
+    const searchInput = document.getElementById('financialUserSearch');
+    const clusterFilter = document.getElementById('financialClusterFilter');
+    const sortOption = document.getElementById('financialSortOption');
+    
+    if (searchInput) {
+        searchInput.removeEventListener('input', filterAndRenderFinancial);
+        searchInput.addEventListener('input', () => filterAndRenderFinancial());
+    }
+    if (clusterFilter) {
+        clusterFilter.removeEventListener('change', filterAndRenderFinancial);
+        clusterFilter.addEventListener('change', () => filterAndRenderFinancial());
+    }
+    if (sortOption) {
+        sortOption.removeEventListener('change', filterAndRenderFinancial);
+        sortOption.addEventListener('change', () => filterAndRenderFinancial());
+    }
+}
+
+// 筛选和渲染金融用户轨迹
+function filterAndRenderFinancial() {
+    if (!window.financialUserTrajectories) return;
+    
+    let filtered = [...window.financialUserTrajectories];
+    
+    // 过滤掉用户ID为空的用户
+    filtered = filtered.filter(user => user.user_id && user.user_id.trim() !== '');
+    
+    // 搜索筛选
+    const searchTerm = document.getElementById('financialUserSearch')?.value.toLowerCase() || '';
+    if (searchTerm) {
+        filtered = filtered.filter(user => 
+            user.user_id.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    // 聚类筛选
+    const clusterFilter = document.getElementById('financialClusterFilter')?.value || '';
+    if (clusterFilter) {
+        filtered = filtered.filter(user => 
+            user.cluster_ids.includes(clusterFilter)
+        );
+    }
+    
+    // 排序
+    const sortOption = document.getElementById('financialSortOption')?.value || 'time';
+    if (sortOption === 'segments') {
+        filtered.sort((a, b) => b.segment_count - a.segment_count);
+    } else if (sortOption === 'clusters') {
+        filtered.sort((a, b) => b.unique_clusters - a.unique_clusters);
+    } else {
+        // 按时间排序（第一个片段的时间）
+        filtered.sort((a, b) => {
+            if (a.segments.length === 0 || b.segments.length === 0) return 0;
+            return a.segments[0].start_time.localeCompare(b.segments[0].start_time);
+        });
+    }
+    
+    renderFinancialUserTrajectories(filtered);
+}
+
+// 渲染金融用户轨迹列表
+function renderFinancialUserTrajectories(users) {
+    const container = document.getElementById('financialUserTrajectories');
+    if (!container) return;
+    
+    if (users.length === 0) {
+        container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>没有找到匹配的用户</p></div>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    
+    users.forEach((user, index) => {
+        const userCard = document.createElement('div');
+        userCard.className = 'user-trajectory-card';
+        userCard.style.animationDelay = `${index * 0.05}s`;
+        
+        // 获取聚类名称映射
+        const clusterNames = {};
+        if (window.financialBusinessInsights) {
+            window.financialBusinessInsights.forEach(insight => {
+                clusterNames[insight.cluster_id] = removeEmojiFromClusterName(insight.user_segment_name);
+            });
+        }
+        
+        // 计算用户行为统计
+        const segments = user.segments || [];
+        const avgIntentScore = segments.length > 0 
+            ? segments.reduce((sum, s) => sum + (s.intent_score || 0), 0) / segments.length 
+            : 0;
+        
+        userCard.innerHTML = `
+            <div class="user-header">
+                <div class="user-id-section">
+                    <h3 class="user-id">${user.user_id}</h3>
+                    <div class="user-stats">
+                        <span class="stat-badge">
+                            <strong>${user.segment_count}</strong> 个片段
+                        </span>
+                        <span class="stat-badge">
+                            <strong>${user.unique_clusters}</strong> 个聚类
+                        </span>
+                        <span class="stat-badge">
+                            <strong>${user.total_duration.toFixed(1)}</strong> 秒
+                        </span>
+                        <span class="stat-badge">
+                            <strong>${user.total_records}</strong> 次交互
+                        </span>
+                        <span class="stat-badge intent-badge">
+                            <strong>${(avgIntentScore * 100).toFixed(0)}%</strong> 平均意图强度
+                        </span>
+                    </div>
+                </div>
+                <div class="user-clusters-summary">
+                    <strong>聚类分布:</strong>
+                    ${user.cluster_ids.map(cid => {
+                        const name = clusterNames[cid] || `聚类${cid}`;
+                        return `<span class="cluster-tag" data-cluster-id="${cid}">聚类 ${cid}</span>`;
+                    }).join('')}
+                </div>
+            </div>
+            
+            <!-- 用户轨迹时间线可视化 -->
+            <div class="user-trajectory-timeline">
+                <div class="timeline-header">
+                    <h4>行为时间线</h4>
+                </div>
+                <div class="timeline-container">
+                    <canvas id="financialTrajectoryTimeline-${user.user_id}" class="trajectory-timeline-canvas"></canvas>
+                    <div id="financialTimelineTooltips-${user.user_id}" class="timeline-tooltips"></div>
+                </div>
+            </div>
+        `;
+        
+        container.appendChild(userCard);
+        
+        // 渲染用户轨迹时间线
+        setTimeout(() => {
+            renderFinancialUserTrajectoryTimeline(`financialTrajectoryTimeline-${user.user_id}`, user);
+        }, 100 * (index + 1));
+    });
+}
+
+// 渲染金融用户轨迹时间线（简化版，适配金融场景）
+function renderFinancialUserTrajectoryTimeline(canvasId, user) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas || !user.segments || user.segments.length === 0) return;
+    
+    const ctx = canvas.getContext('2d');
+    const container = canvas.parentElement;
+    const width = container ? container.offsetWidth : 800;
+    const height = 300;
+    
+    // 高DPI支持
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.scale(dpr, dpr);
+    
+    // 聚类颜色映射
+    const clusterColors = {
+        '0': '#7FE8C1', '1': '#7DA6FF', '2': '#A78BFA', '3': '#F472B6',
+        '4': '#60A5FA', '5': '#34D399', '6': '#FBBF24', '7': '#FB7185',
+        '8': '#818CF8', '9': '#A78BFA', '10': '#F472B6', '11': '#60A5FA',
+        '12': '#34D399', '13': '#FBBF24', '14': '#FB7185', '15': '#818CF8',
+        '16': '#7FE8C1', '17': '#7DA6FF'
+    };
+    
+    // 计算时间范围
+    const segments = user.segments.sort((a, b) => new Date(a.start_time) - new Date(b.start_time));
+    const startTime = new Date(segments[0].start_time);
+    const endTime = new Date(segments[segments.length - 1].end_time);
+    const timeRange = endTime - startTime || 1;
+    
+    const padding = 50;
+    const timelineY = height / 2;
+    const timelineStartX = padding;
+    const timelineWidth = width - padding * 2;
+    
+    // 绘制时间线
+    ctx.strokeStyle = 'rgba(143, 160, 184, 0.4)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(timelineStartX, timelineY);
+    ctx.lineTo(timelineStartX + timelineWidth, timelineY);
+    ctx.stroke();
+    
+    // 存储节点位置用于交互
+    const nodePositions = [];
+    const tooltipContainer = document.getElementById(`financialTimelineTooltips-${user.user_id}`);
+    if (tooltipContainer) {
+        tooltipContainer.innerHTML = ''; // 清空之前的工具提示
+    }
+    
+    // 绘制片段节点
+    segments.forEach((segment, index) => {
+        const segmentTime = new Date(segment.start_time);
+        const timeRatio = (segmentTime - startTime) / timeRange;
+        const x = timelineStartX + timeRatio * timelineWidth;
+        
+        const clusterColor = clusterColors[segment.cluster_id] || '#8FA0B8';
+        
+        // 绘制节点
+        ctx.beginPath();
+        ctx.arc(x, timelineY, 8, 0, Math.PI * 2);
+        ctx.fillStyle = clusterColor;
+        ctx.fill();
+        ctx.strokeStyle = '#ECF2F5';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        // 绘制意图强度指示器
+        const intentScore = segment.intent_score || 0;
+        const intentHeight = intentScore * 40;
+        ctx.fillStyle = clusterColor + '60';
+        ctx.fillRect(x - 2, timelineY - intentHeight, 4, intentHeight);
+        
+        // 存储节点信息用于交互
+        nodePositions.push({
+            x, y: timelineY, segment, index
+        });
+        
+        // 创建详细的片段信息卡片（默认隐藏，悬停时显示）
+        if (tooltipContainer) {
+            const tooltip = document.createElement('div');
+            tooltip.className = 'timeline-segment-tooltip';
+            tooltip.id = `financialTooltip-${user.user_id}-${index}`;
+            tooltip.style.left = `${x}px`;
+            tooltip.style.top = '20px';
+            tooltip.style.transform = 'translateX(-50%)';
+            tooltip.style.opacity = '0';
+            tooltip.style.pointerEvents = 'none';
+            
+            const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(2);
+            const segmentLabel = currentLanguage === 'zh' ? '片段' : 'Segment';
+            const clusterLabel = currentLanguage === 'zh' ? '聚类' : 'Cluster';
+            const startDate = new Date(segment.start_time);
+            const locale = currentLanguage === 'zh' ? 'zh-CN' : 'en-US';
+            const timeStr = startDate.toLocaleString(locale, { 
+                month: 'short', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            // 获取聚类名称
+            let clusterName = '';
+            if (window.financialBusinessInsights) {
+                const insight = window.financialBusinessInsights.find(i => String(i.cluster_id) === String(segment.cluster_id));
+                if (insight) {
+                    clusterName = insight.user_segment_name || '';
+                }
+            }
+            
+            tooltip.innerHTML = `
+                <div class="tooltip-header">
+                    <span class="tooltip-title">${segmentLabel} ${segment.segment_index || index + 1}</span>
+                    <span class="tooltip-time">${timeStr}</span>
+                </div>
+                <div class="tooltip-cluster" style="background: ${clusterColor}20; border-left: 3px solid ${clusterColor}">
+                    <span class="cluster-label">${clusterLabel} ${segment.cluster_id}</span>
+                    ${clusterName ? `<span class="cluster-name">${removeEmojiFromClusterName(clusterName)}</span>` : ''}
+                </div>
+                <div class="tooltip-details">
+                    <div class="tooltip-detail-item">
+                        <span class="tooltip-label">${currentLanguage === 'zh' ? '持续时间' : 'Duration'}:</span>
+                        <span class="tooltip-value">${duration} ${currentLanguage === 'zh' ? '秒' : 's'}</span>
+                    </div>
+                    <div class="tooltip-detail-item">
+                        <span class="tooltip-label">${currentLanguage === 'zh' ? '交互次数' : 'Interactions'}:</span>
+                        <span class="tooltip-value">${segment.record_count || 0} ${currentLanguage === 'zh' ? '次' : ''}</span>
+                    </div>
+                    <div class="tooltip-detail-item intent-item">
+                        <span class="tooltip-label">${currentLanguage === 'zh' ? '意图强度' : 'Intent Score'}:</span>
+                        <div class="intent-progress">
+                            <div class="intent-progress-bar" style="width: ${(intentScore * 100).toFixed(0)}%; background: linear-gradient(90deg, ${clusterColor} 0%, ${clusterColor}dd 100%);"></div>
+                            <span class="intent-progress-value">${(intentScore * 100).toFixed(0)}%</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            tooltipContainer.appendChild(tooltip);
+        }
+        
+        // 绘制时间标签
+        if (index === 0 || index === segments.length - 1 || 
+            (index % Math.max(1, Math.floor(segments.length / 5)) === 0)) {
+            ctx.fillStyle = '#8FA0B8';
+            ctx.font = '11px Arial, "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'center';
+            const timeStr = segmentTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            ctx.fillText(timeStr, x, timelineY + 25);
+        }
+    });
+    
+    // 添加鼠标交互
+    let currentHoveredIndex = -1;
+    let hideTimeout = null;
+    let showTimeout = null;
+    let isTooltipVisible = false;
+    
+    const showTooltip = (nodeIndex) => {
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+        }
+        
+        if (currentHoveredIndex === nodeIndex && isTooltipVisible) {
+            return; // 已经显示，不需要重复操作
+        }
+        
+        // 清除之前的显示延迟
+        if (showTimeout) {
+            clearTimeout(showTimeout);
+        }
+        
+        showTimeout = setTimeout(() => {
+            // 隐藏所有工具提示
+            if (tooltipContainer) {
+                tooltipContainer.querySelectorAll('.timeline-segment-tooltip').forEach(t => {
+                    t.style.opacity = '0';
+                    t.style.pointerEvents = 'none';
+                });
+            }
+            
+            // 显示当前工具提示
+            const tooltip = document.getElementById(`financialTooltip-${user.user_id}-${nodeIndex}`);
+            if (tooltip) {
+                // 先设置位置，再显示（避免闪烁）
+                const node = nodePositions.find(n => n.index === nodeIndex);
+                if (node) {
+                    tooltip.style.left = `${node.x}px`;
+                    tooltip.style.top = '20px';
+                    tooltip.style.display = 'block'; // 确保元素可见
+                    
+                    // 调整位置，确保不超出容器
+                    requestAnimationFrame(() => {
+                        const tooltipRect = tooltip.getBoundingClientRect();
+                        const containerRect = tooltipContainer.getBoundingClientRect();
+                        const canvasRect = canvas.getBoundingClientRect();
+                        
+                        let transformX = '-50%';
+                        let offsetY = 0;
+                        
+                        // 水平位置调整
+                        if (tooltipRect.right > containerRect.right) {
+                            transformX = 'calc(-100% + 50%)';
+                        } else if (tooltipRect.left < containerRect.left) {
+                            transformX = '0';
+                        }
+                        
+                        // 垂直位置调整（如果工具提示超出画布，显示在下方）
+                        if (tooltipRect.bottom > canvasRect.bottom) {
+                            offsetY = 150;
+                        }
+                        
+                        tooltip.style.transform = `translateX(${transformX}) translateY(${offsetY}px)`;
+                        tooltip.style.opacity = '1';
+                        tooltip.style.pointerEvents = 'auto';
+                    });
+                }
+            }
+            currentHoveredIndex = nodeIndex;
+            isTooltipVisible = true;
+            showTimeout = null;
+        }, 100); // 100ms延迟显示，减少频繁切换
+    };
+    
+    const hideTooltip = (immediate = false) => {
+        if (showTimeout) {
+            clearTimeout(showTimeout);
+            showTimeout = null;
+        }
+        
+        if (immediate) {
+            if (tooltipContainer) {
+                tooltipContainer.querySelectorAll('.timeline-segment-tooltip').forEach(t => {
+                    t.style.opacity = '0';
+                    t.style.pointerEvents = 'none';
+                });
+            }
+            currentHoveredIndex = -1;
+            isTooltipVisible = false;
+        } else {
+            // 延迟隐藏，给用户时间移动到工具提示上
+            hideTimeout = setTimeout(() => {
+                if (tooltipContainer) {
+                    tooltipContainer.querySelectorAll('.timeline-segment-tooltip').forEach(t => {
+                        t.style.opacity = '0';
+                        t.style.pointerEvents = 'none';
+                    });
+                }
+                currentHoveredIndex = -1;
+                isTooltipVisible = false;
+                hideTimeout = null;
+            }, 200); // 200ms延迟隐藏
+        }
+    };
+    
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = (e.clientX - rect.left) * (canvas.width / dpr / rect.width);
+        const mouseY = (e.clientY - rect.top) * (canvas.height / dpr / rect.height);
+        
+        let hoveredNode = null;
+        nodePositions.forEach(node => {
+            // 检查是否在节点附近
+            const dist = Math.sqrt(Math.pow(mouseX - node.x, 2) + Math.pow(mouseY - node.y, 2));
+            if (dist < 20) {
+                hoveredNode = node;
+            }
+        });
+        
+        if (hoveredNode) {
+            canvas.style.cursor = 'pointer';
+            showTooltip(hoveredNode.index);
+        } else {
+            canvas.style.cursor = 'default';
+            hideTooltip();
+        }
+    });
+    
+    // 在工具提示容器上添加鼠标事件，保持工具提示显示
+    if (tooltipContainer) {
+        tooltipContainer.addEventListener('mousemove', (e) => {
+            if (isTooltipVisible && currentHoveredIndex !== -1) {
+                // 如果鼠标在工具提示上，保持显示
+                if (hideTimeout) {
+                    clearTimeout(hideTimeout);
+                    hideTimeout = null;
+                }
+            }
+        });
+        
+        tooltipContainer.addEventListener('mouseleave', () => {
+            hideTooltip();
+        });
+    }
+    
+    canvas.addEventListener('mouseleave', () => {
+        canvas.style.cursor = 'default';
+        hideTooltip();
+    });
+    
+    canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = (e.clientX - rect.left) * (canvas.width / dpr / rect.width);
+        const mouseY = (e.clientY - rect.top) * (canvas.height / dpr / rect.height);
+        
+        nodePositions.forEach(node => {
+            const dist = Math.sqrt(Math.pow(mouseX - node.x, 2) + Math.pow(mouseY - node.y, 2));
+            if (dist < 20) {
+                // 切换工具提示显示/隐藏
+                const tooltip = document.getElementById(`financialTooltip-${user.user_id}-${node.index}`);
+                if (tooltip) {
+                    if (isTooltipVisible && currentHoveredIndex === node.index) {
+                        hideTooltip(true);
+                    } else {
+                        showTooltip(node.index);
+                    }
+                }
+            }
+        });
+    });
+}
+
+// 优化画像卡片事件
+function initPortraitCardEvents(container) {
+    container.addEventListener('mouseenter', throttle((e) => {
+        const card = e.target.closest('.portrait-card');
+        if (card) {
+            card.style.transform = 'translateY(-4px)';
+            card.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
+        }
+    }, 50), true);
+    
+    container.addEventListener('mouseleave', throttle((e) => {
+        const card = e.target.closest('.portrait-card');
+        if (card) {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = 'none';
+        }
+    }, 50), true);
+}
+
+// 加载金融聚类详情
+function loadFinancialClusters() {
+    if (!window.financialBusinessInsights || window.financialBusinessInsights.length === 0) {
+        const container = document.getElementById('financialClusterDetails');
+        if (container) {
+            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><p>暂无聚类数据</p></div>';
+        }
+        return;
+    }
+    
+    const select = document.getElementById('financialClusterSelect');
+    if (select) {
+        select.innerHTML = '<option value="">-- 选择聚类 --</option>';
+        window.financialBusinessInsights.forEach(insight => {
+            const option = document.createElement('option');
+            option.value = insight.cluster_id;
+            option.textContent = `聚类 ${insight.cluster_id}: ${insight.user_segment_name || ''}`;
+            select.appendChild(option);
+        });
+        
+        // 自动选择并显示第一个聚类
+        if (window.financialBusinessInsights.length > 0) {
+            const firstClusterId = window.financialBusinessInsights[0].cluster_id;
+            select.value = firstClusterId;
+            showFinancialClusterDetails(firstClusterId);
+        }
+    }
+}
+
+// 显示金融聚类详情
+function showFinancialClusterDetails(clusterId) {
+    if (!clusterId || !window.financialBusinessInsights) {
+        console.warn('showFinancialClusterDetails: 缺少参数或数据', { clusterId, hasData: !!window.financialBusinessInsights });
+        return;
+    }
+    
+    // 确保clusterId是字符串类型进行匹配
+    const insight = window.financialBusinessInsights.find(i => String(i.cluster_id) === String(clusterId));
+    if (!insight) {
+        console.warn('showFinancialClusterDetails: 未找到对应的聚类', { clusterId, availableIds: window.financialBusinessInsights.map(i => i.cluster_id) });
+        const container = document.getElementById('financialClusterDetails');
+        if (container) {
+            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><p>未找到对应的聚类数据</p></div>';
+        }
+        return;
+    }
+    
+    const container = document.getElementById('financialClusterDetails');
+    if (!container) return;
+    
+    const chars = insight.key_characteristics || {};
+    
+    // 调试信息
+    console.log('显示聚类详情:', {
+        clusterId,
+        insight: insight,
+        hasMarketingStrategy: !!insight.marketing_strategy,
+        marketingStrategyLength: insight.marketing_strategy?.length || 0,
+        hasProductRecommendation: !!insight.product_recommendation,
+        hasConversionTactics: !!insight.conversion_tactics,
+        containerExists: !!container
+    });
+    
+    // 确保容器可见
+    if (container) {
+        container.style.display = 'block';
+        container.style.visibility = 'visible';
+        container.style.opacity = '1';
+    }
+    
+    // 确定状态颜色
+    let statusColor = '#667eea';
+    let statusBg = 'rgba(102, 126, 234, 0.1)';
+    if (chars.transaction_status === '已完成') {
+        statusColor = '#43e97b';
+        statusBg = 'rgba(67, 233, 123, 0.1)';
+    } else if (chars.transaction_status === '进行中') {
+        statusColor = '#4facfe';
+        statusBg = 'rgba(79, 172, 254, 0.1)';
+    } else if (chars.transaction_status === '未开始') {
+        statusColor = '#FBBF24';
+        statusBg = 'rgba(251, 191, 36, 0.1)';
+    }
+    
+    // 准备策略内容（确保数组存在且不为空）
+    // 注意：字段名可能不同，需要兼容多种命名方式
+    const marketingStrategy = Array.isArray(insight.marketing_strategy) ? insight.marketing_strategy : [];
+    const productRecommendations = Array.isArray(insight.product_recommendation) ? insight.product_recommendation : 
+                                  Array.isArray(insight.product_recommendations) ? insight.product_recommendations : [];
+    const conversionOptimization = Array.isArray(insight.conversion_tactics) ? insight.conversion_tactics : 
+                                   Array.isArray(insight.conversion_optimization) ? insight.conversion_optimization : [];
+    const contentStrategy = Array.isArray(insight.content_strategy) ? insight.content_strategy : [];
+    const campaignDifferentiation = Array.isArray(insight.campaign_differentiation) ? insight.campaign_differentiation : [];
+    
+    container.innerHTML = `
+        <div style="background: var(--card); padding: 2rem; border-radius: 16px; border: 1px solid var(--border);">
+            <!-- 头部 -->
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--border);">
+                <div style="width: 64px; height: 64px; background: ${statusBg}; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; border: 3px solid ${statusColor};">
+                    ${chars.transaction_status === '已完成' ? '✅' : chars.transaction_status === '进行中' ? '🔄' : '⏳'}
+                </div>
+                <div style="flex: 1;">
+                    <h3 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.5rem;">${insight.user_segment_name || `用户群体 ${clusterId}`}</h3>
+                    <p style="margin: 0; color: var(--text-secondary);">${chars.user_count || 0} 位用户 · ${chars.segment_count || 0} 个行为片段</p>
+                </div>
+            </div>
+            
+            <!-- 关键指标 -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div style="padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 12px; border-left: 4px solid #667eea;">
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">用户数</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #667eea;">${chars.user_count || 0}</div>
+                </div>
+                <div style="padding: 1.5rem; background: rgba(79, 172, 254, 0.1); border-radius: 12px; border-left: 4px solid #4facfe;">
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">行为片段</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #4facfe;">${chars.segment_count || 0}</div>
+                </div>
+                <div style="padding: 1.5rem; background: rgba(240, 147, 251, 0.1); border-radius: 12px; border-left: 4px solid #f093fb;">
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">意图强度</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #f093fb;">${((chars.avg_intent_score || 0) * 100).toFixed(0)}%</div>
+                </div>
+            </div>
+            
+            <!-- 用户特征 -->
+            <div style="margin-bottom: 2rem;">
+                <h4 style="margin: 0 0 1rem 0; color: var(--text); font-size: 1.1rem;">用户特征</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    ${chars.transaction_status ? `
+                        <div style="padding: 1rem; background: ${statusBg}; border-radius: 8px; border: 1px solid ${statusColor}40;">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">交易状态</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: ${statusColor};">${chars.transaction_status}</div>
+                        </div>
+                    ` : ''}
+                    ${chars.kyc_status ? `
+                        <div style="padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 8px; border: 1px solid rgba(102, 126, 234, 0.3);">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">身份验证</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: #667eea;">${chars.kyc_status === '已开始' ? '已验证' : chars.kyc_status === '未开始' ? '未验证' : chars.kyc_status}</div>
+                        </div>
+                    ` : ''}
+                    ${chars.main_activity ? `
+                        <div style="padding: 1rem; background: rgba(240, 147, 251, 0.1); border-radius: 8px; border: 1px solid rgba(240, 147, 251, 0.3);">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">主要行为</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: #f093fb;">${chars.main_activity}</div>
+                        </div>
+                    ` : ''}
+                    ${chars.urgency ? `
+                        <div style="padding: 1rem; background: rgba(67, 233, 123, 0.1); border-radius: 8px; border: 1px solid rgba(67, 233, 123, 0.3);">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">紧迫度</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: #43e97b;">${chars.urgency}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+            
+            <!-- 运营策略 - 可视化卡片布局 -->
+            ${marketingStrategy.length > 0 ? `
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                            💡
+                        </div>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">运营策略建议</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${marketingStrategy.length} 项策略</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        ${marketingStrategy.map((strategy, idx) => {
+                            const strategyText = String(strategy);
+                            const hasCategory = strategyText.includes('【') && strategyText.includes('】');
+                            const category = hasCategory ? strategyText.match(/【(.*?)】/)?.[1] : '';
+                            const content = hasCategory ? strategyText.replace(/【.*?】/g, '').trim() : strategyText;
+                            const isFirstInCategory = idx === 0 || !marketingStrategy[idx - 1].includes(category);
+                            
+                            return `
+                                <div style="padding: 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; transition: all 0.3s ease; position: relative; overflow: hidden;" 
+                                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(102, 126, 234, 0.15)';" 
+                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                    ${hasCategory && isFirstInCategory ? `
+                                        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);"></div>
+                                        <div style="margin-bottom: 0.75rem;">
+                                            <span style="display: inline-block; padding: 0.35rem 0.75rem; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${category}</span>
+                                        </div>
+                                    ` : ''}
+                                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                        <div style="width: 6px; height: 6px; background: #667eea; border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0;"></div>
+                                        <p style="margin: 0; color: var(--text); line-height: 1.7; font-size: 0.95rem;">${content}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            ` : '<div style="margin-bottom: 2rem; padding: 2rem; background: rgba(143, 160, 184, 0.05); border-radius: 12px; border: 1px dashed var(--border); text-align: center;"><p style="margin: 0; color: var(--text-secondary);">暂无运营策略数据</p></div>'}
+            
+            <!-- 产品推荐 - 可视化卡片布局 -->
+            ${productRecommendations.length > 0 ? `
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                            🎯
+                        </div>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">产品/服务推荐</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(79, 172, 254, 0.1); color: #4facfe; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${productRecommendations.length} 项推荐</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        ${productRecommendations.map((rec, idx) => {
+                            const recText = String(rec);
+                            const hasCategory = recText.includes('【') && recText.includes('】');
+                            const category = hasCategory ? recText.match(/【(.*?)】/)?.[1] : '';
+                            const content = hasCategory ? recText.replace(/【.*?】/g, '').trim() : recText;
+                            const isFirstInCategory = idx === 0 || !productRecommendations[idx - 1].includes(category);
+                            
+                            return `
+                                <div style="padding: 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; transition: all 0.3s ease; position: relative; overflow: hidden;" 
+                                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(79, 172, 254, 0.15)';" 
+                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                    ${hasCategory && isFirstInCategory ? `
+                                        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);"></div>
+                                        <div style="margin-bottom: 0.75rem;">
+                                            <span style="display: inline-block; padding: 0.35rem 0.75rem; background: rgba(79, 172, 254, 0.1); color: #4facfe; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${category}</span>
+                                        </div>
+                                    ` : ''}
+                                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                        <div style="width: 6px; height: 6px; background: #4facfe; border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0;"></div>
+                                        <p style="margin: 0; color: var(--text); line-height: 1.7; font-size: 0.95rem;">${content}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            
+            <!-- 转化优化 - 可视化卡片布局 -->
+            ${conversionOptimization.length > 0 ? `
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                            ⚡
+                        </div>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">转化优化建议</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(67, 233, 123, 0.1); color: #43e97b; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${conversionOptimization.length} 项建议</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        ${conversionOptimization.map((opt, idx) => {
+                            const optText = String(opt);
+                            const hasCategory = optText.includes('【') && optText.includes('】');
+                            const category = hasCategory ? optText.match(/【(.*?)】/)?.[1] : '';
+                            const content = hasCategory ? optText.replace(/【.*?】/g, '').trim() : optText;
+                            const isFirstInCategory = idx === 0 || !conversionOptimization[idx - 1].includes(category);
+                            
+                            return `
+                                <div style="padding: 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; transition: all 0.3s ease; position: relative; overflow: hidden;" 
+                                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(67, 233, 123, 0.15)';" 
+                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                    ${hasCategory && isFirstInCategory ? `
+                                        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);"></div>
+                                        <div style="margin-bottom: 0.75rem;">
+                                            <span style="display: inline-block; padding: 0.35rem 0.75rem; background: rgba(67, 233, 123, 0.1); color: #43e97b; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${category}</span>
+                                        </div>
+                                    ` : ''}
+                                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                        <div style="width: 6px; height: 6px; background: #43e97b; border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0;"></div>
+                                        <p style="margin: 0; color: var(--text); line-height: 1.7; font-size: 0.95rem;">${content}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            
+            <!-- 内容策略 - 可视化卡片布局 -->
+            ${contentStrategy.length > 0 ? `
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f093fb 0%, #fbbf24 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                            📝
+                        </div>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">内容策略</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(240, 147, 251, 0.1); color: #f093fb; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${contentStrategy.length} 项策略</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        ${contentStrategy.map((strategy, idx) => {
+                            const strategyText = String(strategy);
+                            return `
+                                <div style="padding: 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; transition: all 0.3s ease; position: relative; overflow: hidden;" 
+                                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(240, 147, 251, 0.15)';" 
+                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #f093fb 0%, #fbbf24 100%);"></div>
+                                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                        <div style="width: 6px; height: 6px; background: #f093fb; border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0;"></div>
+                                        <p style="margin: 0; color: var(--text); line-height: 1.7; font-size: 0.95rem;">${strategyText}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            ` : ''}
+            
+            <!-- 活动差异化 - 可视化卡片布局 -->
+            ${campaignDifferentiation.length > 0 ? `
+                <div style="margin-bottom: 0;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #fbbf24 0%, #fb7185 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                            🎪
+                        </div>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">活动差异化建议</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(251, 191, 36, 0.1); color: #fbbf24; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${campaignDifferentiation.length} 项活动</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        ${campaignDifferentiation.map((campaign, idx) => {
+                            const campaignText = String(campaign);
+                            const hasCategory = campaignText.includes('【') && campaignText.includes('】');
+                            const category = hasCategory ? campaignText.match(/【(.*?)】/)?.[1] : '';
+                            const content = hasCategory ? campaignText.replace(/【.*?】/g, '').trim() : campaignText;
+                            const isFirstInCategory = idx === 0 || !campaignDifferentiation[idx - 1].includes(category);
+                            
+                            return `
+                                <div style="padding: 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; transition: all 0.3s ease; position: relative; overflow: hidden;" 
+                                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(251, 191, 36, 0.15)';" 
+                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                    ${hasCategory && isFirstInCategory ? `
+                                        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #fbbf24 0%, #fb7185 100%);"></div>
+                                        <div style="margin-bottom: 0.75rem;">
+                                            <span style="display: inline-block; padding: 0.35rem 0.75rem; background: rgba(251, 191, 36, 0.1); color: #fbbf24; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${category}</span>
+                                        </div>
+                                    ` : ''}
+                                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                        <div style="width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0;"></div>
+                                        <p style="margin: 0; color: var(--text); line-height: 1.7; font-size: 0.95rem;">${content}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
 // 切换子标签页
 function switchSubTab(subTabName) {
     // 获取当前激活的主标签页
@@ -3165,8 +4850,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 根据当前标签页加载相应内容
     const dashboardHeader = document.getElementById('dashboardHeader');
     
-    // 首页、转化分析、用户分析页面不显示banner
-    if (currentTabId === 'home' || currentTabId === 'journey' || currentTabId === 'clusters') {
+    // 首页、转化分析、用户分析、金融市场分析页面不显示banner
+    if (currentTabId === 'home' || currentTabId === 'journey' || currentTabId === 'clusters' || currentTabId === 'financial') {
         if (dashboardHeader) {
             dashboardHeader.style.display = 'none';
         }
@@ -3185,6 +4870,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadHomepage();
             }, 300);
         }
+    } else if (currentTabId === 'financial') {
+        // 加载金融市场分析页面
+        setTimeout(() => {
+            loadFinancialAnalysisPage();
+        }, 300);
     } else if (typeof businessInsights !== 'undefined') {
         setTimeout(() => {
             if (currentTabId === 'overview') {

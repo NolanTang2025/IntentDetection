@@ -197,16 +197,170 @@ def extract_keywords_from_text(text):
     
     return keywords
 
-def extract_cluster_keywords(cluster_segments):
-    """从聚类片段中提取关键词并统计频率"""
+def extract_keywords_from_output(output_str):
+    """从output字段中提取关键词（从JSON格式的intent信息中提取）"""
+    keywords = []
+    if not output_str or not isinstance(output_str, str):
+        return keywords
+    
+    try:
+        import re
+        
+        # 清理output字符串
+        cleaned = output_str.strip()
+        # 移除外层引号
+        if cleaned.startswith('"') and cleaned.endswith('"'):
+            cleaned = cleaned[1:-1]
+        # 移除代码块标记
+        if cleaned.startswith('```json'):
+            cleaned = cleaned[7:]
+        if cleaned.endswith('```'):
+            cleaned = cleaned[:-3]
+        cleaned = cleaned.strip()
+        
+        # 尝试解析JSON
+        try:
+            # 查找JSON对象（从第一个{开始）
+            json_start = cleaned.find('{')
+            if json_start >= 0:
+                json_str = cleaned[json_start:]
+                # 尝试找到完整的JSON对象
+                brace_count = 0
+                json_end = -1
+                for i, char in enumerate(json_str):
+                    if char == '{':
+                        brace_count += 1
+                    elif char == '}':
+                        brace_count -= 1
+                        if brace_count == 0:
+                            json_end = i + 1
+                            break
+                
+                if json_end > 0:
+                    json_str = json_str[:json_end]
+                    data = json.loads(json_str)
+                    intent = data.get('intent', {})
+                    
+                    # 提取core_interests
+                    if 'core_interests' in intent:
+                        interests = intent['core_interests']
+                        if isinstance(interests, list):
+                            keywords.extend([str(x).strip() for x in interests if x and str(x).strip()])
+                    
+                    # 提取product_focus中的key_attributes
+                    if 'product_focus' in intent:
+                        pf = intent['product_focus']
+                        if isinstance(pf, dict):
+                            if 'key_attributes' in pf:
+                                attrs = pf['key_attributes']
+                                if isinstance(attrs, list):
+                                    keywords.extend([str(x).strip() for x in attrs if x and str(x).strip()])
+                            if 'main_appeal' in pf and pf['main_appeal']:
+                                keywords.append(str(pf['main_appeal']).strip())
+        except:
+            # 如果JSON解析失败，尝试用正则表达式提取
+            # 提取core_interests中的内容
+            interests_match = re.findall(r'"core_interests"\s*:\s*\[(.*?)\]', cleaned, re.DOTALL)
+            if interests_match:
+                interests_str = interests_match[0]
+                interests = re.findall(r'"([^"]+)"', interests_str)
+                keywords.extend(interests)
+            
+            # 提取key_attributes中的内容
+            attrs_match = re.findall(r'"key_attributes"\s*:\s*\[(.*?)\]', cleaned, re.DOTALL)
+            if attrs_match:
+                attrs_str = attrs_match[0]
+                attrs = re.findall(r'"([^"]+)"', attrs_str)
+                keywords.extend(attrs)
+            
+            # 提取main_appeal
+            appeal_match = re.search(r'"main_appeal"\s*:\s*"([^"]+)"', cleaned)
+            if appeal_match:
+                keywords.append(appeal_match.group(1))
+    except Exception as e:
+        pass
+    
+    # 过滤和清理关键词
+    filtered_keywords = []
+    stop_words = {'null', 'none', 'unknown', 'n/a', 'the', 'a', 'an', 'and', 'or', 'but'}
+    for kw in keywords:
+        kw_clean = kw.strip()
+        if (kw_clean and 
+            len(kw_clean) > 1 and 
+            len(kw_clean) <= 50 and
+            kw_clean.lower() not in stop_words):
+            filtered_keywords.append(kw_clean)
+    
+    return filtered_keywords
+
+def load_all_outputs_from_raw_data(shop_id):
+    """从原始数据文件中加载所有output字段（缓存）"""
+    try:
+        raw_data_file = Path(f'../data_extract/extracted_data_shop_{shop_id}.json')
+        if not raw_data_file.exists():
+            return []
+        
+        with open(raw_data_file, 'r', encoding='utf-8') as f:
+            raw_data = json.load(f)
+        
+        # 提取所有output
+        all_outputs = []
+        for record in raw_data:
+            output = record.get('output', '')
+            if output and isinstance(output, str) and len(output) > 10:
+                all_outputs.append(output)
+        
+        return all_outputs
+    except Exception as e:
+        return []
+
+# 缓存每个店铺的所有output
+_output_cache = {}
+
+def get_outputs_for_shop(shop_id):
+    """获取店铺的所有output（带缓存）"""
+    if shop_id not in _output_cache:
+        _output_cache[shop_id] = load_all_outputs_from_raw_data(shop_id)
+    return _output_cache[shop_id]
+
+def extract_cluster_keywords(cluster_segments, shop_id=None):
+    """从聚类片段中提取关键词并统计频率（从多个数据源）"""
     all_keywords = []
     
+    # 如果提供了shop_id，从原始数据中加载所有output
+    all_outputs = []
+    if shop_id:
+        all_outputs = get_outputs_for_shop(shop_id)
+    
     for segment in cluster_segments:
+        keywords_list = []
+        
+        # 方法1: 从text字段提取（如果存在）
         text = segment.get('text', '')
-        if text and isinstance(text, str) and len(text) > 10:  # 确保文本有效
+        if text and isinstance(text, str) and len(text) > 10:
             keywords = extract_keywords_from_text(text)
             if keywords:
-                all_keywords.extend(keywords)
+                keywords_list.extend(keywords)
+        
+        # 方法2: 从output字段提取（如果segment中有output字段）
+        output = segment.get('output', '')
+        if output and isinstance(output, str) and len(output) > 10:
+            keywords = extract_keywords_from_output(output)
+            if keywords:
+                keywords_list.extend(keywords)
+        
+        # 方法3: 从原始数据文件中提取output（如果shop_id提供且没有output）
+        # 由于user_id可能不匹配，我们从所有output中提取关键词
+        if (not output or len(output) <= 10) and all_outputs:
+            # 使用所有output来提取关键词（为每个segment都使用全部output，最后会去重）
+            for sampled_output in all_outputs:
+                keywords = extract_keywords_from_output(sampled_output)
+                if keywords:
+                    keywords_list.extend(keywords)
+        
+        # 添加到总关键词列表
+        if keywords_list:
+            all_keywords.extend(keywords_list)
     
     # 统计关键词频率
     keyword_counter = Counter(all_keywords)
@@ -277,8 +431,9 @@ def prepare_user_trajectories(segments, cluster_labels):
 
 def convert_to_dashboard_format(cluster_results, business_insights):
     """转换为仪表板格式"""
-    # 获取片段数据
+    # 获取片段数据和shop_id
     segments_df_data = cluster_results['segments']
+    shop_id = cluster_results.get('shop_id')
     
     # 准备businessInsights数据
     dashboard_insights = []
@@ -290,21 +445,32 @@ def convert_to_dashboard_format(cluster_results, business_insights):
         non_zero_durations = [s.get('duration_minutes', 0) * 60 for s in cluster_segments if s.get('duration_minutes', 0) > 0]
         avg_duration_seconds = sum(non_zero_durations) / len(non_zero_durations) if non_zero_durations else 0
         
+        # 检测是否为金融场景（YUP）
+        chars = insight['key_characteristics']
+        is_financial = 'kyc_status' in chars or 'transaction_status' in chars or 'main_activity' in chars
+        
+        if is_financial:
+            # 金融场景：保持对象格式，前端会处理
+            key_characteristics = chars
+        else:
+            # 电商场景：转换为数组格式
+            key_characteristics = [
+                f"用户规模: {chars['user_count']} 个独立用户，{chars['segment_count']} 个意图片段",
+                f"平均浏览时长: {avg_duration_seconds:.1f} 秒" if avg_duration_seconds > 0 else "平均浏览时长: 瞬时浏览（单次交互）",
+                f"平均交互次数: {chars['avg_interactions']:.1f} 次",
+                f"平均意图强度: {chars['avg_intent_score']:.2f}",
+                f"购买阶段: {chars.get('stage', '')}",
+                f"价格敏感度: {chars.get('price_sensitivity', '')}",
+                f"参与度: {chars.get('engagement_level', '')}",
+                f"产品偏好: {chars.get('product_preference', '')}",
+                f"关注点: {chars.get('concern_focus', '')}",
+                f"核心需求: {chars.get('core_need', '')}"
+            ]
+        
         dashboard_insight = {
             'cluster_id': insight['cluster_id'],
             'user_segment_name': insight['cluster_name'],
-            'key_characteristics': [
-                f"用户规模: {insight['key_characteristics']['user_count']} 个独立用户，{insight['key_characteristics']['segment_count']} 个意图片段",
-                f"平均浏览时长: {avg_duration_seconds:.1f} 秒" if avg_duration_seconds > 0 else "平均浏览时长: 瞬时浏览（单次交互）",
-                f"平均交互次数: {insight['key_characteristics']['avg_interactions']:.1f} 次",
-                f"平均意图强度: {insight['key_characteristics']['avg_intent_score']:.2f}",
-                f"购买阶段: {insight['key_characteristics']['stage']}",
-                f"价格敏感度: {insight['key_characteristics']['price_sensitivity']}",
-                f"参与度: {insight['key_characteristics']['engagement_level']}",
-                f"产品偏好: {insight['key_characteristics']['product_preference']}",
-                f"关注点: {insight['key_characteristics']['concern_focus']}",
-                f"核心需求: {insight['key_characteristics']['core_need']}"
-            ],
+            'key_characteristics': key_characteristics,
             'marketing_strategy': insight['marketing_strategy'],
             'product_recommendations': insight['product_recommendation'],
             'conversion_optimization': insight['conversion_tactics'],
@@ -346,8 +512,15 @@ def convert_to_dashboard_format(cluster_results, business_insights):
         non_zero_durations = [d for d in stats['durations'] if d > 0]
         avg_duration = sum(non_zero_durations) / len(non_zero_durations) if non_zero_durations else 0
         
-        # 提取该聚类的关键词
-        cluster_keywords = extract_cluster_keywords(stats['segments'])
+        # 提取该聚类的关键词（从cluster_results中获取shop_id）
+        shop_id = cluster_results.get('shop_id')
+        if not shop_id:
+            # 尝试从segments中推断shop_id
+            if segments_df_data:
+                first_segment = segments_df_data[0]
+                # 尝试从segment_id或其他字段推断
+                pass
+        cluster_keywords = extract_cluster_keywords(stats['segments'], shop_id=shop_id)
         
         # 将关键词转换为词云格式 [word, weight]
         # 权重基于频率，最高频率的词权重为60，最低为15

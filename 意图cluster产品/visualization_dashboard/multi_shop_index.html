@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多店铺用户意图分析 - Intent Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .shop-selector {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .shop-selector h2 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .shop-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .shop-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .shop-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .shop-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+        
+        .shop-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .stat-card .label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .current-shop-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .current-shop-info h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .current-shop-info .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .info-item {
+            font-size: 14px;
+        }
+        
+        .info-item .label {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .info-item .value {
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- 店铺选择器 -->
+        <div class="shop-selector">
+            <h2>选择店铺</h2>
+            <div class="shop-buttons" id="shopButtons"></div>
+            <div class="shop-stats" id="shopStats"></div>
+        </div>
+        
+        <!-- 当前店铺信息 -->
+        <div class="current-shop-info" id="currentShopInfo" style="display: none;">
+            <h3>当前查看: 店铺 <span id="currentShopId">-</span></h3>
+            <div class="info-grid" id="currentShopStats"></div>
+        </div>
+        
+        <!-- 原有的仪表板内容 -->
+        <div id="dashboardContent">
+            <div class="dashboard-main">
+                <div class="tab-content active" id="overview">
+                    <h2>数据总览</h2>
+                    <p>请选择一个店铺查看数据</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 加载多店铺数据 -->
+    <script src="multi_shop_data.js"></script>
+    <!-- 加载原有的dashboard.js（需要修改以支持多店铺） -->
+    <script src="dashboard.js"></script>
+    <script src="i18n.js"></script>
+    
+    <script>
+        // 多店铺管理
+        let currentShopId = null;
+        let shopDataCache = {};
+        
+        // 初始化店铺选择器
+        function initShopSelector() {
+            const shopButtons = document.getElementById('shopButtons');
+            const shopStats = document.getElementById('shopStats');
+            
+            if (!window.shopSummary) {
+                console.error('多店铺数据未加载');
+                return;
+            }
+            
+            // 创建店铺按钮
+            shopSummary.shops.forEach(shopId => {
+                const btn = document.createElement('button');
+                btn.className = 'shop-btn';
+                btn.textContent = `店铺 ${shopId}`;
+                btn.onclick = () => switchShop(shopId);
+                shopButtons.appendChild(btn);
+            });
+            
+            // 显示汇总统计
+            const totalUsers = document.createElement('div');
+            totalUsers.className = 'stat-card';
+            totalUsers.innerHTML = `
+                <div class="label">总用户数</div>
+                <div class="value">${shopSummary.total_users_all_shops.toLocaleString()}</div>
+            `;
+            shopStats.appendChild(totalUsers);
+            
+            const totalSegments = document.createElement('div');
+            totalSegments.className = 'stat-card';
+            totalSegments.innerHTML = `
+                <div class="label">总片段数</div>
+                <div class="value">${shopSummary.total_segments_all_shops.toLocaleString()}</div>
+            `;
+            shopStats.appendChild(totalSegments);
+            
+            const totalShops = document.createElement('div');
+            totalShops.className = 'stat-card';
+            totalShops.innerHTML = `
+                <div class="label">店铺数量</div>
+                <div class="value">${shopSummary.total_shops}</div>
+            `;
+            shopStats.appendChild(totalShops);
+        }
+        
+        // 切换店铺
+        function switchShop(shopId) {
+            // 更新按钮状态
+            document.querySelectorAll('.shop-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            currentShopId = shopId;
+            
+            // 更新当前店铺信息
+            updateCurrentShopInfo(shopId);
+            
+            // 加载店铺数据
+            loadShopData(shopId);
+        }
+        
+        // 更新当前店铺信息
+        function updateCurrentShopInfo(shopId) {
+            const infoDiv = document.getElementById('currentShopInfo');
+            const shopIdSpan = document.getElementById('currentShopId');
+            const statsDiv = document.getElementById('currentShopStats');
+            
+            if (!window.shopSummary || !window.shopSummary.shop_stats[shopId]) {
+                infoDiv.style.display = 'none';
+                return;
+            }
+            
+            infoDiv.style.display = 'block';
+            shopIdSpan.textContent = shopId;
+            
+            const stats = window.shopSummary.shop_stats[shopId];
+            statsDiv.innerHTML = `
+                <div class="info-item">
+                    <div class="label">用户数</div>
+                    <div class="value">${stats.total_users}</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">片段数</div>
+                    <div class="value">${stats.total_segments}</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">聚类数</div>
+                    <div class="value">${stats.total_clusters}</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">业务洞察</div>
+                    <div class="value">${stats.has_insights ? '✓' : '✗'}</div>
+                </div>
+            `;
+        }
+        
+        // 加载店铺数据到dashboard
+        function loadShopData(shopId) {
+            if (!window.shopData || !window.shopData[shopId]) {
+                console.error(`店铺 ${shopId} 的数据不存在`);
+                return;
+            }
+            
+            // 将店铺数据设置为全局数据（供dashboard.js使用）
+            window.businessInsights = window.shopData[shopId].businessInsights || [];
+            window.userPortraits = window.shopData[shopId].userPortraits || [];
+            window.stats = window.shopData[shopId].stats || {};
+            window.timeSeries = window.shopData[shopId].timeSeries || [];
+            window.userTrajectories = window.shopData[shopId].userTrajectories || [];
+            
+            // 重新加载dashboard
+            if (typeof loadTabContent === 'function') {
+                loadTabContent('overview');
+            } else {
+                // 如果dashboard.js还没加载，等待一下
+                setTimeout(() => {
+                    if (typeof loadTabContent === 'function') {
+                        loadTabContent('overview');
+                    }
+                }, 500);
+            }
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            initShopSelector();
+            
+            // 默认选择第一个店铺
+            if (window.shopSummary && window.shopSummary.shops.length > 0) {
+                const firstShop = window.shopSummary.shops[0];
+                switchShop(firstShop);
+            }
+        });
+    </script>
+</body>
+</html>
+

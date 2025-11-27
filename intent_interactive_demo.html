@@ -2363,6 +2363,14 @@ class IntentRecognition {
       behavior_summary: { engagement: 'low', browsing_path: [] },
       conversion_stage: 'awareness'
     };
+    // 追踪视频交互前的状态，用于对比分析
+    this.beforeVideoState = null;
+    this.videoImpactMetrics = {
+      conversionStageBoost: 0,
+      engagementBoost: 0,
+      interactionIncrease: 0,
+      timeSpentIncrease: 0
+    };
     this.productMap = {
       'hoodie': { category: 'Comfortable Apparel', tags: ['Hoodie', 'Cozy', 'Loungewear', 'Athleisure'] },
       'sweater': { category: 'Casual Wear', tags: ['Sweater', 'Warm', 'Comfort'] },
@@ -2380,9 +2388,48 @@ class IntentRecognition {
       data,
       timestamp: Date.now()
     };
+    
+    // 检测首次视频交互，保存之前的状态
+    const isVideoInteraction = type === 'video-play' || type === 'video-pause' || 
+                               type === 'video-watch' || type === 'video-hover-end' ||
+                               (type === 'click' && data.element && data.element.includes('video'));
+    
+    if (isVideoInteraction && !this.beforeVideoState) {
+      this.beforeVideoState = {
+        conversionStage: this.intentData.conversion_stage,
+        engagement: this.intentData.behavior_summary.engagement,
+        behaviorCount: this.behaviors.length,
+        timestamp: Date.now()
+      };
+    }
+    
     this.behaviors.push(behavior);
     this.updateIntent();
+    this.calculateVideoImpact();
     this.displayIntent();
+  }
+  
+  calculateVideoImpact() {
+    if (!this.beforeVideoState) return;
+    
+    const stages = ['awareness', 'interest', 'consideration', 'purchase'];
+    const beforeIndex = stages.indexOf(this.beforeVideoState.conversionStage);
+    const currentIndex = stages.indexOf(this.intentData.conversion_stage);
+    this.videoImpactMetrics.conversionStageBoost = Math.max(0, currentIndex - beforeIndex);
+    
+    const engagementLevels = { 'low': 0, 'medium': 1, 'high': 2 };
+    const beforeEngagement = engagementLevels[this.beforeVideoState.engagement] || 0;
+    const currentEngagement = engagementLevels[this.intentData.behavior_summary.engagement] || 0;
+    this.videoImpactMetrics.engagementBoost = Math.max(0, currentEngagement - beforeEngagement);
+    
+    this.videoImpactMetrics.interactionIncrease = this.behaviors.length - this.beforeVideoState.behaviorCount;
+    
+    // 计算视频观看时长
+    const videoWatchEvents = this.behaviors.filter(b => b.type === 'video-watch');
+    if (videoWatchEvents.length > 0) {
+      const maxWatchTime = Math.max(...videoWatchEvents.map(e => e.data.watchDuration || 0));
+      this.videoImpactMetrics.timeSpentIncrease = maxWatchTime;
+    }
   }
   
   updateIntent() {
@@ -2529,6 +2576,11 @@ class IntentRecognition {
     );
     if (videoInteractions.length > 0) {
       html += this.renderVideoInteractions();
+    }
+    
+    // 视频交互对转化指标的影响（如果有视频交互且存在对比数据）
+    if (videoInteractions.length > 0 && this.beforeVideoState) {
+      html += this.renderVideoImpactOnConversion();
     }
     
     // 参与度仪表盘
@@ -2987,6 +3039,195 @@ class IntentRecognition {
             <div style="font-size: 12px; color: var(--text-secondary);">
               价格: <span style="color: #ff4444; font-weight: 600;">USD 139.0</span>
               <span style="text-decoration: line-through; color: #999; margin-left: 8px;">USD 169.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  renderVideoImpactOnConversion() {
+    if (!this.beforeVideoState) return '';
+    
+    const stages = ['awareness', 'interest', 'consideration', 'purchase'];
+    const stageLabels = {
+      'awareness': '认知',
+      'interest': '兴趣',
+      'consideration': '考虑',
+      'purchase': '购买'
+    };
+    
+    const engagementLabels = {
+      'low': '低',
+      'medium': '中',
+      'high': '高'
+    };
+    
+    const beforeStageIndex = stages.indexOf(this.beforeVideoState.conversionStage);
+    const currentStageIndex = stages.indexOf(this.intentData.conversion_stage);
+    const stageBoost = this.videoImpactMetrics.conversionStageBoost;
+    
+    const engagementLevels = { 'low': 0, 'medium': 1, 'high': 2 };
+    const beforeEngagementLevel = engagementLevels[this.beforeVideoState.engagement] || 0;
+    const currentEngagementLevel = engagementLevels[this.intentData.behavior_summary.engagement] || 0;
+    const engagementBoost = this.videoImpactMetrics.engagementBoost;
+    
+    // 计算转化率提升百分比
+    const conversionRateBefore = ((beforeStageIndex + 1) / stages.length) * 100;
+    const conversionRateAfter = ((currentStageIndex + 1) / stages.length) * 100;
+    const conversionRateIncrease = conversionRateAfter - conversionRateBefore;
+    
+    // 计算参与度提升百分比
+    const engagementBefore = (beforeEngagementLevel / 2) * 100;
+    const engagementAfter = (currentEngagementLevel / 2) * 100;
+    const engagementIncrease = engagementAfter - engagementBefore;
+    
+    const formatDuration = (seconds) => {
+      if (seconds < 60) return `${seconds}秒`;
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return secs > 0 ? `${mins}分${secs}秒` : `${mins}分钟`;
+    };
+    
+    return `
+      <div class="intent-card show" style="border: 2px solid #7da6ff; background: linear-gradient(135deg, rgba(125, 166, 255, 0.05) 0%, rgba(0, 255, 136, 0.05) 100%);">
+        <h3 style="color: #7da6ff; display: flex; align-items: center; gap: 8px;">
+          <span>📈</span>
+          <span>视频交互对转化指标的影响</span>
+        </h3>
+        <div class="chart-container">
+          <!-- 转化阶段对比 -->
+          <div style="margin-bottom: 20px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">
+              转化阶段提升
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: rgba(125, 166, 255, 0.1); border-radius: 8px;">
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">交互前</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--text-secondary);">
+                  ${stageLabels[this.beforeVideoState.conversionStage]}
+                </div>
+                <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">
+                  ${Math.round(conversionRateBefore)}%
+                </div>
+              </div>
+              <div style="font-size: 24px; color: #7da6ff;">→</div>
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">交互后</div>
+                <div style="font-size: 18px; font-weight: 700; color: #7da6ff;">
+                  ${stageLabels[this.intentData.conversion_stage]}
+                </div>
+                <div style="font-size: 11px; color: #7da6ff; margin-top: 4px;">
+                  ${Math.round(conversionRateAfter)}%
+                </div>
+              </div>
+              ${stageBoost > 0 ? `
+                <div style="flex: 1; text-align: center; padding-left: 12px; border-left: 1px solid rgba(125, 166, 255, 0.3);">
+                  <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">提升</div>
+                  <div style="font-size: 20px; font-weight: 700; color: #00ff88;">
+                    +${stageBoost} 阶段
+                  </div>
+                  <div style="font-size: 11px; color: #00ff88; margin-top: 4px;">
+                    +${Math.round(conversionRateIncrease)}%
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          
+          <!-- 参与度对比 -->
+          <div style="margin-bottom: 20px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">
+              参与度提升
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: rgba(0, 255, 136, 0.1); border-radius: 8px;">
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">交互前</div>
+                <div style="font-size: 18px; font-weight: 700; color: var(--text-secondary);">
+                  ${engagementLabels[this.beforeVideoState.engagement]}
+                </div>
+                <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">
+                  ${Math.round(engagementBefore)}%
+                </div>
+              </div>
+              <div style="font-size: 24px; color: #00ff88;">→</div>
+              <div style="flex: 1; text-align: center;">
+                <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">交互后</div>
+                <div style="font-size: 18px; font-weight: 700; color: #00ff88;">
+                  ${engagementLabels[this.intentData.behavior_summary.engagement]}
+                </div>
+                <div style="font-size: 11px; color: #00ff88; margin-top: 4px;">
+                  ${Math.round(engagementAfter)}%
+                </div>
+              </div>
+              ${engagementBoost > 0 ? `
+                <div style="flex: 1; text-align: center; padding-left: 12px; border-left: 1px solid rgba(0, 255, 136, 0.3);">
+                  <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">提升</div>
+                  <div style="font-size: 20px; font-weight: 700; color: #00ff88;">
+                    +${engagementBoost} 级
+                  </div>
+                  <div style="font-size: 11px; color: #00ff88; margin-top: 4px;">
+                    +${Math.round(engagementIncrease)}%
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          
+          <!-- 关键指标汇总 -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
+            <div style="background: rgba(255, 68, 68, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(255, 68, 68, 0.2);">
+              <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">新增交互</div>
+              <div style="font-size: 20px; font-weight: 700; color: #ff4444;">
+                +<span class="animated-number">${this.videoImpactMetrics.interactionIncrease}</span>
+              </div>
+              <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
+                次行为事件
+              </div>
+            </div>
+            <div style="background: rgba(255, 193, 7, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(255, 193, 7, 0.2);">
+              <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">观看时长</div>
+              <div style="font-size: 20px; font-weight: 700; color: #ffc107;">
+                ${formatDuration(this.videoImpactMetrics.timeSpentIncrease)}
+              </div>
+              <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
+                视频停留时间
+              </div>
+            </div>
+          </div>
+          
+          <!-- 转化漏斗对比可视化 -->
+          <div style="margin-top: 16px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">
+              转化进度对比
+            </div>
+            <div style="position: relative; height: 40px; background: rgba(0, 0, 0, 0.1); border-radius: 20px; overflow: hidden;">
+              <div style="position: absolute; top: 0; left: 0; height: 100%; width: ${conversionRateBefore}%; background: rgba(125, 166, 255, 0.3); border-radius: 20px 0 0 20px; transition: width 0.5s ease;"></div>
+              <div style="position: absolute; top: 0; left: 0; height: 100%; width: ${conversionRateAfter}%; background: linear-gradient(90deg, rgba(125, 166, 255, 0.6) 0%, rgba(0, 255, 136, 0.6) 100%); border-radius: 20px; transition: width 0.5s ease; box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);"></div>
+              <div style="position: absolute; top: 50%; left: ${conversionRateBefore}%; transform: translate(-50%, -50%); width: 4px; height: 60%; background: rgba(125, 166, 255, 0.8); border-radius: 2px; z-index: 2;"></div>
+              <div style="position: absolute; top: 50%; left: ${conversionRateAfter}%; transform: translate(-50%, -50%); width: 4px; height: 60%; background: rgba(0, 255, 136, 0.8); border-radius: 2px; z-index: 2;"></div>
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 11px; font-weight: 600; color: white; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); z-index: 3;">
+                ${Math.round(conversionRateAfter)}%
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--text-secondary);">
+              <span>交互前: ${Math.round(conversionRateBefore)}%</span>
+              <span style="color: #00ff88; font-weight: 600;">+${Math.round(conversionRateIncrease)}%</span>
+              <span>交互后: ${Math.round(conversionRateAfter)}%</span>
+            </div>
+          </div>
+          
+          <!-- 影响总结 -->
+          <div style="margin-top: 16px; padding: 12px; background: linear-gradient(135deg, rgba(125, 166, 255, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%); border-radius: 8px; border-left: 3px solid #7da6ff;">
+            <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">
+              💡 视频交互影响总结
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary); line-height: 1.6;">
+              ${stageBoost > 0 ? `• 转化阶段从"${stageLabels[this.beforeVideoState.conversionStage]}"提升至"${stageLabels[this.intentData.conversion_stage]}"<br/>` : ''}
+              ${engagementBoost > 0 ? `• 参与度从"${engagementLabels[this.beforeVideoState.engagement]}"提升至"${engagementLabels[this.intentData.behavior_summary.engagement]}"<br/>` : ''}
+              • 新增 ${this.videoImpactMetrics.interactionIncrease} 次交互行为<br/>
+              ${this.videoImpactMetrics.timeSpentIncrease > 0 ? `• 视频观看时长 ${formatDuration(this.videoImpactMetrics.timeSpentIncrease)}<br/>` : ''}
+              • 转化率提升 ${Math.round(conversionRateIncrease)} 个百分点
             </div>
           </div>
         </div>

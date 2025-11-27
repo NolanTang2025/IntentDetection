@@ -3,6 +3,13 @@
 基于用户行为意图的聚类分析
 目标：让商家可以快速捕捉到当下的用户意图并给出相应的反应
 结合行为特征（交互次数、时长、意图强度）和意图特征（购买阶段、产品偏好等）
+
+核心改进：基于意图变化的分段策略
+- 当用户意图真正发生变化时才进行意图切片
+- 一个用户可以拥有多个意图片段（不同时间段可能有不同意图）
+- 不再机械地按固定时间间隔分段，而是智能识别意图变化
+
+店铺39特殊处理：使用Gemini API进行文本embedding聚类
 """
 
 import json
@@ -13,13 +20,69 @@ from collections import Counter, defaultdict
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from pathlib import Path
+import os
+import time
+
+# 尝试加载.env文件
+try:
+    from dotenv import load_dotenv
+    # 加载.env文件（从项目根目录）
+    env_path = Path(__file__).parent.parent / '.env'
+    if env_path.exists():
+        load_dotenv(env_path, override=True)
+        print(f"✅ 已加载.env文件: {env_path}")
+    else:
+        # 也尝试从当前目录加载
+        load_dotenv(override=True)
+    DOTENV_AVAILABLE = True
+except ImportError:
+    DOTENV_AVAILABLE = False
+    # 如果没有安装python-dotenv，仍然可以从环境变量读取
+    print("⚠️  python-dotenv 未安装，将仅从环境变量读取API密钥")
+
+# 尝试导入Gemini API（店铺39使用）
+try:
+    import google.generativeai as genai
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
+    print("⚠️  google.generativeai 未安装，店铺39将使用默认方法。安装: pip install google-generativeai")
 
 class BehaviorIntentClusterer:
     def __init__(self, 
                  gap_threshold_minutes=10,
-                 inactivity_threshold_minutes=15):
+                 inactivity_threshold_minutes=15,
+                 intent_change_threshold=0.3,
+                 gemini_api_key=None):
+        """
+        参数:
+            gap_threshold_minutes: 时间间隔阈值（分钟），超过此值即使意图没变也可能分段
+            inactivity_threshold_minutes: 不活跃阈值（分钟），超过此值强制分段
+            intent_change_threshold: 意图变化阈值 (0-1)，超过此值认为意图发生变化
+            gemini_api_key: Gemini API密钥（用于店铺39的embedding）
+        """
         self.gap_threshold = timedelta(minutes=gap_threshold_minutes)
         self.inactivity_threshold = timedelta(minutes=inactivity_threshold_minutes)
+        self.intent_change_threshold = intent_change_threshold
+        
+        # 加载API密钥（优先级：参数 > 环境变量 > .env文件）
+        if gemini_api_key:
+            self.gemini_api_key = gemini_api_key
+            print(f"✅ 使用传入的Gemini API密钥")
+        else:
+            # 尝试从环境变量读取（包括从.env文件加载的）
+            self.gemini_api_key = os.getenv('GEMINI_API_KEY')
+            if self.gemini_api_key:
+                print(f"✅ 从环境变量读取Gemini API密钥")
+            else:
+                print("⚠️  未找到Gemini API密钥，店铺39将使用默认方法")
+        
+        # 如果提供了API密钥，配置Gemini
+        if self.gemini_api_key and GEMINI_AVAILABLE:
+            genai.configure(api_key=self.gemini_api_key)
+            print(f"✅ Gemini API已配置")
+        elif self.gemini_api_key and not GEMINI_AVAILABLE:
+            print("⚠️  已提供API密钥但google-generativeai未安装，请运行: pip install google-generativeai")
     
     def parse_timestamp(self, ts_str):
         """解析时间戳字符串"""
@@ -29,21 +92,157 @@ class BehaviorIntentClusterer:
             return datetime.fromisoformat(ts_str)
     
     def extract_business_features(self, output_str, duration_minutes, record_count):
-        """从output中提取业务特征（复用原有逻辑）"""
+        """从output中提取业务特征（支持多种数据格式，包括Markdown+JSON混合格式）"""
         try:
-            cleaned = output_str.strip()
-            if cleaned.startswith('"'):
-                cleaned = cleaned[1:]
-            if cleaned.endswith('"'):
-                cleaned = cleaned[:-1]
-            if cleaned.startswith('```json'):
-                cleaned = cleaned[7:]
-            if cleaned.endswith('```'):
-                cleaned = cleaned[:-3]
-            cleaned = cleaned.strip()
+            import re
             
-            data = json.loads(cleaned)
-            intent = data.get('intent', {})
+            cleaned = output_str.strip()
+            
+            # 方法0: 先尝试解析外层JSON（处理转义字符）
+            try:
+                # 尝试去除最外层的引号，如果存在
+                if cleaned.startswith('"') and cleaned.endswith('"'):
+                    temp_cleaned = cleaned[1:-1]
+                    # 尝试解析一次，看是否是转义的JSON字符串
+                    parsed_outer = json.loads(temp_cleaned)
+                    if isinstance(parsed_outer, str):
+                        cleaned = parsed_outer.strip()
+                    else: # 如果解析出来不是字符串，说明外层引号是JSON的一部分，恢复
+                        cleaned = temp_cleaned
+                else:
+                    # 如果没有外层引号，直接使用
+                    pass
+            except Exception as e:
+                # 如果解析失败，说明不是转义的JSON字符串，直接移除外层引号
+                if cleaned.startswith('"'):
+                    cleaned = cleaned[1:]
+                if cleaned.endswith('"'):
+                    cleaned = cleaned[:-1]
+                cleaned = cleaned.strip()
+            
+            data = None
+            intent = {}
+            
+            # 方法1: 尝试提取```json代码块中的内容（最常见格式）
+            json_start = cleaned.find('```json')
+            if json_start >= 0:
+                content_start = json_start + 7
+                # 查找所有{位置（从content_start开始）
+                brace_positions = [i for i, char in enumerate(cleaned) if char == '{' and i >= content_start]
+                
+                # 从后往前查找包含"intent"的JSON对象
+                for brace_start in reversed(brace_positions):
+                    brace_count = 0
+                    brace_end = -1
+                    for i in range(brace_start, len(cleaned)):
+                        if cleaned[i] == '{':
+                            brace_count += 1
+                        elif cleaned[i] == '}':
+                            brace_count -= 1
+                            if brace_count == 0:
+                                brace_end = i + 1
+                                break
+                    
+                    if brace_end > brace_start:
+                        json_str = cleaned[brace_start:brace_end]
+                        # 尝试修复不完整的JSON
+                        try:
+                            data = json.loads(json_str)
+                            if 'intent' in data:
+                                intent = data.get('intent', {})
+                                json_match = True
+                                break
+                        except json.JSONDecodeError as e:
+                            # 尝试修复不完整的JSON
+                            try:
+                                # 尝试添加缺失的闭合括号
+                                fixed_json_str = json_str
+                                open_braces = fixed_json_str.count('{')
+                                close_braces = fixed_json_str.count('}')
+                                if open_braces > close_braces:
+                                    fixed_json_str += '}' * (open_braces - close_braces)
+                                data = json.loads(fixed_json_str)
+                                if 'intent' in data:
+                                    intent = data.get('intent', {})
+                                    json_match = True
+                                    break
+                            except:
+                                continue
+                
+                if 'json_match' not in locals():
+                    json_match = None
+            else:
+                json_match = None
+            
+            # 如果方法1失败，继续使用方法2 (直接解析整个字符串，或查找最后一个JSON)
+            if not json_match or not intent:
+                # 移除代码块标记
+                temp_cleaned = cleaned
+                if temp_cleaned.startswith('```json'):
+                    temp_cleaned = temp_cleaned[7:]
+                if temp_cleaned.endswith('```'):
+                    temp_cleaned = temp_cleaned[:-3]
+                temp_cleaned = temp_cleaned.strip()
+                
+                try:
+                    data = json.loads(temp_cleaned)
+                    intent = data.get('intent', {})
+                except:
+                    # 方法3: 如果还是失败，尝试查找最后一个完整的JSON对象
+                    # 查找最后一个{...}结构（从末尾开始）
+                    brace_start = temp_cleaned.rfind('{')
+                    if brace_start != -1:
+                        # 尝试找到匹配的闭合括号
+                        brace_count = 0
+                        brace_end = -1
+                        for i in range(brace_start, len(temp_cleaned)):
+                            if temp_cleaned[i] == '{':
+                                brace_count += 1
+                            elif temp_cleaned[i] == '}':
+                                brace_count -= 1
+                                if brace_count == 0:
+                                    brace_end = i + 1
+                                    break
+                        
+                        if brace_end > brace_start:
+                            json_str = temp_cleaned[brace_start:brace_end]
+                            try:
+                                data = json.loads(json_str)
+                                intent = data.get('intent', {})
+                            except:
+                                # 尝试修复不完整的JSON
+                                try:
+                                    fixed_json_str = json_str
+                                    open_braces = fixed_json_str.count('{')
+                                    close_braces = fixed_json_str.count('}')
+                                    if open_braces > close_braces:
+                                        fixed_json_str += '}' * (open_braces - close_braces)
+                                    data = json.loads(fixed_json_str)
+                                    intent = data.get('intent', {})
+                                except:
+                                    data = {'intent_score': 0.5}
+                                    intent = {}
+                        else: # 如果没有找到匹配的闭合括号，尝试从brace_start到末尾
+                            json_str = temp_cleaned[brace_start:]
+                            try:
+                                # 尝试修复不完整的JSON
+                                fixed_json_str = json_str
+                                open_braces = fixed_json_str.count('{')
+                                close_braces = fixed_json_str.count('}')
+                                if open_braces > close_braces:
+                                    fixed_json_str += '}' * (open_braces - close_braces)
+                                data = json.loads(fixed_json_str)
+                                intent = data.get('intent', {})
+                            except:
+                                data = {'intent_score': 0.5}
+                                intent = {}
+                    else:
+                        data = {'intent_score': 0.5}
+                        intent = {}
+            
+            # 如果data还是None，创建默认结构
+            if data is None:
+                data = {'intent_score': 0.5}
             
             features = {
                 'purchase_stage': 0,
@@ -57,9 +256,12 @@ class BehaviorIntentClusterer:
             # 购买阶段
             purchase_signals = intent.get('purchase_signals', {})
             stage = purchase_signals.get('stage', 'browsing')
-            if 'deciding' in str(stage).lower():
+            
+            # 处理组合阶段，例如 "browsing/comparing"
+            stage_lower = str(stage).lower()
+            if 'deciding' in stage_lower:
                 features['purchase_stage'] = 2
-            elif 'comparing' in str(stage).lower():
+            elif 'comparing' in stage_lower:
                 features['purchase_stage'] = 1
             else:
                 features['purchase_stage'] = 0
@@ -67,55 +269,61 @@ class BehaviorIntentClusterer:
             # 价格敏感度
             product_focus = intent.get('product_focus', {})
             price_range = product_focus.get('price_range', 'premium')
-            if 'budget' in str(price_range).lower() or 'economy' in str(price_range).lower():
+            price_lower = str(price_range).lower()
+            if 'budget' in price_lower or 'economy' in price_lower or 'low' in price_lower:
                 features['price_sensitivity'] = 0
-            elif 'mid' in str(price_range).lower() or 'medium' in str(price_range).lower():
+            elif 'mid' in price_lower or 'medium' in price_lower:
                 features['price_sensitivity'] = 1
             else:
                 features['price_sensitivity'] = 2
             
-            # 产品偏好
+            # 产品偏好（从core_interests和product_focus中提取）
             core_interests = intent.get('core_interests', [])
-            product_focus_attrs = product_focus.get('key_attributes', [])
-            all_text = ' '.join([str(x).lower() for x in core_interests + product_focus_attrs])
+            key_attributes = product_focus.get('key_attributes', [])
+            all_product_terms = []
+            if isinstance(core_interests, list):
+                all_product_terms.extend([str(x).lower() for x in core_interests])
+            if isinstance(key_attributes, list):
+                all_product_terms.extend([str(x).lower() for x in key_attributes])
             
-            product_counts = {
-                'z6': all_text.count('z6') + all_text.count('mems'),
-                'a1': all_text.count('a1') + all_text.count('ai anti-snore'),
-                'f1': all_text.count('f1') + all_text.count('ergonomic'),
-                'h02': all_text.count('h02') + all_text.count('neck'),
-                'g1': all_text.count('g1') + all_text.count('mattress')
+            # 产品映射
+            product_map = {
+                'z6': 0, 'a1': 1, 'f1': 2, 'h02': 3, 'h2': 3, 'g1': 4
             }
+            features['product_preference'] = 5  # 默认：无偏好
+            for term in all_product_terms:
+                for product_key, product_id in product_map.items():
+                    if product_key in term:
+                        features['product_preference'] = product_id
+                        break
+                if features['product_preference'] != 5:
+                    break
             
-            max_product = max(product_counts.items(), key=lambda x: x[1])
-            if max_product[1] > 0:
-                product_map = {'z6': 0, 'a1': 1, 'f1': 2, 'h02': 3, 'g1': 4}
-                features['product_preference'] = product_map.get(max_product[0], 5)
-            
-            # 关注点
+            # 关注点（从concerns中提取）
             concerns = purchase_signals.get('concerns', [])
-            if isinstance(concerns, str):
-                concerns = [concerns]
-            concerns_text = ' '.join([str(x).lower() for x in concerns])
-            
-            if 'price' in concerns_text or 'cost' in concerns_text or 'discount' in concerns_text:
-                features['concern_focus'] = 1
-            elif 'comfort' in concerns_text or 'comfortable' in concerns_text:
-                features['concern_focus'] = 2
-            elif 'effectiveness' in concerns_text or 'effective' in concerns_text or 'work' in concerns_text:
-                features['concern_focus'] = 3
-            elif 'feature' in concerns_text or 'function' in concerns_text or 'technology' in concerns_text:
-                features['concern_focus'] = 0
+            if concerns and isinstance(concerns, list) and len(concerns) > 0:
+                concern_str = ' '.join([str(x).lower() for x in concerns if x])
+                if 'price' in concern_str or 'cost' in concern_str:
+                    features['concern_focus'] = 0
+                elif 'quality' in concern_str or 'durability' in concern_str:
+                    features['concern_focus'] = 1
+                elif 'comfort' in concern_str or 'comfortable' in concern_str:
+                    features['concern_focus'] = 2
+                elif 'effectiveness' in concern_str or 'effect' in concern_str:
+                    features['concern_focus'] = 3
+                else:
+                    features['concern_focus'] = 4
             else:
                 features['concern_focus'] = 4
             
-            # 核心需求
+            # 核心需求（从core_interests和main_appeal中提取）
             main_appeal = product_focus.get('main_appeal', '')
-            if 'snore' in str(main_appeal).lower() or 'snoring' in str(main_appeal).lower():
+            all_need_terms = ' '.join([str(x).lower() for x in core_interests if x]) + ' ' + str(main_appeal).lower()
+            if 'snoring' in all_need_terms or 'snore' in all_need_terms:
                 features['core_need'] = 0
-            elif 'neck' in str(main_appeal).lower() or 'pain' in str(main_appeal).lower():
+            elif 'neck' in all_need_terms or 'pain' in all_need_terms:
                 features['core_need'] = 1
-            elif 'sleep' in str(main_appeal).lower() and 'quality' in str(main_appeal).lower():
+            elif 'sleep' in all_need_terms and 'quality' in all_need_terms:
                 features['core_need'] = 2
             else:
                 features['core_need'] = 3
@@ -123,6 +331,7 @@ class BehaviorIntentClusterer:
             return features
             
         except Exception as e:
+            # print(f"特征提取失败: {e}, output_str: {output_str[:500]}")
             return {
                 'purchase_stage': 0,
                 'price_sensitivity': 2,
@@ -132,8 +341,394 @@ class BehaviorIntentClusterer:
                 'intent_score': 0.5
             }
     
-    def segment_by_time(self, data):
-        """按时间窗口切分用户行为"""
+    def extract_financial_features(self, segment_records, all_user_records=None):
+        """从片段记录中提取金融相关特征（专门用于YUP等金融公司）
+        
+        参数:
+            segment_records: 当前片段的记录列表
+            all_user_records: 该用户的所有记录（用于计算用户级别特征，如首次交易时间）
+        """
+        if not segment_records:
+            return {
+                'kyc_started': 0,
+                'kyc_event_count': 0,
+                'has_transaction': 0,
+                'transaction_completed': 0,
+                'event_count': 0,
+                'payment_related_events': 0,
+                'recharge_related_events': 0,
+                'voucher_related_events': 0,
+                'intent_score': 0.5
+            }
+        
+        # 提取事件名称列表
+        event_names = [r.get('event_name', '') for r in segment_records if r.get('event_name')]
+        
+        # 特征1: 是否开始KYC（包含人脸识别相关事件）
+        kyc_started = 1 if any('face' in str(e).lower() or 'verification' in str(e).lower() or 'kyc' in str(e).lower() 
+                               for e in event_names) else 0
+        
+        # 特征2: KYC相关事件数量
+        kyc_events = [e for e in event_names if any(keyword in str(e).lower() 
+                   for keyword in ['face', 'verification', 'kyc', 'ocr', 'activate'])]
+        kyc_event_count = len(kyc_events)
+        
+        # 特征3: 是否完成交易
+        has_transaction = 1 if any(r.get('has_transaction', False) for r in segment_records) else 0
+        
+        # 特征4: 交易状态（从output中提取）
+        transaction_completed = 0
+        intent_score = 0.5
+        for record in reversed(segment_records):  # 从后往前查找最新的状态
+            output = record.get('output', '')
+            if output:
+                try:
+                    # 尝试解析output中的JSON
+                    cleaned = output.strip()
+                    if cleaned.startswith('"'):
+                        cleaned = cleaned[1:-1]
+                    if '```json' in cleaned:
+                        json_start = cleaned.find('{')
+                        if json_start >= 0:
+                            json_str = cleaned[json_start:]
+                            brace_count = 0
+                            json_end = -1
+                            for i, char in enumerate(json_str):
+                                if char == '{':
+                                    brace_count += 1
+                                elif char == '}':
+                                    brace_count -= 1
+                                    if brace_count == 0:
+                                        json_end = i + 1
+                                        break
+                            if json_end > 0:
+                                data = json.loads(json_str[:json_end])
+                                intent = data.get('intent', {})
+                                purchase_signals = intent.get('purchase_signals', {})
+                                stage = str(purchase_signals.get('stage', '')).lower()
+                                if 'completed' in stage:
+                                    transaction_completed = 1
+                                intent_score = data.get('intent_score', 0.5)
+                                break
+                except:
+                    continue
+        
+        # 特征5: 事件总数
+        event_count = len(event_names)
+        
+        # 特征6: 支付相关事件数量
+        payment_events = [e for e in event_names if any(keyword in str(e).lower() 
+                       for keyword in ['pay', 'checkout', 'payment', 'qr', 'qris'])]
+        payment_related_events = len(payment_events)
+        
+        # 特征7: 充值相关事件数量
+        recharge_events = [e for e in event_names if any(keyword in str(e).lower() 
+                        for keyword in ['recharge', 'topup', 'top_up', 'phone', 'electricity'])]
+        recharge_related_events = len(recharge_events)
+        
+        # 特征8: 优惠券相关事件数量
+        voucher_events = [e for e in event_names if 'voucher' in str(e).lower()]
+        voucher_related_events = len(voucher_events)
+        
+        return {
+            'kyc_started': kyc_started,
+            'kyc_event_count': kyc_event_count,
+            'has_transaction': has_transaction,
+            'transaction_completed': transaction_completed,
+            'event_count': event_count,
+            'payment_related_events': payment_related_events,
+            'recharge_related_events': recharge_related_events,
+            'voucher_related_events': voucher_related_events,
+            'intent_score': intent_score
+        }
+    
+    def extract_intent_features_from_record(self, record):
+        """从单个行为记录中提取意图特征（用于意图变化检测）"""
+        output = record.get('output', '')
+        if not output:
+            return None
+        
+        # 使用extract_business_features提取特征
+        features = self.extract_business_features(output, 0, 1)
+        return features
+    
+    def calculate_intent_change(self, prev_features, curr_features):
+        """计算意图变化程度（0-1）"""
+        if prev_features is None or curr_features is None:
+            return 1.0
+        
+        # 计算各特征的变化
+        changes = []
+        
+        # 购买阶段变化（权重高）
+        stage_change = abs(prev_features.get('purchase_stage', 0) - curr_features.get('purchase_stage', 0)) / 2.0
+        changes.append(stage_change * 0.3)
+        
+        # 产品偏好变化（权重高）
+        product_change = abs(prev_features.get('product_preference', 5) - curr_features.get('product_preference', 5)) / 5.0
+        changes.append(product_change * 0.3)
+        
+        # 价格敏感度变化
+        price_change = abs(prev_features.get('price_sensitivity', 2) - curr_features.get('price_sensitivity', 2)) / 2.0
+        changes.append(price_change * 0.15)
+        
+        # 关注点变化
+        concern_change = abs(prev_features.get('concern_focus', 4) - curr_features.get('concern_focus', 4)) / 4.0
+        changes.append(concern_change * 0.15)
+        
+        # 核心需求变化
+        need_change = abs(prev_features.get('core_need', 3) - curr_features.get('core_need', 3)) / 3.0
+        changes.append(need_change * 0.1)
+        
+        # 返回加权平均变化度
+        return sum(changes)
+    
+    def extract_text_from_output(self, output_str):
+        """从output字段中提取文本内容（用于embedding）"""
+        try:
+            import re
+            
+            cleaned = output_str.strip()
+            # 移除外层引号
+            if cleaned.startswith('"') and cleaned.endswith('"'):
+                cleaned = cleaned[1:-1]
+            # 移除代码块标记
+            if cleaned.startswith('```json'):
+                cleaned = cleaned[7:]
+            if cleaned.endswith('```'):
+                cleaned = cleaned[:-3]
+            cleaned = cleaned.strip()
+            
+            # 尝试解析JSON
+            try:
+                json_start = cleaned.find('{')
+                if json_start >= 0:
+                    json_str = cleaned[json_start:]
+                    brace_count = 0
+                    json_end = -1
+                    for i, char in enumerate(json_str):
+                        if char == '{':
+                            brace_count += 1
+                        elif char == '}':
+                            brace_count -= 1
+                            if brace_count == 0:
+                                json_end = i + 1
+                                break
+                    
+                    if json_end > 0:
+                        json_str = json_str[:json_end]
+                        data = json.loads(json_str)
+                        intent = data.get('intent', {})
+                        
+                        # 提取文本内容
+                        text_parts = []
+                        
+                        # core_interests
+                        if 'core_interests' in intent:
+                            interests = intent['core_interests']
+                            if isinstance(interests, list):
+                                text_parts.extend([str(x) for x in interests if x])
+                        
+                        # product_focus
+                        if 'product_focus' in intent:
+                            pf = intent['product_focus']
+                            if isinstance(pf, dict):
+                                if 'key_attributes' in pf:
+                                    attrs = pf['key_attributes']
+                                    if isinstance(attrs, list):
+                                        text_parts.extend([str(x) for x in attrs if x])
+                                if 'main_appeal' in pf and pf['main_appeal']:
+                                    text_parts.append(str(pf['main_appeal']))
+                        
+                        # purchase_signals
+                        if 'purchase_signals' in intent:
+                            ps = intent['purchase_signals']
+                            if isinstance(ps, dict):
+                                if 'concerns' in ps and ps['concerns']:
+                                    concerns = ps['concerns']
+                                    if isinstance(concerns, list):
+                                        text_parts.extend([str(x) for x in concerns if x])
+                        
+                        return ' '.join(text_parts)
+            except:
+                pass
+            
+            # 如果JSON解析失败，返回清理后的原始文本
+            return cleaned[:500]  # 限制长度
+            
+        except Exception as e:
+            return ""
+    
+    def get_gemini_embedding(self, text, task_type="CLUSTERING"):
+        """使用Gemini API获取文本embedding"""
+        if not GEMINI_AVAILABLE or not self.gemini_api_key:
+            raise ValueError("Gemini API不可用，请安装google-generativeai并设置API密钥")
+        
+        try:
+            # 使用Gemini embedding模型
+            # 注意：task_type参数用于指定任务类型（CLUSTERING）
+            result = genai.embed_content(
+                model="models/embedding-001",
+                content=text,
+                task_type=task_type
+            )
+            embedding = result['embedding']
+            print(f"    ✓ 生成embedding，维度: {len(embedding)}")
+            return embedding
+        except Exception as e:
+            print(f"⚠️  Gemini embedding失败: {e}")
+            # 如果失败，返回None，让调用者处理
+            raise
+    
+    def cluster_by_gemini_embedding(self, segment_metadata, shop_id=39, input_file=None):
+        """使用Gemini embedding进行聚类（仅用于店铺39）"""
+        if not GEMINI_AVAILABLE or not self.gemini_api_key:
+            print("⚠️  Gemini API不可用，店铺39将使用默认数值特征聚类")
+            return self.cluster_by_behavior_intent(segment_metadata)
+        
+        print(f"  使用Gemini API进行文本embedding聚类（店铺{shop_id}）...")
+        df = pd.DataFrame(segment_metadata)
+        
+        # 从原始数据中提取文本
+        print("  正在从原始数据提取文本...")
+        # 优先使用传入的input_file，否则尝试相对路径
+        if input_file is None:
+            # 尝试多个可能的路径
+            possible_paths = [
+                Path(f'../data_extract/extracted_data_shop_{shop_id}.json'),
+                Path(f'data_extract/extracted_data_shop_{shop_id}.json'),
+                Path(f'../意图cluster产品/data_extract/extracted_data_shop_{shop_id}.json'),
+            ]
+            input_file = None
+            for path in possible_paths:
+                if path.exists():
+                    input_file = path
+                    break
+        
+        if input_file is None or not Path(input_file).exists():
+            print(f"  ⚠️  原始数据文件不存在，使用默认方法")
+            return self.cluster_by_behavior_intent(segment_metadata)
+        
+        input_file = Path(input_file)
+        
+        with open(input_file, 'r', encoding='utf-8') as f:
+            raw_data = json.load(f)
+        
+        # 创建user_id和timestamp到output的映射
+        output_map = {}
+        for record in raw_data:
+            user_id = record.get('user_id')
+            timestamp = record.get('timestamp')
+            output = record.get('output', '')
+            if user_id and timestamp and output:
+                key = (user_id, timestamp)
+                output_map[key] = output
+        
+        # 为每个segment提取文本并生成embedding
+        print("  正在生成embedding向量...")
+        embeddings = []
+        valid_indices = []
+        
+        # 按user_id分组output，提高查找效率
+        user_outputs = defaultdict(list)
+        for record in raw_data:
+            user_id = record.get('user_id')
+            output = record.get('output', '')
+            if user_id and output:
+                user_outputs[user_id].append({
+                    'timestamp': record.get('timestamp'),
+                    'output': output
+                })
+        
+        for idx, seg in enumerate(segment_metadata):
+            user_id = seg.get('user_id')
+            start_time = seg.get('start_time')
+            end_time = seg.get('end_time')
+            
+            # 从该用户的所有output中查找匹配的
+            text = ""
+            if user_id in user_outputs:
+                for record in user_outputs[user_id]:
+                    ts = record['timestamp']
+                    if start_time <= ts <= end_time:
+                        extracted_text = self.extract_text_from_output(record['output'])
+                        if extracted_text and len(extracted_text) > 10:
+                            text = extracted_text
+                            break
+                
+                # 如果时间范围内没找到，使用该用户最近的output
+                if not text and user_outputs[user_id]:
+                    # 按时间排序，取最接近end_time的
+                    sorted_outputs = sorted(user_outputs[user_id], 
+                                           key=lambda x: abs((self.parse_timestamp(x['timestamp']) - 
+                                                             self.parse_timestamp(end_time)).total_seconds()))
+                    for record in sorted_outputs[:3]:  # 尝试前3个最接近的
+                        extracted_text = self.extract_text_from_output(record['output'])
+                        if extracted_text and len(extracted_text) > 10:
+                            text = extracted_text
+                            break
+            
+            if text:
+                try:
+                    embedding = self.get_gemini_embedding(text, task_type="CLUSTERING")
+                    embeddings.append(embedding)
+                    valid_indices.append(idx)
+                    if (idx + 1) % 50 == 0:
+                        print(f"    已处理 {idx + 1}/{len(segment_metadata)} 个片段...")
+                        time.sleep(0.1)  # 避免API限流
+                except Exception as e:
+                    print(f"    ⚠️  片段 {idx} embedding失败: {e}")
+                    # 使用默认特征
+                    valid_indices.append(idx)
+                    # 创建一个零向量作为占位符（embedding-001的维度是768）
+                    embeddings.append([0.0] * 768)
+            else:
+                # 如果没有文本，使用默认特征
+                valid_indices.append(idx)
+                embeddings.append([0.0] * 768)
+        
+        if len(embeddings) == 0:
+            print("  ⚠️  没有生成任何embedding，使用默认方法")
+            return self.cluster_by_behavior_intent(segment_metadata)
+        
+        print(f"  成功生成 {len(embeddings)} 个embedding向量")
+        print(f"  Embedding维度: {len(embeddings[0])}")
+        
+        # 转换为numpy数组
+        X_embeddings = np.array(embeddings)
+        
+        # 标准化embedding向量
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X_embeddings)
+        
+        # 使用KMeans聚类
+        n_samples = len(X_scaled)
+        max_clusters = 100
+        min_clusters = 3
+        calculated_clusters = max(min_clusters, n_samples // 20)
+        n_clusters = min(calculated_clusters, max_clusters, n_samples)
+        if n_clusters < 1:
+            n_clusters = 1
+        
+        print(f"  数据量: {n_samples} 个片段，使用 {n_clusters} 个聚类")
+        kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=20, max_iter=300)
+        cluster_labels = kmeans.fit_predict(X_scaled)
+        
+        # 更新DataFrame
+        df['business_cluster'] = cluster_labels
+        
+        # 为每个聚类生成业务标签（基于聚类结果的特征分布）
+        cluster_labels_dict = self.generate_behavior_intent_labels(df, cluster_labels)
+        
+        return df, cluster_labels_dict
+    
+    def segment_by_intent_change(self, data, intent_change_threshold=0.3):
+        """基于意图变化切分用户行为
+        
+        参数:
+            data: 用户行为数据列表
+            intent_change_threshold: 意图变化阈值 (0-1)，超过此值认为意图发生变化
+        """
         user_groups = defaultdict(list)
         for record in data:
             user_groups[record['user_id']].append(record)
@@ -144,6 +739,107 @@ class BehaviorIntentClusterer:
         for user_id, records in user_groups.items():
             records.sort(key=lambda x: self.parse_timestamp(x['timestamp']))
             
+            if len(records) == 0:
+                continue
+            
+            segments = []
+            current_segment = [records[0]]
+            prev_intent_features = self.extract_intent_features_from_record(records[0])
+            
+            for i in range(1, len(records)):
+                prev_time = self.parse_timestamp(records[i-1]['timestamp'])
+                curr_time = self.parse_timestamp(records[i]['timestamp'])
+                time_gap = curr_time - prev_time
+                
+                # 提取当前行为的意图特征
+                curr_intent_features = self.extract_intent_features_from_record(records[i])
+                
+                # 判断是否需要分段
+                should_segment = False
+                segment_reason = ""
+                
+                # 情况1: 时间间隔过长（即使意图没变，也应该分段）
+                if time_gap > self.inactivity_threshold:
+                    should_segment = True
+                    segment_reason = "长时间间隔"
+                # 情况2: 意图发生显著变化
+                elif prev_intent_features is not None and curr_intent_features is not None:
+                    intent_change = self.calculate_intent_change(prev_intent_features, curr_intent_features)
+                    if intent_change >= intent_change_threshold:
+                        should_segment = True
+                        segment_reason = f"意图变化 (变化度: {intent_change:.2f})"
+                # 情况3: 无法提取意图特征，但时间间隔较长
+                elif time_gap > self.gap_threshold:
+                    should_segment = True
+                    segment_reason = "时间间隔且无法提取意图"
+                
+                if should_segment:
+                    segments.append(current_segment)
+                    current_segment = [records[i]]
+                    prev_intent_features = curr_intent_features
+                else:
+                    current_segment.append(records[i])
+                    # 更新当前片段的代表性意图特征（使用最新的意图）
+                    if curr_intent_features is not None:
+                        prev_intent_features = curr_intent_features
+            
+            if current_segment:
+                segments.append(current_segment)
+            
+            # 为每个片段提取特征
+            for seg_idx, segment in enumerate(segments):
+                if len(segment) == 0:
+                    continue
+                
+                first_record = segment[0]
+                last_record = segment[-1]
+                duration = (self.parse_timestamp(last_record['timestamp']) - 
+                           self.parse_timestamp(first_record['timestamp'])).total_seconds() / 60
+                
+                # 使用最后一个记录的output（代表最新的意图状态）
+                latest_output = last_record.get('output', '')
+                if not latest_output and len(segment) > 1:
+                    latest_output = segment[-2].get('output', '')
+                if not latest_output:
+                    latest_output = first_record.get('output', '')
+                
+                features = self.extract_business_features(
+                    latest_output, 
+                    duration, 
+                    len(segment)
+                )
+                
+                metadata = {
+                    'user_id': user_id,
+                    'segment_id': f"{user_id}_seg_{seg_idx}",
+                    'segment_index': seg_idx,
+                    'start_time': first_record['timestamp'],
+                    'end_time': last_record['timestamp'],
+                    'duration_minutes': duration,
+                    'record_count': len(segment),
+                    **features
+                }
+                
+                segment_metadata.append(metadata)
+                all_segments.append(segment)
+        
+        return all_segments, segment_metadata
+    
+    def segment_by_time(self, data):
+        """按时间窗口切分用户行为（保留原方法作为备选）"""
+        user_groups = defaultdict(list)
+        for record in data:
+            user_groups[record['user_id']].append(record)
+        
+        all_segments = []
+        segment_metadata = []
+        
+        for user_id, records in user_groups.items():
+            records.sort(key=lambda x: self.parse_timestamp(x['timestamp']))
+            
+            if len(records) == 0:
+                continue
+            
             segments = []
             current_segment = [records[0]]
             
@@ -152,7 +848,7 @@ class BehaviorIntentClusterer:
                 curr_time = self.parse_timestamp(records[i]['timestamp'])
                 time_gap = curr_time - prev_time
                 
-                if time_gap > self.gap_threshold or time_gap > self.inactivity_threshold:
+                if time_gap > self.gap_threshold:
                     segments.append(current_segment)
                     current_segment = [records[i]]
                 else:
@@ -171,10 +867,15 @@ class BehaviorIntentClusterer:
                 duration = (self.parse_timestamp(last_record['timestamp']) - 
                            self.parse_timestamp(first_record['timestamp'])).total_seconds() / 60
                 
-                combined_output = ' '.join([r.get('output', '') for r in segment])
+                # 使用最后一个记录的output（代表最新的意图状态）
+                latest_output = last_record.get('output', '')
+                if not latest_output and len(segment) > 1:
+                    latest_output = segment[-2].get('output', '')
+                if not latest_output:
+                    latest_output = first_record.get('output', '')
                 
                 features = self.extract_business_features(
-                    combined_output, 
+                    latest_output, 
                     duration, 
                     len(segment)
                 )
@@ -188,6 +889,100 @@ class BehaviorIntentClusterer:
                     'duration_minutes': duration,
                     'record_count': len(segment),
                     **features
+                }
+                
+                segment_metadata.append(metadata)
+                all_segments.append(segment)
+        
+        return all_segments, segment_metadata
+    
+    def segment_by_financial_intent(self, data, intent_change_threshold=0.3):
+        """基于金融意图变化切分用户行为（专门用于YUP等金融公司）
+        
+        参数:
+            data: 用户行为数据列表
+            intent_change_threshold: 意图变化阈值 (0-1)，超过此值认为意图发生变化
+        """
+        user_groups = defaultdict(list)
+        for record in data:
+            user_groups[record['user_id']].append(record)
+        
+        all_segments = []
+        segment_metadata = []
+        
+        for user_id, records in user_groups.items():
+            records.sort(key=lambda x: self.parse_timestamp(x['timestamp']))
+            
+            if len(records) == 0:
+                continue
+            
+            segments = []
+            current_segment = [records[0]]
+            prev_features = self.extract_financial_features([records[0]], records)
+            
+            for i in range(1, len(records)):
+                prev_time = self.parse_timestamp(records[i-1]['timestamp'])
+                curr_time = self.parse_timestamp(records[i]['timestamp'])
+                time_gap = curr_time - prev_time
+                
+                # 提取当前行为的特征
+                curr_features = self.extract_financial_features([records[i]], records)
+                
+                # 判断是否需要分段
+                should_segment = False
+                segment_reason = ""
+                
+                # 情况1: 时间间隔过长
+                if time_gap > self.inactivity_threshold:
+                    should_segment = True
+                    segment_reason = "长时间间隔"
+                # 情况2: 交易状态发生变化（重要：从无交易到有交易）
+                elif prev_features.get('has_transaction', 0) != curr_features.get('has_transaction', 0):
+                    should_segment = True
+                    segment_reason = "交易状态变化"
+                # 情况3: KYC状态发生变化
+                elif prev_features.get('kyc_started', 0) != curr_features.get('kyc_started', 0):
+                    should_segment = True
+                    segment_reason = "KYC状态变化"
+                # 情况4: 时间间隔较长
+                elif time_gap > self.gap_threshold:
+                    should_segment = True
+                    segment_reason = "时间间隔"
+                
+                if should_segment:
+                    segments.append(current_segment)
+                    current_segment = [records[i]]
+                    prev_features = curr_features
+                else:
+                    current_segment.append(records[i])
+                    # 更新特征（使用整个当前片段）
+                    prev_features = self.extract_financial_features(current_segment, records)
+            
+            if current_segment:
+                segments.append(current_segment)
+            
+            # 为每个片段提取特征
+            for seg_idx, segment in enumerate(segments):
+                if len(segment) == 0:
+                    continue
+                
+                first_record = segment[0]
+                last_record = segment[-1]
+                duration = (self.parse_timestamp(last_record['timestamp']) - 
+                           self.parse_timestamp(first_record['timestamp'])).total_seconds() / 60
+                
+                # 提取金融特征
+                financial_features = self.extract_financial_features(segment, records)
+                
+                metadata = {
+                    'user_id': user_id,
+                    'segment_id': f"{user_id}_seg_{seg_idx}",
+                    'segment_index': seg_idx,
+                    'start_time': first_record['timestamp'],
+                    'end_time': last_record['timestamp'],
+                    'duration_minutes': duration,
+                    'record_count': len(segment),
+                    **financial_features
                 }
                 
                 segment_metadata.append(metadata)
@@ -210,7 +1005,8 @@ class BehaviorIntentClusterer:
             'purchase_stage',        # 购买阶段 (0=browsing, 1=comparing, 2=deciding)
             'product_preference',    # 产品偏好 (0-5)
             'concern_focus',         # 关注点 (0-4)
-            'core_need'              # 核心需求 (0-3)
+            'core_need',             # 核心需求 (0-3)
+            'price_sensitivity'      # 价格敏感度 (0=预算导向, 1=中端, 2=高端)
         ]
         
         # 提取特征矩阵
@@ -223,16 +1019,28 @@ class BehaviorIntentClusterer:
         # 移除原始值，使用变换后的值
         X = X.drop(['record_count', 'duration_minutes'], axis=1)
         X.columns = ['intent_score', 'purchase_stage', 'product_preference', 
-                     'concern_focus', 'core_need', 'record_count_log', 'duration_minutes_log']
+                     'concern_focus', 'core_need', 'price_sensitivity', 
+                     'record_count_log', 'duration_minutes_log']
         
         # 标准化（让不同量纲的特征在相同尺度上）
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X)
         
         # 使用KMeans聚类 - 让算法自动发现数据中的模式
-        # 使用肘部法则或轮廓系数来确定最优聚类数
-        # 这里先用一个合理的范围，后续可以优化
-        n_clusters = 15
+        # 根据数据量动态调整聚类数：至少需要n_clusters个样本
+        n_samples = len(X_scaled)
+        # 计算合适的聚类数：每20个样本1个聚类，最少3个，最多100个，但不能超过样本数
+        # 设置合理的上限，避免聚类数过多导致难以解释
+        max_clusters = 100
+        min_clusters = 3
+        # 根据数据量计算聚类数：每20个样本1个聚类
+        calculated_clusters = max(min_clusters, n_samples // 20)
+        # 限制在合理范围内，但不能超过样本数
+        n_clusters = min(calculated_clusters, max_clusters, n_samples)
+        if n_clusters < 1:
+            n_clusters = 1  # 至少1个聚类
+        
+        print(f"  数据量: {n_samples} 个片段，使用 {n_clusters} 个聚类")
         kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=20, max_iter=300)
         cluster_labels = kmeans.fit_predict(X_scaled)
         
@@ -246,6 +1054,187 @@ class BehaviorIntentClusterer:
         cluster_labels_dict = self.generate_behavior_intent_labels(df, df['business_cluster'].values)
         
         return df, cluster_labels_dict
+    
+    def cluster_by_financial_features(self, segment_metadata):
+        """基于金融特征进行聚类（专门用于YUP等金融公司）"""
+        df = pd.DataFrame(segment_metadata)
+        
+        # 金融相关特征
+        feature_cols = [
+            # KYC相关特征
+            'kyc_started',              # 是否开始KYC (0/1)
+            'kyc_event_count',          # KYC事件数量
+            # 交易相关特征
+            'has_transaction',          # 是否有交易 (0/1)
+            'transaction_completed',    # 是否完成交易 (0/1)
+            # 行为活跃度特征
+            'event_count',              # 事件总数
+            'payment_related_events',   # 支付相关事件数
+            'recharge_related_events',  # 充值相关事件数
+            'voucher_related_events',   # 优惠券相关事件数
+            # 时间特征
+            'duration_minutes',         # 片段时长（分钟）
+            'record_count',             # 记录数量
+            # 意图强度
+            'intent_score'              # 意图强度
+        ]
+        
+        # 确保所有特征列都存在
+        for col in feature_cols:
+            if col not in df.columns:
+                df[col] = 0
+        
+        # 提取特征矩阵
+        X = df[feature_cols].copy()
+        
+        # 对长尾分布的特征进行对数变换
+        X['event_count_log'] = np.log1p(X['event_count'])
+        X['kyc_event_count_log'] = np.log1p(X['kyc_event_count'])
+        X['payment_related_events_log'] = np.log1p(X['payment_related_events'])
+        X['recharge_related_events_log'] = np.log1p(X['recharge_related_events'])
+        X['voucher_related_events_log'] = np.log1p(X['voucher_related_events'])
+        X['duration_minutes_log'] = np.log1p(X['duration_minutes'] + 0.001)
+        X['record_count_log'] = np.log1p(X['record_count'])
+        
+        # 移除原始值，使用变换后的值
+        X = X.drop(['event_count', 'kyc_event_count', 'payment_related_events', 
+                    'recharge_related_events', 'voucher_related_events', 
+                    'duration_minutes', 'record_count'], axis=1)
+        
+        # 标准化
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
+        
+        # 使用KMeans聚类
+        n_samples = len(X_scaled)
+        max_clusters = 100
+        min_clusters = 3
+        calculated_clusters = max(min_clusters, n_samples // 20)
+        n_clusters = min(calculated_clusters, max_clusters, n_samples)
+        if n_clusters < 1:
+            n_clusters = 1
+        
+        print(f"  数据量: {n_samples} 个片段，使用 {n_clusters} 个聚类")
+        kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=20, max_iter=300)
+        cluster_labels = kmeans.fit_predict(X_scaled)
+        
+        df['business_cluster'] = cluster_labels
+        
+        # 保存变换后的特征值用于后续分析
+        for col in ['event_count_log', 'kyc_event_count_log', 'payment_related_events_log',
+                   'recharge_related_events_log', 'voucher_related_events_log',
+                   'duration_minutes_log', 'record_count_log']:
+            if col in X.columns:
+                df[col] = X[col].values
+        
+        # 为每个聚类生成金融业务标签
+        cluster_labels_dict = self.generate_financial_labels(df, cluster_labels)
+        
+        return df, cluster_labels_dict
+    
+    def generate_financial_labels(self, df, cluster_labels):
+        """为每个聚类生成基于金融特征的标签"""
+        cluster_labels_dict = {}
+        unique_cluster_ids = sorted([int(x) for x in df['business_cluster'].unique()])
+        
+        # 计算全局统计信息
+        global_avg_kyc = df['kyc_event_count'].mean()
+        global_avg_transaction = df['has_transaction'].mean()
+        global_avg_intent = df['intent_score'].mean()
+        global_avg_events = df['event_count'].mean()
+        
+        for cluster_id in unique_cluster_ids:
+            cluster_data = df[df['business_cluster'] == cluster_id]
+            
+            # 计算聚类的平均特征
+            avg_kyc_started = cluster_data['kyc_started'].mean()
+            avg_kyc_events = cluster_data['kyc_event_count'].mean()
+            avg_has_transaction = cluster_data['has_transaction'].mean()
+            avg_transaction_completed = cluster_data['transaction_completed'].mean()
+            avg_event_count = cluster_data['event_count'].mean()
+            avg_payment_events = cluster_data['payment_related_events'].mean()
+            avg_recharge_events = cluster_data['recharge_related_events'].mean()
+            avg_voucher_events = cluster_data['voucher_related_events'].mean()
+            avg_intent_score = cluster_data['intent_score'].mean()
+            avg_duration = cluster_data['duration_minutes'].mean()
+            
+            # 生成行为模式标签
+            if avg_has_transaction > 0.5:
+                behavior_label = "已完成交易"
+            elif avg_transaction_completed > 0.5:
+                behavior_label = "交易进行中"
+            elif avg_kyc_started > 0.5:
+                behavior_label = "KYC进行中"
+            elif avg_event_count < 5:
+                behavior_label = "低活跃度"
+            else:
+                behavior_label = "探索阶段"
+            
+            # 生成紧迫度标签（基于意图强度）
+            intent_ratio = avg_intent_score / global_avg_intent if global_avg_intent > 0 else 1.0
+            if intent_ratio > 1.2:
+                urgency_label = "高紧迫"
+            elif intent_ratio < 0.8:
+                urgency_label = "低紧迫"
+            else:
+                urgency_label = "中紧迫"
+            
+            # 生成短标签
+            short_label = f"{behavior_label}·{urgency_label}"
+            
+            # 确定主要行为类型
+            if avg_payment_events > avg_recharge_events and avg_payment_events > avg_voucher_events:
+                main_activity = "支付导向"
+            elif avg_recharge_events > avg_payment_events and avg_recharge_events > avg_voucher_events:
+                main_activity = "充值导向"
+            elif avg_voucher_events > 0:
+                main_activity = "优惠券导向"
+            else:
+                main_activity = "综合探索"
+            
+            # 生成完整标签
+            full_label = f"{behavior_label}·{urgency_label}·{main_activity}"
+            
+            # 确定优先级（基于交易状态和意图强度）
+            priority_score = avg_transaction_completed * 0.5 + avg_intent_score * 0.3 + (avg_event_count / 50.0) * 0.2
+            if priority_score > 0.7:
+                action_priority = "高"
+                recommended_action = "促进交易完成"
+            elif priority_score > 0.4:
+                action_priority = "中"
+                recommended_action = "引导完成KYC或交易"
+            else:
+                action_priority = "低"
+                recommended_action = "提升活跃度和参与度"
+            
+            cluster_labels_dict[str(cluster_id)] = {
+                'short_label': short_label,
+                'full_label': full_label,
+                'action_priority': action_priority,
+                'recommended_action': recommended_action,
+                'characteristics': {
+                    'behavior': behavior_label,
+                    'urgency': urgency_label,
+                    'main_activity': main_activity,
+                    'kyc_status': "已开始" if avg_kyc_started > 0.5 else "未开始",
+                    'transaction_status': "已完成" if avg_transaction_completed > 0.5 else ("进行中" if avg_has_transaction > 0.5 else "未开始")
+                },
+                'avg_features': {
+                    'kyc_started': float(avg_kyc_started),
+                    'kyc_event_count': float(avg_kyc_events),
+                    'has_transaction': float(avg_has_transaction),
+                    'transaction_completed': float(avg_transaction_completed),
+                    'event_count': float(avg_event_count),
+                    'payment_related_events': float(avg_payment_events),
+                    'recharge_related_events': float(avg_recharge_events),
+                    'voucher_related_events': float(avg_voucher_events),
+                    'intent_score': float(avg_intent_score),
+                    'duration_minutes': float(avg_duration),
+                    'record_count': float(cluster_data['record_count'].mean())
+                }
+            }
+        
+        return cluster_labels_dict
     
     def generate_behavior_intent_labels(self, df, cluster_labels):
         """为每个聚类生成基于行为意图的标签 - 根据算法发现的模式自动生成"""
@@ -263,113 +1252,147 @@ class BehaviorIntentClusterer:
             # 计算聚类的平均特征（使用原始值）
             avg_record_count = cluster_data['record_count'].mean()
             avg_duration = cluster_data['duration_minutes'].mean()
-            avg_intent = cluster_data['intent_score'].mean()
-            avg_stage = cluster_data['purchase_stage'].mean()
-            avg_product = cluster_data['product_preference'].mode()[0] if len(cluster_data['product_preference'].mode()) > 0 else 5
-            avg_concern = cluster_data['concern_focus'].mode()[0] if len(cluster_data['concern_focus'].mode()) > 0 else 4
-            avg_need = cluster_data['core_need'].mode()[0] if len(cluster_data['core_need'].mode()) > 0 else 3
+            avg_intent_score = cluster_data['intent_score'].mean()
             
-            # 根据算法发现的模式自动生成行为标签（基于相对值）
-            record_ratio = avg_record_count / global_avg_record if global_avg_record > 0 else 1
-            duration_ratio = avg_duration / global_avg_duration if global_avg_duration > 0 else 1
+            # 计算相对值（用于生成标签）
+            record_ratio = avg_record_count / global_avg_record if global_avg_record > 0 else 1.0
+            duration_ratio = avg_duration / global_avg_duration if global_avg_duration > 0 else 1.0
+            intent_ratio = avg_intent_score / global_avg_intent if global_avg_intent > 0 else 1.0
             
-            # 行为模式：基于算法发现的交互模式
+            # 生成行为模式标签
             if avg_record_count <= 1:
                 behavior_label = "单次浏览"
-                action_priority = "低优先级"
-                recommended_action = "观察，无需立即反应"
-            elif record_ratio < 0.5 and duration_ratio < 0.5:
+            elif record_ratio < 0.7:
                 behavior_label = "快速浏览"
-                action_priority = "中优先级"
-                recommended_action = "优化首屏内容，快速抓住注意力"
-            elif record_ratio > 2 or duration_ratio > 2:
+            elif record_ratio > 1.5:
                 behavior_label = "深度研究"
-                action_priority = "高优先级"
-                recommended_action = "提供专业咨询和转化激励"
             else:
                 behavior_label = "中等参与"
-                action_priority = "中高优先级"
-                recommended_action = "提供详细信息和引导"
             
-            # 意图紧迫度：基于算法发现的意图模式
-            intent_ratio = avg_intent / global_avg_intent if global_avg_intent > 0 else 1
-            if avg_intent > 0.8 and avg_stage >= 1.5:
+            # 生成紧迫度标签
+            if intent_ratio > 1.2:
                 urgency_label = "高紧迫"
-            elif avg_intent > 0.7 or avg_stage >= 1:
-                urgency_label = "中紧迫"
-            else:
+            elif intent_ratio < 0.8:
                 urgency_label = "低紧迫"
-            
-            # 购买阶段标签
-            if avg_stage >= 1.5:
-                stage_label = "决策阶段"
-            elif avg_stage >= 0.5:
-                stage_label = "对比阶段"
             else:
-                stage_label = "浏览阶段"
+                urgency_label = "中紧迫"
             
-            # 产品偏好标签
-            product_map = {0: "Z6偏好", 1: "A1偏好", 2: "F1偏好", 3: "H02偏好", 4: "G1偏好", 5: "多产品比较"}
-            product_label = product_map.get(int(avg_product), "多产品比较")
+            # 生成短标签
+            short_label = f"{behavior_label}·{urgency_label}"
             
-            # 关注点标签
-            concern_map = {0: "功能导向", 1: "价格导向", 2: "舒适度导向", 3: "有效性导向", 4: "综合关注"}
-            concern_label = concern_map.get(int(avg_concern), "综合关注")
+            # 获取购买阶段
+            stage_counts = cluster_data['purchase_stage'].value_counts()
+            dominant_stage = stage_counts.idxmax() if len(stage_counts) > 0 else 0
+            stage_map = {0: '浏览阶段', 1: '对比阶段', 2: '决策阶段'}
+            stage_name = stage_map.get(dominant_stage, '浏览阶段')
             
-            # 核心需求标签
-            need_map = {0: "止鼾需求", 1: "颈部疼痛", 2: "睡眠质量", 3: "综合需求"}
-            need_label = need_map.get(int(avg_need), "综合需求")
+            # 获取价格敏感度
+            price_counts = cluster_data['price_sensitivity'].value_counts()
+            dominant_price = price_counts.idxmax() if len(price_counts) > 0 else 2
+            price_map = {0: '预算导向', 1: '中端平衡', 2: '高端价值型'}
+            price_name = price_map.get(dominant_price, '高端价值型')
             
-            # 生成主标签：行为模式 + 意图紧迫度（基于算法发现的模式）
-            if urgency_label == "高紧迫" and behavior_label == "深度研究":
-                primary_label = f"高紧迫·深度研究"
-            elif urgency_label == "高紧迫":
-                primary_label = f"高紧迫·{behavior_label}"
-            elif behavior_label == "深度研究":
-                primary_label = f"深度研究·{urgency_label}"
-            elif behavior_label == "单次浏览":
-                primary_label = f"单次浏览·{urgency_label}"
+            # 获取产品偏好
+            product_counts = cluster_data['product_preference'].value_counts()
+            dominant_product = product_counts.idxmax() if len(product_counts) > 0 else 5
+            product_map = {0: 'Z6偏好', 1: 'A1偏好', 2: 'F1偏好', 3: 'H02偏好', 4: 'G1偏好', 5: '多产品比较'}
+            product_name = product_map.get(dominant_product, '多产品比较')
+            
+            # 获取关注点
+            concern_counts = cluster_data['concern_focus'].value_counts()
+            dominant_concern = concern_counts.idxmax() if len(concern_counts) > 0 else 4
+            concern_map = {0: '价格导向', 1: '质量导向', 2: '舒适度导向', 3: '有效性导向', 4: '综合关注'}
+            concern_name = concern_map.get(dominant_concern, '综合关注')
+            
+            # 获取核心需求
+            need_counts = cluster_data['core_need'].value_counts()
+            dominant_need = need_counts.idxmax() if len(need_counts) > 0 else 3
+            need_map = {0: '止鼾需求', 1: '颈部疼痛', 2: '睡眠质量', 3: '综合需求'}
+            need_name = need_map.get(dominant_need, '综合需求')
+            
+            # 获取参与度
+            if avg_duration <= 0.01:
+                engagement = "快速浏览者"
+            elif duration_ratio < 0.5:
+                engagement = "快速浏览者"
+            elif duration_ratio > 2.0:
+                engagement = "深度研究者"
             else:
-                primary_label = f"{behavior_label}·{urgency_label}"
+                engagement = "中等参与者"
             
-            # 完整标签
-            if product_label != "多产品比较":
-                full_label = f"{primary_label}·{product_label}·{need_label}"
+            # 生成完整标签
+            full_label = f"{behavior_label}·{urgency_label}·{stage_name}·{product_name}"
+            
+            # 确定优先级（基于意图强度和交互次数）
+            priority_score = avg_intent_score * 0.7 + (avg_record_count / 10.0) * 0.3
+            if priority_score > 0.7:
+                action_priority = "高"
+                recommended_action = "立即转化"
+            elif priority_score > 0.4:
+                action_priority = "中"
+                recommended_action = "引导转化"
             else:
-                full_label = f"{primary_label}·{concern_label}·{need_label}"
+                action_priority = "低"
+                recommended_action = "教育引导"
             
-            cluster_labels_dict[int(cluster_id)] = {
-                'short_label': primary_label,
+            cluster_labels_dict[str(cluster_id)] = {
+                'short_label': short_label,
                 'full_label': full_label,
                 'action_priority': action_priority,
                 'recommended_action': recommended_action,
                 'characteristics': {
                     'behavior': behavior_label,
                     'urgency': urgency_label,
-                    'stage': stage_label,
-                    'product': product_label,
-                    'concern': concern_label,
-                    'need': need_label
+                    'stage': stage_name,
+                    'price': price_name,
+                    'product': product_name,
+                    'concern': concern_name,
+                    'need': need_name,
+                    'engagement': engagement
                 },
                 'avg_features': {
                     'record_count': float(avg_record_count),
                     'duration_minutes': float(avg_duration),
-                    'intent_score': float(avg_intent),
-                    'purchase_stage': float(avg_stage),
-                    'product_preference': int(avg_product),
-                    'concern_focus': int(avg_concern),
-                    'core_need': int(avg_need)
+                    'intent_score': float(avg_intent_score),
+                    'purchase_stage': int(dominant_stage),
+                    'price_sensitivity': int(dominant_price),
+                    'product_preference': int(dominant_product),
+                    'concern_focus': int(dominant_concern),
+                    'core_need': int(dominant_need)
                 }
             }
         
         return cluster_labels_dict
     
-    def analyze(self, input_file='../extracted_data.json'):
+    def analyze(self, input_file='../extracted_data.json', shop_id=None):
         """执行完整的聚类分析"""
         print("="*80)
         print("基于用户行为意图的聚类分析")
         print("目标：让商家可以快速捕捉到当下的用户意图并给出相应的反应")
         print("="*80)
+        
+        # 检测店铺ID（从文件名或数据中）
+        if shop_id is None:
+            # 尝试从文件名中提取
+            if 'shop_39' in str(input_file) or 'shop_39' in str(Path(input_file).name):
+                shop_id = 39
+            elif 'shop_YUP' in str(input_file) or 'YUP' in str(Path(input_file).name):
+                shop_id = 'YUP'
+            else:
+                # 尝试从数据中检测
+                try:
+                    with open(input_file, 'r', encoding='utf-8') as f:
+                        sample_data = json.load(f)
+                        if sample_data and len(sample_data) > 0:
+                            shop_id = sample_data[0].get('shop_id')
+                            if shop_id:
+                                # 尝试转换为整数，如果失败则保持原值（可能是字符串如YUP）
+                                try:
+                                    shop_id = int(shop_id)
+                                except (ValueError, TypeError):
+                                    shop_id = str(shop_id)
+                except:
+                    pass
         
         # 加载数据
         print(f"\n正在加载数据: {input_file}")
@@ -377,14 +1400,28 @@ class BehaviorIntentClusterer:
             data = json.load(f)
         print(f"加载了 {len(data)} 条记录")
         
-        # 时间窗口切分
-        print("\n正在进行时间窗口切分...")
-        all_segments, segment_metadata = self.segment_by_time(data)
-        print(f"切分为 {len(segment_metadata)} 个意图片段")
+        if shop_id:
+            print(f"检测到店铺ID: {shop_id}")
         
-        # 行为意图聚类
+        # 基于意图变化切分（当用户意图真正发生变化时才分段）
+        print("\n正在进行基于意图变化的行为切分...")
+        if shop_id == 'YUP':
+            print("  策略：基于金融特征变化切分（KYC状态、交易状态、时间间隔）")
+            all_segments, segment_metadata = self.segment_by_financial_intent(data, intent_change_threshold=self.intent_change_threshold)
+        else:
+            print("  策略：当用户意图发生显著变化时创建新片段，允许一个用户拥有多个意图片段")
+            all_segments, segment_metadata = self.segment_by_intent_change(data, intent_change_threshold=self.intent_change_threshold)
+        print(f"切分为 {len(segment_metadata)} 个意图片段")
+        print(f"  参数：意图变化阈值={self.intent_change_threshold}, 时间间隔阈值={self.gap_threshold.total_seconds()/60:.0f}分钟/{self.inactivity_threshold.total_seconds()/60:.0f}分钟")
+        
+        # 行为意图聚类（店铺39使用Gemini embedding，YUP使用金融特征，其他使用默认方法）
         print("\n正在进行行为意图聚类...")
-        df, cluster_labels_dict = self.cluster_by_behavior_intent(segment_metadata)
+        if shop_id == 39:
+            df, cluster_labels_dict = self.cluster_by_gemini_embedding(segment_metadata, shop_id=39, input_file=input_file)
+        elif shop_id == 'YUP':
+            df, cluster_labels_dict = self.cluster_by_financial_features(segment_metadata)
+        else:
+            df, cluster_labels_dict = self.cluster_by_behavior_intent(segment_metadata)
         
         # 保存结果
         cluster_counts_dict = {}
@@ -433,10 +1470,12 @@ class BehaviorIntentClusterer:
         print("-"*80)
         
         # 按优先级排序（基于原始特征：意图强度和交互次数）
-        sorted_clusters = sorted(cluster_counts.items(), 
+        # 只处理在cluster_labels中存在的cluster_id
+        valid_clusters = {k: v for k, v in cluster_counts.items() if k in cluster_labels}
+        sorted_clusters = sorted(valid_clusters.items(), 
                                 key=lambda x: (
-                                    cluster_labels[x[0]]['avg_features']['intent_score'],
-                                    cluster_labels[x[0]]['avg_features']['record_count']
+                                    cluster_labels[x[0]]['avg_features'].get('intent_score', 0),
+                                    cluster_labels[x[0]]['avg_features'].get('record_count', 0)
                                 ), reverse=True)
         
         for cluster_id, count in sorted_clusters:
@@ -452,10 +1491,24 @@ class BehaviorIntentClusterer:
             print(f"  平均意图强度: {cluster_df['intent_score'].mean():.2f}")
             print(f"  平均交互次数: {cluster_df['record_count'].mean():.1f} 次")
             print(f"  平均浏览时长: {cluster_df['duration_minutes'].mean():.2f} 分钟")
-            print(f"  购买阶段: {label_info['characteristics']['stage']}")
-            print(f"  产品偏好: {label_info['characteristics']['product']}")
+            
+            # 根据聚类类型显示不同的特征
+            if 'kyc_started' in cluster_df.columns:
+                # 金融特征（YUP）
+                print(f"  KYC状态: {label_info['characteristics'].get('kyc_status', '未知')}")
+                print(f"  交易状态: {label_info['characteristics'].get('transaction_status', '未知')}")
+                print(f"  主要活动: {label_info['characteristics'].get('main_activity', '未知')}")
+                if 'kyc_event_count' in cluster_df.columns:
+                    print(f"  平均KYC事件数: {cluster_df['kyc_event_count'].mean():.1f}")
+                if 'payment_related_events' in cluster_df.columns:
+                    print(f"  支付相关事件: {cluster_df['payment_related_events'].mean():.1f}")
+                    print(f"  充值相关事件: {cluster_df['recharge_related_events'].mean():.1f}")
+                    print(f"  优惠券相关事件: {cluster_df['voucher_related_events'].mean():.1f}")
+            else:
+                # 电商特征（其他店铺）
+                print(f"  购买阶段: {label_info['characteristics'].get('stage', '未知')}")
+                print(f"  产品偏好: {label_info['characteristics'].get('product', '未知')}")
 
 if __name__ == '__main__':
     clusterer = BehaviorIntentClusterer()
     clusterer.analyze()
-
