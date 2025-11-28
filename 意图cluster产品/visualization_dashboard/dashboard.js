@@ -3354,8 +3354,7 @@ function renderFinancialUserTrajectories(users) {
                         // 找到该用户属于这个聚类的所有片段
                         const segmentsInCluster = segments.filter(s => String(s.cluster_id) === String(cid));
                         
-                        // 基于片段本身的特征生成聚类名称和特征
-                        // 优先使用片段本身的特征，而不是聚类标签
+                        // 基于片段本身的特征生成标签（使用第一个片段的特征，因为同一聚类中的片段特征应该一致）
                         let segmentBehavior = '';
                         let segmentMainActivity = '';
                         let segmentKycStatus = '';
@@ -3364,7 +3363,6 @@ function renderFinancialUserTrajectories(users) {
                         let segmentPostFirstOrder = '';
                         let segmentUrgency = '';
                         
-                        // 从片段中获取特征（使用第一个片段的特征，或最常见的特征）
                         if (segmentsInCluster.length > 0) {
                             const firstSegment = segmentsInCluster[0];
                             segmentBehavior = firstSegment.behavior || '';
@@ -3385,7 +3383,7 @@ function renderFinancialUserTrajectories(users) {
                             }
                         }
                         
-                        // 使用片段特征，如果没有则使用聚类特征
+                        // 优先使用片段特征，如果没有则使用聚类特征
                         const displayBehavior = segmentBehavior || characteristics.behavior || '';
                         const displayMainActivity = segmentMainActivity || characteristics.main_activity || '';
                         const displayKycStatus = segmentKycStatus || characteristics.kyc_status || '';
