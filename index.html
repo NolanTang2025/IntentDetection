@@ -133,9 +133,35 @@
   
   .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 32px;
     margin-top: 80px;
+  }
+  
+  @media (min-width: 1200px) {
+    .cards {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (min-width: 968px) and (max-width: 1199px) {
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .beta-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-left: 12px;
+    vertical-align: middle;
   }
   
   .card {
@@ -303,6 +329,15 @@
         <p>查看用户意图聚类分析结果。深入了解用户群体特征、购买阶段分布、价格偏好和产品关注度，获取针对性的营销策略建议和业务洞察。</p>
         <div class="card-footer">
           查看分析 <span class="arrow">→</span>
+        </div>
+      </a>
+      
+      <a href="意图cluster产品/visualization_dashboard/index.html#financial" class="card" style="position: relative;">
+        <div class="card-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">💎</div>
+        <h2>用户聚类洞察（金融版）<span class="beta-badge">BETA</span></h2>
+        <p>基于金融业务特征的智能用户细分分析。深入了解YUP用户的KYC状态、交易行为、首单完成情况等关键指标，获取精准的运营策略和转化优化建议。</p>
+        <div class="card-footer">
+          查看洞察 <span class="arrow">→</span>
         </div>
       </a>
     </div>

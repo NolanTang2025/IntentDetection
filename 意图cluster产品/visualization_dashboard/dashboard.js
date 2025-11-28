@@ -5086,6 +5086,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (totalClustersEl) animateValue(totalClustersEl, 0, totalClusters, 1500);
     }
     
+    // 检查URL hash，支持直接打开特定tab
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+        const validTabs = ['home', 'overview', 'journey', 'clusters', 'financial'];
+        if (validTabs.includes(hash)) {
+            // 找到对应的导航链接并点击
+            const navLink = document.querySelector(`.nav-link[data-tab="${hash}"]`);
+            if (navLink) {
+                // 延迟执行，确保DOM已完全加载
+                setTimeout(() => {
+                    navLink.click();
+                }, 100);
+            }
+        }
+    }
+    
     // 初始化折叠卡片
     initAccordions();
     
