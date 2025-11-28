@@ -5086,28 +5086,50 @@ document.addEventListener('DOMContentLoaded', function() {
         if (totalClustersEl) animateValue(totalClustersEl, 0, totalClusters, 1500);
     }
     
-    // 检查URL hash，支持直接打开特定tab
-    const hash = window.location.hash.replace('#', '');
-    if (hash) {
-        const validTabs = ['home', 'overview', 'journey', 'clusters', 'financial'];
-        if (validTabs.includes(hash)) {
-            // 找到对应的导航链接并点击
-            const navLink = document.querySelector(`.nav-link[data-tab="${hash}"]`);
-            if (navLink) {
-                // 延迟执行，确保DOM已完全加载
-                setTimeout(() => {
-                    navLink.click();
-                }, 100);
-            }
-        }
-    }
-    
     // 初始化折叠卡片
     initAccordions();
     
-    // 检查当前激活的标签页
-    const currentTab = document.querySelector('.tab-content.active');
-    const currentTabId = currentTab ? currentTab.id : 'home';
+    // 检查URL hash，支持直接打开特定tab（在DOM加载完成后执行）
+    const hash = window.location.hash.replace('#', '');
+    let currentTabId = 'home';
+    
+    if (hash) {
+        const validTabs = ['home', 'overview', 'journey', 'clusters', 'financial'];
+        if (validTabs.includes(hash)) {
+            currentTabId = hash;
+            // 直接调用showTab函数切换tab，不依赖导航链接
+            setTimeout(() => {
+                if (typeof showTab === 'function') {
+                    showTab(hash);
+                } else {
+                    // 如果showTab还未定义，直接操作DOM
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    const targetTab = document.getElementById(hash);
+                    if (targetTab) {
+                        targetTab.classList.add('active');
+                        // 更新导航链接状态
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('data-tab') === hash) {
+                                link.classList.add('active');
+                            }
+                        });
+                        if (typeof loadTabContent === 'function') {
+                            loadTabContent(hash);
+                        }
+                    }
+                }
+            }, 300);
+        }
+    }
+    
+    // 检查当前激活的标签页（如果没有hash，使用默认）
+    if (!hash) {
+        const currentTab = document.querySelector('.tab-content.active');
+        currentTabId = currentTab ? currentTab.id : 'home';
+    }
     
     // 根据当前标签页加载相应内容
     const dashboardHeader = document.getElementById('dashboardHeader');
