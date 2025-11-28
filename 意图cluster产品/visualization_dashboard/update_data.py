@@ -390,12 +390,16 @@ def prepare_user_trajectories(segments, cluster_labels):
         # 将分钟转换为秒
         duration_seconds = segment.get('duration_minutes', 0) * 60
         
+        # 获取聚类的详细特征信息（从label_info中提取）
+        cluster_characteristics = label_info.get('characteristics', {})
+        
         user_segments[user_id].append({
             'segment_id': segment.get('segment_id', ''),
             'segment_index': segment.get('segment_index', 0),
             'start_time': segment.get('start_time', ''),
             'end_time': segment.get('end_time', ''),
             'duration_seconds': duration_seconds,
+            'duration_minutes': segment.get('duration_minutes', 0),
             'record_count': segment.get('record_count', 0),
             'cluster_id': cluster_id,
             'cluster_name': label_info.get('short_label', f'聚类{cluster_id}'),
@@ -403,7 +407,15 @@ def prepare_user_trajectories(segments, cluster_labels):
             'purchase_stage': stage_name,
             'intent_score': segment.get('intent_score', 0.5),
             'price_sensitivity': segment.get('price_sensitivity', 2),
-            'engagement_level': segment.get('engagement_level', 0)
+            'engagement_level': segment.get('engagement_level', 0),
+            # 添加聚类特征信息（用于前端显示）
+            'main_activity': cluster_characteristics.get('main_activity', ''),
+            'behavior': cluster_characteristics.get('behavior', ''),
+            'kyc_status': cluster_characteristics.get('kyc_status', ''),
+            'transaction_status': cluster_characteristics.get('transaction_status', ''),
+            'first_order_completed': cluster_characteristics.get('first_order_completed', ''),
+            'post_first_order': cluster_characteristics.get('post_first_order', ''),
+            'urgency': cluster_characteristics.get('urgency', '')
         })
     
     # 转换为列表格式，按用户ID排序，每个用户的片段按时间排序
@@ -469,7 +481,9 @@ def convert_to_dashboard_format(cluster_results, business_insights):
         
         dashboard_insight = {
             'cluster_id': insight['cluster_id'],
-            'user_segment_name': insight['cluster_name'],
+            'cluster_name': insight.get('cluster_name', insight.get('user_segment_name', f'聚类{insight["cluster_id"]}')),
+            'user_segment_name': insight.get('cluster_name', insight.get('user_segment_name', f'聚类{insight["cluster_id"]}')),
+            'full_label': insight.get('full_label', insight.get('cluster_name', f'聚类{insight["cluster_id"]}')),
             'key_characteristics': key_characteristics,
             'marketing_strategy': insight['marketing_strategy'],
             'product_recommendations': insight['product_recommendation'],

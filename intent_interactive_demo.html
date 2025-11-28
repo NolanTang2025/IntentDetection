@@ -2311,7 +2311,20 @@
       <h2>实时意图识别</h2>
       <div class="subtitle">系统正在分析您的浏览行为...</div>
       <div class="intent-status" id="statusIndicator">等待用户行为</div>
-</div>
+    </div>
+
+    <!-- 一句话意图 -->
+    <div id="intentSummary" style="margin-bottom: 24px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 12px; display: none;">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+        <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
+          💭
+        </div>
+        <h4 style="margin: 0; color: var(--text); font-size: 1rem; font-weight: 600;">一句话意图</h4>
+      </div>
+      <div id="intentSummaryText" style="min-height: 60px; padding: 1rem; background: var(--bg-dark); border-radius: 8px; border-left: 4px solid #667eea; color: var(--text); line-height: 1.6; font-size: 0.95rem;">
+        <div style="color: var(--text-secondary); font-style: italic;">等待用户行为...</div>
+      </div>
+    </div>
 
     <div id="intentOutput">
       <div class="empty-state">
@@ -2542,6 +2555,67 @@ class IntentRecognition {
     return 'Style & Quality';
   }
   
+  generateIntentSummary() {
+    const parts = [];
+    
+    // 转化阶段
+    const stageLabels = {
+      'awareness': '认知阶段',
+      'interest': '兴趣阶段',
+      'consideration': '考虑阶段',
+      'purchase': '购买阶段'
+    };
+    const currentStage = stageLabels[this.intentData.conversion_stage] || '浏览阶段';
+    parts.push(`处于${currentStage}`);
+    
+    // 参与度
+    const engagement = this.intentData.behavior_summary.engagement;
+    if (engagement === 'high') {
+      parts.push('高参与度');
+    } else if (engagement === 'medium') {
+      parts.push('中等参与度');
+    }
+    
+    // 产品侧重点
+    if (Object.keys(this.intentData.product_focus).length > 0) {
+      const pf = this.intentData.product_focus;
+      if (pf.category) {
+        parts.push(`关注${pf.category}`);
+      }
+    }
+    
+    // 核心兴趣
+    if (this.intentData.core_interests.length > 0) {
+      const topInterests = this.intentData.core_interests.slice(0, 2);
+      parts.push(`偏好${topInterests.join('、')}`);
+    }
+    
+    // 购买信号
+    const addCartEvents = this.behaviors.filter(b => b.type === 'click' && b.data.action === 'add-cart');
+    if (addCartEvents.length > 0) {
+      parts.push('有购买意向');
+    }
+    
+    // 视频交互
+    const videoEvents = this.behaviors.filter(b => 
+      b.type === 'video-play' || b.type === 'video-pause' || 
+      b.type === 'video-watch' || b.type === 'video-hover-end'
+    );
+    if (videoEvents.length > 0) {
+      parts.push('深度浏览视频内容');
+    }
+    
+    // 组合成一句话
+    let intentText = '';
+    if (parts.length > 0) {
+      intentText = `用户当前${parts.join('，')}。`;
+    } else {
+      intentText = '用户正在浏览商店，系统正在分析其购物意图...';
+    }
+    
+    return intentText;
+  }
+  
   displayIntent() {
     const output = document.getElementById('intentOutput');
     const statusIndicator = document.getElementById('statusIndicator');
@@ -2559,6 +2633,15 @@ class IntentRecognition {
     }
     
     statusIndicator.innerHTML = `已记录 <span class="animated-number">${this.behaviors.length}</span> 个行为事件`;
+    
+    // 更新一句话意图
+    const intentSummaryEl = document.getElementById('intentSummary');
+    const intentSummaryTextEl = document.getElementById('intentSummaryText');
+    if (intentSummaryEl && intentSummaryTextEl) {
+      intentSummaryEl.style.display = 'block';
+      const summaryText = this.generateIntentSummary();
+      intentSummaryTextEl.innerHTML = `<div style="color: var(--text); line-height: 1.6;">${summaryText}</div>`;
+    }
     
     let html = '';
     

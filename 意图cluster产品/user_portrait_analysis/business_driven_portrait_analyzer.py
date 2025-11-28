@@ -220,6 +220,15 @@ class BusinessDrivenPortraitAnalyzer:
                                              kyc_status, transaction_status,
                                              avg_duration, avg_interactions, avg_intent, user_count):
         """为金融场景（YUP）生成差异化的营销策略"""
+        # 获取首笔订单相关特征
+        characteristics = label_info.get('characteristics', {})
+        first_order_completed = characteristics.get('first_order_completed', '否')
+        post_first_order = characteristics.get('post_first_order', '否')
+        
+        # 计算平均特征（用于判断）
+        avg_first_order_completed = cluster_data['first_order_completed'].mean() if 'first_order_completed' in cluster_data.columns else 0
+        avg_post_first_order = cluster_data['post_first_order'].mean() if 'post_first_order' in cluster_data.columns else 0
+        
         strategy = {
             'cluster_id': str(cluster_id),
             'cluster_name': label_info['short_label'],
@@ -234,7 +243,9 @@ class BusinessDrivenPortraitAnalyzer:
                 'urgency': urgency,
                 'main_activity': main_activity,
                 'kyc_status': kyc_status,
-                'transaction_status': transaction_status
+                'transaction_status': transaction_status,
+                'first_order_completed': first_order_completed,
+                'post_first_order': post_first_order
             },
             'marketing_strategy': [],
             'content_strategy': [],
@@ -244,110 +255,71 @@ class BusinessDrivenPortraitAnalyzer:
             'campaign_differentiation': []
         }
         
-        # 基于交易状态的策略（更详细的策略）
-        if transaction_status == '已完成':
-            strategy['marketing_strategy'].append("【交易完成用户】用户已完成交易，需要提升活跃度和复购")
-            strategy['marketing_strategy'].append("提供新功能推荐、优惠活动、会员权益")
-            strategy['marketing_strategy'].append("建立用户忠诚度计划，通过积分、等级、专属权益提升用户粘性")
-            strategy['marketing_strategy'].append("定期推送个性化内容，包括新功能介绍、使用技巧、优惠信息")
-            strategy['conversion_tactics'].append("推送个性化推荐、限时优惠、积分奖励")
-            strategy['conversion_tactics'].append("引导用户探索更多功能、参与活动")
-            strategy['conversion_tactics'].append("设置复购提醒，在合适时机推送相关优惠和活动")
-            strategy['conversion_tactics'].append("提供会员专享通道，优先处理会员请求，提升服务体验")
-        elif transaction_status == '进行中':
-            strategy['marketing_strategy'].append("【交易进行中】用户正在完成交易，需要协助完成流程")
-            strategy['marketing_strategy'].append("简化交易流程、提供客服支持、解决支付问题")
-            strategy['marketing_strategy'].append("实时监控交易状态，主动识别并解决卡点问题")
-            strategy['marketing_strategy'].append("提供多渠道客服支持（在线客服、电话、邮件），确保用户能及时获得帮助")
-            strategy['conversion_tactics'].append("优化支付页面，减少支付步骤，提供多种支付方式（银行卡、第三方支付、数字钱包）")
-            strategy['conversion_tactics'].append("发送交易提醒，包括交易进度、待办事项、异常提醒")
-            strategy['conversion_tactics'].append("提供交易帮助中心，包含常见问题、操作指南、故障排除")
-            strategy['conversion_tactics'].append("设置交易超时提醒，防止用户因等待时间过长而放弃")
-        else:  # 未开始
-            strategy['marketing_strategy'].append("【潜在用户】用户尚未开始交易，需要引导完成首次交易")
-            strategy['marketing_strategy'].append("提供新用户优惠、首次交易奖励、使用指南")
-            strategy['marketing_strategy'].append("降低首次交易门槛，提供新手专享优惠、免手续费、快速通道")
-            strategy['marketing_strategy'].append("建立信任机制，展示平台安全性、用户评价、成功案例")
-            strategy['conversion_tactics'].append("突出首次交易优惠，在首页、注册页、引导页显著展示")
-            strategy['conversion_tactics'].append("简化注册流程，减少必填项，支持一键注册、第三方账号登录")
-            strategy['conversion_tactics'].append("提供新手引导，包括产品介绍、操作演示、常见问题")
-            strategy['conversion_tactics'].append("设置新手任务系统，完成指定任务可获得奖励，提升用户参与度")
+        # ========== 根据首笔订单状态生成差异化策略 ==========
         
-        # 基于KYC状态的策略（更详细的策略）
-        if kyc_status == '已开始':
-            strategy['marketing_strategy'].append("【KYC进行中】用户正在完成身份验证，需要协助完成KYC")
-            strategy['marketing_strategy'].append("主动识别KYC卡点，提供针对性帮助和指导")
-            strategy['content_strategy'].append("提供KYC流程说明，包括步骤详解、所需材料、注意事项")
-            strategy['content_strategy'].append("建立KYC常见问题库，覆盖常见错误、审核失败原因、解决方案")
-            strategy['content_strategy'].append("提供客服支持，设置KYC专属客服通道，快速响应问题")
-            strategy['conversion_tactics'].append("优化KYC流程，支持多种验证方式（人脸识别、身份证OCR、人工审核）")
-            strategy['conversion_tactics'].append("发送KYC进度提醒，包括当前步骤、待办事项、预计完成时间")
-            strategy['conversion_tactics'].append("提供帮助文档，包括操作视频、图文教程、故障排除指南")
-            strategy['conversion_tactics'].append("设置KYC完成奖励，激励用户尽快完成验证")
-        elif kyc_status == '未开始':
-            if transaction_status == '未开始':
-                strategy['marketing_strategy'].append("【引导KYC】用户尚未开始KYC，需要引导完成身份验证")
-                strategy['marketing_strategy'].append("说明KYC的重要性，包括账户安全、功能解锁、交易限制等")
-                strategy['content_strategy'].append("说明KYC的重要性、安全性和便捷性")
-                strategy['content_strategy'].append("展示KYC完成后的权益，包括更高额度、更多功能、专属服务")
-                strategy['content_strategy'].append("提供KYC流程预览，让用户了解所需时间和步骤")
-                strategy['conversion_tactics'].append("突出KYC奖励，包括完成KYC送优惠券、积分、专属权益")
-                strategy['conversion_tactics'].append("简化KYC流程，减少必填项，支持自动识别、一键提交")
-                strategy['conversion_tactics'].append("提供KYC引导，包括操作提示、材料准备、注意事项")
-                strategy['conversion_tactics'].append("提供视频教程，展示KYC操作流程，降低用户操作难度")
+        # 情况1: 已完成首笔订单且当前片段在首单之后 - 重点提升复购率
+        if avg_first_order_completed > 0.5 and avg_post_first_order > 0.5:
+            strategy['marketing_strategy'].append("【复购提升】基于首单推荐相关服务，在关键时间节点（3天、7天、15天、30天）推送个性化复购激励")
+            strategy['marketing_strategy'].append("建立复购奖励体系：复购优惠券、积分加倍、会员升级")
+            
+            strategy['content_strategy'].append("展示首单使用效果和用户评价，推送相关服务介绍和复购优惠活动")
+            
+            strategy['conversion_tactics'].append("首单完成后立即推送7天内复购优惠券，提供一键复购功能")
+            strategy['conversion_tactics'].append("建立复购积分系统，根据浏览行为识别复购意向并推送优惠")
+            
+            strategy['product_recommendation'].append("推荐升级版服务、组合套餐、限时新品")
+            
+            strategy['campaign_differentiation'].append("复购优惠券、首单后3/7/30天限时折扣、基于首单的个性化推荐")
         
-        # 基于主要活动的策略（更详细的策略）
+        # 情况2: 已完成首笔订单但当前片段在首单之前 - 引导完成首单
+        elif avg_first_order_completed > 0.5 and avg_post_first_order <= 0.5:
+            strategy['marketing_strategy'].append("【首单完成中】简化流程，在关键节点提供客服支持，设置完成奖励")
+            
+            strategy['conversion_tactics'].append("优化支付流程，发送完成提醒和进度通知，提供帮助中心")
+        
+        # 情况3: 未完成首笔订单 - 促进首单完成
+        else:
+            strategy['marketing_strategy'].append("【促进首单】提供新用户专享优惠（首单折扣、免手续费、新用户礼包），简化注册和KYC流程")
+            strategy['marketing_strategy'].append("建立信任机制：展示平台安全性、用户评价、成功案例、资金保障")
+            
+            strategy['content_strategy'].append("展示首单优惠和完成后的权益，提供操作指南，分享首单成功案例")
+            
+            strategy['conversion_tactics'].append("在首页显著展示首单优惠，简化流程支持自动识别，提供新手引导和限时优惠倒计时")
+            
+            strategy['product_recommendation'].append("推荐低门槛高价值首单服务、首单优惠套餐、热门服务、限时新品")
+            
+            strategy['campaign_differentiation'].append("新用户注册奖励、首单专享优惠、免手续费快速通道、新手任务引导")
+        
+        # 基于交易状态的策略（优先级低于首笔订单状态，避免重复）
+        if transaction_status == '进行中' and not (avg_first_order_completed > 0.5 and avg_post_first_order > 0.5):
+            strategy['marketing_strategy'].append("【交易进行中】简化交易流程，提供多渠道客服支持，实时监控并解决卡点")
+            strategy['conversion_tactics'].append("优化支付页面减少步骤，发送交易进度提醒，提供帮助中心")
+        
+        # 基于KYC状态的策略（针对KYC导向的聚类）
+        if kyc_status == '已开始' and main_activity == 'KYC导向':
+            strategy['marketing_strategy'].append("【KYC进行中】主动识别卡点，提供针对性帮助和KYC专属客服通道")
+            strategy['content_strategy'].append("提供KYC流程说明和常见问题库，设置专属客服快速响应")
+            strategy['conversion_tactics'].append("优化KYC流程支持多种验证方式，发送进度提醒，设置完成奖励")
+        elif kyc_status == '未开始' and main_activity == 'KYC导向' and transaction_status == '未开始':
+            strategy['marketing_strategy'].append("【引导KYC】说明KYC重要性（账户安全、功能解锁），展示完成后的权益")
+            strategy['conversion_tactics'].append("突出KYC奖励，简化流程支持自动识别，提供视频教程")
+        
+        # 基于主要活动的策略（仅针对特定导向）
         if main_activity == '支付导向':
-            strategy['product_recommendation'].append("【支付功能】用户关注支付功能，重点推荐支付相关服务和优惠")
-            strategy['product_recommendation'].append("推荐支付相关功能，包括快捷支付、分期付款、支付安全保障")
-            strategy['product_recommendation'].append("提供支付优惠活动，包括支付返现、支付折扣、支付积分")
-            strategy['content_strategy'].append("提供支付教程，包括支付方式介绍、操作步骤、注意事项")
-            strategy['content_strategy'].append("说明支付安全机制，包括加密技术、风控体系、资金保障")
-            strategy['content_strategy'].append("展示支付优惠信息，包括限时活动、会员专享、新用户福利")
+            strategy['product_recommendation'].append("推荐快捷支付、分期付款、支付安全保障和支付优惠活动")
+            strategy['content_strategy'].append("提供支付教程和安全机制说明，展示支付优惠信息")
         elif main_activity == '充值导向':
-            strategy['product_recommendation'].append("【充值功能】用户关注充值功能，重点推荐充值相关服务和优惠")
-            strategy['product_recommendation'].append("推荐充值优惠，包括充值返现、充值折扣、充值奖励")
-            strategy['product_recommendation'].append("提供多种充值方式，包括银行卡、第三方支付、数字钱包")
-            strategy['content_strategy'].append("提供充值教程，包括充值方式介绍、操作步骤、到账时间")
-            strategy['content_strategy'].append("展示充值优惠活动，包括限时活动、会员专享、新用户福利")
-            strategy['content_strategy'].append("说明充值安全保障，包括资金安全、到账保障、异常处理")
+            strategy['product_recommendation'].append("推荐充值优惠（返现、折扣、奖励）和多种充值方式")
+            strategy['content_strategy'].append("提供充值教程，展示充值优惠活动和安全保障说明")
         elif main_activity == '优惠券导向':
-            strategy['product_recommendation'].append("【优惠券功能】用户关注优惠券，重点推荐优惠券相关服务和活动")
-            strategy['product_recommendation'].append("推荐优惠券活动，包括新用户专享、限时抢购、会员专享")
-            strategy['product_recommendation'].append("提供优惠券使用指南，包括使用规则、适用范围、有效期说明")
-            strategy['product_recommendation'].append("展示优惠券奖励机制，包括领取方式、使用技巧、叠加规则")
-            strategy['content_strategy'].append("提供优惠券说明，包括优惠券类型、使用条件、注意事项")
-            strategy['content_strategy'].append("展示优惠券活动，包括活动时间、参与方式、奖励内容")
-            strategy['content_strategy'].append("提供优惠券使用技巧，包括最佳使用时机、叠加策略、省钱攻略")
+            strategy['product_recommendation'].append("推荐优惠券活动和使用指南，展示奖励机制")
+            strategy['content_strategy'].append("提供优惠券说明和活动信息，分享使用技巧")
         
-        # 基于紧迫度的策略（更详细的策略）
+        # 基于紧迫度的策略（仅针对极端情况）
         if urgency == '高紧迫':
-            strategy['conversion_tactics'].append("【高优先级】用户意图强烈，需要立即转化")
-            strategy['conversion_tactics'].append("提供限时优惠，包括倒计时提醒、库存告急、早鸟优惠")
-            strategy['conversion_tactics'].append("设置快速通道，包括VIP通道、专属客服、优先处理")
-            strategy['conversion_tactics'].append("提供专属客服，包括在线客服、电话客服、专属顾问")
+            strategy['conversion_tactics'].append("提供限时优惠和快速通道，设置专属客服优先处理")
         elif urgency == '低紧迫':
-            strategy['marketing_strategy'].append("【培育用户】用户意图较低，需要长期培育")
-            strategy['marketing_strategy'].append("建立内容营销体系，定期推送教育性内容、使用案例、功能介绍")
-            strategy['content_strategy'].append("提供教育性内容，包括产品介绍、使用指南、行业资讯")
-            strategy['content_strategy'].append("展示使用案例，包括成功案例、用户故事、效果展示")
-            strategy['content_strategy'].append("介绍产品功能，包括核心功能、特色功能、创新点")
-        
-        # 基于行为模式的策略（更详细的策略）
-        if behavior == '已完成交易':
-            strategy['campaign_differentiation'].append("【复购活动】'推荐新功能'、'会员专享'、'积分兑换'")
-            strategy['campaign_differentiation'].append("【活跃度提升】'每日签到'、'任务奖励'、'社区活动'")
-            strategy['campaign_differentiation'].append("【忠诚度计划】'会员等级'、'积分商城'、'专属权益'")
-            strategy['campaign_differentiation'].append("【社交互动】'用户社区'、'分享奖励'、'邀请好友'")
-        elif behavior == 'KYC进行中':
-            strategy['campaign_differentiation'].append("【KYC完成奖励】'完成KYC送优惠券'、'KYC快速通道'")
-            strategy['campaign_differentiation'].append("【协助完成】'KYC帮助中心'、'在线客服'、'视频教程'")
-            strategy['campaign_differentiation'].append("【进度提醒】'KYC进度推送'、'待办提醒'、'完成通知'")
-        elif behavior == '探索阶段':
-            strategy['campaign_differentiation'].append("【新用户活动】'新用户注册奖励'、'首次交易优惠'")
-            strategy['campaign_differentiation'].append("【引导活动】'功能探索'、'使用指南'、'新手任务'")
-            strategy['campaign_differentiation'].append("【信任建立】'安全保障'、'用户评价'、'成功案例'")
-            strategy['campaign_differentiation'].append("【降低门槛】'免手续费'、'快速通道'、'专属优惠'")
+            strategy['marketing_strategy'].append("建立内容营销体系，定期推送教育性内容和使用案例")
         
         return strategy
     

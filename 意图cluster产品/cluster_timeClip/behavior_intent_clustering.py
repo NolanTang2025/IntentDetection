@@ -354,6 +354,8 @@ class BehaviorIntentClusterer:
                 'kyc_event_count': 0,
                 'has_transaction': 0,
                 'transaction_completed': 0,
+                'first_order_completed': 0,  # 新增：用户是否已完成首笔订单
+                'post_first_order': 0,  # 新增：当前片段是否在首笔订单之后
                 'event_count': 0,
                 'payment_related_events': 0,
                 'recharge_related_events': 0,
@@ -413,6 +415,91 @@ class BehaviorIntentClusterer:
                 except:
                     continue
         
+        # 特征5: 用户级别的首笔订单完成状态（基于所有用户记录）
+        first_order_completed = 0
+        post_first_order = 0
+        if all_user_records:
+            # 检查用户是否在任何记录中完成了首笔订单
+            user_first_order_completed = False
+            first_order_timestamp = None
+            
+            # 按时间排序所有记录
+            sorted_user_records = sorted(all_user_records, key=lambda x: self.parse_timestamp(x.get('timestamp', '')))
+            
+            # 查找首笔订单完成的时间点（查找第一次出现completed状态）
+            for record in sorted_user_records:
+                output = record.get('output', '')
+                if output:
+                    try:
+                        cleaned = output.strip()
+                        if cleaned.startswith('"'):
+                            cleaned = cleaned[1:-1]
+                        # 移除转义字符
+                        cleaned = cleaned.replace('\\n', '\n').replace('\\"', '"')
+                        
+                        # 尝试多种方式解析JSON
+                        json_start = cleaned.find('{')
+                        if json_start >= 0:
+                            json_str = cleaned[json_start:]
+                            brace_count = 0
+                            json_end = -1
+                            for i, char in enumerate(json_str):
+                                if char == '{':
+                                    brace_count += 1
+                                elif char == '}':
+                                    brace_count -= 1
+                                    if brace_count == 0:
+                                        json_end = i + 1
+                                        break
+                            
+                            if json_end > 0:
+                                try:
+                                    data = json.loads(json_str[:json_end])
+                                    intent = data.get('intent', {})
+                                    purchase_signals = intent.get('purchase_signals', {})
+                                    stage = str(purchase_signals.get('stage', '')).lower()
+                                    transaction_status = str(purchase_signals.get('transaction_status', '')).lower()
+                                    
+                                    # 检查是否完成首笔订单（stage或transaction_status为completed）
+                                    # 注意：需要确保这是第一次出现completed，而不是所有记录都是completed
+                                    if ('completed' in stage or 'completed' in transaction_status):
+                                        # 检查是否有实际的交易事件（如支付、提交订单等）
+                                        event_name = record.get('event_name', '').lower()
+                                        has_payment_event = any(keyword in event_name for keyword in ['pay', 'checkout', 'submit', 'recharge'])
+                                        
+                                        if has_payment_event or 'completed' in transaction_status:
+                                            if not user_first_order_completed:
+                                                user_first_order_completed = True
+                                                first_order_timestamp = record.get('timestamp')
+                                                break
+                                except json.JSONDecodeError:
+                                    # 如果JSON解析失败，尝试字符串匹配
+                                    if '"transaction_status": "completed"' in cleaned or '"transaction_status":"completed"' in cleaned:
+                                        event_name = record.get('event_name', '').lower()
+                                        has_payment_event = any(keyword in event_name for keyword in ['pay', 'checkout', 'submit', 'recharge'])
+                                        if has_payment_event:
+                                            if not user_first_order_completed:
+                                                user_first_order_completed = True
+                                                first_order_timestamp = record.get('timestamp')
+                                                break
+                    except Exception as e:
+                        continue
+            
+            # 如果用户已完成首笔订单
+            if user_first_order_completed:
+                first_order_completed = 1
+                
+                # 检查当前片段是否在首笔订单之后
+                segment_start = segment_records[0].get('timestamp')
+                if first_order_timestamp and segment_start:
+                    try:
+                        first_order_time = self.parse_timestamp(first_order_timestamp)
+                        segment_start_time = self.parse_timestamp(segment_start)
+                        if segment_start_time >= first_order_time:
+                            post_first_order = 1
+                    except:
+                        pass
+        
         # 特征5: 事件总数
         event_count = len(event_names)
         
@@ -430,16 +517,104 @@ class BehaviorIntentClusterer:
         voucher_events = [e for e in event_names if 'voucher' in str(e).lower()]
         voucher_related_events = len(voucher_events)
         
+        # ========== 新增：更细致的业务特征 ==========
+        
+        # 特征9: 功能探索深度（使用功能的多样性）
+        unique_events = len(set(event_names))
+        feature_diversity = unique_events / max(event_count, 1)  # 功能多样性比率
+        
+        # 特征10: 激活相关事件（账户激活、额度激活等）
+        activation_events = [e for e in event_names if any(keyword in str(e).lower() 
+                          for keyword in ['activate', 'activation', 'success', 'binding'])]
+        activation_related_events = len(activation_events)
+        
+        # 特征11: 主页/导航相关事件（用户浏览深度）
+        navigation_events = [e for e in event_names if any(keyword in str(e).lower() 
+                          for keyword in ['home', 'nav', 'page', 'show_'])]
+        navigation_related_events = len(navigation_events)
+        
+        # 特征12: 点击行为相关事件（用户交互活跃度）
+        click_events = [e for e in event_names if 'click' in str(e).lower()]
+        click_related_events = len(click_events)
+        
+        # 特征13: 用户中心/个人中心相关事件（用户管理行为）
+        profile_events = [e for e in event_names if any(keyword in str(e).lower() 
+                       for keyword in ['profile', 'profil', 'mgm', 'account', 'user'])]
+        profile_related_events = len(profile_events)
+        
+        # 特征14: 任务/活动相关事件（用户参与度）
+        task_events = [e for e in event_names if any(keyword in str(e).lower() 
+                   for keyword in ['task', 'activity', 'zone', 'banner', 'campaign'])]
+        task_related_events = len(task_events)
+        
+        # 特征15: 交互深度（点击事件与展示事件的比率）
+        show_events = [e for e in event_names if 'show_' in str(e).lower()]
+        show_related_events = len(show_events)
+        interaction_depth = click_related_events / max(show_related_events, 1)  # 交互深度
+        
+        # 特征16: 业务场景类型（基于事件组合判断）
+        # 0=激活阶段, 1=KYC阶段, 2=探索阶段, 3=支付阶段, 4=充值阶段, 5=优惠券阶段, 6=复购阶段, 7=综合
+        business_scenario = 7  # 默认综合
+        if activation_related_events > 0 and kyc_started == 0:
+            business_scenario = 0  # 激活阶段
+        elif kyc_started > 0 and payment_related_events == 0:
+            business_scenario = 1  # KYC阶段
+        elif payment_related_events > recharge_related_events and payment_related_events > voucher_related_events:
+            business_scenario = 3  # 支付阶段
+        elif recharge_related_events > payment_related_events and recharge_related_events > voucher_related_events:
+            business_scenario = 4  # 充值阶段
+        elif voucher_related_events > 3:
+            business_scenario = 5  # 优惠券阶段
+        elif post_first_order > 0:
+            business_scenario = 6  # 复购阶段
+        elif event_count > 10 and unique_events > 5:
+            business_scenario = 2  # 探索阶段
+        
+        # 特征17: 行为集中度（主要活动类型的集中程度）
+        activity_counts = {
+            'payment': payment_related_events,
+            'recharge': recharge_related_events,
+            'voucher': voucher_related_events,
+            'navigation': navigation_related_events,
+            'task': task_related_events
+        }
+        max_activity = max(activity_counts.values()) if activity_counts.values() else 0
+        total_activities = sum(activity_counts.values())
+        activity_concentration = max_activity / max(total_activities, 1)  # 行为集中度
+        
+        # 特征18: 时间活跃度（基于片段时长和事件数的综合活跃度）
+        if segment_records:
+            first_time = self.parse_timestamp(segment_records[0].get('timestamp', ''))
+            last_time = self.parse_timestamp(segment_records[-1].get('timestamp', ''))
+            time_span_minutes = (last_time - first_time).total_seconds() / 60
+            time_span_minutes = max(time_span_minutes, 0.001)  # 避免除零
+            activity_intensity = event_count / time_span_minutes  # 每分钟事件数
+        else:
+            activity_intensity = 0
+        
         return {
             'kyc_started': kyc_started,
             'kyc_event_count': kyc_event_count,
             'has_transaction': has_transaction,
             'transaction_completed': transaction_completed,
+            'first_order_completed': first_order_completed,
+            'post_first_order': post_first_order,
             'event_count': event_count,
             'payment_related_events': payment_related_events,
             'recharge_related_events': recharge_related_events,
             'voucher_related_events': voucher_related_events,
-            'intent_score': intent_score
+            'intent_score': intent_score,
+            # 新增特征
+            'feature_diversity': feature_diversity,  # 功能多样性
+            'activation_related_events': activation_related_events,  # 激活相关事件
+            'navigation_related_events': navigation_related_events,  # 导航相关事件
+            'click_related_events': click_related_events,  # 点击相关事件
+            'profile_related_events': profile_related_events,  # 个人中心相关事件
+            'task_related_events': task_related_events,  # 任务/活动相关事件
+            'interaction_depth': interaction_depth,  # 交互深度
+            'business_scenario': business_scenario,  # 业务场景类型
+            'activity_concentration': activity_concentration,  # 行为集中度
+            'activity_intensity': activity_intensity  # 时间活跃度
         }
     
     def extract_intent_features_from_record(self, record):
@@ -1059,7 +1234,7 @@ class BehaviorIntentClusterer:
         """基于金融特征进行聚类（专门用于YUP等金融公司）"""
         df = pd.DataFrame(segment_metadata)
         
-        # 金融相关特征
+        # 金融相关特征（增强版，包含更多业务维度）
         feature_cols = [
             # KYC相关特征
             'kyc_started',              # 是否开始KYC (0/1)
@@ -1067,6 +1242,8 @@ class BehaviorIntentClusterer:
             # 交易相关特征
             'has_transaction',          # 是否有交易 (0/1)
             'transaction_completed',    # 是否完成交易 (0/1)
+            'first_order_completed',    # 用户是否已完成首笔订单 (0/1)
+            'post_first_order',         # 当前片段是否在首笔订单之后 (0/1)
             # 行为活跃度特征
             'event_count',              # 事件总数
             'payment_related_events',   # 支付相关事件数
@@ -1076,7 +1253,18 @@ class BehaviorIntentClusterer:
             'duration_minutes',         # 片段时长（分钟）
             'record_count',             # 记录数量
             # 意图强度
-            'intent_score'              # 意图强度
+            'intent_score',             # 意图强度
+            # 新增：业务深度特征
+            'feature_diversity',        # 功能多样性
+            'activation_related_events', # 激活相关事件
+            'navigation_related_events', # 导航相关事件
+            'click_related_events',     # 点击相关事件
+            'profile_related_events',    # 个人中心相关事件
+            'task_related_events',       # 任务/活动相关事件
+            'interaction_depth',         # 交互深度
+            'business_scenario',         # 业务场景类型
+            'activity_concentration',    # 行为集中度
+            'activity_intensity'         # 时间活跃度
         ]
         
         # 确保所有特征列都存在
@@ -1095,35 +1283,67 @@ class BehaviorIntentClusterer:
         X['voucher_related_events_log'] = np.log1p(X['voucher_related_events'])
         X['duration_minutes_log'] = np.log1p(X['duration_minutes'] + 0.001)
         X['record_count_log'] = np.log1p(X['record_count'])
+        # 新增特征的对数变换
+        if 'activation_related_events' in X.columns:
+            X['activation_related_events_log'] = np.log1p(X['activation_related_events'])
+        if 'navigation_related_events' in X.columns:
+            X['navigation_related_events_log'] = np.log1p(X['navigation_related_events'])
+        if 'click_related_events' in X.columns:
+            X['click_related_events_log'] = np.log1p(X['click_related_events'])
+        if 'profile_related_events' in X.columns:
+            X['profile_related_events_log'] = np.log1p(X['profile_related_events'])
+        if 'task_related_events' in X.columns:
+            X['task_related_events_log'] = np.log1p(X['task_related_events'])
+        if 'activity_intensity' in X.columns:
+            X['activity_intensity_log'] = np.log1p(X['activity_intensity'] + 0.001)
         
         # 移除原始值，使用变换后的值
-        X = X.drop(['event_count', 'kyc_event_count', 'payment_related_events', 
-                    'recharge_related_events', 'voucher_related_events', 
-                    'duration_minutes', 'record_count'], axis=1)
+        cols_to_drop = ['event_count', 'kyc_event_count', 'payment_related_events', 
+                       'recharge_related_events', 'voucher_related_events', 
+                       'duration_minutes', 'record_count']
+        # 如果新特征存在，也移除原始值
+        for col in ['activation_related_events', 'navigation_related_events', 
+                   'click_related_events', 'profile_related_events', 
+                   'task_related_events', 'activity_intensity']:
+            if col in X.columns and f'{col}_log' in X.columns:
+                cols_to_drop.append(col)
+        X = X.drop([col for col in cols_to_drop if col in X.columns], axis=1)
         
         # 标准化
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X)
         
-        # 使用KMeans聚类
+        # 使用KMeans聚类（更精细的聚类）
         n_samples = len(X_scaled)
-        max_clusters = 100
-        min_clusters = 3
-        calculated_clusters = max(min_clusters, n_samples // 20)
+        # 对于小样本，使用更细致的聚类（每3-5个样本1个聚类）
+        # 对于大样本，使用每10-15个样本1个聚类
+        if n_samples < 20:
+            # 小样本：更细致的聚类
+            calculated_clusters = max(3, n_samples // 3)  # 每3个样本1个聚类
+            max_clusters = min(10, n_samples)  # 最多10个聚类
+        else:
+            # 大样本：标准聚类
+            calculated_clusters = max(5, n_samples // 10)  # 每10个样本1个聚类
+            max_clusters = 100
+        
         n_clusters = min(calculated_clusters, max_clusters, n_samples)
         if n_clusters < 1:
             n_clusters = 1
         
-        print(f"  数据量: {n_samples} 个片段，使用 {n_clusters} 个聚类")
-        kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=20, max_iter=300)
+        print(f"  数据量: {n_samples} 个片段，使用 {n_clusters} 个聚类（精细模式）")
+        kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=50, max_iter=500)
         cluster_labels = kmeans.fit_predict(X_scaled)
         
         df['business_cluster'] = cluster_labels
         
         # 保存变换后的特征值用于后续分析
-        for col in ['event_count_log', 'kyc_event_count_log', 'payment_related_events_log',
+        log_cols = ['event_count_log', 'kyc_event_count_log', 'payment_related_events_log',
                    'recharge_related_events_log', 'voucher_related_events_log',
-                   'duration_minutes_log', 'record_count_log']:
+                   'duration_minutes_log', 'record_count_log',
+                   'activation_related_events_log', 'navigation_related_events_log',
+                   'click_related_events_log', 'profile_related_events_log',
+                   'task_related_events_log', 'activity_intensity_log']
+        for col in log_cols:
             if col in X.columns:
                 df[col] = X[col].values
         
@@ -1158,10 +1378,48 @@ class BehaviorIntentClusterer:
             avg_intent_score = cluster_data['intent_score'].mean()
             avg_duration = cluster_data['duration_minutes'].mean()
             
-            # 生成行为模式标签
-            if avg_has_transaction > 0.5:
-                behavior_label = "已完成交易"
-            elif avg_transaction_completed > 0.5:
+            # 计算首笔订单相关特征
+            avg_first_order_completed = cluster_data['first_order_completed'].mean() if 'first_order_completed' in cluster_data.columns else 0
+            avg_post_first_order = cluster_data['post_first_order'].mean() if 'post_first_order' in cluster_data.columns else 0
+            
+            # 获取业务场景特征（如果存在）
+            avg_business_scenario = cluster_data['business_scenario'].mean() if 'business_scenario' in cluster_data.columns else 7
+            avg_activity_concentration = cluster_data['activity_concentration'].mean() if 'activity_concentration' in cluster_data.columns else 0.5
+            avg_feature_diversity = cluster_data['feature_diversity'].mean() if 'feature_diversity' in cluster_data.columns else 0.5
+            avg_activity_intensity = cluster_data['activity_intensity'].mean() if 'activity_intensity' in cluster_data.columns else 0
+            
+            # 生成行为模式标签（优先考虑业务场景和首笔订单状态）
+            scenario_labels = {
+                0: "激活阶段",
+                1: "KYC进行中",
+                2: "探索阶段",
+                3: "支付阶段",
+                4: "充值阶段",
+                5: "优惠券阶段",
+                6: "复购阶段",
+                7: "综合探索"
+            }
+            
+            # 根据业务场景和首笔订单状态生成标签
+            if avg_first_order_completed > 0.5:
+                # 用户已完成首笔订单
+                if avg_post_first_order > 0.5:
+                    if avg_business_scenario == 6:
+                        behavior_label = "复购活跃"
+                    elif avg_business_scenario == 5:
+                        behavior_label = "复购·优惠券导向"
+                    elif avg_business_scenario == 4:
+                        behavior_label = "复购·充值导向"
+                    elif avg_business_scenario == 3:
+                        behavior_label = "复购·支付导向"
+                    else:
+                        behavior_label = "首单后活跃"
+                else:
+                    behavior_label = "首单完成中"
+            elif avg_business_scenario < 7:
+                # 根据业务场景判断
+                behavior_label = scenario_labels.get(int(avg_business_scenario), "探索阶段")
+            elif avg_has_transaction > 0.5:
                 behavior_label = "交易进行中"
             elif avg_kyc_started > 0.5:
                 behavior_label = "KYC进行中"
@@ -1182,8 +1440,30 @@ class BehaviorIntentClusterer:
             # 生成短标签
             short_label = f"{behavior_label}·{urgency_label}"
             
-            # 确定主要行为类型
-            if avg_payment_events > avg_recharge_events and avg_payment_events > avg_voucher_events:
+            # 确定主要行为类型（考虑更多维度）
+            # 获取新增特征
+            avg_activation_events = cluster_data['activation_related_events'].mean() if 'activation_related_events' in cluster_data.columns else 0
+            avg_navigation_events = cluster_data['navigation_related_events'].mean() if 'navigation_related_events' in cluster_data.columns else 0
+            avg_task_events = cluster_data['task_related_events'].mean() if 'task_related_events' in cluster_data.columns else 0
+            
+            # 根据业务场景和事件分布确定主要活动
+            if avg_business_scenario == 0:
+                main_activity = "激活导向"
+            elif avg_business_scenario == 1:
+                main_activity = "KYC导向"
+            elif avg_business_scenario == 3:
+                main_activity = "支付导向"
+            elif avg_business_scenario == 4:
+                main_activity = "充值导向"
+            elif avg_business_scenario == 5:
+                main_activity = "优惠券导向"
+            elif avg_business_scenario == 6:
+                main_activity = "复购导向"
+            elif avg_task_events > 3:
+                main_activity = "任务/活动导向"
+            elif avg_navigation_events > avg_event_count * 0.5:
+                main_activity = "浏览导向"
+            elif avg_payment_events > avg_recharge_events and avg_payment_events > avg_voucher_events:
                 main_activity = "支付导向"
             elif avg_recharge_events > avg_payment_events and avg_recharge_events > avg_voucher_events:
                 main_activity = "充值导向"
@@ -1195,17 +1475,27 @@ class BehaviorIntentClusterer:
             # 生成完整标签
             full_label = f"{behavior_label}·{urgency_label}·{main_activity}"
             
-            # 确定优先级（基于交易状态和意图强度）
-            priority_score = avg_transaction_completed * 0.5 + avg_intent_score * 0.3 + (avg_event_count / 50.0) * 0.2
-            if priority_score > 0.7:
-                action_priority = "高"
-                recommended_action = "促进交易完成"
-            elif priority_score > 0.4:
-                action_priority = "中"
-                recommended_action = "引导完成KYC或交易"
+            # 确定优先级和推荐行动（基于首笔订单状态）
+            if avg_first_order_completed > 0.5:
+                # 已完成首笔订单的用户：重点提升复购率
+                if avg_post_first_order > 0.5:
+                    action_priority = "高"
+                    recommended_action = "促进再次下单"
+                else:
+                    action_priority = "中"
+                    recommended_action = "引导完成首单并促进复购"
             else:
-                action_priority = "低"
-                recommended_action = "提升活跃度和参与度"
+                # 未完成首笔订单的用户：重点促进首单
+                priority_score = avg_transaction_completed * 0.5 + avg_intent_score * 0.3 + (avg_event_count / 50.0) * 0.2
+                if priority_score > 0.7:
+                    action_priority = "高"
+                    recommended_action = "促进首笔订单完成"
+                elif priority_score > 0.4:
+                    action_priority = "中"
+                    recommended_action = "引导完成KYC或首单"
+                else:
+                    action_priority = "低"
+                    recommended_action = "提升活跃度和参与度"
             
             cluster_labels_dict[str(cluster_id)] = {
                 'short_label': short_label,
@@ -1217,13 +1507,17 @@ class BehaviorIntentClusterer:
                     'urgency': urgency_label,
                     'main_activity': main_activity,
                     'kyc_status': "已开始" if avg_kyc_started > 0.5 else "未开始",
-                    'transaction_status': "已完成" if avg_transaction_completed > 0.5 else ("进行中" if avg_has_transaction > 0.5 else "未开始")
+                    'transaction_status': "已完成" if avg_transaction_completed > 0.5 else ("进行中" if avg_has_transaction > 0.5 else "未开始"),
+                    'first_order_completed': "是" if avg_first_order_completed > 0.5 else "否",
+                    'post_first_order': "是" if avg_post_first_order > 0.5 else "否"
                 },
                 'avg_features': {
                     'kyc_started': float(avg_kyc_started),
                     'kyc_event_count': float(avg_kyc_events),
                     'has_transaction': float(avg_has_transaction),
                     'transaction_completed': float(avg_transaction_completed),
+                    'first_order_completed': float(avg_first_order_completed),
+                    'post_first_order': float(avg_post_first_order),
                     'event_count': float(avg_event_count),
                     'payment_related_events': float(avg_payment_events),
                     'recharge_related_events': float(avg_recharge_events),
