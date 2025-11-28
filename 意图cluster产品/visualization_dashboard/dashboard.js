@@ -3392,30 +3392,9 @@ function renderFinancialUserTrajectories(users) {
                 <div class="timeline-header">
                     <h4>行为时间线</h4>
                 </div>
-                <div class="timeline-wrapper" style="display: flex; gap: 1.5rem; align-items: flex-start;">
-                    <div class="timeline-container" style="flex: 1;">
-                        <canvas id="financialTrajectoryTimeline-${user.user_id}" class="trajectory-timeline-canvas"></canvas>
-                        <div id="financialTimelineTooltips-${user.user_id}" class="timeline-tooltips"></div>
-                    </div>
-                    <div class="intent-summary-panel" id="financialIntentSummary-${user.user_id}" style="width: 280px; min-width: 280px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; position: sticky; top: 1rem;">
-                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
-                                💭
-                            </div>
-                            <h4 style="margin: 0; color: var(--text); font-size: 1rem; font-weight: 600;">一句话意图</h4>
-                        </div>
-                        <div id="financialIntentText-${user.user_id}" style="min-height: 80px; padding: 1rem; background: var(--card); border-radius: 8px; border-left: 4px solid #667eea; color: var(--text); line-height: 1.6; font-size: 0.95rem;">
-                            <div style="color: var(--text-secondary); font-style: italic;">将鼠标悬停在时间线节点上查看实时意图</div>
-                        </div>
-                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">当前片段信息</div>
-                            <div id="financialCurrentSegment-${user.user_id}" style="font-size: 0.9rem; color: var(--text);">
-                                <div style="margin-bottom: 0.25rem;">片段: <span style="color: #667eea; font-weight: 600;">-</span></div>
-                                <div style="margin-bottom: 0.25rem;">聚类: <span style="color: #667eea; font-weight: 600;">-</span></div>
-                                <div>意图强度: <span style="color: #667eea; font-weight: 600;">-</span></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="timeline-container">
+                    <canvas id="financialTrajectoryTimeline-${user.user_id}" class="trajectory-timeline-canvas"></canvas>
+                    <div id="financialTimelineTooltips-${user.user_id}" class="timeline-tooltips"></div>
                 </div>
             </div>
         `;
@@ -3638,105 +3617,6 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
     let showTimeout = null;
     let isTooltipVisible = false;
     
-    // 生成一句话意图
-    const generateIntentSummary = (segment) => {
-        let intentText = '';
-        const chars = segment.characteristics || {};
-        
-        // 获取聚类信息
-        let clusterName = segment.full_label || segment.cluster_name || '';
-        let clusterCharacteristics = {};
-        if (window.financialBusinessInsights) {
-            const insight = window.financialBusinessInsights.find(i => String(i.cluster_id) === String(segment.cluster_id));
-            if (insight) {
-                clusterName = insight.full_label || insight.user_segment_name || insight.cluster_name || '';
-                clusterCharacteristics = insight.key_characteristics || {};
-            }
-        }
-        
-        // 构建一句话意图
-        const parts = [];
-        
-        // 主要活动
-        if (segment.main_activity || clusterCharacteristics.main_activity) {
-            parts.push(segment.main_activity || clusterCharacteristics.main_activity);
-        }
-        
-        // 行为模式
-        if (segment.behavior || clusterCharacteristics.behavior) {
-            const behavior = segment.behavior || clusterCharacteristics.behavior;
-            if (behavior === '首单后活跃') {
-                parts.push('首单后活跃');
-            } else if (behavior === '激活阶段') {
-                parts.push('激活阶段');
-            }
-        }
-        
-        // KYC状态
-        if (segment.kyc_status === '已开始' || clusterCharacteristics.kyc_status === '已开始') {
-            parts.push('正在完成KYC验证');
-        }
-        
-        // 交易状态
-        if (segment.transaction_status || clusterCharacteristics.transaction_status) {
-            const status = segment.transaction_status || clusterCharacteristics.transaction_status;
-            if (status === '进行中') {
-                parts.push('交易进行中');
-            } else if (status === '已完成') {
-                parts.push('交易已完成');
-            }
-        }
-        
-        // 紧迫度
-        if (segment.urgency || clusterCharacteristics.urgency) {
-            const urgency = segment.urgency || clusterCharacteristics.urgency;
-            if (urgency === '高紧迫') {
-                parts.push('高紧迫度');
-            } else if (urgency === '中紧迫') {
-                parts.push('中紧迫度');
-            }
-        }
-        
-        // 意图强度
-        const intentScore = segment.intent_score || 0;
-        if (intentScore > 0.7) {
-            parts.push('意图强烈');
-        } else if (intentScore < 0.3) {
-            parts.push('意图较弱');
-        }
-        
-        // 组合成一句话
-        if (parts.length > 0) {
-            intentText = `用户当前处于${parts.join('、')}状态`;
-        } else if (clusterName) {
-            intentText = `用户当前属于${getClusterDisplayName(clusterName)}群体`;
-        } else {
-            intentText = `用户当前处于聚类${segment.cluster_id}，意图强度${(intentScore * 100).toFixed(0)}%`;
-        }
-        
-        return intentText;
-    };
-    
-    // 更新一句话意图显示
-    const updateIntentSummary = (segment, segmentIndex) => {
-        const intentTextEl = document.getElementById(`financialIntentText-${user.user_id}`);
-        const currentSegmentEl = document.getElementById(`financialCurrentSegment-${user.user_id}`);
-        
-        if (intentTextEl) {
-            const intentText = generateIntentSummary(segment);
-            intentTextEl.innerHTML = `<div style="color: var(--text); line-height: 1.6;">${intentText}</div>`;
-        }
-        
-        if (currentSegmentEl) {
-            const intentScore = segment.intent_score || 0;
-            currentSegmentEl.innerHTML = `
-                <div style="margin-bottom: 0.25rem;">片段: <span style="color: #667eea; font-weight: 600;">${segment.segment_index !== undefined ? segment.segment_index : segmentIndex + 1}</span></div>
-                <div style="margin-bottom: 0.25rem;">聚类: <span style="color: #667eea; font-weight: 600;">${segment.cluster_id}</span></div>
-                <div>意图强度: <span style="color: #667eea; font-weight: 600;">${(intentScore * 100).toFixed(0)}%</span></div>
-            `;
-        }
-    };
-    
     const showTooltip = (nodeIndex) => {
         if (hideTimeout) {
             clearTimeout(hideTimeout);
@@ -3766,9 +3646,6 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
             const node = nodePositions.find(n => n.index === nodeIndex);
             
             if (tooltip && node) {
-                // 更新一句话意图
-                updateIntentSummary(node.segment, nodeIndex);
-                
                 // 先设置位置，再显示（避免闪烁）
                 tooltip.style.left = `${node.x}px`;
                 tooltip.style.top = '20px';
@@ -3820,11 +3697,6 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
                     t.style.pointerEvents = 'none';
                 });
             }
-            // 恢复默认显示（显示最后一个片段）
-            if (segments.length > 0) {
-                const lastSegment = segments[segments.length - 1];
-                updateIntentSummary(lastSegment, segments.length - 1);
-            }
             currentHoveredIndex = -1;
             isTooltipVisible = false;
         } else {
@@ -3836,23 +3708,12 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
                         t.style.pointerEvents = 'none';
                     });
                 }
-                // 恢复默认显示（显示最后一个片段）
-                if (segments.length > 0) {
-                    const lastSegment = segments[segments.length - 1];
-                    updateIntentSummary(lastSegment, segments.length - 1);
-                }
                 currentHoveredIndex = -1;
                 isTooltipVisible = false;
                 hideTimeout = null;
             }, 200); // 200ms延迟隐藏
         }
     };
-    
-    // 初始化：显示最后一个片段的一句话意图
-    if (segments.length > 0) {
-        const lastSegment = segments[segments.length - 1];
-        updateIntentSummary(lastSegment, segments.length - 1);
-    }
     
     canvas.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
