@@ -3524,6 +3524,15 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
                 }
             }
             
+            // 优先使用片段本身的特征，如果没有则使用聚类特征
+            const segmentMainActivity = segment.main_activity || clusterCharacteristics.main_activity || '';
+            const segmentBehavior = segment.behavior || clusterCharacteristics.behavior || '';
+            const segmentKycStatus = segment.kyc_status || clusterCharacteristics.kyc_status || '';
+            const segmentTransactionStatus = segment.transaction_status || clusterCharacteristics.transaction_status || '';
+            const segmentFirstOrderCompleted = segment.first_order_completed || clusterCharacteristics.first_order_completed || '';
+            const segmentPostFirstOrder = segment.post_first_order || clusterCharacteristics.post_first_order || '';
+            const segmentUrgency = segment.urgency || clusterCharacteristics.urgency || '';
+            
             tooltip.innerHTML = `
                 <div class="tooltip-header">
                     <span class="tooltip-title">${segmentLabel} ${segment.segment_index || index + 1}</span>
@@ -3533,48 +3542,48 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
                     <span class="cluster-label">${clusterLabel} ${segment.cluster_id}</span>
                     ${clusterName ? `<span class="cluster-name">${getClusterDisplayName(clusterName)}</span>` : ''}
                 </div>
-                ${Object.keys(clusterCharacteristics).length > 0 ? `
+                ${(segmentMainActivity || segmentBehavior || segmentKycStatus || segmentTransactionStatus || segmentFirstOrderCompleted || segmentPostFirstOrder || segmentUrgency) ? `
                 <div class="tooltip-characteristics" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(143, 160, 184, 0.2);">
-                    ${clusterCharacteristics.main_activity ? `
+                    ${segmentMainActivity ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                             <span style="font-size: 0.85rem; color: var(--text-secondary);">主要活动:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: #f093fb; padding: 0.25rem 0.5rem; background: rgba(240, 147, 251, 0.1); border-radius: 4px;">${clusterCharacteristics.main_activity}</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: #f093fb; padding: 0.25rem 0.5rem; background: rgba(240, 147, 251, 0.1); border-radius: 4px;">${segmentMainActivity}</span>
                         </div>
                     ` : ''}
-                    ${clusterCharacteristics.behavior ? `
+                    ${segmentBehavior ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                             <span style="font-size: 0.85rem; color: var(--text-secondary);">行为模式:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: #667eea; padding: 0.25rem 0.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 4px;">${clusterCharacteristics.behavior}</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: #667eea; padding: 0.25rem 0.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 4px;">${segmentBehavior}</span>
                         </div>
                     ` : ''}
-                    ${clusterCharacteristics.kyc_status ? `
+                    ${segmentKycStatus ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                             <span style="font-size: 0.85rem; color: var(--text-secondary);">KYC状态:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${clusterCharacteristics.kyc_status === '已开始' ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${clusterCharacteristics.kyc_status === '已开始' ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${clusterCharacteristics.kyc_status === '已开始' ? '已验证' : clusterCharacteristics.kyc_status === '未开始' ? '未验证' : clusterCharacteristics.kyc_status}</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentKycStatus === '已开始' ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${segmentKycStatus === '已开始' ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${segmentKycStatus === '已开始' ? '已验证' : segmentKycStatus === '未开始' ? '未验证' : segmentKycStatus}</span>
                         </div>
                     ` : ''}
-                    ${clusterCharacteristics.transaction_status ? `
+                    ${segmentTransactionStatus ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                             <span style="font-size: 0.85rem; color: var(--text-secondary);">交易状态:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${clusterCharacteristics.transaction_status === '已完成' ? '#43e97b' : clusterCharacteristics.transaction_status === '进行中' ? '#4facfe' : '#FBBF24'}; padding: 0.25rem 0.5rem; background: ${clusterCharacteristics.transaction_status === '已完成' ? 'rgba(67, 233, 123, 0.1)' : clusterCharacteristics.transaction_status === '进行中' ? 'rgba(79, 172, 254, 0.1)' : 'rgba(251, 191, 36, 0.1)'}; border-radius: 4px;">${clusterCharacteristics.transaction_status}</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentTransactionStatus === '已完成' ? '#43e97b' : segmentTransactionStatus === '进行中' ? '#4facfe' : '#FBBF24'}; padding: 0.25rem 0.5rem; background: ${segmentTransactionStatus === '已完成' ? 'rgba(67, 233, 123, 0.1)' : segmentTransactionStatus === '进行中' ? 'rgba(79, 172, 254, 0.1)' : 'rgba(251, 191, 36, 0.1)'}; border-radius: 4px;">${segmentTransactionStatus}</span>
                         </div>
                     ` : ''}
-                    ${clusterCharacteristics.first_order_completed ? `
+                    ${segmentFirstOrderCompleted ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                             <span style="font-size: 0.85rem; color: var(--text-secondary);">首单状态:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${clusterCharacteristics.first_order_completed === '是' ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${clusterCharacteristics.first_order_completed === '是' ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${clusterCharacteristics.first_order_completed === '是' ? '已完成首单' : '未完成首单'}</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentFirstOrderCompleted === '是' ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${segmentFirstOrderCompleted === '是' ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${segmentFirstOrderCompleted === '是' ? '已完成首单' : '未完成首单'}</span>
                         </div>
                     ` : ''}
-                    ${clusterCharacteristics.post_first_order ? `
+                    ${segmentPostFirstOrder ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                             <span style="font-size: 0.85rem; color: var(--text-secondary);">订单阶段:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${clusterCharacteristics.post_first_order === '是' ? '#4facfe' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${clusterCharacteristics.post_first_order === '是' ? 'rgba(79, 172, 254, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${clusterCharacteristics.post_first_order === '是' ? '首单后活跃' : '首单前/未完成'}</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentPostFirstOrder === '是' ? '#4facfe' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${segmentPostFirstOrder === '是' ? 'rgba(79, 172, 254, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${segmentPostFirstOrder === '是' ? '首单后活跃' : '首单前/未完成'}</span>
                         </div>
                     ` : ''}
-                    ${clusterCharacteristics.urgency ? `
+                    ${segmentUrgency ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem;">
                             <span style="font-size: 0.85rem; color: var(--text-secondary);">紧迫度:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: #43e97b; padding: 0.25rem 0.5rem; background: rgba(67, 233, 123, 0.1); border-radius: 4px;">${clusterCharacteristics.urgency}</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: #43e97b; padding: 0.25rem 0.5rem; background: rgba(67, 233, 123, 0.1); border-radius: 4px;">${segmentUrgency}</span>
                         </div>
                     ` : ''}
                 </div>
