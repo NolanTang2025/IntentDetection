@@ -393,6 +393,61 @@ def prepare_user_trajectories(segments, cluster_labels):
         # 获取聚类的详细特征信息（从label_info中提取）
         cluster_characteristics = label_info.get('characteristics', {})
         
+        # 基于片段本身的特征生成行为标签，而不是使用聚类标签
+        # 这样可以避免将未完成首单的用户标记为"首单后活跃"
+        segment_first_order_completed = segment.get('first_order_completed', 0)
+        segment_post_first_order = segment.get('post_first_order', 0)
+        segment_kyc_started = segment.get('kyc_started', 0)
+        segment_has_transaction = segment.get('has_transaction', 0)
+        segment_transaction_completed = segment.get('transaction_completed', 0)
+        segment_business_scenario = segment.get('business_scenario', 0)
+        
+        # 基于片段特征生成behavior标签
+        if segment_first_order_completed == 1:
+            if segment_post_first_order == 1:
+                if segment_business_scenario == 6:
+                    behavior_label = "复购活跃"
+                elif segment_business_scenario == 5:
+                    behavior_label = "复购·优惠券导向"
+                elif segment_business_scenario == 4:
+                    behavior_label = "复购·充值导向"
+                elif segment_business_scenario == 3:
+                    behavior_label = "复购·支付导向"
+                else:
+                    behavior_label = "首单后活跃"
+            else:
+                behavior_label = "首单完成中"
+        elif segment_business_scenario < 7:
+            scenario_labels = {
+                0: "激活阶段",
+                1: "KYC进行中",
+                2: "交易进行中",
+                3: "支付导向",
+                4: "充值导向",
+                5: "优惠券导向",
+                6: "复购导向"
+            }
+            behavior_label = scenario_labels.get(int(segment_business_scenario), "探索阶段")
+        elif segment_has_transaction == 1:
+            behavior_label = "交易进行中"
+        elif segment_kyc_started == 1:
+            behavior_label = "KYC进行中"
+        else:
+            behavior_label = "激活阶段"
+        
+        # 基于片段特征生成first_order_completed和post_first_order标签
+        first_order_completed_label = "是" if segment_first_order_completed == 1 else "否"
+        post_first_order_label = "是" if segment_post_first_order == 1 else "否"
+        
+        # 基于片段特征生成kyc_status和transaction_status标签
+        kyc_status_label = "已开始" if segment_kyc_started == 1 else "未开始"
+        if segment_transaction_completed == 1:
+            transaction_status_label = "已完成"
+        elif segment_has_transaction == 1:
+            transaction_status_label = "进行中"
+        else:
+            transaction_status_label = "未开始"
+        
         user_segments[user_id].append({
             'segment_id': segment.get('segment_id', ''),
             'segment_index': segment.get('segment_index', 0),
@@ -408,13 +463,13 @@ def prepare_user_trajectories(segments, cluster_labels):
             'intent_score': segment.get('intent_score', 0.5),
             'price_sensitivity': segment.get('price_sensitivity', 2),
             'engagement_level': segment.get('engagement_level', 0),
-            # 添加聚类特征信息（用于前端显示）
+            # 使用片段本身的特征，而不是聚类特征
             'main_activity': cluster_characteristics.get('main_activity', ''),
-            'behavior': cluster_characteristics.get('behavior', ''),
-            'kyc_status': cluster_characteristics.get('kyc_status', ''),
-            'transaction_status': cluster_characteristics.get('transaction_status', ''),
-            'first_order_completed': cluster_characteristics.get('first_order_completed', ''),
-            'post_first_order': cluster_characteristics.get('post_first_order', ''),
+            'behavior': behavior_label,  # 基于片段特征生成
+            'kyc_status': kyc_status_label,  # 基于片段特征生成
+            'transaction_status': transaction_status_label,  # 基于片段特征生成
+            'first_order_completed': first_order_completed_label,  # 基于片段特征生成
+            'post_first_order': post_first_order_label,  # 基于片段特征生成
             'urgency': cluster_characteristics.get('urgency', '')
         })
     
