@@ -3351,37 +3351,89 @@ function renderFinancialUserTrajectories(users) {
                 <div class="user-clusters-summary">
                     <strong>聚类分布:</strong>
                     ${user.cluster_ids.map(cid => {
-                        // 优先使用full_label，如果没有则使用cluster_name或user_segment_name
-                        let name = clusterNames[cid] || `聚类${cid}`;
+                        // 找到该用户属于这个聚类的所有片段
+                        const segmentsInCluster = segments.filter(s => String(s.cluster_id) === String(cid));
+                        
+                        // 基于片段本身的特征生成聚类名称和特征
+                        // 优先使用片段本身的特征，而不是聚类标签
+                        let segmentBehavior = '';
+                        let segmentMainActivity = '';
+                        let segmentKycStatus = '';
+                        let segmentTransactionStatus = '';
+                        let segmentFirstOrderCompleted = '';
+                        let segmentPostFirstOrder = '';
+                        let segmentUrgency = '';
+                        
+                        // 从片段中获取特征（使用第一个片段的特征，或最常见的特征）
+                        if (segmentsInCluster.length > 0) {
+                            const firstSegment = segmentsInCluster[0];
+                            segmentBehavior = firstSegment.behavior || '';
+                            segmentMainActivity = firstSegment.main_activity || '';
+                            segmentKycStatus = firstSegment.kyc_status || '';
+                            segmentTransactionStatus = firstSegment.transaction_status || '';
+                            segmentFirstOrderCompleted = firstSegment.first_order_completed || '';
+                            segmentPostFirstOrder = firstSegment.post_first_order || '';
+                            segmentUrgency = firstSegment.urgency || '';
+                        }
+                        
+                        // 如果没有片段特征，回退到聚类特征
                         let characteristics = {};
                         if (window.financialBusinessInsights) {
                             const insight = window.financialBusinessInsights.find(i => String(i.cluster_id) === String(cid));
                             if (insight) {
-                                name = insight.full_label || insight.user_segment_name || insight.cluster_name || name;
                                 characteristics = insight.key_characteristics || {};
                             }
                         }
+                        
+                        // 使用片段特征，如果没有则使用聚类特征
+                        const displayBehavior = segmentBehavior || characteristics.behavior || '';
+                        const displayMainActivity = segmentMainActivity || characteristics.main_activity || '';
+                        const displayKycStatus = segmentKycStatus || characteristics.kyc_status || '';
+                        const displayTransactionStatus = segmentTransactionStatus || characteristics.transaction_status || '';
+                        const displayFirstOrderCompleted = segmentFirstOrderCompleted || characteristics.first_order_completed || '';
+                        const displayPostFirstOrder = segmentPostFirstOrder || characteristics.post_first_order || '';
+                        const displayUrgency = segmentUrgency || characteristics.urgency || '';
+                        
+                        // 基于片段特征生成聚类名称
+                        let name = '';
+                        if (displayBehavior) {
+                            name = displayBehavior;
+                            if (displayUrgency) {
+                                name += `·${displayUrgency}`;
+                            }
+                            if (displayMainActivity) {
+                                name += `·${displayMainActivity}`;
+                            }
+                        } else {
+                            // 如果没有行为特征，使用聚类标签
+                            name = clusterNames[cid] || `聚类${cid}`;
+                        }
+                        
                         // 构建详细的tooltip信息
                         const tooltipParts = [getClusterDisplayName(name)];
-                        if (characteristics.main_activity) {
-                            tooltipParts.push(`主要活动: ${characteristics.main_activity}`);
+                        if (displayMainActivity) {
+                            tooltipParts.push(`主要活动: ${displayMainActivity}`);
                         }
-                        if (characteristics.behavior) {
-                            tooltipParts.push(`行为模式: ${characteristics.behavior}`);
+                        if (displayBehavior) {
+                            tooltipParts.push(`行为模式: ${displayBehavior}`);
                         }
-                        if (characteristics.kyc_status) {
-                            tooltipParts.push(`KYC状态: ${characteristics.kyc_status}`);
+                        if (displayKycStatus) {
+                            tooltipParts.push(`KYC状态: ${displayKycStatus}`);
                         }
-                        if (characteristics.transaction_status) {
-                            tooltipParts.push(`交易状态: ${characteristics.transaction_status}`);
+                        if (displayTransactionStatus) {
+                            tooltipParts.push(`交易状态: ${displayTransactionStatus}`);
                         }
-                        if (characteristics.first_order_completed) {
-                            tooltipParts.push(`首单状态: ${characteristics.first_order_completed === '是' ? '已完成' : '未完成'}`);
+                        if (displayFirstOrderCompleted) {
+                            tooltipParts.push(`首单状态: ${displayFirstOrderCompleted === '是' ? '已完成' : '未完成'}`);
+                        }
+                        if (displayPostFirstOrder) {
+                            tooltipParts.push(`订单阶段: ${displayPostFirstOrder === '是' ? '首单后活跃' : '首单前/未完成'}`);
                         }
                         const tooltipText = tooltipParts.join('\\n');
                         return `<span class="cluster-tag" data-cluster-id="${cid}" title="${tooltipText}" style="position: relative;">
                             <span class="cluster-id">聚类 ${cid}</span>
-                            ${characteristics.main_activity ? `<span class="cluster-badge" style="margin-left: 0.5rem; font-size: 0.75rem; opacity: 0.8;">${characteristics.main_activity}</span>` : ''}
+                            ${displayMainActivity ? `<span class="cluster-badge" style="margin-left: 0.5rem; font-size: 0.75rem; opacity: 0.8;">${displayMainActivity}</span>` : ''}
+                            ${displayBehavior ? `<span class="cluster-badge" style="margin-left: 0.5rem; font-size: 0.75rem; opacity: 0.8; color: #667eea;">${displayBehavior}</span>` : ''}
                         </span>`;
                     }).join('')}
                 </div>
