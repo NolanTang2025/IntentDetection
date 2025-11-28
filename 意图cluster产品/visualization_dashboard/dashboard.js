@@ -3520,6 +3520,7 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
             tooltip.style.transform = 'translateX(-50%)';
             tooltip.style.opacity = '0';
             tooltip.style.pointerEvents = 'none';
+            tooltip.style.zIndex = '1001';
             
             const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(2);
             const segmentLabel = currentLanguage === 'zh' ? '片段' : 'Segment';
@@ -3772,6 +3773,7 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
                 tooltip.style.left = `${node.x}px`;
                 tooltip.style.top = '20px';
                 tooltip.style.display = 'block'; // 确保元素可见
+                tooltip.style.zIndex = '1001'; // 确保在最上层
                 
                 // 调整位置，确保不超出容器
                 requestAnimationFrame(() => {
@@ -5480,6 +5482,7 @@ function renderUserTrajectoryTimeline(canvasId, user) {
             tooltip.style.transform = 'translateX(-50%)';
             tooltip.style.opacity = '0';
             tooltip.style.pointerEvents = 'none';
+            tooltip.style.zIndex = '1001';
             
             const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(2);
             const segmentLabel = currentLanguage === 'zh' ? '片段' : 'Segment';
@@ -5575,6 +5578,7 @@ function renderUserTrajectoryTimeline(canvasId, user) {
                     tooltip.style.left = `${node.x}px`;
                     tooltip.style.top = '20px';
                     tooltip.style.display = 'block'; // 确保元素可见
+                    tooltip.style.zIndex = '1001'; // 确保在最上层
                     
                     // 调整位置，确保不超出容器
                     requestAnimationFrame(() => {
