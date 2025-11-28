@@ -1,0 +1,31 @@
+{
+  "rewrites": [
+    {
+      "source": "/dashboard",
+      "destination": "/意图cluster产品/visualization_dashboard/index.html"
+    },
+    {
+      "source": "/dashboard/(.*)",
+      "destination": "/意图cluster产品/visualization_dashboard/$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/d",
+      "destination": "/dashboard",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/dashboard/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ]
+}
+
