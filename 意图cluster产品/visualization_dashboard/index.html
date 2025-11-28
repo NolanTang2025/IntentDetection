@@ -809,22 +809,22 @@
             }
         }
         
-    // 页面加载完成后初始化
-    window.addEventListener('load', function() {
-        // 延迟初始化，确保数据已加载
-        setTimeout(function() {
-            initShopSelector();
-            
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            // 延迟初始化，确保数据已加载
+            setTimeout(function() {
+                initShopSelector();
+                
             // 如果有多店铺数据且没有选择店铺，自动选择第一个店铺（排除YUP）
-            if (typeof shopSummary !== 'undefined' && typeof shopData !== 'undefined' && shopSummary.shops.length > 0) {
+                if (typeof shopSummary !== 'undefined' && typeof shopData !== 'undefined' && shopSummary.shops.length > 0) {
                 const shopsWithoutYUP = shopSummary.shops.filter(s => s !== 'YUP');
                 if (shopsWithoutYUP.length > 0 && !currentShopId) {
                     const firstShop = shopsWithoutYUP[0];
-                    switchShop(firstShop);
+                        switchShop(firstShop);
+                    }
                 }
-            }
-        }, 1000);
-    });
+            }, 1000);
+        });
     </script>
 </body>
 </html>

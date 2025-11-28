@@ -54,16 +54,16 @@ def extract_features(segments):
         ]
     else:
         # 电商场景特征
-        feature_cols = [
-            'intent_score',
-            'purchase_stage',
-            'product_preference',
-            'concern_focus',
-            'core_need',
-            'price_sensitivity',
-            'record_count_log',
-            'duration_minutes_log'
-        ]
+    feature_cols = [
+        'intent_score',
+        'purchase_stage',
+        'product_preference',
+        'concern_focus',
+        'core_need',
+        'price_sensitivity',
+        'record_count_log',
+        'duration_minutes_log'
+    ]
     
     features = []
     cluster_labels = []

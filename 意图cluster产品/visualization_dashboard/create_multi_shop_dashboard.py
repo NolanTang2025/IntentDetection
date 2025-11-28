@@ -96,7 +96,7 @@ def generate_multi_shop_js(all_shops_data, summary):
             if isinstance(shop_id, str):
                 f.write(f'shopData["{shop_id}"] = ')
             else:
-                f.write(f'shopData[{shop_id}] = ')
+            f.write(f'shopData[{shop_id}] = ')
             
             # 准备店铺数据（类似单店铺的data.js格式）
             from update_data import convert_to_dashboard_format
