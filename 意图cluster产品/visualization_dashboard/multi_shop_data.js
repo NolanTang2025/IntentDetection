@@ -62,16 +62,16 @@ shopData[28] = {
   "businessInsights": [
     {
       "cluster_id": "0",
-      "cluster_name": "已完成交易·中紧迫",
-      "user_segment_name": "已完成交易·中紧迫",
-      "full_label": "已完成交易·中紧迫·优惠券导向",
+      "cluster_name": "Transaction Completed · Medium Urgency",
+      "user_segment_name": "Transaction Completed · Medium Urgency",
+      "full_label": "Transaction Completed · Medium Urgency · Coupon Oriented",
       "key_characteristics": {
         "user_count": 2,
         "segment_count": 4,
         "avg_duration_minutes": 3.3875,
         "avg_interactions": 19.75,
         "avg_intent_score": 0.5,
-        "behavior": "已完成交易",
+        "behavior": "Transaction Completed",
         "urgency": "中紧迫",
         "main_activity": "优惠券导向",
         "kyc_status": "未开始",
@@ -100,16 +100,16 @@ shopData[28] = {
     },
     {
       "cluster_id": "1",
-      "cluster_name": "探索阶段·中紧迫",
-      "user_segment_name": "探索阶段·中紧迫",
-      "full_label": "探索阶段·中紧迫·优惠券导向",
+      "cluster_name": "Exploration Stage · Medium Urgency",
+      "user_segment_name": "Exploration Stage · Medium Urgency",
+      "full_label": "Exploration Stage · Medium Urgency · Coupon Oriented",
       "key_characteristics": {
         "user_count": 1,
         "segment_count": 1,
         "avg_duration_minutes": 14.75,
         "avg_interactions": 142.0,
         "avg_intent_score": 0.5,
-        "behavior": "探索阶段",
+        "behavior": "Exploration Stage",
         "urgency": "中紧迫",
         "main_activity": "优惠券导向",
         "kyc_status": "未开始",
@@ -142,16 +142,16 @@ shopData[28] = {
     },
     {
       "cluster_id": "2",
-      "cluster_name": "已完成交易·中紧迫",
-      "user_segment_name": "已完成交易·中紧迫",
-      "full_label": "已完成交易·中紧迫·综合探索",
+      "cluster_name": "Transaction Completed · Medium Urgency",
+      "user_segment_name": "Transaction Completed · Medium Urgency",
+      "full_label": "Transaction Completed · Medium Urgency · Comprehensive Exploration",
       "key_characteristics": {
         "user_count": 1,
         "segment_count": 1,
         "avg_duration_minutes": 0.0,
         "avg_interactions": 1.0,
         "avg_intent_score": 0.5,
-        "behavior": "已完成交易",
+        "behavior": "Transaction Completed",
         "urgency": "中紧迫",
         "main_activity": "综合探索",
         "kyc_status": "已开始",
@@ -187,10 +187,10 @@ shopData[28] = {
       "avg_duration_seconds": 0,
       "avg_record_count": 1.0,
       "avg_intent_score": 0.5,
-      "cluster_name": "已完成交易·中紧迫",
-      "full_label": "已完成交易·中紧迫·综合探索",
+      "cluster_name": "Transaction Completed · Medium Urgency",
+      "full_label": "Transaction Completed · Medium Urgency · Comprehensive Exploration",
       "characteristics": {
-        "behavior": "已完成交易",
+        "behavior": "Transaction Completed",
         "urgency": "中紧迫",
         "main_activity": "综合探索",
         "kyc_status": "已开始",
@@ -226,10 +226,10 @@ shopData[28] = {
       "avg_duration_seconds": 203.25,
       "avg_record_count": 19.75,
       "avg_intent_score": 0.5,
-      "cluster_name": "已完成交易·中紧迫",
-      "full_label": "已完成交易·中紧迫·优惠券导向",
+      "cluster_name": "Transaction Completed · Medium Urgency",
+      "full_label": "Transaction Completed · Medium Urgency · Coupon Oriented",
       "characteristics": {
-        "behavior": "已完成交易",
+        "behavior": "Transaction Completed",
         "urgency": "中紧迫",
         "main_activity": "优惠券导向",
         "kyc_status": "未开始",
@@ -265,10 +265,10 @@ shopData[28] = {
       "avg_duration_seconds": 885.0,
       "avg_record_count": 142.0,
       "avg_intent_score": 0.5,
-      "cluster_name": "探索阶段·中紧迫",
-      "full_label": "探索阶段·中紧迫·优惠券导向",
+      "cluster_name": "Exploration Stage · Medium Urgency",
+      "full_label": "Exploration Stage · Medium Urgency · Coupon Oriented",
       "characteristics": {
-        "behavior": "探索阶段",
+        "behavior": "Exploration Stage",
         "urgency": "中紧迫",
         "main_activity": "优惠券导向",
         "kyc_status": "未开始",
@@ -309,8 +309,8 @@ shopData[28] = {
     {
       "date": "2025-10-10",
       "portraits": {
-        "已完成交易·中紧迫": 5,
-        "探索阶段·中紧迫": 1
+        "Transaction Completed · Medium Urgency": 5,
+        "Exploration Stage · Medium Urgency": 1
       },
       "stages": {
         "浏览阶段": 6
@@ -119714,118 +119714,113 @@ shopData["YUP"] = {
   "businessInsights": [
     {
       "cluster_id": "0",
-      "cluster_name": "首单后活跃·中紧迫",
-      "user_segment_name": "首单后活跃·中紧迫",
-      "full_label": "首单后活跃·中紧迫·任务/活动导向",
+      "cluster_name": "Medium Urgency",
+      "user_segment_name": "Medium Urgency",
+      "full_label": "Medium Urgency · Task/Activity Oriented",
       "key_characteristics": {
         "user_count": 2,
         "segment_count": 4,
         "avg_duration_minutes": 3.3875,
         "avg_interactions": 19.75,
         "avg_intent_score": 0.5,
-        "behavior": "首单后活跃",
-        "urgency": "中紧迫",
-        "main_activity": "任务/活动导向",
-        "kyc_status": "未开始",
-        "transaction_status": "进行中",
-        "first_order_completed": "是",
-        "post_first_order": "是"
+        "urgency": "Medium Urgency",
+        "main_activity": "Task/Activity Oriented",
+        "kyc_status": "Not Started",
+        "transaction_status": "In Progress",
+        "first_order_completed": "Yes"
       },
       "marketing_strategy": [
-        "【复购提升】基于首单推荐相关服务，在关键时间节点（3天、7天、15天、30天）推送个性化复购激励",
-        "建立复购奖励体系：复购优惠券、积分加倍、会员升级"
+        "[Repurchase Boost] Recommend related services based on first order, push personalized repurchase incentives at key time points (3 days, 7 days, 15 days, 30 days)",
+        "Build repurchase reward system: repurchase coupons, double points, membership upgrade"
       ],
       "product_recommendations": [
-        "推荐升级版服务、组合套餐、限时新品"
+        "Recommend upgraded services, combo packages, limited-time new products"
       ],
       "conversion_optimization": [
-        "首单完成后立即推送7天内复购优惠券，提供一键复购功能",
-        "建立复购积分系统，根据浏览行为识别复购意向并推送优惠"
+        "Push repurchase coupons within 7 days immediately after first order completion, provide one-click repurchase function",
+        "Build repurchase points system, identify repurchase intent based on browsing behavior and push offers"
       ],
       "pricing_strategy": [],
       "content_strategy": [
-        "展示首单使用效果和用户评价，推送相关服务介绍和复购优惠活动"
+        "Display first order usage effects and user reviews, push related service introductions and repurchase promotional activities"
       ],
       "campaign_differentiation": [
-        "复购优惠券、首单后3/7/30天限时折扣、基于首单的个性化推荐"
+        "Repurchase coupons, 3/7/30-day limited-time discounts after first order, personalized recommendations based on first order"
       ]
     },
     {
       "cluster_id": "1",
-      "cluster_name": "激活阶段·中紧迫",
-      "user_segment_name": "激活阶段·中紧迫",
-      "full_label": "激活阶段·中紧迫·激活导向",
+      "cluster_name": "Activation Stage · Medium Urgency",
+      "user_segment_name": "Activation Stage · Medium Urgency",
+      "full_label": "Activation Stage · Medium Urgency · Activation Oriented",
       "key_characteristics": {
         "user_count": 1,
         "segment_count": 1,
         "avg_duration_minutes": 14.75,
         "avg_interactions": 142.0,
         "avg_intent_score": 0.5,
-        "behavior": "激活阶段",
-        "urgency": "中紧迫",
-        "main_activity": "激活导向",
-        "kyc_status": "未开始",
-        "transaction_status": "未开始",
-        "first_order_completed": "否",
-        "post_first_order": "否"
+        "behavior": "Activation Stage",
+        "urgency": "Medium Urgency",
+        "main_activity": "Activation Oriented",
+        "kyc_status": "Not Started",
+        "transaction_status": "Not Started",
+        "first_order_completed": "No"
       },
       "marketing_strategy": [
-        "【促进首单】提供新用户专享优惠（首单折扣、免手续费、新用户礼包），简化注册和KYC流程",
-        "建立信任机制：展示平台安全性、用户评价、成功案例、资金保障"
+        "[Promote First Order] Provide new user exclusive offers (first order discount, no handling fee, new user gift package), simplify registration and KYC process",
+        "Build trust mechanism: display platform security, user reviews, success cases, fund protection"
       ],
       "product_recommendations": [
-        "推荐低门槛高价值首单服务、首单优惠套餐、热门服务、限时新品"
+        "Recommend low-threshold high-value first order services, first order discount packages, popular services, limited-time new products"
       ],
       "conversion_optimization": [
-        "在首页显著展示首单优惠，简化流程支持自动识别，提供新手引导和限时优惠倒计时"
+        "Prominently display first order offers on homepage, simplify process with auto-recognition support, provide new user guidance and limited-time offer countdown"
       ],
       "pricing_strategy": [],
       "content_strategy": [
-        "展示首单优惠和完成后的权益，提供操作指南，分享首单成功案例"
+        "Display first order offers and post-completion benefits, provide operation guides, share first order success cases"
       ],
       "campaign_differentiation": [
-        "新用户注册奖励、首单专享优惠、免手续费快速通道、新手任务引导"
+        "New user registration rewards, first order exclusive offers, no handling fee fast track, new user task guidance"
       ]
     },
     {
       "cluster_id": "2",
-      "cluster_name": "首单后活跃·中紧迫",
-      "user_segment_name": "首单后活跃·中紧迫",
-      "full_label": "首单后活跃·中紧迫·KYC导向",
+      "cluster_name": "Medium Urgency",
+      "user_segment_name": "Medium Urgency",
+      "full_label": "Medium Urgency · KYC Oriented",
       "key_characteristics": {
         "user_count": 1,
         "segment_count": 1,
         "avg_duration_minutes": 0.0,
         "avg_interactions": 1.0,
         "avg_intent_score": 0.5,
-        "behavior": "首单后活跃",
-        "urgency": "中紧迫",
-        "main_activity": "KYC导向",
-        "kyc_status": "已开始",
-        "transaction_status": "进行中",
-        "first_order_completed": "是",
-        "post_first_order": "是"
+        "urgency": "Medium Urgency",
+        "main_activity": "KYC Oriented",
+        "kyc_status": "Started",
+        "transaction_status": "In Progress",
+        "first_order_completed": "Yes"
       },
       "marketing_strategy": [
-        "【复购提升】基于首单推荐相关服务，在关键时间节点（3天、7天、15天、30天）推送个性化复购激励",
-        "建立复购奖励体系：复购优惠券、积分加倍、会员升级",
-        "【KYC进行中】主动识别卡点，提供针对性帮助和KYC专属客服通道"
+        "[Repurchase Boost] Recommend related services based on first order, push personalized repurchase incentives at key time points (3 days, 7 days, 15 days, 30 days)",
+        "Build repurchase reward system: repurchase coupons, double points, membership upgrade",
+        "[KYC In Progress] Proactively identify bottlenecks, provide targeted assistance and KYC exclusive customer service channel"
       ],
       "product_recommendations": [
-        "推荐升级版服务、组合套餐、限时新品"
+        "Recommend upgraded services, combo packages, limited-time new products"
       ],
       "conversion_optimization": [
-        "首单完成后立即推送7天内复购优惠券，提供一键复购功能",
-        "建立复购积分系统，根据浏览行为识别复购意向并推送优惠",
-        "优化KYC流程支持多种验证方式，发送进度提醒，设置完成奖励"
+        "Push repurchase coupons within 7 days immediately after first order completion, provide one-click repurchase function",
+        "Build repurchase points system, identify repurchase intent based on browsing behavior and push offers",
+        "Optimize KYC process supporting multiple verification methods, send progress reminders, set completion rewards"
       ],
       "pricing_strategy": [],
       "content_strategy": [
-        "展示首单使用效果和用户评价，推送相关服务介绍和复购优惠活动",
-        "提供KYC流程说明和常见问题库，设置专属客服快速响应"
+        "Display first order usage effects and user reviews, push related service introductions and repurchase promotional activities",
+        "Provide KYC process instructions and FAQ library, set up exclusive customer service for quick response"
       ],
       "campaign_differentiation": [
-        "复购优惠券、首单后3/7/30天限时折扣、基于首单的个性化推荐"
+        "Repurchase coupons, 3/7/30-day limited-time discounts after first order, personalized recommendations based on first order"
       ]
     }
   ],
@@ -119837,16 +119832,14 @@ shopData["YUP"] = {
       "avg_duration_seconds": 0,
       "avg_record_count": 1.0,
       "avg_intent_score": 0.5,
-      "cluster_name": "首单后活跃·中紧迫",
-      "full_label": "首单后活跃·中紧迫·KYC导向",
+      "cluster_name": "Medium Urgency",
+      "full_label": "Medium Urgency · KYC Oriented",
       "characteristics": {
-        "behavior": "首单后活跃",
-        "urgency": "中紧迫",
-        "main_activity": "KYC导向",
-        "kyc_status": "已开始",
-        "transaction_status": "进行中",
-        "first_order_completed": "是",
-        "post_first_order": "是"
+        "urgency": "Medium Urgency",
+        "main_activity": "KYC Oriented",
+        "kyc_status": "Started",
+        "transaction_status": "In Progress",
+        "first_order_completed": "Yes"
       },
       "intent_profile": {
         "core_interests": {},
@@ -119907,16 +119900,14 @@ shopData["YUP"] = {
       "avg_duration_seconds": 203.25,
       "avg_record_count": 19.75,
       "avg_intent_score": 0.5,
-      "cluster_name": "首单后活跃·中紧迫",
-      "full_label": "首单后活跃·中紧迫·任务/活动导向",
+      "cluster_name": "Medium Urgency",
+      "full_label": "Medium Urgency · Task/Activity Oriented",
       "characteristics": {
-        "behavior": "首单后活跃",
-        "urgency": "中紧迫",
-        "main_activity": "任务/活动导向",
-        "kyc_status": "未开始",
-        "transaction_status": "进行中",
-        "first_order_completed": "是",
-        "post_first_order": "是"
+        "urgency": "Medium Urgency",
+        "main_activity": "Task/Activity Oriented",
+        "kyc_status": "Not Started",
+        "transaction_status": "In Progress",
+        "first_order_completed": "Yes"
       },
       "intent_profile": {
         "core_interests": {},
@@ -119924,7 +119915,7 @@ shopData["YUP"] = {
           "高端价值型": 4
         },
         "purchase_stage": {
-          "浏览阶段": 4
+          "Browsing Stage": 4
         },
         "main_appeal": {
           "综合需求": 4
@@ -119977,16 +119968,15 @@ shopData["YUP"] = {
       "avg_duration_seconds": 885.0,
       "avg_record_count": 142.0,
       "avg_intent_score": 0.5,
-      "cluster_name": "激活阶段·中紧迫",
-      "full_label": "激活阶段·中紧迫·激活导向",
+      "cluster_name": "Activation Stage · Medium Urgency",
+      "full_label": "Activation Stage · Medium Urgency · Activation Oriented",
       "characteristics": {
-        "behavior": "激活阶段",
-        "urgency": "中紧迫",
-        "main_activity": "激活导向",
-        "kyc_status": "未开始",
-        "transaction_status": "未开始",
-        "first_order_completed": "否",
-        "post_first_order": "否"
+        "behavior": "Activation Stage",
+        "urgency": "Medium Urgency",
+        "main_activity": "Activation Oriented",
+        "kyc_status": "Not Started",
+        "transaction_status": "Not Started",
+        "first_order_completed": "No"
       },
       "intent_profile": {
         "core_interests": {},
@@ -120052,61 +120042,61 @@ shopData["YUP"] = {
     {
       "date": "2025-10-10",
       "portraits": {
-        "首单后活跃·中紧迫": 5,
-        "激活阶段·中紧迫": 1
+        "Medium Urgency": 5,
+        "Activation Stage · Medium Urgency": 1
       },
       "stages": {
-        "浏览阶段": 6
+        "Browsing Stage": 6
       },
       "portrait_stage": {
-        "首单后活跃·中紧迫": {
-          "浏览阶段": 5
+        "Medium Urgency": {
+          "Browsing Stage": 5
         },
-        "激活阶段·中紧迫": {
-          "浏览阶段": 1
+        "Activation Stage · Medium Urgency": {
+          "Browsing Stage": 1
         }
       },
       "hourly": {
         "2025-10-10 09:00": {
           "portraits": {
-            "首单后活跃·中紧迫": 2
+            "Medium Urgency": 2
           },
           "stages": {
-            "浏览阶段": 2
+            "Browsing Stage": 2
           },
           "portrait_stage": {
-            "首单后活跃·中紧迫": {
-              "浏览阶段": 2
+            "Medium Urgency": {
+              "Browsing Stage": 2
             }
           }
         },
         "2025-10-10 11:00": {
           "portraits": {
-            "首单后活跃·中紧迫": 2
+            "Medium Urgency": 2
           },
           "stages": {
-            "浏览阶段": 2
+            "Browsing Stage": 2
           },
           "portrait_stage": {
-            "首单后活跃·中紧迫": {
-              "浏览阶段": 2
+            "Medium Urgency": {
+              "Browsing Stage": 2
             }
           }
         },
         "2025-10-10 19:00": {
           "portraits": {
-            "激活阶段·中紧迫": 1,
-            "首单后活跃·中紧迫": 1
+            "Activation Stage · Medium Urgency": 1,
+            "Medium Urgency": 1
           },
           "stages": {
-            "浏览阶段": 2
+            "Browsing Stage": 2
           },
           "portrait_stage": {
-            "激活阶段·中紧迫": {
-              "浏览阶段": 1
+            "Activation Stage · Medium Urgency": {
+              "Browsing Stage": 1
             },
-            "首单后活跃·中紧迫": {
-              "浏览阶段": 1
+            "Medium Urgency": {
+              "Browsing Stage": 1
             }
           }
         }
@@ -120134,19 +120124,17 @@ shopData["YUP"] = {
           "duration_minutes": 0.0,
           "record_count": 1,
           "cluster_id": "2",
-          "cluster_name": "首单后活跃·中紧迫",
-          "full_label": "首单后活跃·中紧迫·KYC导向",
-          "purchase_stage": "浏览阶段",
+          "cluster_name": "Medium Urgency",
+          "full_label": "Medium Urgency · KYC Oriented",
+          "purchase_stage": "Browsing Stage",
           "intent_score": 0.5,
           "price_sensitivity": 2,
           "engagement_level": 0,
-          "main_activity": "KYC导向",
-          "behavior": "首单后活跃",
-          "kyc_status": "已开始",
-          "transaction_status": "进行中",
-          "first_order_completed": "是",
-          "post_first_order": "是",
-          "urgency": "中紧迫"
+          "main_activity": "KYC Oriented",
+          "kyc_status": "Started",
+          "transaction_status": "In Progress",
+          "first_order_completed": "Yes",
+          "urgency": "Medium Urgency"
         },
         {
           "segment_id": "011c40cc5105419293c6a52635546b4a_seg_1",
@@ -120157,19 +120145,17 @@ shopData["YUP"] = {
           "duration_minutes": 1.1833333333333333,
           "record_count": 20,
           "cluster_id": "0",
-          "cluster_name": "首单后活跃·中紧迫",
-          "full_label": "首单后活跃·中紧迫·任务/活动导向",
-          "purchase_stage": "浏览阶段",
+          "cluster_name": "Medium Urgency",
+          "full_label": "Medium Urgency · Task/Activity Oriented",
+          "purchase_stage": "Browsing Stage",
           "intent_score": 0.5,
           "price_sensitivity": 2,
           "engagement_level": 0,
-          "main_activity": "任务/活动导向",
-          "behavior": "首单后活跃",
-          "kyc_status": "未开始",
-          "transaction_status": "进行中",
-          "first_order_completed": "是",
-          "post_first_order": "是",
-          "urgency": "中紧迫"
+          "main_activity": "Task/Activity Oriented",
+          "kyc_status": "Not Started",
+          "transaction_status": "In Progress",
+          "first_order_completed": "Yes",
+          "urgency": "Medium Urgency"
         },
         {
           "segment_id": "011c40cc5105419293c6a52635546b4a_seg_2",
@@ -120180,19 +120166,18 @@ shopData["YUP"] = {
           "duration_minutes": 8.55,
           "record_count": 21,
           "cluster_id": "0",
-          "cluster_name": "首单后活跃·中紧迫",
-          "full_label": "首单后活跃·中紧迫·任务/活动导向",
-          "purchase_stage": "浏览阶段",
+          "cluster_name": "Medium Urgency",
+          "full_label": "Medium Urgency · Task/Activity Oriented",
+          "purchase_stage": "Browsing Stage",
           "intent_score": 0.5,
           "price_sensitivity": 2,
           "engagement_level": 0,
-          "main_activity": "任务/活动导向",
-          "behavior": "复购·优惠券导向",
-          "kyc_status": "未开始",
-          "transaction_status": "进行中",
-          "first_order_completed": "是",
-          "post_first_order": "是",
-          "urgency": "中紧迫"
+          "main_activity": "Task/Activity Oriented",
+          "behavior": "Repurchase · Coupon Oriented",
+          "kyc_status": "Not Started",
+          "transaction_status": "In Progress",
+          "first_order_completed": "Yes",
+          "urgency": "Medium Urgency"
         },
         {
           "segment_id": "011c40cc5105419293c6a52635546b4a_seg_3",
@@ -120203,19 +120188,18 @@ shopData["YUP"] = {
           "duration_minutes": 2.1666666666666665,
           "record_count": 25,
           "cluster_id": "0",
-          "cluster_name": "首单后活跃·中紧迫",
-          "full_label": "首单后活跃·中紧迫·任务/活动导向",
-          "purchase_stage": "浏览阶段",
+          "cluster_name": "Medium Urgency",
+          "full_label": "Medium Urgency · Task/Activity Oriented",
+          "purchase_stage": "Browsing Stage",
           "intent_score": 0.5,
           "price_sensitivity": 2,
           "engagement_level": 0,
-          "main_activity": "任务/活动导向",
-          "behavior": "复购·支付导向",
-          "kyc_status": "未开始",
-          "transaction_status": "进行中",
-          "first_order_completed": "是",
-          "post_first_order": "是",
-          "urgency": "中紧迫"
+          "main_activity": "Task/Activity Oriented",
+          "behavior": "Repurchase · Payment Oriented",
+          "kyc_status": "Not Started",
+          "transaction_status": "In Progress",
+          "first_order_completed": "Yes",
+          "urgency": "Medium Urgency"
         }
       ]
     },
@@ -120239,19 +120223,18 @@ shopData["YUP"] = {
           "duration_minutes": 14.75,
           "record_count": 142,
           "cluster_id": "1",
-          "cluster_name": "激活阶段·中紧迫",
-          "full_label": "激活阶段·中紧迫·激活导向",
-          "purchase_stage": "浏览阶段",
+          "cluster_name": "Activation Stage · Medium Urgency",
+          "full_label": "Activation Stage · Medium Urgency · Activation Oriented",
+          "purchase_stage": "Browsing Stage",
           "intent_score": 0.5,
           "price_sensitivity": 2,
           "engagement_level": 0,
-          "main_activity": "激活导向",
-          "behavior": "激活阶段",
-          "kyc_status": "未开始",
-          "transaction_status": "未开始",
-          "first_order_completed": "否",
-          "post_first_order": "否",
-          "urgency": "中紧迫"
+          "main_activity": "Activation Oriented",
+          "behavior": "Activation Stage",
+          "kyc_status": "Not Started",
+          "transaction_status": "Not Started",
+          "first_order_completed": "No",
+          "urgency": "Medium Urgency"
         },
         {
           "segment_id": "01ef6ac2baf84efe9a762f78aeecbd44_seg_1",
@@ -120262,19 +120245,18 @@ shopData["YUP"] = {
           "duration_minutes": 1.65,
           "record_count": 13,
           "cluster_id": "0",
-          "cluster_name": "首单后活跃·中紧迫",
-          "full_label": "首单后活跃·中紧迫·任务/活动导向",
-          "purchase_stage": "浏览阶段",
+          "cluster_name": "Medium Urgency",
+          "full_label": "Medium Urgency · Task/Activity Oriented",
+          "purchase_stage": "Browsing Stage",
           "intent_score": 0.5,
           "price_sensitivity": 2,
           "engagement_level": 0,
-          "main_activity": "任务/活动导向",
-          "behavior": "支付导向",
-          "kyc_status": "未开始",
-          "transaction_status": "未开始",
-          "first_order_completed": "否",
-          "post_first_order": "否",
-          "urgency": "中紧迫"
+          "main_activity": "Task/Activity Oriented",
+          "behavior": "Payment Oriented",
+          "kyc_status": "Not Started",
+          "transaction_status": "Not Started",
+          "first_order_completed": "No",
+          "urgency": "Medium Urgency"
         }
       ]
     }

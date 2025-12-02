@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>意图识别框架 | Intent Recognition Framework</title>
+<title>Intent Recognition Framework</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
   
@@ -165,7 +165,7 @@
     border-color: rgba(0, 255, 136, 0.3);
   }
 
-  /* 交互模块：折叠卡片 */
+  /* Interactive Module: Accordion Cards */
   .accordion {
     margin-top: 40px;
   }
@@ -273,7 +273,7 @@
     font-weight: 400;
   }
 
-  /* hero 区块 */
+  /* Hero Section */
   .hero {
     margin-top: 40px;
     display: flex;
@@ -348,7 +348,7 @@
     }
   }
 
-  /* 信息分区 */
+  /* Information Sections */
   .grid3 {
     margin-top: 40px;
     display: grid;
@@ -447,7 +447,7 @@
     box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
   }
 
-  /* 动画箭头 */
+  /* Animated Arrow */
   .arrow {
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s;
     color: var(--text-secondary);
@@ -469,7 +469,7 @@
     transform: rotate(90deg) translateX(4px);
   }
 
-  /* 可视化意图生成流程 */
+  /* Visualize Intent Generation Flow */
   .flow {
     margin-top: 48px;
     background: var(--glass);
@@ -509,7 +509,7 @@
     background-clip: text;
   }
   
-  /* 跳转体验按钮 */
+  /* Experience Button */
   .flow-cta {
     margin-top: 40px;
     text-align: center;
@@ -607,7 +607,7 @@
     transform: translateX(4px);
   }
   
-  /* 页面过渡动画 */
+  /* Page Transition Animation */
   .page-transition {
     position: fixed;
     top: 0;
@@ -827,7 +827,7 @@
     box-shadow: 0 8px 24px rgba(0, 255, 136, 0.1);
   }
   
-  /* 打字动画光标 */
+  /* Typing Animation Cursor */
   pre.typing::after {
     content: '|';
     animation: blink 1s infinite;
@@ -843,7 +843,7 @@
     }
   }
   
-  /* 滚动条美化 */
+  /* Scrollbar Styling */
   pre::-webkit-scrollbar {
     width: 8px;
   }
@@ -868,138 +868,138 @@
 <nav class="navbar">
   <div class="navbar-brand">INTENT RECOGNITION</div>
   <div class="navbar-links">
-    <a href="index.html" class="home-link">首页</a>
-    <a href="intent_interactive_demo.html">实时意图体验</a>
+    <a href="index.html" class="home-link">Home</a>
+    <a href="intent_interactive_demo.html">Real-time Intent Experience</a>
   </div>
 </nav>
 <div class="wrap">
 
   <header>
-    <h1>用户意图识别框架</h1>
-    <div class="sub">基于AI技术的四层意图识别架构 · 实时分析用户行为，生成精准购物意图画像</div>
+    <h1>User Intent Recognition Framework</h1>
+    <div class="sub">Four-layer intent recognition architecture powered by AI · Real-time user behavior analysis to generate precise shopping intent profiles</div>
   </header>
 
-  <!-- hero 大摘要 -->
+  <!-- Hero Summary -->
   <div class="hero">
     <div>
-      <h2 style="margin:0 0 16px; font-size: 28px; font-weight: 700; letter-spacing: -0.8px;">用户正在寻找"舒适 · 休闲 · 有型"的服装</h2>
-      <div class="sub" style="font-size: 15px;">反复停留首页＋舒适相关兴趣 → 推测仍在探索阶段，尚未产生强购买信号。</div>
+      <h2 style="margin:0 0 16px; font-size: 28px; font-weight: 700; letter-spacing: -0.8px;">User is looking for "Comfortable · Casual · Stylish" clothing</h2>
+      <div class="sub" style="font-size: 15px;">Repeated homepage visits + comfort-related interests → Still in exploration stage, no strong purchase signals yet.</div>
     </div>
     <div class="hero-visual"></div>
   </div>
 
-  <!-- 三大视觉模块 -->
+  <!-- Three Visual Modules -->
   <div class="grid3">
     <div class="card3">
-      <div class="card-title">核心兴趣标签</div>
+      <div class="card-title">Core Interest Tags</div>
       <span class="pill">Hoodie</span><span class="pill">Cozy</span><span class="pill">Loungewear</span><span class="pill">Athleisure</span>
     </div>
 
     <div class="card3">
-      <div class="card-title">产品侧重点（分析维度）</div>
+      <div class="card-title">Product Focus (Analysis Dimensions)</div>
       <span class="pill">Oversized</span><span class="pill">Soft Inside</span><span class="pill">Recycled Cotton</span><span class="pill">Burgundy</span>
     </div>
 
     <div class="card3">
-      <div class="card-title">当前兴趣阶段</div>
+      <div class="card-title">Current Interest Stage</div>
       <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
         <div style="width:12px;height:12px;border-radius:50%;background:var(--accent)"></div>
-        <span style="font-weight: 600;">Browsing（浏览阶段）</span>
+        <span style="font-weight: 600;">Browsing Stage</span>
       </div>
-      <div class="sub" style="margin-top:8px">尚未浏览产品页 · 无疑虑点</div>
+      <div class="sub" style="margin-top:8px">No product page views yet · No concerns identified</div>
     </div>
   </div>
 
-  <!-- 交互式：意图结构解释 -->
+  <!-- Interactive: Intent Structure Explanation -->
   <div class="accordion">
 
     <div class="acc-item">
-      <div class="acc-header">1. 我们的意图框架是怎样构成的？ <span class="arrow">▶</span></div>
+      <div class="acc-header">1. How is our intent framework structured? <span class="arrow">▶</span></div>
       <div class="acc-content"><div class="acc-content-inner">
-        我们的意图结构分为四层：<br><br>
-        <strong style="color: var(--primary);">① 核心兴趣（Core Interests）</strong>：描述用户脑海里的"关键词云"，是他们正在逛店时的心理画像。<br>
-        <strong style="color: var(--primary);">② 产品侧重点（Product Focus）</strong>：从商品角度定义"这个产品吸引人的核心点是什么"。<br>
-        <strong style="color: var(--primary);">③ 购买信号（Purchase Signals）</strong>：反映用户目前在"购买漏斗"的哪一层。<br>
-        <strong style="color: var(--primary);">④ 行为摘要（Behavior Summary）</strong>：把所有行为转成一句话"用户是怎么逛的"。<br>
+        Our intent structure consists of four layers:<br><br>
+        <strong style="color: var(--primary);">① Core Interests</strong>: Describes the "keyword cloud" in the user's mind, their psychological profile while browsing the store.<br>
+        <strong style="color: var(--primary);">② Product Focus</strong>: Defines from a product perspective "what is the core appeal of this product".<br>
+        <strong style="color: var(--primary);">③ Purchase Signals</strong>: Reflects which layer of the "purchase funnel" the user is currently in.<br>
+        <strong style="color: var(--primary);">④ Behavior Summary</strong>: Converts all behaviors into one sentence "how the user is browsing".<br>
         <br>
-        这四层共同构成"我们对用户心智与行为的理解"。
+        These four layers together constitute "our understanding of user psychology and behavior".
       </div></div>
     </div>
 
     <div class="acc-item">
-      <div class="acc-header">2. 为什么我们能从"行为"看出用户的"意图"？ <span class="arrow">▶</span></div>
+      <div class="acc-header">2. Why can we infer user "intent" from "behavior"? <span class="arrow">▶</span></div>
       <div class="acc-content"><div class="acc-content-inner">
-        用户的所有行为都能被归类为三种信号：<br><br>
-        <strong style="color: var(--primary);">① 探索信号</strong>（如：停留首页、浏览分类页） → 用户还在看"整体风格"。<br>
-        <strong style="color: var(--primary);">② 比较信号</strong>（如：反复查看某商品、关注尺寸/价格）→ 用户在筛选选项。<br>
-        <strong style="color: var(--primary);">③ 决策信号</strong>（如：加入购物车、查看库存）→ 用户准备购买或犹豫。<br><br>
-        本例中用户主要表现为探索信号，因此我们判断其处于弱意图、早期阶段。
+        All user behaviors can be categorized into three types of signals:<br><br>
+        <strong style="color: var(--primary);">① Exploration Signals</strong> (e.g., staying on homepage, browsing category pages) → User is still looking at "overall style".<br>
+        <strong style="color: var(--primary);">② Comparison Signals</strong> (e.g., repeatedly viewing a product, focusing on size/price) → User is filtering options.<br>
+        <strong style="color: var(--primary);">③ Decision Signals</strong> (e.g., adding to cart, checking inventory) → User is ready to purchase or hesitating.<br><br>
+        In this example, the user mainly shows exploration signals, so we judge them to be in a weak intent, early stage.
       </div></div>
     </div>
 
     <div class="acc-item">
-      <div class="acc-header">3. 意图是如何"生成"的？（交互演示） <span class="arrow">▶</span></div>
+      <div class="acc-header">3. How is intent "generated"? (Interactive Demo) <span class="arrow">▶</span></div>
       <div class="acc-content"><div class="acc-content-inner">
-        基于用户行为，我们会执行三步：<br><br>
-        <strong style="color: var(--primary);">① 捕捉行为 → ② 提取信号 → ③ 生成意图</strong><br><br>
-        你可以在下方看到这个流程的可视化版本。
+        Based on user behavior, we execute three steps:<br><br>
+        <strong style="color: var(--primary);">① Capture Behavior → ② Extract Signals → ③ Generate Intent</strong><br><br>
+        You can see a visual version of this process below.
       </div></div>
     </div>
 
   </div>
 
-    <!-- 新增：原始 JSON 数据展示（可播放打字动画） -->
+    <!-- New: Raw JSON Data Display (with typing animation) -->
     <div class="acc-item">
-      <div class="acc-header">4. 原始意图数据（Raw JSON）<span class="arrow">▶</span></div>
+      <div class="acc-header">4. Raw Intent Data (Raw JSON)<span class="arrow">▶</span></div>
       <div class="acc-content">
         <div class="acc-content-inner">
-          <div style="margin-bottom:16px; color: var(--text-secondary);">点击下方按钮，观看我们如何从结构化数据生成意图：</div>
+          <div style="margin-bottom:16px; color: var(--text-secondary);">Click the button below to watch how we generate intent from structured data:</div>
 
-          <button id="play-json"><span>▶ 播放 JSON 生成动画</span></button>
+          <button id="play-json"><span>▶ Play JSON Generation Animation</span></button>
 
           <pre id="json-box"></pre>
         </div>
       </div>
     </div>
 
-  <!-- 可视化流程 -->
+  <!-- Visualization Flow -->
   <div class="flow">
-    <h3>意图生成流程（交互式心智模型）</h3>
-    <div class="sub">从用户行为 → 行为含义 → 意图推断，全链路透明化</div>
+    <h3>Intent Generation Flow (Interactive Mental Model)</h3>
+    <div class="sub">From user behavior → behavior meaning → intent inference, full-chain transparency</div>
 
     <div class="flow-steps">
       <div class="step">
         <div class="step-circle">1</div>
-        <div class="step-title">捕捉用户行为</div>
-        <div class="sub">如：停留首页、hover、未点产品页</div>
+        <div class="step-title">Capture User Behavior</div>
+        <div class="sub">e.g., staying on homepage, hover, no product page clicks</div>
       </div>
 
       <div class="step">
         <div class="step-circle">2</div>
-        <div class="step-title">推断行为含义</div>
-        <div class="sub">判断是"探索 / 比较 / 决策"哪类信号</div>
+        <div class="step-title">Infer Behavior Meaning</div>
+        <div class="sub">Determine which type of signal: "exploration / comparison / decision"</div>
       </div>
 
       <div class="step">
         <div class="step-circle">3</div>
-        <div class="step-title">生成用户意图</div>
-        <div class="sub">输出兴趣标签、阶段判断、潜在需求</div>
+        <div class="step-title">Generate User Intent</div>
+        <div class="sub">Output interest tags, stage judgment, potential needs</div>
       </div>
     </div>
     
     <div class="flow-cta">
-      <div class="flow-cta-text">想要亲身体验意图识别？</div>
-      <div class="flow-cta-subtext">点击下方按钮，进入实时交互体验页面</div>
+      <div class="flow-cta-text">Want to experience intent recognition firsthand?</div>
+      <div class="flow-cta-subtext">Click the button below to enter the real-time interactive experience page</div>
       <a href="intent_interactive_demo.html" class="flow-cta-button" id="flowCtaButton">
         <span>
-          立即体验
+          Start Experience
           <span class="arrow-icon">→</span>
         </span>
       </a>
     </div>
   </div>
   
-  <!-- 页面过渡层 -->
+  <!-- Page Transition Layer -->
   <div class="page-transition" id="pageTransition"></div>
 
 </div>
@@ -1016,7 +1016,7 @@
 </script>
 
 <script>
-  // JSON 内容
+  // JSON Content
   const rawJSON = `{
     "core_interests": [
       "Comfortable Apparel",
@@ -1078,7 +1078,7 @@
     typeJSON(rawJSON);
   });
   
-  // 页面跳转过渡动画
+  // Page transition animation
   const flowCtaButton = document.getElementById('flowCtaButton');
   const pageTransition = document.getElementById('pageTransition');
   
@@ -1087,10 +1087,10 @@
       e.preventDefault();
       const targetUrl = flowCtaButton.getAttribute('href');
       
-      // 显示过渡动画
+      // Show transition animation
       pageTransition.classList.add('active');
       
-      // 延迟跳转，让过渡动画完成
+      // Delay navigation to allow transition animation to complete
       setTimeout(() => {
         window.location.href = targetUrl;
       }, 500);

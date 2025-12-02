@@ -127,7 +127,7 @@ function loadOverview() {
         // 显示提示信息
         const chartsGrid = document.querySelector('.charts-grid');
         if (chartsGrid) {
-            chartsGrid.innerHTML = '<div class="no-data-message"><p>数据加载中，请稍候...</p></div>';
+            chartsGrid.innerHTML = '<div class="no-data-message"><p>Loading data, please wait...</p></div>';
         }
         return;
     }
@@ -245,7 +245,7 @@ function displayKeyInsights() {
     container.innerHTML = '';
     
     if (typeof businessInsights === 'undefined' || !Array.isArray(businessInsights) || businessInsights.length === 0) {
-        container.innerHTML = '<p>暂无数据</p>';
+        container.innerHTML = '<p>No data available</p>';
         return;
     }
     
@@ -267,7 +267,7 @@ function displayKeyInsights() {
         .slice(0, 4);
     
     if (topClusters.length === 0) {
-        container.innerHTML = '<p>暂无数据</p>';
+        container.innerHTML = '<p>No data available</p>';
         return;
     }
     
@@ -857,9 +857,9 @@ function prepareWordCloudData(portrait, insight) {
     if (result.length === 0) {
         console.warn('使用默认词云数据');
         result = [
-            [portrait.cluster_name || '用户画像', 40],
+            [portrait.cluster_name || 'User Portrait', 40],
             ['数据分析', 30],
-            ['聚类分析', 25]
+            ['Cluster Analysis', 25]
         ];
     }
     
@@ -1364,14 +1364,14 @@ function loadProducts() {
                 </div>
                 <div class="product-stat">
                     <div class="product-stat-value">${clusters.length}</div>
-                    <div class="product-stat-label">相关聚类</div>
+                    <div class="product-stat-label">Related Clusters</div>
                 </div>
             </div>
             ${clusters.length > 0 ? `
             <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e9ecef;">
-                <strong>主要关注聚类:</strong>
+                <strong>Main Focus Clusters:</strong>
                 <div style="margin-top: 0.5rem;">
-                    ${clusters.map(c => `<span style="display: inline-block; padding: 0.25rem 0.75rem; margin: 0.25rem; background: #f0f0f0; border-radius: 4px;">聚类 ${c.cluster} (${c.count}次)</span>`).join('')}
+                    ${clusters.map(c => `<span style="display: inline-block; padding: 0.25rem 0.75rem; margin: 0.25rem; background: #f0f0f0; border-radius: 4px;">Cluster ${c.cluster} (${c.count} times)</span>`).join('')}
                 </div>
             </div>
             ` : ''}
@@ -1481,7 +1481,7 @@ function renderPricePreference(containerId, priceData) {
                     <div class="price-preference-info">
                     <div class="price-preference-label">${currentLanguage === 'zh' ? '价格偏好类型' : 'Price Preference Type'}</div>
                     <div class="price-preference-value" style="color: ${priceColor}">${typeof translateKeyCharacteristic === 'function' ? translateKeyCharacteristic(`价格敏感度: ${priceType}`).split(':')[1]?.trim() || priceType : priceType}</div>
-                    <div class="price-preference-count">${priceValue} ${currentLanguage === 'zh' ? '个片段' : ' segments'}</div>
+                    <div class="price-preference-count">${priceValue} segments</div>
                 </div>
             </div>
         `;
@@ -1500,7 +1500,7 @@ function renderPricePreference(containerId, priceData) {
                     </div>
                     <div class="price-preference-item-info">
                         <div class="price-preference-item-label" style="color: ${priceColor}">${typeof translateKeyCharacteristic === 'function' ? translateKeyCharacteristic(`价格敏感度: ${priceType}`).split(':')[1]?.trim() || priceType : priceType}</div>
-                        <div class="price-preference-item-count">${priceValue} ${currentLanguage === 'zh' ? '个片段' : ' segments'}</div>
+                        <div class="price-preference-item-count">${priceValue} segments</div>
                     </div>
                 </div>
             `;
@@ -2511,10 +2511,10 @@ function loadYUPData() {
         }
     };
     script.onerror = function() {
-        console.error('无法加载YUP数据文件');
+        console.error('Failed to load YUP data file');
         const container = document.getElementById('financialPortraitCards');
         if (container) {
-            container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>无法加载YUP数据，请确保data_shop_YUP.js文件存在</p></div>';
+            container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>Failed to load YUP data, please ensure data_shop_YUP.js file exists</p></div>';
         }
     };
     document.head.appendChild(script);
@@ -2602,7 +2602,7 @@ function loadFinancialOverview() {
                     <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">👥</div>
                     <div>
                         <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${totalUsers}</div>
-                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">总用户数</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">Total Users</div>
                     </div>
                 </div>
             </div>
@@ -2612,7 +2612,7 @@ function loadFinancialOverview() {
                     <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">✅</div>
                     <div>
                         <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${transactionRate}%</div>
-                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">交易完成率</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">Transaction Completion Rate</div>
                     </div>
                 </div>
             </div>
@@ -2622,7 +2622,7 @@ function loadFinancialOverview() {
                     <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">🔐</div>
                     <div>
                         <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${kycRate}%</div>
-                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">身份验证率</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">KYC Completion Rate</div>
                     </div>
                 </div>
             </div>
@@ -2632,7 +2632,7 @@ function loadFinancialOverview() {
                     <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; flex-shrink: 0;">⚡</div>
                     <div>
                         <div style="font-size: 2.5rem; font-weight: 700; color: var(--text); line-height: 1;">${intentScorePercent}%</div>
-                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">平均意图强度</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">Average Intent Strength</div>
                     </div>
                 </div>
             </div>
@@ -2712,7 +2712,7 @@ function renderFinancialClusterDistributionChart(canvas) {
     
     // 计算每个聚类的用户数
     const clusterData = insights.map(insight => ({
-        label: insight.user_segment_name || `聚类 ${insight.cluster_id}`,
+        label: insight.user_segment_name || `Cluster ${insight.cluster_id}`,
         value: insight.key_characteristics?.user_count || 0,
         clusterId: insight.cluster_id
     })).filter(d => d.value > 0);
@@ -2782,7 +2782,7 @@ function renderFinancialKYCStatusChart(canvas) {
         data: {
             labels: labels,
             datasets: [{
-                label: '用户数',
+                label: 'Users',
                 data: data,
                 backgroundColor: '#667eea'
             }]
@@ -2889,7 +2889,7 @@ function renderFinancialMainActivityChart(canvas) {
         data: {
             labels: labels,
             datasets: [{
-                label: '用户数',
+                label: 'Users',
                 data: data,
                 backgroundColor: '#f093fb'
             }]
@@ -2952,13 +2952,13 @@ function loadFinancialQuickInsights() {
             <div style="display: flex; align-items: start; gap: 1rem;">
                 <div style="font-size: 2rem; flex-shrink: 0;">⚠️</div>
                 <div style="flex: 1;">
-                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.1rem;">需要关注的用户群体</h4>
-                    <p style="margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.95rem;">有 ${needsAttention.length} 个用户群体尚未完成交易，建议优先跟进</p>
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.1rem;">User Groups Requiring Attention</h4>
+                    <p style="margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.95rem;">${needsAttention.length} user groups have not completed transactions, recommend prioritizing follow-up</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                         ${needsAttention.slice(0, 3).map(i => {
                             const chars = i.key_characteristics || {};
                             return `<span style="padding: 0.5rem 1rem; background: rgba(251, 191, 36, 0.2); border-radius: 6px; font-size: 0.9rem; color: #FBBF24; border: 1px solid rgba(251, 191, 36, 0.3);">
-                                ${i.user_segment_name || `群体${i.cluster_id}`} (${chars.user_count || 0}人)
+                                ${i.user_segment_name || `Group ${i.cluster_id}`} (${chars.user_count || 0} users)
                             </span>`;
                         }).join('')}
                     </div>
@@ -2976,13 +2976,13 @@ function loadFinancialQuickInsights() {
             <div style="display: flex; align-items: start; gap: 1rem;">
                 <div style="font-size: 2rem; flex-shrink: 0;">✨</div>
                 <div style="flex: 1;">
-                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.1rem;">高价值用户群体</h4>
-                    <p style="margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.95rem;">有 ${highValue.length} 个用户群体已完成交易，建议重点维护和复购营销</p>
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.1rem;">High-Value User Groups</h4>
+                    <p style="margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.95rem;">${highValue.length} user groups have completed transactions, recommend focusing on retention and repeat purchase marketing</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                         ${highValue.slice(0, 3).map(i => {
                             const chars = i.key_characteristics || {};
                             return `<span style="padding: 0.5rem 1rem; background: rgba(67, 233, 123, 0.2); border-radius: 6px; font-size: 0.9rem; color: #43e97b; border: 1px solid rgba(67, 233, 123, 0.3);">
-                                ${i.user_segment_name || `群体${i.cluster_id}`} (${chars.user_count || 0}人)
+                                ${i.user_segment_name || `Group ${i.cluster_id}`} (${chars.user_count || 0} users)
                             </span>`;
                         }).join('')}
                     </div>
@@ -3094,32 +3094,32 @@ function loadFinancialUserGroups() {
                         <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
                             <div style="width: 40px; height: 40px; background: ${statusBg}; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 2px solid ${statusColor};">${statusIcon}</div>
                             <div>
-                                <h4 style="margin: 0; color: var(--text); font-size: 1.1rem; font-weight: 600;">${insight.full_label || insight.user_segment_name || insight.cluster_name || `用户群体 ${insight.cluster_id}`}</h4>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">${userCount} 位用户${chars.main_activity ? ' · ' + chars.main_activity : ''}</div>
+                                <h4 style="margin: 0; color: var(--text); font-size: 1.1rem; font-weight: 600;">${insight.full_label || insight.user_segment_name || insight.cluster_name || `User Group ${insight.cluster_id}`}</h4>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">${userCount} users${chars.main_activity ? ' · ' + chars.main_activity : ''}</div>
                             </div>
                         </div>
                     </div>
                     <div style="text-align: right;">
                         <div style="font-size: 1.5rem; font-weight: 700; color: ${statusColor};">${userCount}</div>
-                        <div style="font-size: 0.75rem; color: var(--text-secondary);">用户数</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary);">Users</div>
                     </div>
                 </div>
                 
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
                     ${chars.transaction_status ? `<span style="padding: 0.4rem 0.8rem; background: ${statusBg}; color: ${statusColor}; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid ${statusColor}40;">${chars.transaction_status}</span>` : ''}
-                    ${chars.kyc_status ? `<span style="padding: 0.4rem 0.8rem; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid rgba(102, 126, 234, 0.3);">${chars.kyc_status === '已开始' ? '已验证' : '未验证'}</span>` : ''}
+                    ${chars.kyc_status ? `<span style="padding: 0.4rem 0.8rem; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid rgba(102, 126, 234, 0.3);">${chars.kyc_status === '已开始' ? 'Verified' : 'Unverified'}</span>` : ''}
                     ${chars.main_activity ? `<span style="padding: 0.4rem 0.8rem; background: rgba(240, 147, 251, 0.1); color: #f093fb; border-radius: 6px; font-size: 0.85rem; font-weight: 500; border: 1px solid rgba(240, 147, 251, 0.3);">${chars.main_activity}</span>` : ''}
                 </div>
                 
                 ${insight.marketing_strategy && insight.marketing_strategy.length > 0 ? `
                     <div style="padding-top: 1rem; border-top: 1px solid var(--border);">
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">💡 运营建议</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">💡 Operations Recommendations</div>
                         <div style="font-size: 0.9rem; color: var(--text); line-height: 1.6;">${insight.marketing_strategy[0].replace(/【.*?】/g, '').substring(0, 60)}${insight.marketing_strategy[0].length > 60 ? '...' : ''}</div>
                     </div>
                 ` : ''}
                 
                 <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center;">
-                    <span style="color: var(--accent); font-size: 0.9rem; font-weight: 500;">点击查看详情 →</span>
+                    <span style="color: var(--accent); font-size: 0.9rem; font-weight: 500;">Click to view details →</span>
                 </div>
             `;
             
@@ -3210,12 +3210,12 @@ function loadFinancialUserTrajectories() {
     if (window.financialBusinessInsights && window.financialBusinessInsights.length > 0) {
         const clusterFilter = document.getElementById('financialClusterFilter');
         if (clusterFilter) {
-            clusterFilter.innerHTML = '<option value="">所有聚类</option>';
+            clusterFilter.innerHTML = '<option value="">All Clusters</option>';
             window.financialBusinessInsights.forEach(insight => {
                 const option = document.createElement('option');
                 option.value = insight.cluster_id;
                 const displayName = insight.full_label || insight.user_segment_name || insight.cluster_name || '';
-                option.textContent = `聚类 ${insight.cluster_id}: ${removeEmojiFromClusterName(displayName)}`;
+                option.textContent = `Cluster ${insight.cluster_id}: ${removeEmojiFromClusterName(displayName)}`;
                 clusterFilter.appendChild(option);
             });
         }
@@ -3291,7 +3291,7 @@ function renderFinancialUserTrajectories(users) {
     if (!container) return;
     
     if (users.length === 0) {
-        container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>没有找到匹配的用户</p></div>';
+        container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>No matching users found</p></div>';
         return;
     }
     
@@ -3332,24 +3332,24 @@ function renderFinancialUserTrajectories(users) {
                     <h3 class="user-id">${user.user_id}</h3>
                     <div class="user-stats">
                         <span class="stat-badge">
-                            <strong>${user.segment_count}</strong> 个片段
+                            <strong>${user.segment_count}</strong> segments
                         </span>
                         <span class="stat-badge">
-                            <strong>${user.unique_clusters}</strong> 个聚类
+                            <strong>${user.unique_clusters}</strong> clusters
                         </span>
                         <span class="stat-badge">
-                            <strong>${user.total_duration.toFixed(1)}</strong> 秒
+                            <strong>${user.total_duration.toFixed(1)}</strong> s
                         </span>
                         <span class="stat-badge">
-                            <strong>${user.total_records}</strong> 次交互
+                            <strong>${user.total_records}</strong> interactions
                         </span>
                         <span class="stat-badge intent-badge">
-                            <strong>${(avgIntentScore * 100).toFixed(0)}%</strong> 平均意图强度
+                            <strong>${(avgIntentScore * 100).toFixed(0)}%</strong> Average Intent Strength
                         </span>
                     </div>
                 </div>
                 <div class="user-clusters-summary">
-                    <strong>聚类分布:</strong>
+                    <strong>Cluster Distribution:</strong>
                     ${user.cluster_ids.map(cid => {
                         // 找到该用户属于这个聚类的所有片段
                         const segmentsInCluster = segments.filter(s => String(s.cluster_id) === String(cid));
@@ -3360,7 +3360,6 @@ function renderFinancialUserTrajectories(users) {
                         let segmentKycStatus = '';
                         let segmentTransactionStatus = '';
                         let segmentFirstOrderCompleted = '';
-                        let segmentPostFirstOrder = '';
                         let segmentUrgency = '';
                         
                         if (segmentsInCluster.length > 0) {
@@ -3370,7 +3369,6 @@ function renderFinancialUserTrajectories(users) {
                             segmentKycStatus = firstSegment.kyc_status || '';
                             segmentTransactionStatus = firstSegment.transaction_status || '';
                             segmentFirstOrderCompleted = firstSegment.first_order_completed || '';
-                            segmentPostFirstOrder = firstSegment.post_first_order || '';
                             segmentUrgency = firstSegment.urgency || '';
                         }
                         
@@ -3389,7 +3387,6 @@ function renderFinancialUserTrajectories(users) {
                         const displayKycStatus = segmentKycStatus || characteristics.kyc_status || '';
                         const displayTransactionStatus = segmentTransactionStatus || characteristics.transaction_status || '';
                         const displayFirstOrderCompleted = segmentFirstOrderCompleted || characteristics.first_order_completed || '';
-                        const displayPostFirstOrder = segmentPostFirstOrder || characteristics.post_first_order || '';
                         const displayUrgency = segmentUrgency || characteristics.urgency || '';
                         
                         // 基于片段特征生成聚类名称
@@ -3404,32 +3401,29 @@ function renderFinancialUserTrajectories(users) {
                             }
                         } else {
                             // 如果没有行为特征，使用聚类标签
-                            name = clusterNames[cid] || `聚类${cid}`;
+                            name = clusterNames[cid] || `Cluster${cid}`;
                         }
                         
                         // 构建详细的tooltip信息
                         const tooltipParts = [getClusterDisplayName(name)];
                         if (displayMainActivity) {
-                            tooltipParts.push(`主要活动: ${displayMainActivity}`);
+                            tooltipParts.push(`Main Activity: ${displayMainActivity}`);
                         }
                         if (displayBehavior) {
-                            tooltipParts.push(`行为模式: ${displayBehavior}`);
+                            tooltipParts.push(`Behavior Pattern: ${displayBehavior}`);
                         }
                         if (displayKycStatus) {
-                            tooltipParts.push(`KYC状态: ${displayKycStatus}`);
+                            tooltipParts.push(`KYC Status: ${displayKycStatus}`);
                         }
                         if (displayTransactionStatus) {
-                            tooltipParts.push(`交易状态: ${displayTransactionStatus}`);
+                            tooltipParts.push(`Transaction Status: ${displayTransactionStatus}`);
                         }
                         if (displayFirstOrderCompleted) {
-                            tooltipParts.push(`首单状态: ${displayFirstOrderCompleted === '是' ? '已完成' : '未完成'}`);
-                        }
-                        if (displayPostFirstOrder) {
-                            tooltipParts.push(`订单阶段: ${displayPostFirstOrder === '是' ? '首单后活跃' : '首单前/未完成'}`);
+                            tooltipParts.push(`First Order Status: ${displayFirstOrderCompleted === '是' ? 'Completed' : 'Not Completed'}`);
                         }
                         const tooltipText = tooltipParts.join('\\n');
                         return `<span class="cluster-tag" data-cluster-id="${cid}" title="${tooltipText}" style="position: relative;">
-                            <span class="cluster-id">聚类 ${cid}</span>
+                            <span class="cluster-id">Cluster ${cid}</span>
                             ${displayMainActivity ? `<span class="cluster-badge" style="margin-left: 0.5rem; font-size: 0.75rem; opacity: 0.8;">${displayMainActivity}</span>` : ''}
                             ${displayBehavior ? `<span class="cluster-badge" style="margin-left: 0.5rem; font-size: 0.75rem; opacity: 0.8; color: #667eea;">${displayBehavior}</span>` : ''}
                         </span>`;
@@ -3440,7 +3434,7 @@ function renderFinancialUserTrajectories(users) {
             <!-- 用户轨迹时间线可视化 -->
             <div class="user-trajectory-timeline">
                 <div class="timeline-header">
-                    <h4>行为时间线</h4>
+                    <h4>Behavior Timeline</h4>
                 </div>
                 <div class="timeline-container">
                     <canvas id="financialTrajectoryTimeline-${user.user_id}" class="trajectory-timeline-canvas"></canvas>
@@ -3580,7 +3574,6 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
             const segmentKycStatus = segment.kyc_status || clusterCharacteristics.kyc_status || '';
             const segmentTransactionStatus = segment.transaction_status || clusterCharacteristics.transaction_status || '';
             const segmentFirstOrderCompleted = segment.first_order_completed || clusterCharacteristics.first_order_completed || '';
-            const segmentPostFirstOrder = segment.post_first_order || clusterCharacteristics.post_first_order || '';
             const segmentUrgency = segment.urgency || clusterCharacteristics.urgency || '';
             
             tooltip.innerHTML = `
@@ -3592,47 +3585,41 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
                     <span class="cluster-label">${clusterLabel} ${segment.cluster_id}</span>
                     ${clusterName ? `<span class="cluster-name">${getClusterDisplayName(clusterName)}</span>` : ''}
                 </div>
-                ${(segmentMainActivity || segmentBehavior || segmentKycStatus || segmentTransactionStatus || segmentFirstOrderCompleted || segmentPostFirstOrder || segmentUrgency) ? `
+                ${(segmentMainActivity || segmentBehavior || segmentKycStatus || segmentTransactionStatus || segmentFirstOrderCompleted || segmentUrgency) ? `
                 <div class="tooltip-characteristics" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(143, 160, 184, 0.2);">
                     ${segmentMainActivity ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <span style="font-size: 0.85rem; color: var(--text-secondary);">主要活动:</span>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Main Activity:</span>
                             <span style="font-size: 0.9rem; font-weight: 600; color: #f093fb; padding: 0.25rem 0.5rem; background: rgba(240, 147, 251, 0.1); border-radius: 4px;">${segmentMainActivity}</span>
                         </div>
                     ` : ''}
                     ${segmentBehavior ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <span style="font-size: 0.85rem; color: var(--text-secondary);">行为模式:</span>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Behavior Pattern:</span>
                             <span style="font-size: 0.9rem; font-weight: 600; color: #667eea; padding: 0.25rem 0.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 4px;">${segmentBehavior}</span>
                         </div>
                     ` : ''}
                     ${segmentKycStatus ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <span style="font-size: 0.85rem; color: var(--text-secondary);">KYC状态:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentKycStatus === '已开始' ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${segmentKycStatus === '已开始' ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${segmentKycStatus === '已开始' ? '已验证' : segmentKycStatus === '未开始' ? '未验证' : segmentKycStatus}</span>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">KYC Status:</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: ${(segmentKycStatus === '已开始' || segmentKycStatus === 'Started' || segmentKycStatus === 'Verified') ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${(segmentKycStatus === '已开始' || segmentKycStatus === 'Started' || segmentKycStatus === 'Verified') ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${(segmentKycStatus === '已开始' || segmentKycStatus === 'Started' || segmentKycStatus === 'Verified') ? 'Verified' : (segmentKycStatus === '未开始' || segmentKycStatus === 'Not Started' || segmentKycStatus === 'Unverified') ? 'Unverified' : segmentKycStatus}</span>
                         </div>
                     ` : ''}
                     ${segmentTransactionStatus ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <span style="font-size: 0.85rem; color: var(--text-secondary);">交易状态:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentTransactionStatus === '已完成' ? '#43e97b' : segmentTransactionStatus === '进行中' ? '#4facfe' : '#FBBF24'}; padding: 0.25rem 0.5rem; background: ${segmentTransactionStatus === '已完成' ? 'rgba(67, 233, 123, 0.1)' : segmentTransactionStatus === '进行中' ? 'rgba(79, 172, 254, 0.1)' : 'rgba(251, 191, 36, 0.1)'}; border-radius: 4px;">${segmentTransactionStatus}</span>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Transaction Status:</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: ${(segmentTransactionStatus === '已完成' || segmentTransactionStatus === 'Completed') ? '#43e97b' : (segmentTransactionStatus === '进行中' || segmentTransactionStatus === 'In Progress') ? '#4facfe' : '#FBBF24'}; padding: 0.25rem 0.5rem; background: ${(segmentTransactionStatus === '已完成' || segmentTransactionStatus === 'Completed') ? 'rgba(67, 233, 123, 0.1)' : (segmentTransactionStatus === '进行中' || segmentTransactionStatus === 'In Progress') ? 'rgba(79, 172, 254, 0.1)' : 'rgba(251, 191, 36, 0.1)'}; border-radius: 4px;">${(segmentTransactionStatus === '已完成' || segmentTransactionStatus === 'Completed') ? 'Completed' : (segmentTransactionStatus === '进行中' || segmentTransactionStatus === 'In Progress') ? 'In Progress' : (segmentTransactionStatus === '未开始' || segmentTransactionStatus === 'Not Started') ? 'Not Started' : segmentTransactionStatus}</span>
                         </div>
                     ` : ''}
                     ${segmentFirstOrderCompleted ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <span style="font-size: 0.85rem; color: var(--text-secondary);">首单状态:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentFirstOrderCompleted === '是' ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${segmentFirstOrderCompleted === '是' ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${segmentFirstOrderCompleted === '是' ? '已完成首单' : '未完成首单'}</span>
-                        </div>
-                    ` : ''}
-                    ${segmentPostFirstOrder ? `
-                        <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <span style="font-size: 0.85rem; color: var(--text-secondary);">订单阶段:</span>
-                            <span style="font-size: 0.9rem; font-weight: 600; color: ${segmentPostFirstOrder === '是' ? '#4facfe' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${segmentPostFirstOrder === '是' ? 'rgba(79, 172, 254, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${segmentPostFirstOrder === '是' ? '首单后活跃' : '首单前/未完成'}</span>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">First Order Status:</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: ${(segmentFirstOrderCompleted === '是' || segmentFirstOrderCompleted === 'Yes') ? '#43e97b' : '#8FA0B8'}; padding: 0.25rem 0.5rem; background: ${(segmentFirstOrderCompleted === '是' || segmentFirstOrderCompleted === 'Yes') ? 'rgba(67, 233, 123, 0.1)' : 'rgba(143, 160, 184, 0.1)'}; border-radius: 4px;">${(segmentFirstOrderCompleted === '是' || segmentFirstOrderCompleted === 'Yes') ? 'First Order Completed' : 'First Order Not Completed'}</span>
                         </div>
                     ` : ''}
                     ${segmentUrgency ? `
                         <div class="tooltip-char-item" style="display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="font-size: 0.85rem; color: var(--text-secondary);">紧迫度:</span>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Urgency:</span>
                             <span style="font-size: 0.9rem; font-weight: 600; color: #43e97b; padding: 0.25rem 0.5rem; background: rgba(67, 233, 123, 0.1); border-radius: 4px;">${segmentUrgency}</span>
                         </div>
                     ` : ''}
@@ -3640,15 +3627,15 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
                 ` : ''}
                 <div class="tooltip-details" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(143, 160, 184, 0.2);">
                     <div class="tooltip-detail-item">
-                        <span class="tooltip-label">${currentLanguage === 'zh' ? '持续时间' : 'Duration'}:</span>
-                        <span class="tooltip-value">${duration} ${currentLanguage === 'zh' ? '秒' : 's'}</span>
+                        <span class="tooltip-label">Duration:</span>
+                        <span class="tooltip-value">${duration} s</span>
                     </div>
                     <div class="tooltip-detail-item">
-                        <span class="tooltip-label">${currentLanguage === 'zh' ? '交互次数' : 'Interactions'}:</span>
-                        <span class="tooltip-value">${segment.record_count || 0} ${currentLanguage === 'zh' ? '次' : ''}</span>
+                        <span class="tooltip-label">Interactions:</span>
+                        <span class="tooltip-value">${segment.record_count || 0}</span>
                     </div>
                     <div class="tooltip-detail-item intent-item">
-                        <span class="tooltip-label">${currentLanguage === 'zh' ? '意图强度' : 'Intent Score'}:</span>
+                        <span class="tooltip-label">Intent Strength:</span>
                         <div class="intent-progress">
                             <div class="intent-progress-bar" style="width: ${(intentScore * 100).toFixed(0)}%; background: linear-gradient(90deg, ${clusterColor} 0%, ${clusterColor}dd 100%);"></div>
                             <span class="intent-progress-value">${(intentScore * 100).toFixed(0)}%</span>
@@ -3865,19 +3852,19 @@ function loadFinancialClusters() {
     if (!window.financialBusinessInsights || window.financialBusinessInsights.length === 0) {
         const container = document.getElementById('financialClusterDetails');
         if (container) {
-            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><p>暂无聚类数据</p></div>';
+            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><p>No cluster data available</p></div>';
         }
         return;
     }
     
     const select = document.getElementById('financialClusterSelect');
     if (select) {
-        select.innerHTML = '<option value="">-- 选择聚类 --</option>';
+        select.innerHTML = '<option value="">-- Select Cluster --</option>';
         window.financialBusinessInsights.forEach(insight => {
             const option = document.createElement('option');
             option.value = insight.cluster_id;
             const displayName = insight.full_label || insight.user_segment_name || insight.cluster_name || '';
-            option.textContent = `聚类 ${insight.cluster_id}: ${removeEmojiFromClusterName(displayName)}`;
+            option.textContent = `Cluster ${insight.cluster_id}: ${removeEmojiFromClusterName(displayName)}`;
             select.appendChild(option);
         });
         
@@ -3903,7 +3890,7 @@ function showFinancialClusterDetails(clusterId) {
         console.warn('showFinancialClusterDetails: 未找到对应的聚类', { clusterId, availableIds: window.financialBusinessInsights.map(i => i.cluster_id) });
         const container = document.getElementById('financialClusterDetails');
         if (container) {
-            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><p>未找到对应的聚类数据</p></div>';
+            container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><p>Cluster data not found</p></div>';
         }
         return;
     }
@@ -3934,13 +3921,13 @@ function showFinancialClusterDetails(clusterId) {
     // 确定状态颜色
     let statusColor = '#667eea';
     let statusBg = 'rgba(102, 126, 234, 0.1)';
-    if (chars.transaction_status === '已完成') {
+    if (chars.transaction_status === '已完成' || chars.transaction_status === 'Completed') {
         statusColor = '#43e97b';
         statusBg = 'rgba(67, 233, 123, 0.1)';
-    } else if (chars.transaction_status === '进行中') {
+    } else if (chars.transaction_status === '进行中' || chars.transaction_status === 'In Progress') {
         statusColor = '#4facfe';
         statusBg = 'rgba(79, 172, 254, 0.1)';
-    } else if (chars.transaction_status === '未开始') {
+    } else if (chars.transaction_status === '未开始' || chars.transaction_status === 'Not Started') {
         statusColor = '#FBBF24';
         statusBg = 'rgba(251, 191, 36, 0.1)';
     }
@@ -3960,73 +3947,80 @@ function showFinancialClusterDetails(clusterId) {
             <!-- 头部 -->
             <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--border);">
                 <div style="width: 64px; height: 64px; background: ${statusBg}; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; border: 3px solid ${statusColor};">
-                    ${chars.transaction_status === '已完成' ? '✅' : chars.transaction_status === '进行中' ? '🔄' : '⏳'}
+                    ${(chars.transaction_status === '已完成' || chars.transaction_status === 'Completed') ? '✅' : (chars.transaction_status === '进行中' || chars.transaction_status === 'In Progress') ? '🔄' : '⏳'}
                 </div>
                 <div style="flex: 1;">
-                    <h3 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.5rem;">${insight.full_label || insight.user_segment_name || insight.cluster_name || `用户群体 ${clusterId}`}</h3>
-                    <p style="margin: 0; color: var(--text-secondary);">${chars.user_count || 0} 位用户 · ${chars.segment_count || 0} 个行为片段${chars.main_activity ? ' · ' + chars.main_activity : ''}</p>
+                    <h3 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.5rem;">${insight.full_label || insight.user_segment_name || insight.cluster_name || `User Group ${clusterId}`}</h3>
+                    <p style="margin: 0; color: var(--text-secondary);">${chars.user_count || 0} users · ${chars.segment_count || 0} behavior segments${chars.main_activity ? ' · ' + chars.main_activity : ''}</p>
                 </div>
             </div>
             
             <!-- 关键指标 -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
                 <div style="padding: 1.5rem; background: rgba(102, 126, 234, 0.1); border-radius: 12px; border-left: 4px solid #667eea;">
-                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">用户数</div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Users</div>
                     <div style="font-size: 2rem; font-weight: 700; color: #667eea;">${chars.user_count || 0}</div>
                 </div>
                 <div style="padding: 1.5rem; background: rgba(79, 172, 254, 0.1); border-radius: 12px; border-left: 4px solid #4facfe;">
-                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">行为片段</div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Behavior Segments</div>
                     <div style="font-size: 2rem; font-weight: 700; color: #4facfe;">${chars.segment_count || 0}</div>
                 </div>
                 <div style="padding: 1.5rem; background: rgba(240, 147, 251, 0.1); border-radius: 12px; border-left: 4px solid #f093fb;">
-                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">意图强度</div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Intent Strength</div>
                     <div style="font-size: 2rem; font-weight: 700; color: #f093fb;">${((chars.avg_intent_score || 0) * 100).toFixed(0)}%</div>
                 </div>
             </div>
             
             <!-- 用户特征 -->
             <div style="margin-bottom: 2rem;">
-                <h4 style="margin: 0 0 1rem 0; color: var(--text); font-size: 1.1rem;">用户特征</h4>
+                <h4 style="margin: 0 0 1rem 0; color: var(--text); font-size: 1.1rem;">User Characteristics</h4>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
                     ${chars.transaction_status ? `
                         <div style="padding: 1rem; background: ${statusBg}; border-radius: 8px; border: 1px solid ${statusColor}40;">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">交易状态</div>
-                            <div style="font-size: 1.1rem; font-weight: 600; color: ${statusColor};">${chars.transaction_status}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Transaction Status</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: ${statusColor};">
+                                ${chars.transaction_status === '已完成' ? 'Completed' : 
+                                  chars.transaction_status === '进行中' ? 'In Progress' : 
+                                  chars.transaction_status === '未开始' ? 'Not Started' : 
+                                  chars.transaction_status}
+                            </div>
                         </div>
                     ` : ''}
                     ${chars.kyc_status ? `
                         <div style="padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 8px; border: 1px solid rgba(102, 126, 234, 0.3);">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">身份验证</div>
-                            <div style="font-size: 1.1rem; font-weight: 600; color: #667eea;">${chars.kyc_status === '已开始' ? '已验证' : chars.kyc_status === '未开始' ? '未验证' : chars.kyc_status}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Identity Verification</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: #667eea;">
+                                ${chars.kyc_status === '已开始' || chars.kyc_status === 'Started' || chars.kyc_status === 'Verified' ? 'Verified' : 
+                                  chars.kyc_status === '未开始' || chars.kyc_status === 'Not Started' || chars.kyc_status === 'Unverified' ? 'Unverified' : 
+                                  chars.kyc_status}
+                            </div>
                         </div>
                     ` : ''}
                     ${chars.main_activity ? `
                         <div style="padding: 1rem; background: rgba(240, 147, 251, 0.1); border-radius: 8px; border: 1px solid rgba(240, 147, 251, 0.3);">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">主要行为</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Main Activity</div>
                             <div style="font-size: 1.1rem; font-weight: 600; color: #f093fb;">${chars.main_activity}</div>
                         </div>
                     ` : ''}
                     ${chars.behavior ? `
                         <div style="padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 8px; border: 1px solid rgba(102, 126, 234, 0.3);">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">行为模式</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Behavior Pattern</div>
                             <div style="font-size: 1.1rem; font-weight: 600; color: #667eea;">${chars.behavior}</div>
                         </div>
                     ` : ''}
                     ${chars.first_order_completed ? `
                         <div style="padding: 1rem; background: rgba(67, 233, 123, 0.1); border-radius: 8px; border: 1px solid rgba(67, 233, 123, 0.3);">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">首单状态</div>
-                            <div style="font-size: 1.1rem; font-weight: 600; color: #43e97b;">${chars.first_order_completed === '是' ? '已完成首单' : '未完成首单'}</div>
-                        </div>
-                    ` : ''}
-                    ${chars.post_first_order ? `
-                        <div style="padding: 1rem; background: rgba(79, 172, 254, 0.1); border-radius: 8px; border: 1px solid rgba(79, 172, 254, 0.3);">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">订单阶段</div>
-                            <div style="font-size: 1.1rem; font-weight: 600; color: #4facfe;">${chars.post_first_order === '是' ? '首单后活跃' : '首单前/未完成'}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">First Order Status</div>
+                            <div style="font-size: 1.1rem; font-weight: 600; color: #43e97b;">
+                                ${chars.first_order_completed === '是' || chars.first_order_completed === 'Yes' ? 'First Order Completed' : 
+                                  chars.first_order_completed === '否' || chars.first_order_completed === 'No' ? 'First Order Not Completed' : 
+                                  chars.first_order_completed}
+                            </div>
                         </div>
                     ` : ''}
                     ${chars.urgency ? `
                         <div style="padding: 1rem; background: rgba(67, 233, 123, 0.1); border-radius: 8px; border: 1px solid rgba(67, 233, 123, 0.3);">
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">紧迫度</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Urgency</div>
                             <div style="font-size: 1.1rem; font-weight: 600; color: #43e97b;">${chars.urgency}</div>
                         </div>
                     ` : ''}
@@ -4040,15 +4034,15 @@ function showFinancialClusterDetails(clusterId) {
                         <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
                             💡
                         </div>
-                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">运营策略建议</h4>
-                        <span style="padding: 0.25rem 0.75rem; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${marketingStrategy.length} 项策略</span>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">Operations Strategy Recommendations</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(102, 126, 234, 0.1); color: #667eea; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${marketingStrategy.length} strategies</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
                         ${marketingStrategy.map((strategy, idx) => {
                             const strategyText = String(strategy);
-                            const hasCategory = strategyText.includes('【') && strategyText.includes('】');
-                            const category = hasCategory ? strategyText.match(/【(.*?)】/)?.[1] : '';
-                            const content = hasCategory ? strategyText.replace(/【.*?】/g, '').trim() : strategyText;
+                            const hasCategory = (strategyText.includes('【') && strategyText.includes('】')) || (strategyText.includes('[') && strategyText.includes(']'));
+                            const category = hasCategory ? (strategyText.match(/【(.*?)】/) || strategyText.match(/\[(.*?)\]/))?.[1] : '';
+                            const content = hasCategory ? strategyText.replace(/【.*?】/g, '').replace(/\[.*?\]/g, '').trim() : strategyText;
                             const isFirstInCategory = idx === 0 || !marketingStrategy[idx - 1].includes(category);
                             
                             return `
@@ -4070,7 +4064,7 @@ function showFinancialClusterDetails(clusterId) {
                         }).join('')}
                     </div>
                 </div>
-            ` : '<div style="margin-bottom: 2rem; padding: 2rem; background: rgba(143, 160, 184, 0.05); border-radius: 12px; border: 1px dashed var(--border); text-align: center;"><p style="margin: 0; color: var(--text-secondary);">暂无运营策略数据</p></div>'}
+            ` : '<div style="margin-bottom: 2rem; padding: 2rem; background: rgba(143, 160, 184, 0.05); border-radius: 12px; border: 1px dashed var(--border); text-align: center;"><p style="margin: 0; color: var(--text-secondary);">No operations strategy data available</p></div>'}
             
             <!-- 产品推荐 - 可视化卡片布局 -->
             ${productRecommendations.length > 0 ? `
@@ -4079,15 +4073,15 @@ function showFinancialClusterDetails(clusterId) {
                         <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
                             🎯
                         </div>
-                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">产品/服务推荐</h4>
-                        <span style="padding: 0.25rem 0.75rem; background: rgba(79, 172, 254, 0.1); color: #4facfe; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${productRecommendations.length} 项推荐</span>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">Product/Service Recommendations</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(79, 172, 254, 0.1); color: #4facfe; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${productRecommendations.length} recommendations</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
                         ${productRecommendations.map((rec, idx) => {
                             const recText = String(rec);
-                            const hasCategory = recText.includes('【') && recText.includes('】');
-                            const category = hasCategory ? recText.match(/【(.*?)】/)?.[1] : '';
-                            const content = hasCategory ? recText.replace(/【.*?】/g, '').trim() : recText;
+                            const hasCategory = (recText.includes('【') && recText.includes('】')) || (recText.includes('[') && recText.includes(']'));
+                            const category = hasCategory ? (recText.match(/【(.*?)】/) || recText.match(/\[(.*?)\]/))?.[1] : '';
+                            const content = hasCategory ? recText.replace(/【.*?】/g, '').replace(/\[.*?\]/g, '').trim() : recText;
                             const isFirstInCategory = idx === 0 || !productRecommendations[idx - 1].includes(category);
                             
                             return `
@@ -4118,15 +4112,15 @@ function showFinancialClusterDetails(clusterId) {
                         <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
                             ⚡
                         </div>
-                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">转化优化建议</h4>
-                        <span style="padding: 0.25rem 0.75rem; background: rgba(67, 233, 123, 0.1); color: #43e97b; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${conversionOptimization.length} 项建议</span>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">Conversion Optimization Recommendations</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(67, 233, 123, 0.1); color: #43e97b; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${conversionOptimization.length} recommendations</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
                         ${conversionOptimization.map((opt, idx) => {
                             const optText = String(opt);
-                            const hasCategory = optText.includes('【') && optText.includes('】');
-                            const category = hasCategory ? optText.match(/【(.*?)】/)?.[1] : '';
-                            const content = hasCategory ? optText.replace(/【.*?】/g, '').trim() : optText;
+                            const hasCategory = (optText.includes('【') && optText.includes('】')) || (optText.includes('[') && optText.includes(']'));
+                            const category = hasCategory ? (optText.match(/【(.*?)】/) || optText.match(/\[(.*?)\]/))?.[1] : '';
+                            const content = hasCategory ? optText.replace(/【.*?】/g, '').replace(/\[.*?\]/g, '').trim() : optText;
                             const isFirstInCategory = idx === 0 || !conversionOptimization[idx - 1].includes(category);
                             
                             return `
@@ -4157,8 +4151,8 @@ function showFinancialClusterDetails(clusterId) {
                         <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f093fb 0%, #fbbf24 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
                             📝
                         </div>
-                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">内容策略</h4>
-                        <span style="padding: 0.25rem 0.75rem; background: rgba(240, 147, 251, 0.1); color: #f093fb; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${contentStrategy.length} 项策略</span>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">Content Strategy</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(240, 147, 251, 0.1); color: #f093fb; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${contentStrategy.length} strategies</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
                         ${contentStrategy.map((strategy, idx) => {
@@ -4186,15 +4180,15 @@ function showFinancialClusterDetails(clusterId) {
                         <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #fbbf24 0%, #fb7185 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
                             🎪
                         </div>
-                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">活动差异化建议</h4>
-                        <span style="padding: 0.25rem 0.75rem; background: rgba(251, 191, 36, 0.1); color: #fbbf24; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${campaignDifferentiation.length} 项活动</span>
+                        <h4 style="margin: 0; color: var(--text); font-size: 1.3rem; font-weight: 700;">Campaign Differentiation Recommendations</h4>
+                        <span style="padding: 0.25rem 0.75rem; background: rgba(251, 191, 36, 0.1); color: #fbbf24; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">${campaignDifferentiation.length} campaigns</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
                         ${campaignDifferentiation.map((campaign, idx) => {
                             const campaignText = String(campaign);
-                            const hasCategory = campaignText.includes('【') && campaignText.includes('】');
-                            const category = hasCategory ? campaignText.match(/【(.*?)】/)?.[1] : '';
-                            const content = hasCategory ? campaignText.replace(/【.*?】/g, '').trim() : campaignText;
+                            const hasCategory = (campaignText.includes('【') && campaignText.includes('】')) || (campaignText.includes('[') && campaignText.includes(']'));
+                            const category = hasCategory ? (campaignText.match(/【(.*?)】/) || campaignText.match(/\[(.*?)\]/))?.[1] : '';
+                            const content = hasCategory ? campaignText.replace(/【.*?】/g, '').replace(/\[.*?\]/g, '').trim() : campaignText;
                             const isFirstInCategory = idx === 0 || !campaignDifferentiation[idx - 1].includes(category);
                             
                             return `
@@ -4288,11 +4282,11 @@ function loadUserTrajectories() {
         const clusterFilter = document.getElementById('clusterFilter');
         if (clusterFilter) {
             // 清空现有选项（除了"所有聚类"）
-            clusterFilter.innerHTML = '<option value="">所有聚类</option>';
+            clusterFilter.innerHTML = '<option value="">All Clusters</option>';
             businessInsights.forEach(insight => {
                 const option = document.createElement('option');
                 option.value = insight.cluster_id;
-                option.textContent = `聚类 ${insight.cluster_id}: ${removeEmojiFromClusterName(insight.user_segment_name)}`;
+                option.textContent = `Cluster ${insight.cluster_id}: ${removeEmojiFromClusterName(insight.user_segment_name)}`;
                 clusterFilter.appendChild(option);
             });
         }
@@ -4368,7 +4362,7 @@ function renderUserTrajectories(users) {
     if (!container) return;
     
     if (users.length === 0) {
-        container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>没有找到匹配的用户</p></div>';
+        container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-secondary);"><p>No matching users found</p></div>';
         return;
     }
     
@@ -4418,27 +4412,27 @@ function renderUserTrajectories(users) {
                     <h3 class="user-id">${user.user_id}</h3>
                     <div class="user-stats">
                         <span class="stat-badge">
-                            <strong>${user.segment_count}</strong> 个片段
+                            <strong>${user.segment_count}</strong> segments
                         </span>
                         <span class="stat-badge">
-                            <strong>${user.unique_clusters}</strong> 个聚类
+                            <strong>${user.unique_clusters}</strong> clusters
                         </span>
                         <span class="stat-badge">
-                            <strong>${user.total_duration.toFixed(1)}</strong> 秒
+                            <strong>${user.total_duration.toFixed(1)}</strong> s
                         </span>
                         <span class="stat-badge">
-                            <strong>${user.total_records}</strong> 次交互
+                            <strong>${user.total_records}</strong> interactions
                         </span>
                         <span class="stat-badge intent-badge">
-                            <strong>${(avgIntentScore * 100).toFixed(0)}%</strong> 平均意图强度
+                            <strong>${(avgIntentScore * 100).toFixed(0)}%</strong> Average Intent Strength
                         </span>
                     </div>
                 </div>
                 <div class="user-clusters-summary">
-                    <strong>聚类分布:</strong>
+                    <strong>Cluster Distribution:</strong>
                     ${user.cluster_ids.map(cid => {
-                        const name = clusterNames[cid] || `聚类${cid}`;
-                        return `<span class="cluster-tag" data-cluster-id="${cid}">聚类 ${cid}</span>`;
+                        const name = clusterNames[cid] || `Cluster${cid}`;
+                        return `<span class="cluster-tag" data-cluster-id="${cid}">Cluster ${cid}</span>`;
                     }).join('')}
                 </div>
             </div>
@@ -5359,7 +5353,7 @@ function renderUserTrajectoryTimeline(canvasId, user) {
         
         // 持续时间
         const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(1);
-        const durationUnit = currentLanguage === 'zh' ? '秒' : 's';
+        const durationUnit = 's';
         ctx.fillText(`${duration}${durationUnit}`, x, 112);
         
         // 绘制意图强度指示器（背景）
@@ -5429,15 +5423,15 @@ function renderUserTrajectoryTimeline(canvasId, user) {
                         <span class="tooltip-value stage-badge" style="background: ${stageColor}20; color: ${stageColor}; border-left: 3px solid ${stageColor}">${displayStage}</span>
                     </div>
                     <div class="tooltip-detail-item">
-                        <span class="tooltip-label">${currentLanguage === 'zh' ? '持续时间' : 'Duration'}:</span>
-                        <span class="tooltip-value">${duration} ${currentLanguage === 'zh' ? '秒' : 's'}</span>
+                        <span class="tooltip-label">Duration:</span>
+                        <span class="tooltip-value">${duration} s</span>
                     </div>
                     <div class="tooltip-detail-item">
-                        <span class="tooltip-label">交互次数:</span>
-                        <span class="tooltip-value">${segment.record_count || 0} 次</span>
+                        <span class="tooltip-label">Interactions:</span>
+                        <span class="tooltip-value">${segment.record_count || 0}</span>
                     </div>
                     <div class="tooltip-detail-item intent-item">
-                        <span class="tooltip-label">意图强度:</span>
+                        <span class="tooltip-label">Intent Strength:</span>
                         <div class="intent-progress">
                             <div class="intent-progress-bar" style="width: ${(intentScore * 100).toFixed(0)}%; background: linear-gradient(90deg, ${stageColor} 0%, ${clusterColor} 100%);"></div>
                             <span class="intent-progress-value">${(intentScore * 100).toFixed(0)}%</span>

@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户意图分析平台 | Intent Analytics Dashboard</title>
+    <title>Intent Analytics Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
-    <!-- WordCloud库 - 使用多个CDN备用 -->
+    <!-- WordCloud library - using multiple CDN fallbacks -->
     <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js" 
             onerror="loadWordCloudFallback()"></script>
     <script>
-        // WordCloud库加载失败时的备用方案
+        // Fallback solution when WordCloud library fails to load
         function loadWordCloudFallback() {
-            console.warn('主CDN加载失败，尝试备用CDN...');
+            console.warn('Primary CDN failed, trying fallback CDN...');
             const script = document.createElement('script');
             script.src = 'https://unpkg.com/wordcloud@1.2.2/src/wordcloud2.js';
             script.onerror = function() {
-                console.error('所有WordCloud CDN都加载失败');
+                console.error('All WordCloud CDNs failed to load');
                 window.WordCloudLoaded = false;
             };
             script.onload = function() {
-                console.log('WordCloud库从备用CDN加载成功');
+                console.log('WordCloud library loaded successfully from fallback CDN');
                 window.WordCloudLoaded = true;
-                // 如果页面已经加载，重新渲染词云
+                // If page is already loaded, re-render word clouds
                 if (typeof renderAllWordClouds === 'function') {
                     setTimeout(renderAllWordClouds, 100);
                 }
@@ -30,14 +30,14 @@
             document.head.appendChild(script);
         }
         
-        // 检查WordCloud是否加载成功
+        // Check if WordCloud loaded successfully
         window.addEventListener('load', function() {
             setTimeout(function() {
                 if (typeof WordCloud !== 'undefined' || typeof window.WordCloud !== 'undefined') {
                     window.WordCloudLoaded = true;
-                    console.log('WordCloud库已加载');
+                    console.log('WordCloud library loaded');
                 } else {
-                    console.error('WordCloud库未加载');
+                    console.error('WordCloud library not loaded');
                     window.WordCloudLoaded = false;
                 }
             }, 500);
@@ -46,7 +46,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 顶部导航栏 -->
+    <!-- Top Navigation Bar -->
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -54,7 +54,7 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span data-i18n="back">返回主页</span>
+                    <span data-i18n="back">Back to Home</span>
                 </a>
                 <div class="brand-logo">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,80 +65,80 @@
                 </div>
                 <div class="brand-text">
                     <span class="brand-name">Intent Analytics</span>
-                    <span class="brand-subtitle" data-i18n="brand.subtitle">用户意图分析平台</span>
+                    <span class="brand-subtitle" data-i18n="brand.subtitle">Intent Analytics Platform</span>
                 </div>
             </div>
             
             <div class="navbar-menu">
-                <a href="#" class="nav-link active" data-tab="home" data-i18n="nav.home">首页</a>
-                <a href="#" class="nav-link" data-tab="overview" data-i18n="nav.overview">总览</a>
-                <a href="#" class="nav-link" data-tab="journey" data-i18n="nav.journey">转化分析</a>
-                <a href="#" class="nav-link" data-tab="clusters" data-i18n="nav.clusters">用户分析</a>
+                <a href="#" class="nav-link active" data-tab="home" data-i18n="nav.home">Home</a>
+                <a href="#" class="nav-link" data-tab="overview" data-i18n="nav.overview">Overview</a>
+                <a href="#" class="nav-link" data-tab="journey" data-i18n="nav.journey">Conversion Analysis</a>
+                <a href="#" class="nav-link" data-tab="clusters" data-i18n="nav.clusters">User Analysis</a>
             </div>
             
-            <!-- 店铺选择器 -->
+            <!-- Shop Selector -->
             <div class="shop-selector-nav" id="shopSelectorContainer">
                 <select id="shopSelector" class="shop-select-dropdown">
-                    <option value="">选择店铺...</option>
-                    <option value="28">店铺 28</option>
-                    <option value="29">店铺 29</option>
-                    <option value="39">店铺 39</option>
-                    <option value="49">店铺 49</option>
-                    <option value="53">店铺 53</option>
+                    <option value="">Select Shop...</option>
+                    <option value="28">Shop 28</option>
+                    <option value="29">Shop 29</option>
+                    <option value="39">Shop 39</option>
+                    <option value="49">Shop 49</option>
+                    <option value="53">Shop 53</option>
                 </select>
             </div>
             
-            <!-- 语言切换器 -->
+            <!-- Language Switcher -->
             <div class="language-switcher">
                 <button class="lang-btn" id="langBtn" title="Switch Language">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
                     </svg>
-                    <span id="currentLang">中文</span>
+                    <span id="currentLang">English</span>
                 </button>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
-        <!-- 仪表板头部（仅在非首页显示） -->
+        <!-- Dashboard Header (only shown on non-home pages) -->
         <header class="dashboard-header" id="dashboardHeader" style="display: none;">
             <div class="header-content">
                 <div>
-                    <h1 data-i18n="header.overview">数据总览</h1>
-                    <p class="subtitle" data-i18n="header.overviewSubtitle">实时用户意图分析与业务洞察</p>
+                    <h1 data-i18n="header.overview">Data Overview</h1>
+                    <p class="subtitle" data-i18n="header.overviewSubtitle">Real-time User Intent Analysis & Business Insights</p>
                 </div>
                 <div class="header-actions">
                     <div class="update-settings">
                         <div class="auto-update-selector">
-                            <label for="autoUpdateInterval" data-i18n="header.autoUpdate">自动更新：</label>
+                            <label for="autoUpdateInterval" data-i18n="header.autoUpdate">Auto Update:</label>
                             <select id="autoUpdateInterval" class="update-select">
-                                <option value="manual" data-i18n="header.manual">手动更新</option>
-                                <option value="3days" data-i18n="header.update3days">每3天</option>
-                                <option value="1week" data-i18n="header.update1week">每周</option>
-                                <option value="1month" data-i18n="header.update1month">每月</option>
-                                <option value="3months" data-i18n="header.update3months">每3个月</option>
+                                <option value="manual" data-i18n="header.manual">Manual Update</option>
+                                <option value="3days" data-i18n="header.update3days">Every 3 Days</option>
+                                <option value="1week" data-i18n="header.update1week">Weekly</option>
+                                <option value="1month" data-i18n="header.update1month">Monthly</option>
+                                <option value="3months" data-i18n="header.update3months">Every 3 Months</option>
                             </select>
                         </div>
                         <button class="btn-update" id="updateClustersBtn" data-i18n-title="header.updateClustersTitle">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8 2v4M2 6l6-4 6 4M8 14v-4M14 10l-6 4-6-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span data-i18n="header.updateClusters">更新聚类</span>
+                            <span data-i18n="header.updateClusters">Update Clusters</span>
                         </button>
                     </div>
                     <button class="btn-secondary">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14 2v4M2 2v4M2 2h12M2 6h12v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
-                        <span data-i18n="header.selectDate">选择日期</span>
+                        <span data-i18n="header.selectDate">Select Date</span>
                     </button>
                     <button class="btn-primary">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <span data-i18n="header.exportReport">导出报告</span>
+                        <span data-i18n="header.exportReport">Export Report</span>
                     </button>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                     </div>
                     <div class="stat-content">
                         <div class="stat-value" id="totalUsers">276</div>
-                        <div class="stat-label" data-i18n="header.stats.totalUsers">独立用户</div>
+                        <div class="stat-label" data-i18n="header.stats.totalUsers">Unique Users</div>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -166,7 +166,7 @@
                     </div>
                     <div class="stat-content">
                         <div class="stat-value" id="totalSegments">344</div>
-                        <div class="stat-label" data-i18n="header.stats.totalSegments">意图片段</div>
+                        <div class="stat-label" data-i18n="header.stats.totalSegments">Intent Segments</div>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -179,32 +179,32 @@
                     </div>
                     <div class="stat-content">
                         <div class="stat-value" id="totalClusters">15</div>
-                        <div class="stat-label" data-i18n="header.stats.totalClusters">用户聚类</div>
+                        <div class="stat-label" data-i18n="header.stats.totalClusters">User Clusters</div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- 主要内容区域 -->
+        <!-- Main Content Area -->
         <main class="dashboard-main">
-            <!-- 首页标签页 -->
+            <!-- Home Tab -->
             <div id="home" class="tab-content active">
                 <div class="homepage-hero">
                     <div class="hero-content">
-                        <h1 data-i18n="home.title">用户意图聚类分析平台</h1>
-                        <p class="hero-subtitle" data-i18n="home.subtitle">基于业务维度的智能用户细分，驱动精准营销策略</p>
+                        <h1 data-i18n="home.title">User Intent Clustering Analytics Platform</h1>
+                        <p class="hero-subtitle" data-i18n="home.subtitle">Intelligent user segmentation based on business dimensions, driving precision marketing strategies</p>
                         <div class="hero-stats">
                             <div class="hero-stat">
                                 <div class="hero-stat-value" id="homeTotalUsers">276</div>
-                                <div class="hero-stat-label" data-i18n="home.stats.users">独立用户</div>
+                                <div class="hero-stat-label" data-i18n="home.stats.users">Unique Users</div>
                             </div>
                             <div class="hero-stat">
                                 <div class="hero-stat-value" id="homeTotalClusters">15</div>
-                                <div class="hero-stat-label" data-i18n="home.stats.clusters">用户聚类</div>
+                                <div class="hero-stat-label" data-i18n="home.stats.clusters">User Clusters</div>
                             </div>
                             <div class="hero-stat">
                                 <div class="hero-stat-value" id="homeTotalSegments">344</div>
-                                <div class="hero-stat-label" data-i18n="home.stats.segments">意图片段</div>
+                                <div class="hero-stat-label" data-i18n="home.stats.segments">Intent Segments</div>
                             </div>
                         </div>
                     </div>
@@ -212,8 +212,8 @@
 
                 <div class="clustering-intro">
                     <div class="intro-header">
-                        <h2 data-i18n="home.methodology.title">用户聚类方法论</h2>
-                        <p data-i18n="home.methodology.description">基于业务维度的智能聚类，确保每个聚类都有明确的业务含义和差异化的营销策略</p>
+                        <h2 data-i18n="home.methodology.title">User Clustering Methodology</h2>
+                        <p data-i18n="home.methodology.description">Intelligent clustering based on business dimensions, ensuring each cluster has clear business meaning and differentiated marketing strategies</p>
                     </div>
 
                     <div class="clustering-dimensions">
@@ -224,12 +224,12 @@
                                     <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.dimensions.purchaseStage.title">购买阶段</h3>
-                            <p data-i18n="home.dimensions.purchaseStage.desc">识别用户处于购买漏斗的哪个阶段</p>
+                            <h3 data-i18n="home.dimensions.purchaseStage.title">Purchase Stage</h3>
+                            <p data-i18n="home.dimensions.purchaseStage.desc">Identify which stage of the purchase funnel the user is in</p>
                             <div class="dimension-tags">
-                                <span class="dimension-tag" data-i18n="home.dimensions.purchaseStage.tags.0">浏览阶段</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.purchaseStage.tags.1">对比阶段</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.purchaseStage.tags.2">决策阶段</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.purchaseStage.tags.0">Browsing Stage</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.purchaseStage.tags.1">Comparison Stage</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.purchaseStage.tags.2">Decision Stage</span>
                             </div>
                         </div>
 
@@ -240,12 +240,12 @@
                                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.dimensions.priceSensitivity.title">价格敏感度</h3>
-                            <p data-i18n="home.dimensions.priceSensitivity.desc">分析用户对价格的敏感程度</p>
+                            <h3 data-i18n="home.dimensions.priceSensitivity.title">Price Sensitivity</h3>
+                            <p data-i18n="home.dimensions.priceSensitivity.desc">Analyze user sensitivity to price</p>
                             <div class="dimension-tags">
-                                <span class="dimension-tag" data-i18n="home.dimensions.priceSensitivity.tags.0">价格敏感型</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.priceSensitivity.tags.1">中等价格型</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.priceSensitivity.tags.2">高端价值型</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.priceSensitivity.tags.0">Price Sensitive</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.priceSensitivity.tags.1">Moderate Price</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.priceSensitivity.tags.2">Premium Value</span>
                             </div>
                         </div>
 
@@ -256,12 +256,12 @@
                                     <polyline points="22 4 12 14.01 9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.dimensions.engagement.title">参与度</h3>
-                            <p data-i18n="home.dimensions.engagement.desc">评估用户的浏览深度和参与程度</p>
+                            <h3 data-i18n="home.dimensions.engagement.title">Engagement</h3>
+                            <p data-i18n="home.dimensions.engagement.desc">Assess user browsing depth and engagement level</p>
                             <div class="dimension-tags">
-                                <span class="dimension-tag" data-i18n="home.dimensions.engagement.tags.0">快速浏览者</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.engagement.tags.1">中等参与</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.engagement.tags.2">深度研究者</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.engagement.tags.0">Quick Browser</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.engagement.tags.1">Moderate Engagement</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.engagement.tags.2">Deep Researcher</span>
                             </div>
                         </div>
 
@@ -272,13 +272,13 @@
                                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.dimensions.productPreference.title">产品偏好</h3>
-                            <p data-i18n="home.dimensions.productPreference.desc">识别用户关注的产品类型和型号</p>
+                            <h3 data-i18n="home.dimensions.productPreference.title">Product Preference</h3>
+                            <p data-i18n="home.dimensions.productPreference.desc">Identify product types and models users are interested in</p>
                             <div class="dimension-tags">
-                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.0">Z6偏好</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.1">A1偏好</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.2">F1偏好</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.3">多产品比较</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.0">Z6 Preference</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.1">A1 Preference</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.2">F1 Preference</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.productPreference.tags.3">Multi-Product Comparison</span>
                             </div>
                         </div>
 
@@ -290,13 +290,13 @@
                                     <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.dimensions.concerns.title">关注点</h3>
-                            <p data-i18n="home.dimensions.concerns.desc">了解用户最关心的产品特性</p>
+                            <h3 data-i18n="home.dimensions.concerns.title">Concerns</h3>
+                            <p data-i18n="home.dimensions.concerns.desc">Understand product features users care most about</p>
                             <div class="dimension-tags">
-                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.0">功能导向</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.1">价格导向</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.2">舒适度导向</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.3">有效性导向</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.0">Function-Oriented</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.1">Price-Oriented</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.2">Comfort-Oriented</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.concerns.tags.3">Effectiveness-Oriented</span>
                             </div>
                         </div>
 
@@ -308,13 +308,13 @@
                                     <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.dimensions.coreNeeds.title">核心需求</h3>
-                            <p data-i18n="home.dimensions.coreNeeds.desc">识别用户的核心购买动机</p>
+                            <h3 data-i18n="home.dimensions.coreNeeds.title">Core Needs</h3>
+                            <p data-i18n="home.dimensions.coreNeeds.desc">Identify users' core purchase motivations</p>
                             <div class="dimension-tags">
-                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.0">止鼾需求</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.1">颈部疼痛</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.2">睡眠质量</span>
-                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.3">综合需求</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.0">Snoring Relief</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.1">Neck Pain</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.2">Sleep Quality</span>
+                                <span class="dimension-tag" data-i18n="home.dimensions.coreNeeds.tags.3">Comprehensive Needs</span>
                             </div>
                         </div>
                     </div>
@@ -322,36 +322,36 @@
 
                 <div class="clustering-benefits">
                     <div class="benefits-header">
-                        <h2 data-i18n="home.benefits.title">聚类价值</h2>
-                        <p data-i18n="home.benefits.description">每个聚类都有明确的业务含义和差异化的营销策略</p>
+                        <h2 data-i18n="home.benefits.title">Clustering Value</h2>
+                        <p data-i18n="home.benefits.description">Each cluster has clear business meaning and differentiated marketing strategies</p>
                     </div>
 
                     <div class="benefits-grid">
                         <div class="benefit-card">
                             <div class="benefit-number" data-i18n="home.benefits.items.clear.number">01</div>
-                            <h3 data-i18n="home.benefits.items.clear.title">明确的业务区分</h3>
-                            <p data-i18n="home.benefits.items.clear.desc">基于业务维度聚类，每个聚类都有清晰的标签和特征，易于理解和应用</p>
+                            <h3 data-i18n="home.benefits.items.clear.title">Clear Business Differentiation</h3>
+                            <p data-i18n="home.benefits.items.clear.desc">Clustering based on business dimensions, each cluster has clear labels and characteristics, easy to understand and apply</p>
                         </div>
                         <div class="benefit-card">
                             <div class="benefit-number" data-i18n="home.benefits.items.strategy.number">02</div>
-                            <h3 data-i18n="home.benefits.items.strategy.title">差异化营销策略</h3>
-                            <p data-i18n="home.benefits.items.strategy.desc">针对不同聚类提供独特的营销建议，确保每个群体都有针对性的策略</p>
+                            <h3 data-i18n="home.benefits.items.strategy.title">Differentiated Marketing Strategies</h3>
+                            <p data-i18n="home.benefits.items.strategy.desc">Provide unique marketing recommendations for different clusters, ensuring each group has targeted strategies</p>
                         </div>
                         <div class="benefit-card">
                             <div class="benefit-number" data-i18n="home.benefits.items.actionable.number">03</div>
-                            <h3 data-i18n="home.benefits.items.actionable.title">可执行的行动建议</h3>
-                            <p data-i18n="home.benefits.items.actionable.desc">提供具体的营销活动、内容策略和转化优化建议，可直接应用到业务中</p>
+                            <h3 data-i18n="home.benefits.items.actionable.title">Actionable Recommendations</h3>
+                            <p data-i18n="home.benefits.items.actionable.desc">Provide specific marketing activities, content strategies, and conversion optimization recommendations that can be directly applied to business</p>
                         </div>
                         <div class="benefit-card">
                             <div class="benefit-number" data-i18n="home.benefits.items.dataDriven.number">04</div>
-                            <h3 data-i18n="home.benefits.items.dataDriven.title">数据驱动决策</h3>
-                            <p data-i18n="home.benefits.items.dataDriven.desc">基于真实的用户行为数据，确保营销策略的科学性和有效性</p>
+                            <h3 data-i18n="home.benefits.items.dataDriven.title">Data-Driven Decision Making</h3>
+                            <p data-i18n="home.benefits.items.dataDriven.desc">Based on real user behavior data, ensuring the scientific and effective nature of marketing strategies</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="quick-actions">
-                    <h2 data-i18n="home.quickActions.title">快速开始</h2>
+                    <h2 data-i18n="home.quickActions.title">Quick Start</h2>
                     <div class="actions-grid">
                         <a href="#" class="action-card" data-tab="overview">
                             <div class="action-icon">
@@ -361,8 +361,8 @@
                                     <line x1="6" y1="20" x2="6" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.quickActions.overview.title">查看数据总览</h3>
-                            <p data-i18n="home.quickActions.overview.desc">了解整体用户意图分布和关键指标</p>
+                            <h3 data-i18n="home.quickActions.overview.title">View Data Overview</h3>
+                            <p data-i18n="home.quickActions.overview.desc">Understand overall user intent distribution and key metrics</p>
                         </a>
                         <a href="#" class="action-card" data-tab="clusters">
                             <div class="action-icon">
@@ -372,8 +372,8 @@
                                     <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <h3 data-i18n="home.quickActions.clusters.title">分析用户聚类</h3>
-                            <p data-i18n="home.quickActions.clusters.desc">深入了解每个用户群体的特征</p>
+                            <h3 data-i18n="home.quickActions.clusters.title">Analyze User Clusters</h3>
+                            <p data-i18n="home.quickActions.clusters.desc">Deep dive into characteristics of each user group</p>
                         </a>
                         <a href="#" class="action-card business-insights-card" data-tab="financial" style="position: relative;">
                             <div class="action-icon" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);">
@@ -384,280 +384,280 @@
                                 </svg>
                             </div>
                             <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                <h3 data-i18n="home.quickActions.businessInsights.title">业务洞察分析</h3>
+                                <h3 data-i18n="home.quickActions.businessInsights.title">Business Insights Analysis</h3>
                                 <span class="beta-badge" style="font-size: 0.65rem; padding: 0.15rem 0.4rem;">BETA</span>
                             </div>
-                            <p data-i18n="home.quickActions.businessInsights.desc">基于金融特征的智能用户细分与运营策略</p>
+                            <p data-i18n="home.quickActions.businessInsights.desc">Intelligent user segmentation and operations strategy based on financial characteristics</p>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- 总览标签页 -->
+            <!-- Overview Tab -->
             <div id="overview" class="tab-content">
                 <div class="section-title">
-                    <h2 data-i18n="overview.title">数据总览</h2>
-                    <p data-i18n="overview.subtitle">整体用户意图分析概览与关键指标</p>
+                    <h2 data-i18n="overview.title">Data Overview</h2>
+                    <p data-i18n="overview.subtitle">Overall user intent analysis overview and key metrics</p>
                 </div>
 
                 <div class="charts-grid">
                     <div class="chart-card">
-                        <h3 data-i18n="overview.charts.clusterDistribution">用户聚类分布</h3>
+                        <h3 data-i18n="overview.charts.clusterDistribution">User Cluster Distribution</h3>
                         <canvas id="clusterDistributionChart"></canvas>
                     </div>
                     <div class="chart-card">
-                        <h3 data-i18n="overview.charts.purchaseStage">购买阶段分布</h3>
+                        <h3 data-i18n="overview.charts.purchaseStage">Purchase Stage Distribution</h3>
                         <canvas id="purchaseStageChart"></canvas>
                     </div>
                     <div class="chart-card">
-                        <h3 data-i18n="overview.charts.pricePreference">价格偏好分布</h3>
+                        <h3 data-i18n="overview.charts.pricePreference">Price Preference Distribution</h3>
                         <canvas id="pricePreferenceChart"></canvas>
                     </div>
                     <div class="chart-card">
-                        <h3 data-i18n="overview.charts.concerns">核心关注点</h3>
+                        <h3 data-i18n="overview.charts.concerns">Core Concerns</h3>
                         <canvas id="concernsChart"></canvas>
                     </div>
                 </div>
 
                 <div class="insights-summary">
                     <div class="section-header">
-                        <h3 data-i18n="overview.insights.title">关键洞察</h3>
-                        <span class="section-badge" data-i18n="overview.insights.badge">实时更新</span>
+                        <h3 data-i18n="overview.insights.title">Key Insights</h3>
+                        <span class="section-badge" data-i18n="overview.insights.badge">Real-time Update</span>
                     </div>
                     <div class="insights-grid" id="keyInsights">
-                        <!-- 动态生成 -->
+                        <!-- Dynamically generated -->
                     </div>
                 </div>
             </div>
 
-            <!-- 转化分析标签页 -->
+            <!-- Conversion Analysis Tab -->
             <div id="journey" class="tab-content">
                 <div class="section-title">
-                    <h2 data-i18n="journey.title">转化分析</h2>
-                    <p data-i18n="journey.subtitle">探索用户转化路径与意图轨迹</p>
+                    <h2 data-i18n="journey.title">Conversion Analysis</h2>
+                    <p data-i18n="journey.subtitle">Explore user conversion paths and intent trajectories</p>
                 </div>
 
-                <!-- 子标签页切换 -->
+                <!-- Sub-tab Navigation -->
                 <div class="sub-tabs">
                     <button class="sub-tab-btn active" data-sub-tab="path" onclick="switchSubTab('path')">
-                        <span data-i18n="journey.tabs.path">转化路径</span>
+                        <span data-i18n="journey.tabs.path">Conversion Path</span>
                     </button>
                     <button class="sub-tab-btn" data-sub-tab="trajectory" onclick="switchSubTab('trajectory')">
-                        <span data-i18n="journey.tabs.trajectory">用户轨迹</span>
+                        <span data-i18n="journey.tabs.trajectory">User Trajectory</span>
                     </button>
                     <button class="sub-tab-btn" data-sub-tab="cluster" onclick="switchSubTab('cluster')">
-                        <span data-i18n="journey.tabs.cluster">用户聚类</span>
+                        <span data-i18n="journey.tabs.cluster">User Clusters</span>
                     </button>
                 </div>
 
-                <!-- 转化路径子页面 -->
+                <!-- Conversion Path Sub-page -->
                 <div id="subTab-path" class="sub-tab-content active">
                     <div class="journey-hero">
-                        <h1 data-i18n="journey.path.title">用户转化路径可视化</h1>
-                        <p data-i18n="journey.path.subtitle">探索用户从浏览到决策的完整旅程，了解不同画像在转化各阶段的分布</p>
+                        <h1 data-i18n="journey.path.title">User Conversion Path Visualization</h1>
+                        <p data-i18n="journey.path.subtitle">Explore the complete journey from browsing to decision, understand the distribution of different profiles at each conversion stage</p>
                     </div>
                     <div id="journeyVisualization" class="journey-container">
-                        <!-- 动态生成转化路径 -->
+                        <!-- Dynamically generated conversion path -->
                     </div>
                 </div>
 
-                <!-- 用户轨迹子页面 -->
+                <!-- User Trajectory Sub-page -->
                 <div id="subTab-trajectory" class="sub-tab-content">
                     <div class="section-title" style="margin-top: 0;">
-                        <h3 data-i18n="journey.trajectory.title">用户意图轨迹分析</h3>
-                        <p data-i18n="journey.trajectory.subtitle">查看每个用户在不同时间段的意图切片及其对应的聚类分布</p>
+                        <h3 data-i18n="journey.trajectory.title">User Intent Trajectory Analysis</h3>
+                        <p data-i18n="journey.trajectory.subtitle">View intent segments for each user at different time periods and their corresponding cluster distribution</p>
                     </div>
 
-                    <!-- 搜索和筛选 -->
+                    <!-- Search and Filter -->
                     <div class="user-filters" style="margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
                         <div class="search-box" style="flex: 1; min-width: 300px;">
-                            <input type="text" id="userSearch" data-i18n-placeholder="journey.trajectory.search" placeholder="搜索用户ID..." style="width: 100%; padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
+                            <input type="text" id="userSearch" data-i18n-placeholder="journey.trajectory.search" placeholder="Search User ID..." style="width: 100%; padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
                         </div>
                         <div class="filter-group">
-                            <label style="margin-right: 0.5rem; color: var(--text-secondary);" data-i18n="journey.trajectory.filter">筛选:</label>
+                            <label style="margin-right: 0.5rem; color: var(--text-secondary);" data-i18n="journey.trajectory.filter">Filter:</label>
                             <select id="clusterFilter" style="padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
-                                <option value="" data-i18n="journey.trajectory.allClusters">所有聚类</option>
+                                <option value="" data-i18n="journey.trajectory.allClusters">All Clusters</option>
                             </select>
                         </div>
                         <div class="sort-group">
-                            <label style="margin-right: 0.5rem; color: var(--text-secondary);" data-i18n="journey.trajectory.sort">排序:</label>
+                            <label style="margin-right: 0.5rem; color: var(--text-secondary);" data-i18n="journey.trajectory.sort">Sort:</label>
                             <select id="sortOption" style="padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
-                                <option value="time" data-i18n="journey.trajectory.sortByTime">按时间</option>
-                                <option value="segments" data-i18n="journey.trajectory.sortBySegments">按片段数</option>
-                                <option value="clusters" data-i18n="journey.trajectory.sortByClusters">按聚类数</option>
+                                <option value="time" data-i18n="journey.trajectory.sortByTime">By Time</option>
+                                <option value="segments" data-i18n="journey.trajectory.sortBySegments">By Segment Count</option>
+                                <option value="clusters" data-i18n="journey.trajectory.sortByClusters">By Cluster Count</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- 用户列表 -->
+                    <!-- User List -->
                     <div id="userTrajectories" class="user-trajectories">
-                        <!-- 动态生成 -->
+                        <!-- Dynamically generated -->
                     </div>
                 </div>
 
-                <!-- 用户聚类子页面 -->
+                <!-- User Cluster Sub-page -->
                 <div id="subTab-cluster" class="sub-tab-content">
                     <div class="section-title" style="margin-top: 0;">
-                        <h3 data-i18n="journey.cluster.title">用户聚类分析</h3>
-                        <p data-i18n="journey.cluster.subtitle">深入了解每个用户群体的特征与行为模式</p>
+                        <h3 data-i18n="journey.cluster.title">User Cluster Analysis</h3>
+                        <p data-i18n="journey.cluster.subtitle">Deep dive into characteristics and behavior patterns of each user group</p>
                     </div>
 
                     <div class="cluster-selector">
-                        <label for="clusterSelect" data-i18n="journey.cluster.select">选择聚类：</label>
+                        <label for="clusterSelect" data-i18n="journey.cluster.select">Select Cluster:</label>
                         <select id="clusterSelect" onchange="showClusterDetails(this.value)">
-                            <option value="" data-i18n="journey.cluster.selectPlaceholder">-- 选择聚类 --</option>
+                            <option value="" data-i18n="journey.cluster.selectPlaceholder">-- Select Cluster --</option>
                         </select>
                     </div>
 
                     <div id="clusterDetails" class="cluster-details">
-                        <!-- 动态生成聚类详情 -->
+                        <!-- Dynamically generated cluster details -->
                     </div>
                 </div>
             </div>
 
-            <!-- 用户分析标签页 -->
+            <!-- User Analysis Tab -->
             <div id="clusters" class="tab-content">
                 <div class="section-title">
-                    <h2 data-i18n="clusters.title">用户分析</h2>
-                    <p data-i18n="clusters.subtitle">深入了解用户群体特征与行为模式</p>
+                    <h2 data-i18n="clusters.title">User Analysis</h2>
+                    <p data-i18n="clusters.subtitle">Deep dive into user group characteristics and behavior patterns</p>
                 </div>
 
-                <!-- 子标签页切换 -->
+                <!-- Sub-tab Navigation -->
                 <div class="sub-tabs">
                     <button class="sub-tab-btn active" data-sub-tab="portrait" onclick="switchSubTab('portrait')">
-                        <span data-i18n="clusters.portrait.title">用户画像分析</span>
+                        <span data-i18n="clusters.portrait.title">User Portrait Analysis</span>
                     </button>
                 </div>
 
-                <!-- 用户画像子页面 -->
+                <!-- User Portrait Sub-page -->
                 <div id="subTab-portrait" class="sub-tab-content active">
                     <div class="section-title" style="margin-top: 0;">
-                        <h3 data-i18n="clusters.portrait.title">用户画像分析</h3>
-                        <p data-i18n="clusters.portrait.subtitle">详细的用户特征、行为模式与偏好分析</p>
+                        <h3 data-i18n="clusters.portrait.title">User Portrait Analysis</h3>
+                        <p data-i18n="clusters.portrait.subtitle">Detailed user characteristics, behavior patterns, and preference analysis</p>
                     </div>
 
                     <div class="portrait-cards" id="portraitCards">
-                        <!-- 动态生成 -->
+                        <!-- Dynamically generated -->
                     </div>
                 </div>
             </div>
 
-            <!-- 金融市场分析标签页 (Beta) -->
+            <!-- Financial Market Analysis Tab (Beta) -->
             <div id="financial" class="tab-content">
-                <!-- 顶部业务概览 -->
+                <!-- Top Business Overview -->
                 <div class="financial-dashboard-header" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 2rem; border-radius: 16px; margin-bottom: 2rem; border: 1px solid var(--border);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                         <div>
-                            <h2 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.75rem;">YUP用户行为分析 <span class="beta-badge">BETA</span></h2>
-                            <p style="margin: 0; color: var(--text-secondary);">基于用户行为特征的智能细分，帮助您精准运营和转化</p>
+                            <h2 style="margin: 0 0 0.5rem 0; color: var(--text); font-size: 1.75rem;">YUP User Behavior Analysis <span class="beta-badge">BETA</span></h2>
+                            <p style="margin: 0; color: var(--text-secondary);">Intelligent segmentation based on user behavior characteristics to help you operate and convert precisely</p>
                         </div>
                     </div>
                     
-                    <!-- 核心业务指标 -->
+                    <!-- Core Business Metrics -->
                     <div id="financialStats" class="financial-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
-                        <!-- 动态生成 -->
+                        <!-- Dynamically generated -->
                     </div>
                 </div>
 
-                <!-- 快速洞察卡片 -->
+                <!-- Quick Insights Cards -->
                 <div id="financialQuickInsights" style="margin-bottom: 2rem;">
-                    <!-- 动态生成 -->
+                    <!-- Dynamically generated -->
                 </div>
 
-                <!-- 子标签页切换 -->
+                <!-- Sub-tab Navigation -->
                 <div class="sub-tabs">
                     <button class="sub-tab-btn active" data-sub-tab="financial-overview" onclick="switchFinancialSubTab('overview')">
-                        <span>📊 用户分组</span>
+                        <span>📊 User Groups</span>
                     </button>
                     <button class="sub-tab-btn" data-sub-tab="financial-portrait" onclick="switchFinancialSubTab('portrait')">
-                        <span>🔄 用户轨迹</span>
+                        <span>🔄 User Trajectories</span>
                     </button>
                     <button class="sub-tab-btn" data-sub-tab="financial-clusters" onclick="switchFinancialSubTab('clusters')">
-                        <span>🎯 运营策略</span>
+                        <span>🎯 Operations Strategy</span>
                     </button>
                 </div>
 
-                <!-- 聚类总览子页面 -->
+                <!-- Cluster Overview Sub-page -->
                 <div id="subTab-financial-overview" class="sub-tab-content active">
-                    <!-- 用户分组卡片 -->
+                    <!-- User Group Cards -->
                     <div id="financialUserGroups" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                        <!-- 动态生成 -->
+                        <!-- Dynamically generated -->
                     </div>
 
-                    <!-- 数据分布图表 -->
+                    <!-- Data Distribution Charts -->
                     <div class="section-title" style="margin-top: 2rem; margin-bottom: 1.5rem;">
-                        <h3>数据分布</h3>
-                        <p>用户状态和行为分布概览</p>
+                        <h3>Data Distribution</h3>
+                        <p>Overview of user status and behavior distribution</p>
                     </div>
 
                     <div class="charts-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
                         <div class="chart-card">
-                            <h3>用户状态分布</h3>
+                            <h3>User Status Distribution</h3>
                             <canvas id="financialTransactionStatusChart"></canvas>
                         </div>
                         <div class="chart-card">
-                            <h3>身份验证进度</h3>
+                            <h3>Identity Verification Progress</h3>
                             <canvas id="financialKYCStatusChart"></canvas>
                         </div>
                         <div class="chart-card">
-                            <h3>用户行为偏好</h3>
+                            <h3>User Behavior Preferences</h3>
                             <canvas id="financialMainActivityChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- 用户轨迹子页面 -->
+                <!-- User Trajectory Sub-page -->
                 <div id="subTab-financial-portrait" class="sub-tab-content">
                     <div class="section-title" style="margin-top: 0;">
-                        <h3>用户意图轨迹分析</h3>
-                        <p>查看每个用户在不同时间段的意图切片及其对应的聚类分布</p>
+                        <h3>User Intent Trajectory Analysis</h3>
+                        <p>View intent segments for each user at different time periods and their corresponding cluster distribution</p>
                     </div>
 
-                    <!-- 搜索和筛选 -->
+                    <!-- Search and Filter -->
                     <div class="user-filters" style="margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
                         <div class="search-box" style="flex: 1; min-width: 300px;">
-                            <input type="text" id="financialUserSearch" placeholder="搜索用户ID..." style="width: 100%; padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
+                            <input type="text" id="financialUserSearch" placeholder="Search User ID..." style="width: 100%; padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
                         </div>
                         <div class="filter-group">
-                            <label style="margin-right: 0.5rem; color: var(--text-secondary);">筛选:</label>
+                            <label style="margin-right: 0.5rem; color: var(--text-secondary);">Filter:</label>
                             <select id="financialClusterFilter" style="padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
-                                <option value="">所有聚类</option>
+                                <option value="">All Clusters</option>
                             </select>
                         </div>
                         <div class="sort-group">
-                            <label style="margin-right: 0.5rem; color: var(--text-secondary);">排序:</label>
+                            <label style="margin-right: 0.5rem; color: var(--text-secondary);">Sort:</label>
                             <select id="financialSortOption" style="padding: 0.75rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px;">
-                                <option value="time">按时间</option>
-                                <option value="segments">按片段数</option>
-                                <option value="clusters">按聚类数</option>
+                                <option value="time">By Time</option>
+                                <option value="segments">By Segment Count</option>
+                                <option value="clusters">By Cluster Count</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- 用户列表 -->
+                    <!-- User List -->
                     <div id="financialUserTrajectories" class="user-trajectories">
-                        <!-- 动态生成 -->
+                        <!-- Dynamically generated -->
                     </div>
                 </div>
 
-                <!-- 运营策略子页面 -->
+                <!-- Operations Strategy Sub-page -->
                 <div id="subTab-financial-clusters" class="sub-tab-content">
                     <div class="section-title" style="margin-top: 0;">
-                        <h3>精准运营策略</h3>
-                        <p>针对不同用户群体的个性化运营建议和行动方案</p>
+                        <h3>Precision Operations Strategy</h3>
+                        <p>Personalized operations recommendations and action plans for different user groups</p>
                     </div>
 
                     <div class="cluster-selector" style="margin-bottom: 2rem;">
-                        <label for="financialClusterSelect" style="font-weight: 600; color: var(--text); margin-right: 1rem;">选择用户群体：</label>
+                        <label for="financialClusterSelect" style="font-weight: 600; color: var(--text); margin-right: 1rem;">Select User Group:</label>
                         <select id="financialClusterSelect" onchange="showFinancialClusterDetails(this.value)" style="padding: 0.75rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem; min-width: 300px;">
-                            <option value="">-- 请选择用户群体 --</option>
+                            <option value="">-- Please Select User Group --</option>
                         </select>
                     </div>
 
                     <div id="financialClusterDetails" class="cluster-details">
                         <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
                             <div style="font-size: 3rem; margin-bottom: 1rem;">👆</div>
-                            <p style="font-size: 1.1rem;">请在上方选择用户群体，查看详细的运营策略</p>
+                            <p style="font-size: 1.1rem;">Please select a user group above to view detailed operations strategy</p>
                         </div>
                     </div>
                 </div>
@@ -665,23 +665,23 @@
 
         </main>
 
-        <!-- 页脚 -->
+        <!-- Footer -->
         <footer class="dashboard-footer">
             <div class="footer-content">
                 <div class="footer-left">
                     <p>© 2025 Intent Analytics Platform. All rights reserved.</p>
                 </div>
                 <div class="footer-right">
-                    <a href="#" data-i18n="footer.help">帮助文档</a>
-                    <a href="#" data-i18n="footer.api">API文档</a>
-                    <a href="#" data-i18n="footer.contact">联系我们</a>
+                    <a href="#" data-i18n="footer.help">Help Documentation</a>
+                    <a href="#" data-i18n="footer.api">API Documentation</a>
+                    <a href="#" data-i18n="footer.contact">Contact Us</a>
                 </div>
             </div>
         </footer>
     </div>
 
     <script src="i18n.js"></script>
-    <!-- 优先加载多店铺数据，如果不存在则加载默认数据 -->
+    <!-- Load multi-shop data first, fallback to default data if not available -->
     <script src="multi_shop_data.js" onerror="loadDefaultData()"></script>
     <script>
         function loadDefaultData() {
@@ -692,66 +692,66 @@
     </script>
     <script src="dashboard.js"></script>
     <script>
-        // 店铺切换功能
+        // Shop switching functionality
         let currentShopId = null;
         
-        // 初始化店铺选择器
+        // Initialize shop selector
         function initShopSelector() {
             const shopSelector = document.getElementById('shopSelector');
             if (!shopSelector) return;
             
-            // 检查是否有多店铺数据
+            // Check if multi-shop data exists
             if (typeof shopSummary === 'undefined' || typeof shopData === 'undefined') {
-                // 如果没有多店铺数据，隐藏选择器并使用默认数据
+                // If no multi-shop data, hide selector and use default data
                 shopSelector.style.display = 'none';
-                console.log('使用默认数据文件');
+                console.log('Using default data file');
                 return;
             }
             
-            // 填充店铺选项（排除YUP，YUP只在金融分析tab中显示）
-            shopSelector.innerHTML = '<option value="">选择店铺...</option>';
+            // Populate shop options (exclude YUP, YUP only shown in financial analysis tab)
+            shopSelector.innerHTML = '<option value="">Select Shop...</option>';
             shopSummary.shops.forEach(shopId => {
-                // 排除YUP，因为YUP只在金融分析tab中显示
+                // Exclude YUP, as YUP is only shown in financial analysis tab
                 if (shopId === 'YUP') return;
                 const option = document.createElement('option');
                 option.value = shopId;
                 const stats = shopSummary.shop_stats[shopId];
-                option.textContent = `店铺 ${shopId} (${stats.total_users}用户)`;
+                option.textContent = `Shop ${shopId} (${stats.total_users} users)`;
                 shopSelector.appendChild(option);
             });
             
-            // 监听选择变化
+            // Listen for selection changes
             shopSelector.addEventListener('change', function(e) {
                 const selectedShop = e.target.value;
                 if (selectedShop) {
                     switchShop(selectedShop);
                 } else {
-                    // 如果选择"选择店铺..."，使用默认数据
+                    // If "Select Shop..." is selected, use default data
                     loadDefaultShopData();
                 }
             });
         }
         
-        // 切换店铺
+        // Switch shop
         function switchShop(shopId) {
             if (!shopData || !shopData[shopId]) {
-                console.error(`店铺 ${shopId} 的数据不存在`);
+                console.error(`Shop ${shopId} data does not exist`);
                 return;
             }
             
             currentShopId = shopId;
             
-            // 更新全局数据变量
+            // Update global data variables
             window.businessInsights = shopData[shopId].businessInsights || [];
             window.userPortraits = shopData[shopId].userPortraits || [];
             window.stats = shopData[shopId].stats || {};
             window.timeSeries = shopData[shopId].timeSeries || [];
             window.userTrajectories = shopData[shopId].userTrajectories || [];
             
-            // 更新店铺指示器
+            // Update shop indicator
             updateShopIndicator(shopId);
             
-            // 更新页面顶部的统计数据
+            // Update statistics at top of page
             if (typeof stats !== 'undefined' && stats) {
                 const totalUsersEl = document.getElementById('totalUsers');
                 const totalSegmentsEl = document.getElementById('totalSegments');
@@ -776,7 +776,7 @@
                 }
             }
             
-            // 重新加载当前标签页内容
+            // Reload current tab content
             const activeTab = document.querySelector('.tab-content.active');
             if (activeTab) {
                 const tabName = activeTab.id;
@@ -786,9 +786,9 @@
             }
         }
         
-        // 加载默认店铺数据
+        // Load default shop data
         function loadDefaultShopData() {
-            // 如果存在默认的data.js数据，使用它
+            // If default data.js exists, use it
             if (typeof businessInsights !== 'undefined') {
                 currentShopId = null;
                 const activeTab = document.querySelector('.tab-content.active');
@@ -798,24 +798,24 @@
             }
         }
         
-        // 更新店铺指示器
+        // Update shop indicator
         function updateShopIndicator(shopId) {
             const shopStats = shopSummary.shop_stats[shopId];
             if (shopStats) {
                 const shopSelector = document.getElementById('shopSelector');
                 if (shopSelector) {
-                    shopSelector.title = `店铺 ${shopId} - ${shopStats.total_users} 用户, ${shopStats.total_segments} 片段, ${shopStats.total_clusters} 聚类`;
+                    shopSelector.title = `Shop ${shopId} - ${shopStats.total_users} users, ${shopStats.total_segments} segments, ${shopStats.total_clusters} clusters`;
                 }
             }
         }
         
-        // 页面加载完成后初始化
+        // Initialize after page load
         window.addEventListener('load', function() {
-            // 延迟初始化，确保数据已加载
+            // Delay initialization to ensure data is loaded
             setTimeout(function() {
                 initShopSelector();
                 
-            // 如果有多店铺数据且没有选择店铺，自动选择第一个店铺（排除YUP）
+            // If multi-shop data exists and no shop is selected, auto-select first shop (exclude YUP)
                 if (typeof shopSummary !== 'undefined' && typeof shopData !== 'undefined' && shopSummary.shops.length > 0) {
                 const shopsWithoutYUP = shopSummary.shops.filter(s => s !== 'YUP');
                 if (shopsWithoutYUP.length > 0 && !currentShopId) {

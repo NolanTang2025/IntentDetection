@@ -1,4 +1,4 @@
-/* 深色主题变量 */
+/* Dark Theme Variables */
 :root {
     --bg: #0E1624;
     --bg-dark: #09111D;
@@ -18,7 +18,7 @@
     --shadow-lg: rgba(0, 0, 0, 0.5);
 }
 
-/* 全局样式 */
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -44,7 +44,7 @@ body {
     position: relative;
 }
 
-/* 顶部导航栏 - 专业设计 */
+/* Top Navigation Bar - Professional Design */
 .navbar {
     position: fixed;
     top: 0;
@@ -153,7 +153,7 @@ body {
     margin: 0 2rem;
 }
 
-/* 店铺选择器 */
+/* Shop Selector */
 .shop-selector-nav {
     margin-left: auto;
     margin-right: 1rem;
@@ -189,7 +189,7 @@ body {
     padding: 8px;
 }
 
-/* 语言切换器 */
+/* Language Switcher */
 .language-switcher {
     display: flex;
     align-items: center;
@@ -235,7 +235,7 @@ body {
     box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
 }
 
-/* 性能优化：使用GPU加速 */
+/* Performance Optimization: Use GPU Acceleration */
 .financial-group-card,
 .portrait-card {
     will-change: transform;
@@ -243,12 +243,12 @@ body {
     backface-visibility: hidden;
 }
 
-/* 优化图表容器 */
+/* Optimize Chart Container */
 .chart-card canvas {
     max-height: 300px;
 }
 
-/* 优化动画性能 */
+/* Optimize Animation Performance */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -297,9 +297,9 @@ body {
     border-radius: 2px 2px 0 0;
 }
 
-/* 已删除：搜索、通知和账号功能相关样式（demo不需要） */
+/* Removed: Search, notification and account feature related styles (not needed for demo) */
 
-/* 仪表板头部 */
+/* Dashboard Header */
 .dashboard-header {
     background: var(--card);
     border-bottom: 1px solid var(--border);
@@ -363,7 +363,7 @@ body {
     border-color: var(--border-hover);
 }
 
-/* 更新设置区域 */
+/* Update Settings Area */
 .update-settings {
     display: flex;
     align-items: center;
@@ -502,7 +502,7 @@ body {
     }
 }
 
-/* 视图切换按钮 */
+/* View Toggle Buttons */
 .view-controls {
     display: flex;
     align-items: center;
@@ -567,7 +567,7 @@ body {
     border-color: var(--accent);
 }
 
-/* 时间分布图表容器 */
+/* Time Distribution Chart Container */
 .timeline-summary {
     margin-top: 2rem;
     padding: 1.5rem;
@@ -665,9 +665,9 @@ body {
     font-weight: 500;
 }
 
-/* 移除旧的标签导航，使用顶部导航栏 */
+/* Removed old tab navigation, using top navigation bar */
 
-/* 主要内容区域 */
+/* Main Content Area */
 .dashboard-main {
     padding: 2rem;
     max-width: 1400px;
@@ -714,7 +714,7 @@ body {
     font-weight: 400;
 }
 
-/* 图表网格 - 深色卡片 */
+/* Chart Grid - Dark Cards */
 .charts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -768,7 +768,7 @@ body {
     grid-column: 1 / -1;
 }
 
-/* 折叠卡片组件 */
+/* Accordion Card Component */
 .accordion {
     margin-top: 2rem;
 }
@@ -827,7 +827,7 @@ body {
     font-size: 15px;
 }
 
-/* 洞察摘要 */
+/* Insights Summary */
 .insights-summary {
     margin-top: 2rem;
     padding: 1.5rem;
@@ -903,7 +903,7 @@ body {
     margin-top: 0.5rem;
 }
 
-/* 聚类选择器 */
+/* Cluster Selector */
 .cluster-selector {
     margin-bottom: 2rem;
     padding: 1rem;
@@ -941,7 +941,7 @@ body {
     box-shadow: 0 0 0 3px rgba(127, 232, 193, 0.1);
 }
 
-/* 聚类详情 */
+/* Cluster Details */
 .cluster-details {
     display: none;
     animation: fadeInUp 0.4s ease;
@@ -1034,14 +1034,14 @@ body {
     border-left-color: var(--accent2);
 }
 
-/* 画像卡片 */
+/* Portrait Card */
 .portrait-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 2rem;
 }
 
-/* 增强的用户画像卡片 */
+/* Enhanced User Portrait Card */
 .portrait-card-enhanced {
     background: var(--card);
     border: 1px solid var(--border);
@@ -1146,12 +1146,12 @@ body {
     grid-auto-rows: min-content;
 }
 
-/* 紧凑型可视化区域（词云、价格偏好等） */
+/* Compact Visualization Area (Word Cloud, Price Preference, etc.) */
 .visualization-compact {
     grid-column: span 1;
 }
 
-/* 全宽可视化区域（热力图、雷达图） */
+/* Full-width Visualization Area (Heatmap, Radar Chart) */
 .visualization-fullwidth {
     grid-column: 1 / -1;
 }
@@ -1219,7 +1219,7 @@ body {
     box-sizing: border-box;
 }
 
-/* 确保紧凑型可视化区域保持一致的尺寸 */
+/* Ensure compact visualization areas maintain consistent dimensions */
 .visualization-compact .visualization-content {
     min-height: 240px;
     height: 240px;
@@ -1242,7 +1242,7 @@ body {
     object-fit: contain;
 }
 
-/* 确保词云容器保持正确比例 */
+/* Ensure word cloud container maintains correct aspect ratio */
 .visualization-section:has(.wordcloud-canvas) .visualization-content {
     width: 100%;
     height: 240px;
@@ -1266,7 +1266,7 @@ body {
     aspect-ratio: 1 / 1;
 }
 
-/* 确保雷达图容器保持正方形 */
+/* Ensure radar chart container remains square */
 .visualization-section:has(.chart-radar) .visualization-content {
     display: flex;
     justify-content: center;
@@ -1274,7 +1274,7 @@ body {
     min-height: 400px;
 }
 
-/* 热力图canvas特殊样式 - 允许自适应高度 */
+/* Heatmap canvas special styles - allow adaptive height */
 .heatmap-canvas {
     width: 100% !important;
     height: auto !important;
@@ -1284,7 +1284,7 @@ body {
     border-radius: 8px;
 }
 
-/* 价格偏好显示样式 */
+/* Price Preference Display Styles */
 .price-preference-content {
     display: flex;
     align-items: center;
@@ -1505,7 +1505,7 @@ body {
     margin-top: 0.25rem;
 }
 
-/* 业务洞察容器 */
+/* Business Insights Container */
 .insights-container {
     display: grid;
     gap: 1.5rem;
@@ -1615,7 +1615,7 @@ body {
     transform: translateX(5px);
 }
 
-/* 产品详情 */
+/* Product Details */
 .product-details {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1672,7 +1672,7 @@ body {
     color: var(--muted);
 }
 
-/* 标签样式 */
+/* Tag Styles */
 .pill {
     display: inline-block;
     padding: 6px 12px;
@@ -1692,7 +1692,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* 页脚 */
+/* Footer */
 .dashboard-footer {
     background: var(--card);
     padding: 1.5rem 2rem;
@@ -1730,7 +1730,7 @@ body {
     color: var(--text);
 }
 
-/* 滚动条样式 */
+/* Scrollbar Styles */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -1749,7 +1749,7 @@ body {
     background: var(--glass-hover);
 }
 
-/* 首页样式 */
+/* Homepage Styles */
 .homepage-hero {
     background: var(--card);
     border: 1px solid var(--border);
@@ -2106,7 +2106,7 @@ body {
     margin: 0;
 }
 
-/* 业务洞察卡片特殊样式 */
+/* Business Insights Card Special Styles */
 .business-insights-card {
     border: 2px solid rgba(102, 126, 234, 0.3);
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
@@ -2130,10 +2130,10 @@ body {
     transform: scale(1.1) rotate(5deg);
 }
 
-/* 用户路线图样式 */
-/* 已删除：使用指南相关样式 */
+/* User Journey Map Styles */
+/* Removed: Usage guide related styles */
 
-/* 响应式设计 */
+/* Responsive Design */
 @media (max-width: 1024px) {
     .navbar-menu {
         display: none;
@@ -2223,7 +2223,7 @@ body {
     }
 }
 
-/* 加载动画 */
+/* Loading Animation */
 .loading {
     text-align: center;
     padding: 2rem;
@@ -2241,7 +2241,7 @@ body {
     60%, 100% { content: "..."; }
 }
 
-/* 脉冲动画 */
+/* Pulse Animation */
 @keyframes pulse {
     0%, 100% {
         opacity: 1;
@@ -2255,7 +2255,7 @@ body {
     animation: pulse 2s ease-in-out infinite;
 }
 
-/* 渐变文字动画 */
+/* Gradient Text Animation */
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -2277,7 +2277,7 @@ body {
     animation: gradient 3s ease infinite;
 }
 
-/* 转化路径可视化样式 */
+/* Conversion Path Visualization Styles */
 .journey-hero {
     text-align: center;
     padding: 3rem 2rem;
@@ -2309,7 +2309,7 @@ body {
     padding: 0 2rem;
 }
 
-/* 转化可视化容器 */
+/* Conversion Visualization Container */
 .journey-visualization-container {
     display: flex;
     flex-direction: column;
@@ -2680,7 +2680,7 @@ body {
     height: 100%;
 }
 
-/* 响应式设计 */
+/* Responsive Design */
 @media (max-width: 1024px) {
     .clusters-grid {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -2726,7 +2726,7 @@ body {
     }
 }
 
-/* 用户轨迹样式 */
+/* User Trajectory Styles */
 .user-filters {
     background: var(--card);
     border: 1px solid var(--border);
@@ -2753,7 +2753,7 @@ body {
     gap: 1.5rem;
 }
 
-/* 用户轨迹时间线 */
+/* User Trajectory Timeline */
 .user-trajectory-timeline {
     width: 100%;
     margin: 1.5rem 0;
@@ -2907,7 +2907,7 @@ body {
     font-size: 0.85rem;
 }
 
-/* 用户概览卡片 */
+/* User Overview Card */
 .user-overview-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -2947,7 +2947,7 @@ body {
     flex: 1;
 }
 
-/* 阶段分布 */
+/* Stage Distribution */
 .stage-bars {
     display: flex;
     flex-direction: column;
@@ -2986,7 +2986,7 @@ body {
     transition: width 0.5s ease;
 }
 
-/* 路径可视化 */
+/* Path Visualization */
 .path-visualization {
     width: 100%;
     height: 120px;
@@ -3001,7 +3001,7 @@ body {
     display: block;
 }
 
-/* 卡点分析卡片 */
+/* Bottleneck Analysis Card */
 .stuck-point-card {
     background: linear-gradient(135deg, rgba(251, 113, 133, 0.05) 0%, rgba(251, 191, 36, 0.05) 100%);
 }
@@ -3012,7 +3012,7 @@ body {
     line-height: 1.6;
 }
 
-/* 意图强度徽章 */
+/* Intent Strength Badge */
 .intent-badge {
     background: linear-gradient(135deg, rgba(127, 232, 193, 0.1) 0%, rgba(125, 166, 255, 0.1) 100%);
     border-color: rgba(127, 232, 193, 0.3);
@@ -3322,7 +3322,7 @@ body {
     }
 }
 
-/* 子标签页样式 */
+/* Sub-tab Styles */
 .sub-tabs {
     display: flex;
     gap: 0.5rem;

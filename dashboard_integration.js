@@ -206,7 +206,7 @@ function displayKeyInsights() {
         card.className = 'insight-card';
         card.innerHTML = `
             <h4>聚类 ${cluster.cluster_id}: ${cluster.user_segment_name}</h4>
-            <p><strong>规模:</strong> ${cluster.size} 个片段</p>
+            <p><strong>规模:</strong> ${cluster.size} segments</p>
             <p><strong>策略:</strong> ${cluster.marketing_strategy && cluster.marketing_strategy.length > 0 
                 ? cluster.marketing_strategy[0] 
                 : '暂无策略建议'}</p>

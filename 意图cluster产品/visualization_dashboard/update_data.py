@@ -394,7 +394,6 @@ def prepare_user_trajectories(segments, cluster_labels):
         cluster_characteristics = label_info.get('characteristics', {})
         
         # 基于片段本身的特征生成行为标签，而不是使用聚类标签
-        # 这样可以避免将未完成首单的用户标记为"首单后活跃"
         segment_first_order_completed = segment.get('first_order_completed', 0)
         segment_post_first_order = segment.get('post_first_order', 0)
         segment_kyc_started = segment.get('kyc_started', 0)
@@ -414,7 +413,7 @@ def prepare_user_trajectories(segments, cluster_labels):
                 elif segment_business_scenario == 3:
                     behavior_label = "复购·支付导向"
                 else:
-                    behavior_label = "首单后活跃"
+                    behavior_label = "复购活跃"
             else:
                 behavior_label = "首单完成中"
         elif segment_business_scenario < 7:

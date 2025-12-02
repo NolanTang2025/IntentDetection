@@ -853,7 +853,7 @@ if (typeof window !== 'undefined') {
 }
 
 // 当前语言（全局变量）
-let currentLanguage = localStorage.getItem('dashboardLanguage') || 'zh';
+let currentLanguage = localStorage.getItem('dashboardLanguage') || 'en';
 // 确保全局可访问
 if (typeof window !== 'undefined') {
     window.currentLanguage = currentLanguage;

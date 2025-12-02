@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>实时意图体验 | Intent Recognition Demo</title>
+<title>Real-time Intent Experience | Intent Recognition Demo</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
   
@@ -114,7 +114,7 @@
     z-index: 2;
   }
   
-  /* 左侧：模拟独立站 */
+  /* Left: Simulated Independent Store */
   .shop-panel {
     width: 50%;
     background: var(--shop-bg);
@@ -133,7 +133,7 @@
     border-radius: 4px;
   }
   
-  /* 商店导航栏 */
+  /* Store Navigation Bar */
   .shop-header {
     background: var(--shop-bg);
     border-bottom: 1px solid var(--shop-border);
@@ -297,7 +297,7 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
   
-  /* 产品Banner区域 */
+  /* Product Banner Area */
   .product-banners {
     padding: 60px 40px;
     background: #fafafa;
@@ -372,7 +372,7 @@
     gap: 12px;
   }
   
-  /* 分类标签 */
+  /* Category Tags */
   .category-tags {
     display: flex;
     gap: 12px;
@@ -400,7 +400,7 @@
     border-color: #333;
   }
   
-  /* 产品网格 */
+  /* Product Grid */
   .products-section {
     padding: 60px 40px;
   }
@@ -432,20 +432,20 @@
     visibility: hidden;
   }
   
-  /* 确保动画完成后卡片可见 */
+  /* Ensure cards are visible after animation completes */
   .product-card[style*="opacity: 1"],
   .product-card:not([style*="opacity: 0"]) {
     visibility: visible !important;
   }
   
-  /* 动画完成后的状态 */
+  /* State after animation completes */
   .product-card.animation-complete {
     opacity: 1 !important;
     visibility: visible !important;
     transform: translateY(0) scale(1) !important;
   }
   
-  /* 使用更精确的选择器，针对每个网格中的卡片 */
+  /* Use more precise selectors for cards in each grid */
   .products-grid .product-card:nth-child(1) { animation-delay: 1.2s; }
   .products-grid .product-card:nth-child(2) { animation-delay: 1.4s; }
   .products-grid .product-card:nth-child(3) { animation-delay: 1.6s; }
@@ -466,7 +466,7 @@
     }
   }
   
-  /* 确保动画完成后才应用悬停效果 */
+  /* Ensure hover effects are only applied after animation completes */
   .product-card:hover {
     transform: translateY(-4px) scale(1) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -576,7 +576,7 @@
     background: #f5f5f5;
   }
   
-  /* 引导提示 */
+  /* Guide Tooltips */
   .guide-tooltip {
     position: absolute;
     background: var(--primary);
@@ -610,14 +610,14 @@
     border-top: 6px solid var(--primary);
   }
   
-  /* 引导动画 */
+  /* Guide Animation */
   .guide-highlight {
     position: relative;
     z-index: 10;
     animation: pulse-glow 2s ease-in-out infinite;
   }
   
-  /* 确保高亮不会影响商品卡片的显示 */
+  /* Ensure highlight doesn't affect product card display */
   .product-card.guide-highlight {
     opacity: 1 !important;
     visibility: visible !important;
@@ -707,7 +707,7 @@
     filter: drop-shadow(0 2px 4px rgba(0, 255, 136, 0.3));
   }
   
-  /* 引导覆盖层 */
+  /* Guide Overlay */
   .guide-overlay {
     position: fixed;
     top: 0;
@@ -726,7 +726,7 @@
     pointer-events: all;
   }
   
-  /* 引导步骤指示器 */
+  /* Guide Step Indicator */
   .guide-steps {
     position: fixed;
     bottom: 40px;
@@ -840,7 +840,7 @@
     font-weight: bold;
   }
   
-  /* 引导提示弹窗 */
+  /* Guide Tooltip Popup */
   .guide-notification {
     position: fixed;
     top: 80px;
@@ -914,7 +914,7 @@
     transform: scale(1.1);
   }
   
-  /* 右侧：意图识别输出 */
+  /* Right: Intent Recognition Output */
   .intent-panel {
     width: 50%;
     padding: 40px;
@@ -960,7 +960,7 @@
     margin-bottom: 24px;
   }
   
-  /* 转化链路可视化 */
+  /* Conversion Funnel Visualization */
   .conversion-funnel {
     background: var(--glass);
     border: 1px solid var(--border);
@@ -1122,7 +1122,7 @@
     }
   }
   
-  /* 页面加载动画 */
+  /* Page Loading Animation */
   .page-loading {
     position: fixed;
     top: 0;
@@ -1207,7 +1207,7 @@
     }
   }
   
-  /* 商店面板初始动画 */
+  /* Shop Panel Initial Animation */
   .shop-panel {
     opacity: 0;
     animation: panel-fade-in 1.2s ease-out 0.5s forwards;
@@ -1225,7 +1225,7 @@
     }
   }
   
-  /* 视频播放器组件（9:16格式，作为独立插件悬浮在模拟网页上方） */
+  /* Video Player Component (9:16 format, floating above simulated webpage as independent plugin) */
   .video-player-widget {
     position: fixed;
     bottom: 20px;
@@ -1293,7 +1293,7 @@
     gap: 8px;
   }
   
-  /* 顶部中央文本 */
+  /* Top Center Text */
   .video-intro-text {
     position: absolute;
     top: 12px;
@@ -1308,7 +1308,7 @@
     letter-spacing: 0.5px;
   }
   
-  /* 右侧垂直标签 */
+  /* Right Vertical Labels */
   .video-side-label {
     position: absolute;
     right: 0;
@@ -1327,7 +1327,7 @@
     letter-spacing: 1px;
   }
   
-  /* 底部产品信息覆盖层 */
+  /* Bottom Product Info Overlay */
   .video-product-overlay {
     position: absolute;
     bottom: 0;
@@ -1506,7 +1506,7 @@
     }
   }
   
-  /* 意图面板初始动画 */
+  /* Intent Panel Initial Animation */
   .intent-panel {
     opacity: 0;
     animation: panel-fade-in-right 1.2s ease-out 0.7s forwards;
@@ -1524,7 +1524,7 @@
   }
   
   
-  /* Banner卡片渐进出现 */
+  /* Banner Cards Progressive Appearance */
   .product-banner-card {
     opacity: 0;
     transform: translateY(20px);
@@ -1545,7 +1545,7 @@
     }
   }
   
-  /* Hero Banner初始动画 */
+  /* Hero Banner Initial Animation */
   .shop-banner {
     opacity: 0;
     transform: translateY(30px);
@@ -1563,7 +1563,7 @@
     }
   }
   
-  /* 图表样式 */
+  /* Chart Styles */
   .chart-container {
     margin-top: 16px;
   }
@@ -1575,7 +1575,7 @@
     font-weight: 500;
   }
   
-  /* 柱状图 */
+  /* Bar Chart */
   .bar-chart {
     display: flex;
     align-items: flex-end;
@@ -1637,7 +1637,7 @@
     margin-top: 4px;
   }
   
-  /* 饼图 */
+  /* Pie Chart */
   .pie-chart {
     position: relative;
     width: 160px;
@@ -1681,7 +1681,7 @@
     color: var(--text-secondary);
   }
   
-  /* 仪表盘 */
+  /* Dashboard */
   .gauge-container {
     position: relative;
     width: 200px;
@@ -1728,7 +1728,7 @@
     color: var(--text-secondary);
   }
   
-  /* 时间线图表 */
+  /* Timeline Chart */
   .timeline-chart {
     position: relative;
     padding: 20px 0;
@@ -1800,7 +1800,7 @@
     color: var(--text-secondary);
   }
   
-  /* 数字动画 */
+  /* Number Animation */
   .animated-number {
     display: inline-block;
     font-weight: 700;
@@ -1822,7 +1822,7 @@
     }
   }
   
-  /* 完成特效 */
+  /* Completion Effect */
   .completion-overlay {
     position: fixed;
     top: 0;
@@ -1982,7 +1982,7 @@
     box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
   }
   
-  /* 烟花特效 */
+  /* Fireworks Effect */
   .firework {
     position: fixed;
     width: 6px;
@@ -2131,7 +2131,7 @@
 <body>
 <div class="page-loading" id="pageLoading">
   <div class="loading-logo">INTENT RECOGNITION</div>
-  <div class="loading-text">正在加载体验平台...</div>
+  <div class="loading-text">Loading experience platform...</div>
   <div class="loading-progress">
     <div class="loading-progress-bar"></div>
   </div>
@@ -2139,29 +2139,29 @@
 <nav class="navbar">
   <div class="navbar-brand">INTENT RECOGNITION</div>
   <div class="navbar-links">
-    <a href="index.html" class="home-link">首页</a>
-    <a href="user_intent_report.html">意图识别框架</a>
+    <a href="index.html" class="home-link">Home</a>
+    <a href="user_intent_report.html">Intent Recognition Framework</a>
   </div>
 </nav>
 <div class="content-wrapper">
-  <!-- 左侧：模拟独立站 -->
+  <!-- Left: Simulated Independent Store -->
   <div class="shop-panel" id="shopPanel">
     <div class="shop-header">
       <div class="shop-nav">
         <div class="shop-logo">FASHION STORE</div>
         <ul class="shop-menu">
-          <li>首页</li>
-          <li>新品</li>
-          <li>服装</li>
-          <li>配饰</li>
-          <li>关于</li>
+          <li>Home</li>
+          <li>New Arrivals</li>
+          <li>Clothing</li>
+          <li>Accessories</li>
+          <li>About</li>
         </ul>
         <div class="shop-actions">
           <div class="shop-search">
             <svg class="shop-search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
-            <input type="text" placeholder="搜索商品...">
+            <input type="text" placeholder="Search products...">
           </div>
           <svg class="shop-cart" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -2171,133 +2171,133 @@
 </div>
 
     <div class="shop-banner" data-tracking="banner-view">
-      <h2>秋季新品上市</h2>
-      <p>探索舒适与时尚的完美结合，打造你的专属风格</p>
-      <button class="shop-banner-btn" data-tracking="banner-click">立即探索</button>
+      <h2>Fall New Arrivals</h2>
+      <p>Explore the perfect blend of comfort and fashion, create your unique style</p>
+      <button class="shop-banner-btn" data-tracking="banner-click">Explore Now</button>
     </div>
     
-    <!-- 产品Banner区域 -->
+    <!-- Product Banner Area -->
     <div class="product-banners">
       <div class="banner-grid">
         <div class="product-banner-card" data-tracking="banner-hover">
           <div class="banner-image">
-            <img src="products/banner-comfort.jpg" alt="舒适系列" onerror="this.style.display='none';">
+            <img src="products/banner-comfort.jpg" alt="Comfort Collection" onerror="this.style.display='none';">
           </div>
           <div class="banner-content">
-            <h3>舒适系列</h3>
-            <p>精选优质面料，打造全天候舒适体验。从居家到出行，让舒适成为你的日常。</p>
-            <a href="#" class="banner-link">查看系列 →</a>
+            <h3>Comfort Collection</h3>
+            <p>Carefully selected premium fabrics for all-day comfort. From home to travel, make comfort part of your daily life.</p>
+            <a href="#" class="banner-link">View Collection →</a>
           </div>
         </div>
         
         <div class="product-banner-card" data-tracking="banner-hover">
           <div class="banner-image">
-            <img src="products/banner-style.jpg" alt="时尚系列" onerror="this.style.display='none';">
+            <img src="products/banner-style.jpg" alt="Style Collection" onerror="this.style.display='none';">
           </div>
           <div class="banner-content">
-            <h3>时尚系列</h3>
-            <p>紧跟潮流趋势，融合经典与现代设计，展现你的独特品味与个性魅力。</p>
-            <a href="#" class="banner-link">查看系列 →</a>
+            <h3>Style Collection</h3>
+            <p>Following the latest trends, blending classic and modern design to showcase your unique taste and personality.</p>
+            <a href="#" class="banner-link">View Collection →</a>
           </div>
         </div>
       </div>
       
-      <!-- 分类标签 -->
+      <!-- Category Tags -->
       <div class="category-tags">
-        <div class="category-tag active">全部</div>
-        <div class="category-tag">上装</div>
-        <div class="category-tag">下装</div>
-        <div class="category-tag">外套</div>
-        <div class="category-tag">配饰</div>
+        <div class="category-tag active">All</div>
+        <div class="category-tag">Tops</div>
+        <div class="category-tag">Bottoms</div>
+        <div class="category-tag">Outerwear</div>
+        <div class="category-tag">Accessories</div>
       </div>
     </div>
     
     <div class="products-section">
-      <h2 class="section-title">热门商品</h2>
+      <h2 class="section-title">Popular Products</h2>
       <div class="products-grid">
         <div class="product-card" data-product="hoodie" data-tracking="product-hover">
           <div class="product-image">
-            <img src="products/hoodie.jpg" alt="舒适连帽衫" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👕';">
+            <img src="products/hoodie.jpg" alt="Comfortable Hoodie" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👕';">
           </div>
           <div class="product-info">
-            <div class="product-title">舒适连帽衫</div>
+            <div class="product-title">Comfortable Hoodie</div>
             <div class="product-price">¥299</div>
             <div class="product-actions">
-              <button class="btn-add-cart" data-product="hoodie" data-action="add-cart">加入购物车</button>
-              <button class="btn-view" data-product="hoodie" data-action="view">查看</button>
+              <button class="btn-add-cart" data-product="hoodie" data-action="add-cart">Add to Cart</button>
+              <button class="btn-view" data-product="hoodie" data-action="view">View</button>
             </div>
           </div>
         </div>
         
         <div class="product-card" data-product="sweater" data-tracking="product-hover">
           <div class="product-image">
-            <img src="products/sweater.jpg" alt="休闲毛衣" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='🧥';">
+            <img src="products/sweater.jpg" alt="Casual Sweater" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='🧥';">
           </div>
           <div class="product-info">
-            <div class="product-title">休闲毛衣</div>
+            <div class="product-title">Casual Sweater</div>
             <div class="product-price">¥399</div>
             <div class="product-actions">
-              <button class="btn-add-cart" data-product="sweater" data-action="add-cart">加入购物车</button>
-              <button class="btn-view" data-product="sweater" data-action="view">查看</button>
+              <button class="btn-add-cart" data-product="sweater" data-action="add-cart">Add to Cart</button>
+              <button class="btn-view" data-product="sweater" data-action="view">View</button>
             </div>
           </div>
         </div>
         
         <div class="product-card" data-product="pants" data-tracking="product-hover">
           <div class="product-image">
-            <img src="products/pants.jpg" alt="运动长裤" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👖';">
+            <img src="products/pants.jpg" alt="Athletic Pants" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👖';">
           </div>
           <div class="product-info">
-            <div class="product-title">运动长裤</div>
+            <div class="product-title">Athletic Pants</div>
             <div class="product-price">¥199</div>
             <div class="product-actions">
-              <button class="btn-add-cart" data-product="pants" data-action="add-cart">加入购物车</button>
-              <button class="btn-view" data-product="pants" data-action="view">查看</button>
+              <button class="btn-add-cart" data-product="pants" data-action="add-cart">Add to Cart</button>
+              <button class="btn-view" data-product="pants" data-action="view">View</button>
             </div>
           </div>
         </div>
         
         <div class="product-card" data-product="jacket" data-tracking="product-hover">
           <div class="product-image">
-            <img src="products/jacket.jpg" alt="休闲夹克" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='🧥';">
+            <img src="products/jacket.jpg" alt="Casual Jacket" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='🧥';">
           </div>
           <div class="product-info">
-            <div class="product-title">休闲夹克</div>
+            <div class="product-title">Casual Jacket</div>
             <div class="product-price">¥499</div>
             <div class="product-actions">
-              <button class="btn-add-cart" data-product="jacket" data-action="add-cart">加入购物车</button>
-              <button class="btn-view" data-product="jacket" data-action="view">查看</button>
+              <button class="btn-add-cart" data-product="jacket" data-action="add-cart">Add to Cart</button>
+              <button class="btn-view" data-product="jacket" data-action="view">View</button>
             </div>
           </div>
         </div>
       </div>
       
-      <h2 class="section-title">推荐商品</h2>
+      <h2 class="section-title">Recommended Products</h2>
       <div class="products-grid">
         <div class="product-card" data-product="shirt" data-tracking="product-hover">
           <div class="product-image">
-            <img src="products/shirt.jpg" alt="基础T恤" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👔';">
+            <img src="products/shirt.jpg" alt="Basic T-Shirt" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👔';">
           </div>
           <div class="product-info">
-            <div class="product-title">基础T恤</div>
+            <div class="product-title">Basic T-Shirt</div>
             <div class="product-price">¥99</div>
             <div class="product-actions">
-              <button class="btn-add-cart" data-product="shirt" data-action="add-cart">加入购物车</button>
-              <button class="btn-view" data-product="shirt" data-action="view">查看</button>
+              <button class="btn-add-cart" data-product="shirt" data-action="add-cart">Add to Cart</button>
+              <button class="btn-view" data-product="shirt" data-action="view">View</button>
             </div>
           </div>
         </div>
         
         <div class="product-card" data-product="shoes" data-tracking="product-hover">
           <div class="product-image">
-            <img src="products/shoes.jpg" alt="运动鞋" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👟';">
+            <img src="products/shoes.jpg" alt="Sneakers" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('fallback'); this.parentElement.textContent='👟';">
           </div>
           <div class="product-info">
-            <div class="product-title">运动鞋</div>
+            <div class="product-title">Sneakers</div>
             <div class="product-price">¥599</div>
             <div class="product-actions">
-              <button class="btn-add-cart" data-product="shoes" data-action="add-cart">加入购物车</button>
-              <button class="btn-view" data-product="shoes" data-action="view">查看</button>
+              <button class="btn-add-cart" data-product="shoes" data-action="add-cart">Add to Cart</button>
+              <button class="btn-view" data-product="shoes" data-action="view">View</button>
             </div>
           </div>
         </div>
@@ -2305,32 +2305,32 @@
     </div>
   </div>
   
-  <!-- 右侧：意图识别输出 -->
+  <!-- Right: Intent Recognition Output -->
   <div class="intent-panel" id="intentPanel">
     <div class="intent-header">
-      <h2>实时意图识别</h2>
-      <div class="subtitle">系统正在分析您的浏览行为...</div>
-      <div class="intent-status" id="statusIndicator">等待用户行为</div>
+      <h2>Real-time Intent Recognition</h2>
+      <div class="subtitle">System is analyzing your browsing behavior...</div>
+      <div class="intent-status" id="statusIndicator">Waiting for user behavior</div>
     </div>
 
-    <!-- 一句话意图 -->
+    <!-- One-sentence Intent -->
     <div id="intentSummary" style="margin-bottom: 24px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 12px; display: none;">
       <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
         <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px;">
           💭
         </div>
-        <h4 style="margin: 0; color: var(--text); font-size: 1rem; font-weight: 600;">一句话意图</h4>
+        <h4 style="margin: 0; color: var(--text); font-size: 1rem; font-weight: 600;">One-sentence Intent</h4>
       </div>
       <div id="intentSummaryText" style="min-height: 60px; padding: 1rem; background: var(--bg-dark); border-radius: 8px; border-left: 4px solid #667eea; color: var(--text); line-height: 1.6; font-size: 0.95rem;">
-        <div style="color: var(--text-secondary); font-style: italic;">等待用户行为...</div>
+        <div style="color: var(--text-secondary); font-style: italic;">Waiting for user behavior...</div>
       </div>
     </div>
 
     <div id="intentOutput">
       <div class="empty-state">
         <div class="empty-state-icon">👆</div>
-        <h3>开始浏览商店</h3>
-        <p>在左侧商店中滚动页面、悬停或点击商品<br/>系统将实时分析并生成您的购物意图</p>
+        <h3>Start Browsing the Store</h3>
+        <p>Scroll, hover, or click products in the left store<br/>The system will analyze and generate your shopping intent in real-time</p>
       </div>
     </div>
   </div>
@@ -2339,33 +2339,33 @@
 <div class="guide-tooltip" id="guideTooltip"></div>
 <div class="guide-overlay" id="guideOverlay"></div>
 <div class="guide-steps" id="guideSteps" style="display: none;">
-  <h4>交互引导</h4>
-  <div class="guide-step" id="step1">滚动页面</div>
-  <div class="guide-step" id="step2">点击Banner按钮</div>
-  <div class="guide-step" id="step3">悬停产品卡片</div>
-  <div class="guide-step" id="step4">加入购物车</div>
-  <div class="guide-step" id="step5">点击分类标签</div>
+  <h4>Interactive Guide</h4>
+  <div class="guide-step" id="step1">Scroll Page</div>
+  <div class="guide-step" id="step2">Click Banner Button</div>
+  <div class="guide-step" id="step3">Hover Product Card</div>
+  <div class="guide-step" id="step4">Add to Cart</div>
+  <div class="guide-step" id="step5">Click Category Tag</div>
 </div>
 <div class="guide-notification" id="guideNotification" style="display: none;">
   <button class="guide-notification-close" onclick="this.parentElement.style.display='none'">×</button>
-  <h5>🎯 开始体验</h5>
-  <p>跟随引导尝试不同的交互，系统将实时分析您的购物意图</p>
+  <h5>🎯 Start Experience</h5>
+  <p>Follow the guide to try different interactions, the system will analyze your shopping intent in real-time</p>
 </div>
 
 <div class="completion-overlay" id="completionOverlay">
   <div class="completion-modal">
     <div class="completion-icon">🎉</div>
-    <h2 class="completion-title">体验完成！</h2>
-    <p class="completion-message">您已成功完成所有交互体验<br/>系统已完整分析您的购物意图和转化路径</p>
+    <h2 class="completion-title">Experience Complete!</h2>
+    <p class="completion-message">You have successfully completed all interactive experiences<br/>The system has fully analyzed your shopping intent and conversion path</p>
     <div class="completion-stats" id="completionStats">
-      <!-- 动态填充 -->
+      <!-- Dynamically filled -->
     </div>
-    <button class="completion-button" onclick="closeCompletion()">继续探索</button>
+    <button class="completion-button" onclick="closeCompletion()">Continue Exploring</button>
   </div>
 </div>
 
 <script>
-// 意图识别引擎
+// Intent Recognition Engine
 class IntentRecognition {
   constructor() {
     this.behaviors = [];
@@ -2376,7 +2376,7 @@ class IntentRecognition {
       behavior_summary: { engagement: 'low', browsing_path: [] },
       conversion_stage: 'awareness'
     };
-    // 追踪视频交互前的状态，用于对比分析
+    // Track state before video interaction for comparison analysis
     this.beforeVideoState = null;
     this.videoImpactMetrics = {
       conversionStageBoost: 0,
@@ -2402,7 +2402,7 @@ class IntentRecognition {
       timestamp: Date.now()
     };
     
-    // 检测首次视频交互，保存之前的状态
+    // Detect first video interaction, save previous state
     const isVideoInteraction = type === 'video-play' || type === 'video-pause' || 
                                type === 'video-watch' || type === 'video-hover-end' ||
                                (type === 'click' && data.element && data.element.includes('video'));
@@ -2437,7 +2437,7 @@ class IntentRecognition {
     
     this.videoImpactMetrics.interactionIncrease = this.behaviors.length - this.beforeVideoState.behaviorCount;
     
-    // 计算视频观看时长
+    // Calculate video watch duration
     const videoWatchEvents = this.behaviors.filter(b => b.type === 'video-watch');
     if (videoWatchEvents.length > 0) {
       const maxWatchTime = Math.max(...videoWatchEvents.map(e => e.data.watchDuration || 0));
@@ -2446,7 +2446,7 @@ class IntentRecognition {
   }
   
   updateIntent() {
-    // 分析行为模式
+    // Analyze behavior patterns
     const scrollEvents = this.behaviors.filter(b => b.type === 'scroll');
     const hoverEvents = this.behaviors.filter(b => b.type === 'hover');
     const clickEvents = this.behaviors.filter(b => b.type === 'click');
@@ -2456,7 +2456,7 @@ class IntentRecognition {
     );
     const videoWatchEvents = this.behaviors.filter(b => b.type === 'video-watch');
     
-    // 更新核心兴趣
+    // Update core interests
     const interestSet = new Set();
     hoverEvents.forEach(event => {
       const product = this.productMap[event.data.product];
@@ -2465,7 +2465,7 @@ class IntentRecognition {
       }
     });
     
-    // 视频观看行为也反映兴趣
+    // Video watching behavior also reflects interest
     videoEvents.forEach(event => {
       const product = this.productMap[event.data.product];
       if (product) {
@@ -2475,7 +2475,7 @@ class IntentRecognition {
     
     this.intentData.core_interests = Array.from(interestSet);
     
-    // 更新产品侧重点（优先考虑视频交互的产品）
+    // Update product focus (prioritize products with video interaction)
     const videoProductEvents = this.behaviors.filter(b => 
       b.data && b.data.product === 'F1 Floating Pillow'
     );
@@ -2504,15 +2504,15 @@ class IntentRecognition {
       }
     }
     
-    // 更新购买信号和转化阶段
+    // Update purchase signals and conversion stage
     const addCartEvents = this.behaviors.filter(b => b.type === 'click' && b.data.action === 'add-cart');
     const viewEvents = this.behaviors.filter(b => b.type === 'click' && b.data.action === 'view');
     const videoProductClick = this.behaviors.filter(b => 
       b.type === 'click' && b.data.product === 'F1 Floating Pillow'
     );
     
-    // 转化阶段判断：浏览 → 兴趣 → 考虑 → 购买
-    // 视频观看超过10秒或点击视频产品卡片表示高兴趣
+    // Conversion stage judgment: browsing → interest → consideration → purchase
+    // Video watch over 10 seconds or clicking video product card indicates high interest
     const hasVideoEngagement = videoWatchEvents.some(e => e.data.watchDuration >= 10) || 
                                videoProductClick.length > 0;
     
@@ -2533,7 +2533,7 @@ class IntentRecognition {
       this.intentData.conversion_stage = 'awareness';
     }
     
-    // 更新行为摘要（视频交互增加参与度）
+    // Update behavior summary (video interaction increases engagement)
     const totalInteractions = scrollEvents.length + hoverEvents.length + clickEvents.length + videoEvents.length;
     this.intentData.behavior_summary.engagement = 
       totalInteractions > 8 || videoWatchEvents.some(e => e.data.watchDuration >= 15) ? 'high' : 
@@ -2558,59 +2558,59 @@ class IntentRecognition {
   generateIntentSummary() {
     const parts = [];
     
-    // 转化阶段
+    // Conversion stage
     const stageLabels = {
-      'awareness': '认知阶段',
-      'interest': '兴趣阶段',
-      'consideration': '考虑阶段',
-      'purchase': '购买阶段'
+      'awareness': 'Awareness Stage',
+      'interest': 'Interest Stage',
+      'consideration': 'Consideration Stage',
+      'purchase': 'Purchase Stage'
     };
-    const currentStage = stageLabels[this.intentData.conversion_stage] || '浏览阶段';
-    parts.push(`处于${currentStage}`);
+    const currentStage = stageLabels[this.intentData.conversion_stage] || 'Browsing Stage';
+    parts.push(`in ${currentStage}`);
     
-    // 参与度
+    // Engagement
     const engagement = this.intentData.behavior_summary.engagement;
     if (engagement === 'high') {
-      parts.push('高参与度');
+      parts.push('high engagement');
     } else if (engagement === 'medium') {
-      parts.push('中等参与度');
+      parts.push('medium engagement');
     }
     
-    // 产品侧重点
+    // Product focus
     if (Object.keys(this.intentData.product_focus).length > 0) {
       const pf = this.intentData.product_focus;
       if (pf.category) {
-        parts.push(`关注${pf.category}`);
+        parts.push(`focusing on ${pf.category}`);
       }
     }
     
-    // 核心兴趣
+    // Core interests
     if (this.intentData.core_interests.length > 0) {
       const topInterests = this.intentData.core_interests.slice(0, 2);
-      parts.push(`偏好${topInterests.join('、')}`);
+      parts.push(`preferring ${topInterests.join(', ')}`);
     }
     
-    // 购买信号
+    // Purchase signals
     const addCartEvents = this.behaviors.filter(b => b.type === 'click' && b.data.action === 'add-cart');
     if (addCartEvents.length > 0) {
-      parts.push('有购买意向');
+      parts.push('showing purchase intent');
     }
     
-    // 视频交互
+    // Video interaction
     const videoEvents = this.behaviors.filter(b => 
       b.type === 'video-play' || b.type === 'video-pause' || 
       b.type === 'video-watch' || b.type === 'video-hover-end'
     );
     if (videoEvents.length > 0) {
-      parts.push('深度浏览视频内容');
+      parts.push('deep browsing video content');
     }
     
-    // 组合成一句话
+    // Combine into one sentence
     let intentText = '';
     if (parts.length > 0) {
-      intentText = `用户当前${parts.join('，')}。`;
+      intentText = `User is currently ${parts.join(', ')}.`;
     } else {
-      intentText = '用户正在浏览商店，系统正在分析其购物意图...';
+      intentText = 'User is browsing the store, system is analyzing their shopping intent...';
     }
     
     return intentText;
@@ -2624,17 +2624,17 @@ class IntentRecognition {
       output.innerHTML = `
         <div class="empty-state">
           <div class="empty-state-icon">👆</div>
-          <h3>开始浏览商店</h3>
-          <p>在左侧商店中滚动页面、悬停或点击商品<br/>系统将实时分析并生成您的购物意图</p>
+          <h3>Start Browsing the Store</h3>
+          <p>Scroll, hover, or click products in the left store<br/>The system will analyze and generate your shopping intent in real-time</p>
         </div>
       `;
-      statusIndicator.textContent = '等待用户行为';
+      statusIndicator.textContent = 'Waiting for user behavior';
       return;
     }
     
-    statusIndicator.innerHTML = `已记录 <span class="animated-number">${this.behaviors.length}</span> 个行为事件`;
+    statusIndicator.innerHTML = `Recorded <span class="animated-number">${this.behaviors.length}</span> behavior events`;
     
-    // 更新一句话意图
+    // Update one-sentence intent
     const intentSummaryEl = document.getElementById('intentSummary');
     const intentSummaryTextEl = document.getElementById('intentSummaryText');
     if (intentSummaryEl && intentSummaryTextEl) {
@@ -2645,13 +2645,13 @@ class IntentRecognition {
     
     let html = '';
     
-    // 转化链路可视化
+    // Conversion funnel visualization
     html += this.renderConversionFunnel();
     
-    // 行为统计图表
+    // Behavior statistics chart
     html += this.renderBehaviorChart();
     
-    // 视频交互展示（如果有视频交互）
+    // Video interaction display (if there are video interactions)
     const videoInteractions = this.behaviors.filter(b => 
       b.type === 'video-play' || b.type === 'video-pause' || 
       b.type === 'video-watch' || b.type === 'video-hover-end' ||
@@ -2661,20 +2661,20 @@ class IntentRecognition {
       html += this.renderVideoInteractions();
     }
     
-    // 视频交互对转化指标的影响（如果有视频交互且存在对比数据）
+    // Impact of video interaction on conversion metrics (if there are video interactions and comparison data)
     if (videoInteractions.length > 0 && this.beforeVideoState) {
       html += this.renderVideoImpactOnConversion();
     }
     
-    // 参与度仪表盘
+    // Engagement dashboard
     html += this.renderEngagementGauge();
     
-    // 核心兴趣（带图表）
+    // Core interests (with chart)
     if (this.intentData.core_interests.length > 0) {
       html += this.renderInterestChart();
       html += `
         <div class="intent-card show">
-          <h3>核心兴趣标签</h3>
+          <h3>Core Interest Tags</h3>
           <div class="intent-tags">
             ${this.intentData.core_interests.map(tag => `<span class="intent-tag">${tag}</span>`).join('')}
           </div>
@@ -2682,21 +2682,21 @@ class IntentRecognition {
       `;
     }
     
-    // 行为时间线
+    // Behavior timeline
     if (this.behaviors.length > 0) {
       html += this.renderTimeline();
     }
     
-    // 产品侧重点
+    // Product focus
     if (Object.keys(this.intentData.product_focus).length > 0) {
       const pf = this.intentData.product_focus;
       html += `
         <div class="intent-card show">
-          <h3>产品侧重点</h3>
+          <h3>Product Focus</h3>
           <div class="intent-content">
-            <strong>类别：</strong>${pf.category || 'N/A'}<br/>
-            <strong>价格区间：</strong>${pf.price_range || 'N/A'}<br/>
-            <strong>主要吸引力：</strong>${pf.main_appeal || 'N/A'}
+            <strong>Category:</strong> ${pf.category || 'N/A'}<br/>
+            <strong>Price Range:</strong> ${pf.price_range || 'N/A'}<br/>
+            <strong>Main Appeal:</strong> ${pf.main_appeal || 'N/A'}
           </div>
           ${pf.key_attributes ? `
             <div class="intent-tags">
@@ -2707,23 +2707,23 @@ class IntentRecognition {
       `;
     }
     
-    // 购买信号
+    // Purchase signals
     html += `
       <div class="intent-card show">
-        <h3>购买信号分析</h3>
+        <h3>Purchase Signal Analysis</h3>
         <div class="intent-content">
-          <strong>当前阶段：</strong>${this.getStageText(this.intentData.purchase_signals.stage)}<br/>
-          <strong>参与度：</strong>${this.intentData.behavior_summary.engagement === 'high' ? '高' : 
-                                      this.intentData.behavior_summary.engagement === 'medium' ? '中' : '低'}
+          <strong>Current Stage:</strong> ${this.getStageText(this.intentData.purchase_signals.stage)}<br/>
+          <strong>Engagement:</strong> ${this.intentData.behavior_summary.engagement === 'high' ? 'High' : 
+                                      this.intentData.behavior_summary.engagement === 'medium' ? 'Medium' : 'Low'}
         </div>
       </div>
     `;
     
-    // 行为摘要
+    // Behavior summary
     if (this.intentData.behavior_summary.browsing_path.length > 0) {
       html += `
         <div class="intent-card show">
-          <h3>浏览路径</h3>
+          <h3>Browsing Path</h3>
           <div class="intent-content">
             ${this.intentData.behavior_summary.browsing_path.join(' → ')}
           </div>
@@ -2731,17 +2731,17 @@ class IntentRecognition {
       `;
     }
     
-    // 完整JSON数据
+    // Complete JSON data
     html += `
       <div class="intent-card show">
-        <h3>完整意图数据 (JSON)</h3>
+        <h3>Complete Intent Data (JSON)</h3>
         <div class="intent-json">${JSON.stringify(this.intentData, null, 2)}</div>
       </div>
     `;
     
     output.innerHTML = html;
     
-    // 滚动到底部
+    // Scroll to bottom
     document.getElementById('intentPanel').scrollTo({
       top: document.getElementById('intentPanel').scrollHeight,
       behavior: 'smooth'
@@ -2750,11 +2750,11 @@ class IntentRecognition {
   
   getStageText(stage) {
     const stages = {
-      'browsing': '浏览阶段',
-      'exploring': '探索阶段',
-      'considering': '考虑阶段',
-      'purchasing': '购买阶段',
-      'deciding': '决策阶段'
+      'browsing': 'Browsing Stage',
+      'exploring': 'Exploring Stage',
+      'considering': 'Consideration Stage',
+      'purchasing': 'Purchase Stage',
+      'deciding': 'Decision Stage'
     };
     return stages[stage] || stage;
   }
@@ -2762,10 +2762,10 @@ class IntentRecognition {
   renderConversionFunnel() {
     const stages = ['awareness', 'interest', 'consideration', 'purchase'];
     const stageLabels = {
-      'awareness': '认知',
-      'interest': '兴趣',
-      'consideration': '考虑',
-      'purchase': '购买'
+      'awareness': 'Awareness',
+      'interest': 'Interest',
+      'consideration': 'Consideration',
+      'purchase': 'Purchase'
     };
     
     const currentStage = this.intentData.conversion_stage || 'awareness';
@@ -2774,7 +2774,7 @@ class IntentRecognition {
     
     let html = `
       <div class="conversion-funnel">
-        <h3>🔄 转化链路</h3>
+        <h3>🔄 Conversion Funnel</h3>
         <div class="funnel-steps">
     `;
     
@@ -2822,32 +2822,32 @@ class IntentRecognition {
     
     return `
       <div class="intent-card show">
-        <h3>📊 行为统计</h3>
+        <h3>📊 Behavior Statistics</h3>
         <div class="chart-container">
           <div class="bar-chart">
             <div class="bar-item">
               <div class="bar" style="height: ${scrollHeight}%"></div>
-              <div class="bar-label">滚动</div>
+              <div class="bar-label">Scroll</div>
               <div class="bar-value"><span class="animated-number">${scrollCount}</span></div>
             </div>
             <div class="bar-item">
               <div class="bar" style="height: ${hoverHeight}%"></div>
-              <div class="bar-label">悬停</div>
+              <div class="bar-label">Hover</div>
               <div class="bar-value"><span class="animated-number">${hoverCount}</span></div>
             </div>
             <div class="bar-item">
               <div class="bar" style="height: ${clickHeight}%"></div>
-              <div class="bar-label">点击</div>
+              <div class="bar-label">Click</div>
               <div class="bar-value"><span class="animated-number">${clickCount}</span></div>
             </div>
             <div class="bar-item">
               <div class="bar" style="height: ${viewHeight}%"></div>
-              <div class="bar-label">查看</div>
+              <div class="bar-label">View</div>
               <div class="bar-value"><span class="animated-number">${viewCount}</span></div>
             </div>
             <div class="bar-item">
               <div class="bar" style="height: ${videoHeight}%"></div>
-              <div class="bar-label">视频</div>
+              <div class="bar-label">Video</div>
               <div class="bar-value"><span class="animated-number">${videoCount}</span></div>
             </div>
           </div>
@@ -2859,26 +2859,26 @@ class IntentRecognition {
   renderEngagementGauge() {
     const engagement = this.intentData.behavior_summary.engagement;
     let engagementValue = 0;
-    let engagementLabel = '低';
+    let engagementLabel = 'Low';
     
     if (engagement === 'high') {
       engagementValue = 85;
-      engagementLabel = '高';
+      engagementLabel = 'High';
     } else if (engagement === 'medium') {
       engagementValue = 50;
-      engagementLabel = '中';
+      engagementLabel = 'Medium';
     } else {
       engagementValue = 20;
-      engagementLabel = '低';
+      engagementLabel = 'Low';
     }
     
-    // 计算圆弧的 stroke-dasharray
-    const circumference = Math.PI * 100; // 半径100的半圆
+    // Calculate arc stroke-dasharray
+    const circumference = Math.PI * 100; // Semi-circle with radius 100
     const offset = circumference - (engagementValue / 100) * circumference;
     
     return `
       <div class="intent-card show">
-        <h3>⚡ 参与度分析</h3>
+        <h3>⚡ Engagement Analysis</h3>
         <div class="chart-container">
           <div class="gauge-container">
             <svg class="gauge-svg" viewBox="0 0 200 100">
@@ -2901,7 +2901,7 @@ class IntentRecognition {
               </defs>
             </svg>
             <div class="gauge-value"><span class="animated-number">${engagementValue}</span>%</div>
-            <div class="gauge-label">参与度: ${engagementLabel}</div>
+            <div class="gauge-label">Engagement: ${engagementLabel}</div>
           </div>
         </div>
       </div>
@@ -2912,10 +2912,10 @@ class IntentRecognition {
     const interests = this.intentData.core_interests;
     if (interests.length === 0) return '';
     
-    // 为每个兴趣分配一个值（模拟权重）
+    // Assign a value to each interest (simulated weight)
     const interestData = interests.map((interest, index) => ({
       label: interest,
-      value: 100 - (index * 15) // 递减的值
+      value: 100 - (index * 15) // Decreasing value
     }));
     
     const total = interestData.reduce((sum, item) => sum + item.value, 0);
@@ -2946,7 +2946,7 @@ class IntentRecognition {
     
     return `
       <div class="intent-card show">
-        <h3>🎯 兴趣分布</h3>
+        <h3>🎯 Interest Distribution</h3>
         <div class="chart-container">
           <div class="pie-chart">
             <svg class="pie-svg" viewBox="0 0 160 160">
@@ -2954,7 +2954,7 @@ class IntentRecognition {
             </svg>
             <div class="pie-center">
               <div class="pie-center-value"><span class="animated-number">${interests.length}</span></div>
-              <div class="pie-center-label">兴趣标签</div>
+              <div class="pie-center-label">Interest Tags</div>
             </div>
           </div>
           <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
@@ -3134,10 +3134,10 @@ class IntentRecognition {
     
     const stages = ['awareness', 'interest', 'consideration', 'purchase'];
     const stageLabels = {
-      'awareness': '认知',
-      'interest': '兴趣',
-      'consideration': '考虑',
-      'purchase': '购买'
+      'awareness': 'Awareness',
+      'interest': 'Interest',
+      'consideration': 'Consideration',
+      'purchase': 'Purchase'
     };
     
     const engagementLabels = {
@@ -3323,21 +3323,21 @@ class IntentRecognition {
     if (recentBehaviors.length === 0) return '';
     
     const behaviorLabels = {
-      'scroll': '滚动页面',
-      'hover': '悬停商品',
-      'click': '点击操作',
-      'view': '查看内容'
+      'scroll': 'Scroll Page',
+      'hover': 'Hover Product',
+      'click': 'Click Action',
+      'view': 'View Content'
     };
     
     return `
       <div class="intent-card show">
-        <h3>⏱️ 行为时间线</h3>
+        <h3>⏱️ Behavior Timeline</h3>
         <div class="chart-container">
           <div class="timeline-chart">
             <div class="timeline-line"></div>
             ${recentBehaviors.map((behavior, index) => {
               const time = new Date(behavior.timestamp);
-              const timeStr = time.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+              const timeStr = time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
               const label = behaviorLabels[behavior.type] || behavior.type;
               
               return `
@@ -3385,14 +3385,14 @@ document.querySelectorAll('[data-tracking="product-hover"]').forEach(card => {
     intentEngine.recordBehavior('hover', { product, element: 'product-card' });
     
     // 显示引导提示
-    showTooltip(card, '正在分析您的兴趣...');
+    showTooltip(card, 'Analyzing your interests...');
   });
   
   card.addEventListener('click', () => {
     const product = card.getAttribute('data-product');
     intentEngine.recordBehavior('click', { product, element: 'product-card' });
     
-    showTooltip(card, '已记录点击行为');
+    showTooltip(card, 'Click behavior recorded');
   });
 });
 
@@ -3402,7 +3402,7 @@ let bannerViewed = false;
 shopPanel.addEventListener('scroll', () => {
   const bannerRect = banner.getBoundingClientRect();
   if (bannerRect.top < window.innerHeight && bannerRect.bottom > 0 && !bannerViewed) {
-    intentEngine.recordBehavior('view', { element: 'hero-banner', content: '秋季新品' });
+    intentEngine.recordBehavior('view', { element: 'hero-banner', content: 'Fall New Arrivals' });
     bannerViewed = true;
   }
 }, { passive: true });
@@ -3418,15 +3418,15 @@ if (bannerBtn) {
 // 监听产品Banner悬停
 document.querySelectorAll('[data-tracking="banner-hover"]').forEach(bannerCard => {
   bannerCard.addEventListener('mouseenter', () => {
-    const title = bannerCard.querySelector('h3')?.textContent || '产品系列';
+    const title = bannerCard.querySelector('h3')?.textContent || 'Product Collection';
     intentEngine.recordBehavior('hover', { element: 'product-banner', content: title });
-    showTooltip(bannerCard, '正在分析您的兴趣...');
+    showTooltip(bannerCard, 'Analyzing your interests...');
   });
   
   bannerCard.addEventListener('click', () => {
-    const title = bannerCard.querySelector('h3')?.textContent || '产品系列';
+    const title = bannerCard.querySelector('h3')?.textContent || 'Product Collection';
     intentEngine.recordBehavior('click', { element: 'product-banner', content: title });
-    showTooltip(bannerCard, '已记录点击行为');
+    showTooltip(bannerCard, 'Click behavior recorded');
   });
 });
 
@@ -3450,14 +3450,14 @@ document.querySelectorAll('.btn-add-cart').forEach(btn => {
     intentEngine.recordBehavior('click', { product, action: 'add-cart', element: 'add-to-cart-button' });
     
     // 视觉反馈
-    btn.textContent = '✓ 已加入';
+      btn.textContent = '✓ Added';
     btn.style.background = '#7da6ff';
     setTimeout(() => {
-      btn.textContent = '加入购物车';
+      btn.textContent = 'Add to Cart';
       btn.style.background = '';
     }, 2000);
     
-    showTooltip(btn, '已加入购物车！转化阶段提升');
+    showTooltip(btn, 'Added to cart! Conversion stage advanced');
   });
 });
 
@@ -3468,7 +3468,7 @@ document.querySelectorAll('.btn-view').forEach(btn => {
     const product = btn.getAttribute('data-product');
     intentEngine.recordBehavior('click', { product, action: 'view', element: 'view-button' });
     
-    showTooltip(btn, '查看商品详情');
+    showTooltip(btn, 'View product details');
   });
 });
 
@@ -3546,35 +3546,35 @@ class GuideSystem {
       { 
         id: 'step1', 
         element: null, 
-        hint: '尝试向下滚动页面',
+        hint: 'Try scrolling down the page',
         action: 'scroll',
         completed: false 
       },
       { 
         id: 'step2', 
         element: '.shop-banner-btn', 
-        hint: '点击"立即探索"按钮',
+        hint: 'Click the "Explore Now" button',
         action: 'click',
         completed: false 
       },
       { 
         id: 'step3', 
         element: '[data-tracking="product-hover"]', 
-        hint: '悬停任意商品卡片查看详情',
+        hint: 'Hover over any product card to view details',
         action: 'hover',
         completed: false 
       },
       { 
         id: 'step4', 
         element: '.btn-add-cart', 
-        hint: '点击"加入购物车"按钮，提升转化阶段',
+        hint: 'Click the "Add to Cart" button to advance conversion stage',
         action: 'click',
         completed: false 
       },
       { 
         id: 'step5', 
         element: '.category-tag', 
-        hint: '点击分类标签筛选商品',
+        hint: 'Click category tags to filter products',
         action: 'click',
         completed: false 
       }
