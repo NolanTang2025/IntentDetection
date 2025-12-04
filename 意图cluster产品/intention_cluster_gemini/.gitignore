@@ -1,0 +1,40 @@
+# API密钥和敏感信息
+*.key
+*.pem
+.env
+.env.local
+*_secret*
+*_api_key*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# 数据文件（如果很大）
+*.csv
+*.json
+!requirements.txt
+
+# 聚类结果（可能包含敏感信息）
+clustering_results.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 日志
+*.log
+
+# 操作系统
+.DS_Store
+Thumbs.db
+

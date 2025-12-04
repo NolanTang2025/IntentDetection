@@ -1682,7 +1682,7 @@ class BehaviorIntentClusterer:
                             if shop_id:
                                 # 尝试转换为整数，如果失败则保持原值（可能是字符串如YUP）
                                 try:
-                                shop_id = int(shop_id)
+                                    shop_id = int(shop_id)
                                 except (ValueError, TypeError):
                                     shop_id = str(shop_id)
                 except:
@@ -1703,8 +1703,8 @@ class BehaviorIntentClusterer:
             print("  策略：基于金融特征变化切分（KYC状态、交易状态、时间间隔）")
             all_segments, segment_metadata = self.segment_by_financial_intent(data, intent_change_threshold=self.intent_change_threshold)
         else:
-        print("  策略：当用户意图发生显著变化时创建新片段，允许一个用户拥有多个意图片段")
-        all_segments, segment_metadata = self.segment_by_intent_change(data, intent_change_threshold=self.intent_change_threshold)
+            print("  策略：当用户意图发生显著变化时创建新片段，允许一个用户拥有多个意图片段")
+            all_segments, segment_metadata = self.segment_by_intent_change(data, intent_change_threshold=self.intent_change_threshold)
         print(f"切分为 {len(segment_metadata)} 个意图片段")
         print(f"  参数：意图变化阈值={self.intent_change_threshold}, 时间间隔阈值={self.gap_threshold.total_seconds()/60:.0f}分钟/{self.inactivity_threshold.total_seconds()/60:.0f}分钟")
         

@@ -3548,6 +3548,7 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
             const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(2);
             const segmentLabel = currentLanguage === 'zh' ? '片段' : 'Segment';
             const clusterLabel = currentLanguage === 'zh' ? '聚类' : 'Cluster';
+            const mergedCount = segment.merged_count || 1;
             const startDate = new Date(segment.start_time);
             const locale = currentLanguage === 'zh' ? 'zh-CN' : 'en-US';
             const timeStr = startDate.toLocaleString(locale, { 
@@ -3576,9 +3577,14 @@ function renderFinancialUserTrajectoryTimeline(canvasId, user) {
             const segmentFirstOrderCompleted = segment.first_order_completed || clusterCharacteristics.first_order_completed || '';
             const segmentUrgency = segment.urgency || clusterCharacteristics.urgency || '';
             
+            // 显示合并信息（如果有）
+            const mergedInfo = mergedCount > 1 
+                ? `<span style="font-size: 0.75rem; color: var(--text-secondary); margin-left: 0.5rem;">(${currentLanguage === 'zh' ? '合并' : 'Merged'} ${mergedCount})</span>`
+                : '';
+            
             tooltip.innerHTML = `
                 <div class="tooltip-header">
-                    <span class="tooltip-title">${segmentLabel} ${segment.segment_index || index + 1}</span>
+                    <span class="tooltip-title">${segmentLabel} ${segment.segment_index || index + 1}${mergedInfo}</span>
                     <span class="tooltip-time">${timeStr}</span>
                 </div>
                 <div class="tooltip-cluster" style="background: ${clusterColor}20; border-left: 3px solid ${clusterColor}">
@@ -5327,7 +5333,15 @@ function renderUserTrajectoryTimeline(canvasId, user) {
         ctx.fillStyle = '#ECF2F5';
         ctx.font = 'bold 13px Arial, "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(`${segmentLabel} ${segment.segment_index || index + 1}`, x, 40);
+        
+        // 显示合并信息（如果有）
+        const mergedCount = segment.merged_count || 1;
+        let segmentText = `${segmentLabel} ${segment.segment_index || index + 1}`;
+        if (mergedCount > 1) {
+            const mergedLabel = currentLanguage === 'zh' ? '合并' : 'Merged';
+            segmentText += ` (${mergedLabel} ${mergedCount})`;
+        }
+        ctx.fillText(segmentText, x, 40);
         
         ctx.fillStyle = clusterColor;
         ctx.font = '12px Arial, "Microsoft YaHei", sans-serif';
@@ -5401,6 +5415,7 @@ function renderUserTrajectoryTimeline(canvasId, user) {
             const duration = (segment.duration_seconds || (segment.duration_minutes * 60) || 0).toFixed(2);
             const segmentLabel = currentLanguage === 'zh' ? '片段' : 'Segment';
             const clusterLabel = t('cluster.label');
+            const mergedCount = segment.merged_count || 1;
             const stageTranslations = {
                 '浏览阶段': currentLanguage === 'zh' ? '浏览阶段' : 'Browsing',
                 '对比阶段': currentLanguage === 'zh' ? '对比阶段' : 'Comparison',
@@ -5408,9 +5423,15 @@ function renderUserTrajectoryTimeline(canvasId, user) {
             };
             const purchaseStage = segment.purchase_stage || (currentLanguage === 'zh' ? '浏览阶段' : 'Browsing');
             const displayStage = stageTranslations[purchaseStage] || purchaseStage;
+            
+            // 显示合并信息（如果有）
+            const mergedInfo = mergedCount > 1 
+                ? `<span style="font-size: 0.75rem; color: var(--text-secondary); margin-left: 0.5rem;">(${currentLanguage === 'zh' ? '合并' : 'Merged'} ${mergedCount})</span>`
+                : '';
+            
             tooltip.innerHTML = `
                 <div class="tooltip-header">
-                    <span class="tooltip-title">${segmentLabel} ${segment.segment_index || index + 1}</span>
+                    <span class="tooltip-title">${segmentLabel} ${segment.segment_index || index + 1}${mergedInfo}</span>
                     <span class="tooltip-time">${timeStr}</span>
                 </div>
                 <div class="tooltip-cluster" style="background: ${clusterColor}20; border-left: 3px solid ${clusterColor}">

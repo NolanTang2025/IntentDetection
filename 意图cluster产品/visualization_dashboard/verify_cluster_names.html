@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Cluster Names</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        .shop-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .cluster-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-left: 3px solid #667eea;
+        }
+        .cluster-id {
+            font-weight: bold;
+            color: #667eea;
+        }
+        .cluster-name {
+            color: #333;
+            margin: 5px 0;
+        }
+        .user-segment {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .full-label {
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>聚类名称验证</h1>
+        <p>检查 multi_shop_data.js 中的聚类名称是否正确更新</p>
+        <div id="results"></div>
+    </div>
+
+    <script src="multi_shop_data.js"></script>
+    <script>
+        function verifyClusterNames() {
+            const resultsDiv = document.getElementById('results');
+            let html = '';
+
+            if (typeof shopData === 'undefined') {
+                html = '<p style="color: red;">错误: shopData 未定义，请检查 multi_shop_data.js 是否正确加载</p>';
+                resultsDiv.innerHTML = html;
+                return;
+            }
+
+            const shopIds = Object.keys(shopData);
+            html += `<p>找到 ${shopIds.length} 个店铺</p>`;
+
+            shopIds.forEach(shopId => {
+                const shop = shopData[shopId];
+                if (!shop || !shop.businessInsights) {
+                    return;
+                }
+
+                html += `<div class="shop-section">`;
+                html += `<h2>店铺 ${shopId}</h2>`;
+                html += `<p>聚类数量: ${shop.businessInsights.length}</p>`;
+
+                shop.businessInsights.forEach(insight => {
+                    const clusterId = insight.cluster_id || 'N/A';
+                    const clusterName = insight.cluster_name || '未设置';
+                    const userSegmentName = insight.user_segment_name || '未设置';
+                    const fullLabel = insight.full_label || '未设置';
+
+                    // 检查名称是否已更新（不是默认的 "Cluster X"）
+                    const isUpdated = !clusterName.startsWith('Cluster ') && 
+                                     clusterName !== '未设置' &&
+                                     clusterName.includes('·');
+
+                    html += `<div class="cluster-item" style="border-left-color: ${isUpdated ? '#4caf50' : '#f44336'}">`;
+                    html += `<div class="cluster-id">Cluster ${clusterId}</div>`;
+                    html += `<div class="cluster-name"><strong>cluster_name:</strong> ${clusterName}</div>`;
+                    html += `<div class="user-segment"><strong>user_segment_name:</strong> ${userSegmentName}</div>`;
+                    html += `<div class="full-label"><strong>full_label:</strong> ${fullLabel}</div>`;
+                    if (!isUpdated) {
+                        html += `<div style="color: red; margin-top: 5px;">⚠️ 此聚类名称可能未更新</div>`;
+                    }
+                    html += `</div>`;
+                });
+
+                html += `</div>`;
+            });
+
+            resultsDiv.innerHTML = html;
+        }
+
+        // 等待数据加载
+        if (typeof shopData !== 'undefined') {
+            verifyClusterNames();
+        } else {
+            setTimeout(() => {
+                if (typeof shopData !== 'undefined') {
+                    verifyClusterNames();
+                } else {
+                    document.getElementById('results').innerHTML = 
+                        '<p style="color: red;">错误: 无法加载 shopData，请检查 multi_shop_data.js 文件</p>';
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+
