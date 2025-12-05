@@ -1236,16 +1236,47 @@
     overflow: hidden;
     pointer-events: auto;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    border-radius: 12px;
+    transform: translateY(20px) scale(0.95);
+    transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+    border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     background: #000;
+    border: 2px solid transparent;
   }
   
   .video-player-widget.loaded {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    border-color: rgba(125, 166, 255, 0.3);
+    box-shadow: 0 12px 48px rgba(125, 166, 255, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4);
+    animation: videoWidgetPulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes videoWidgetPulse {
+    0%, 100% {
+      box-shadow: 0 12px 48px rgba(125, 166, 255, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4);
+      border-color: rgba(125, 166, 255, 0.3);
+    }
+    50% {
+      box-shadow: 0 16px 56px rgba(125, 166, 255, 0.4), 0 12px 40px rgba(0, 0, 0, 0.5);
+      border-color: rgba(125, 166, 255, 0.5);
+    }
+  }
+  
+  .video-player-widget.highlight {
+    border-color: rgba(0, 255, 136, 0.8) !important;
+    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.4), 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    animation: videoWidgetHighlight 1.5s ease-in-out infinite;
+    transform: scale(1.05) !important;
+  }
+  
+  @keyframes videoWidgetHighlight {
+    0%, 100% {
+      box-shadow: 0 20px 60px rgba(0, 255, 136, 0.4), 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+    50% {
+      box-shadow: 0 24px 70px rgba(0, 255, 136, 0.6), 0 16px 50px rgba(0, 0, 0, 0.6);
+    }
   }
   
   .product-video {
@@ -1325,6 +1356,42 @@
     pointer-events: none;
     z-index: 5;
     letter-spacing: 1px;
+  }
+  
+  /* Video Widget Attention Badge */
+  .video-attention-badge {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: linear-gradient(135deg, #00ff88 0%, #00cc6f 100%);
+    color: #000;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 12px;
+    z-index: 10001;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.4);
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+  
+  .video-player-widget.highlight .video-attention-badge {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  @keyframes badgePulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.4);
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 255, 136, 0.6);
+    }
   }
   
   /* Bottom Product Info Overlay */
@@ -1425,6 +1492,74 @@
     font-weight: 700;
   }
   
+  .video-product-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  
+  .video-product-card:hover .video-product-actions {
+    opacity: 1;
+  }
+  
+  .video-btn-add-cart,
+  .video-btn-buy-now {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    flex-shrink: 0;
+  }
+  
+  .video-btn-add-cart {
+    border-color: rgba(125, 166, 255, 0.3);
+  }
+  
+  .video-btn-add-cart:hover {
+    background: rgba(125, 166, 255, 0.3);
+    border-color: rgba(125, 166, 255, 0.5);
+    transform: scale(1.1);
+  }
+  
+  .video-btn-buy-now {
+    border-color: rgba(0, 255, 136, 0.3);
+    color: rgba(0, 255, 136, 0.9);
+  }
+  
+  .video-btn-buy-now:hover {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: rgba(0, 255, 136, 0.5);
+    transform: scale(1.1);
+  }
+  
+  .video-btn-add-cart:active,
+  .video-btn-buy-now:active {
+    transform: scale(0.95);
+  }
+  
+  .video-btn-add-cart.added {
+    background: rgba(0, 255, 136, 0.3);
+    border-color: rgba(0, 255, 136, 0.5);
+    color: rgba(0, 255, 136, 1);
+  }
+  
+  .video-btn-add-cart span:not(:first-child),
+  .video-btn-buy-now span:not(:first-child) {
+    display: none;
+  }
+  
   .video-controls-right {
     position: absolute;
     top: 60px;
@@ -1474,6 +1609,47 @@
   
   .video-player-widget.zoomed-out {
     width: 120px;
+  }
+  
+  /* Intent-based video widget styling */
+  .video-player-widget.intent-awareness {
+    border: 1px solid rgba(125, 166, 255, 0.3);
+  }
+  
+  .video-player-widget.intent-interest {
+    border: 1px solid rgba(125, 166, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(125, 166, 255, 0.2);
+  }
+  
+  .video-player-widget.intent-consideration {
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    box-shadow: 0 8px 32px rgba(255, 193, 7, 0.2);
+  }
+  
+  .video-player-widget.intent-purchase {
+    border: 2px solid rgba(0, 255, 136, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3);
+  }
+  
+  .video-player-widget.engagement-high {
+    opacity: 1;
+  }
+  
+  .video-player-widget.engagement-medium {
+    opacity: 0.95;
+  }
+  
+  .video-player-widget.engagement-low {
+    opacity: 0.85;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
   }
   
   @media (max-width: 1024px) {
@@ -2343,8 +2519,9 @@
   <div class="guide-step" id="step1">Scroll Page</div>
   <div class="guide-step" id="step2">Click Banner Button</div>
   <div class="guide-step" id="step3">Hover Product Card</div>
-  <div class="guide-step" id="step4">Add to Cart</div>
-  <div class="guide-step" id="step5">Click Category Tag</div>
+  <div class="guide-step" id="step4">Watch Video Widget</div>
+  <div class="guide-step" id="step5">Video Widget Purchase</div>
+  <div class="guide-step" id="step6">Add to Cart</div>
 </div>
 <div class="guide-notification" id="guideNotification" style="display: none;">
   <button class="guide-notification-close" onclick="this.parentElement.style.display='none'">×</button>
@@ -2384,6 +2561,13 @@ class IntentRecognition {
       interactionIncrease: 0,
       timeSpentIncrease: 0
     };
+    // Track video-to-conversion metrics
+    this.videoConversionMetrics = {
+      firstVideoWatchTime: null,
+      conversionActions: [], // Array of {action, timestamp, timeFromVideo}
+      conversionRate: 0,
+      averageConversionTime: 0
+    };
     this.productMap = {
       'hoodie': { category: 'Comfortable Apparel', tags: ['Hoodie', 'Cozy', 'Loungewear', 'Athleisure'] },
       'sweater': { category: 'Casual Wear', tags: ['Sweater', 'Warm', 'Comfort'] },
@@ -2416,10 +2600,95 @@ class IntentRecognition {
       };
     }
     
+    // Track first video watch time for conversion analysis
+    if ((type === 'video-play' || type === 'video-watch') && !this.videoConversionMetrics.firstVideoWatchTime) {
+      this.videoConversionMetrics.firstVideoWatchTime = Date.now();
+    }
+    
+    // Track conversion actions after video watch
+    const isConversionAction = type === 'click' && (
+      data.action === 'add-cart' || 
+      data.action === 'buy-now' ||
+      data.action === 'view-product-details'
+    );
+    
+    if (isConversionAction && this.videoConversionMetrics.firstVideoWatchTime) {
+      const timeFromVideo = (Date.now() - this.videoConversionMetrics.firstVideoWatchTime) / 1000;
+      this.videoConversionMetrics.conversionActions.push({
+        action: data.action,
+        timestamp: Date.now(),
+        timeFromVideo: timeFromVideo,
+        product: data.product || 'F1 Floating Pillow'
+      });
+    }
+    
     this.behaviors.push(behavior);
     this.updateIntent();
     this.calculateVideoImpact();
+    this.updateVideoWidgetByIntent(); // Update video widget based on user intent
     this.displayIntent();
+  }
+  
+  updateVideoWidgetByIntent() {
+    // Update video widget content based on user intent
+    const videoWidget = document.getElementById('videoPlayerWidget');
+    const videoProductCard = document.querySelector('.video-product-card');
+    if (!videoWidget || !videoProductCard) return;
+    
+    const stage = this.intentData.conversion_stage || 'awareness';
+    const engagement = this.intentData.behavior_summary.engagement || 'low';
+    const coreInterests = this.intentData.core_interests || [];
+    
+    // Remove existing intent-based classes
+    videoWidget.classList.remove('intent-awareness', 'intent-interest', 'intent-consideration', 'intent-purchase');
+    videoWidget.classList.remove('engagement-low', 'engagement-medium', 'engagement-high');
+    
+    // Add stage-based class
+    videoWidget.classList.add(`intent-${stage}`);
+    
+    // Add engagement-based class
+    videoWidget.classList.add(`engagement-${engagement}`);
+    
+    // Update product card visibility/emphasis based on intent
+    const productInfo = videoProductCard.querySelector('.video-product-info');
+    const productActions = videoProductCard.querySelector('.video-product-actions');
+    
+    if (productInfo && productActions) {
+      // Show/hide actions based on conversion stage
+      if (stage === 'purchase' || stage === 'consideration') {
+        productActions.style.display = 'flex';
+        productActions.style.opacity = '0.85';
+        productActions.style.transform = 'translateY(0)';
+      } else if (stage === 'interest') {
+        productActions.style.display = 'flex';
+        productActions.style.opacity = '0.65';
+      } else {
+        productActions.style.display = 'flex';
+        productActions.style.opacity = '0.5';
+      }
+      
+      // Highlight price if user is price-sensitive (based on interests)
+      const priceElement = productInfo.querySelector('.video-product-discount-price');
+      if (priceElement) {
+        if (coreInterests.some(i => i.toLowerCase().includes('price') || i.toLowerCase().includes('value'))) {
+          priceElement.style.animation = 'pulse 2s infinite';
+        } else {
+          priceElement.style.animation = '';
+        }
+      }
+    }
+    
+    // Add visual indicator for intent change
+    if (this.behaviors.length > 0) {
+      const lastBehavior = this.behaviors[this.behaviors.length - 1];
+      if (lastBehavior.type === 'video-watch' || lastBehavior.type === 'video-play') {
+        // Add a subtle glow effect when intent changes
+        videoWidget.style.boxShadow = '0 8px 32px rgba(0, 255, 136, 0.3)';
+        setTimeout(() => {
+          videoWidget.style.boxShadow = '';
+        }, 1000);
+      }
+    }
   }
   
   calculateVideoImpact() {
@@ -2664,6 +2933,11 @@ class IntentRecognition {
     // Impact of video interaction on conversion metrics (if there are video interactions and comparison data)
     if (videoInteractions.length > 0 && this.beforeVideoState) {
       html += this.renderVideoImpactOnConversion();
+    }
+    
+    // Video-to-conversion analysis (if user watched video and then converted)
+    if (this.videoConversionMetrics.firstVideoWatchTime && this.videoConversionMetrics.conversionActions.length > 0) {
+      html += this.renderVideoToConversion();
     }
     
     // Engagement dashboard
@@ -3018,10 +3292,10 @@ class IntentRecognition {
       .reverse();
     
     const actionLabels = {
-      'video-play': '播放视频',
-      'video-pause': '暂停视频',
-      'video-watch': '观看视频',
-      'video-hover-end': '悬停视频',
+      'video-play': 'Play Video',
+      'video-pause': 'Pause Video',
+      'video-watch': 'Watch Video',
+      'video-hover-end': 'Hover Video',
       'click': (data) => {
         if (data.element === 'video-control') {
           const actionMap = {
@@ -3265,7 +3539,7 @@ class IntentRecognition {
                 +<span class="animated-number">${this.videoImpactMetrics.interactionIncrease}</span>
               </div>
               <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
-                次行为事件
+                behavior events
               </div>
             </div>
             <div style="background: rgba(255, 193, 7, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(255, 193, 7, 0.2);">
@@ -3308,9 +3582,142 @@ class IntentRecognition {
             <div style="font-size: 11px; color: var(--text-secondary); line-height: 1.6;">
               ${stageBoost > 0 ? `• 转化阶段从"${stageLabels[this.beforeVideoState.conversionStage]}"提升至"${stageLabels[this.intentData.conversion_stage]}"<br/>` : ''}
               ${engagementBoost > 0 ? `• 参与度从"${engagementLabels[this.beforeVideoState.engagement]}"提升至"${engagementLabels[this.intentData.behavior_summary.engagement]}"<br/>` : ''}
-              • 新增 ${this.videoImpactMetrics.interactionIncrease} 次交互行为<br/>
-              ${this.videoImpactMetrics.timeSpentIncrease > 0 ? `• 视频观看时长 ${formatDuration(this.videoImpactMetrics.timeSpentIncrease)}<br/>` : ''}
-              • 转化率提升 ${Math.round(conversionRateIncrease)} 个百分点
+              • Added ${this.videoImpactMetrics.interactionIncrease} interaction behaviors<br/>
+              ${this.videoImpactMetrics.timeSpentIncrease > 0 ? `• Video watch duration: ${formatDuration(this.videoImpactMetrics.timeSpentIncrease)}<br/>` : ''}
+              • Conversion rate increased by ${Math.round(conversionRateIncrease)} percentage points
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  renderVideoToConversion() {
+    const metrics = this.videoConversionMetrics;
+    if (!metrics.firstVideoWatchTime || metrics.conversionActions.length === 0) return '';
+    
+    const formatTime = (seconds) => {
+      if (seconds < 60) return `${Math.round(seconds)}秒`;
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.round(seconds % 60);
+      return secs > 0 ? `${mins}分${secs}秒` : `${mins}分钟`;
+    };
+    
+    const formatTimestamp = (timestamp) => {
+      const date = new Date(timestamp);
+      return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    };
+    
+    const actionLabels = {
+      'add-cart': 'Add to Cart',
+      'buy-now': 'Buy Now',
+      'view-product-details': 'View Details'
+    };
+    
+    // Calculate conversion rate (conversion actions / video watches)
+    const videoWatchCount = this.behaviors.filter(b => 
+      b.type === 'video-play' || b.type === 'video-watch'
+    ).length;
+    const conversionRate = videoWatchCount > 0 
+      ? (metrics.conversionActions.length / videoWatchCount * 100).toFixed(1)
+      : 0;
+    
+    // Calculate average conversion time
+    const conversionTimes = metrics.conversionActions
+      .map(a => a.timeFromVideo)
+      .filter(t => t > 0);
+    const avgConversionTime = conversionTimes.length > 0
+      ? conversionTimes.reduce((a, b) => a + b, 0) / conversionTimes.length
+      : 0;
+    
+    return `
+      <div class="intent-card show" style="border: 2px solid #00ff88; background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(125, 166, 255, 0.05) 100%);">
+        <h3 style="color: #00ff88; display: flex; align-items: center; gap: 8px;">
+          <span>🎯</span>
+          <span>Video-to-Conversion Analysis</span>
+        </h3>
+        <div class="chart-container">
+          <!-- 转化指标概览 -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;">
+            <div style="background: rgba(0, 255, 136, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(0, 255, 136, 0.2);">
+              <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Conversion Rate</div>
+              <div style="font-size: 20px; font-weight: 700; color: #00ff88;">
+                ${conversionRate}%
+              </div>
+              <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
+                ${metrics.conversionActions.length}/${videoWatchCount} views
+              </div>
+            </div>
+            <div style="background: rgba(125, 166, 255, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(125, 166, 255, 0.2);">
+              <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Conversions</div>
+              <div style="font-size: 20px; font-weight: 700; color: #7da6ff;">
+                <span class="animated-number">${metrics.conversionActions.length}</span>
+              </div>
+              <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
+                conversion actions
+              </div>
+            </div>
+            <div style="background: rgba(255, 193, 7, 0.1); border-radius: 8px; padding: 12px; text-align: center; border: 1px solid rgba(255, 193, 7, 0.2);">
+              <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Avg Conversion Time</div>
+              <div style="font-size: 20px; font-weight: 700; color: #ffc107;">
+                ${formatTime(avgConversionTime)}
+              </div>
+              <div style="font-size: 10px; color: var(--text-secondary); margin-top: 4px;">
+                from video to conversion
+              </div>
+            </div>
+          </div>
+          
+          <!-- 转化时间线 -->
+          <div style="margin-top: 16px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">
+              Conversion Timeline
+            </div>
+            <div class="timeline-chart" style="max-height: 250px; overflow-y: auto;">
+              <div class="timeline-line"></div>
+              <!-- 首次观看视频标记 -->
+              <div class="timeline-item" style="animation-delay: 0s">
+                <div class="timeline-dot" style="background: #7da6ff; border: 2px solid #00ff88;"></div>
+                <div class="timeline-content">
+                  <div class="timeline-time">${formatTimestamp(metrics.firstVideoWatchTime)}</div>
+                  <div class="timeline-text" style="color: #7da6ff; font-weight: 600;">🎬 First Video Watch</div>
+                </div>
+              </div>
+              ${metrics.conversionActions.map((action, index) => {
+                const timeFromVideo = action.timeFromVideo;
+                return `
+                  <div class="timeline-item" style="animation-delay: ${(index + 1) * 0.1}s">
+                    <div class="timeline-dot" style="background: #00ff88;"></div>
+                    <div class="timeline-content">
+                      <div class="timeline-time">${formatTimestamp(action.timestamp)}</div>
+                      <div class="timeline-text">
+                        <span style="color: #00ff88; font-weight: 600;">✓ ${actionLabels[action.action] || action.action}</span>
+                        <span style="color: var(--text-secondary); margin-left: 8px; font-size: 11px;">
+                          (${formatTime(timeFromVideo)} after watch)
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+          
+          <!-- 转化路径分析 -->
+          <div style="margin-top: 16px; padding: 12px; background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(125, 166, 255, 0.1) 100%); border-radius: 8px; border-left: 3px solid #00ff88;">
+            <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">
+              💡 Conversion Path Analysis
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary); line-height: 1.6;">
+              • User first watched video at ${formatTimestamp(metrics.firstVideoWatchTime)}<br/>
+              • Generated ${metrics.conversionActions.length} conversion actions after watching<br/>
+              • Average conversion time: ${formatTime(avgConversionTime)}<br/>
+              • Conversion Rate: ${conversionRate}% (${metrics.conversionActions.length}/${videoWatchCount} views)<br/>
+              ${metrics.conversionActions.some(a => a.action === 'buy-now') 
+                ? '• ✅ Contains buy now action, strong conversion intent' 
+                : metrics.conversionActions.some(a => a.action === 'add-cart')
+                ? '• 🛒 Contains add to cart action, in consideration stage'
+                : '• 👀 Contains view details action, exploring product'}
             </div>
           </div>
         </div>
@@ -3500,13 +3907,20 @@ window.addEventListener('load', () => {
       }, 1000);
     }
     
-    // 模拟网页加载完成后显示视频播放器
+    // 模拟网页加载完成后显示视频播放器（更早显示，提高显眼度）
     setTimeout(() => {
       const videoWidget = document.getElementById('videoPlayerWidget');
       if (videoWidget) {
         videoWidget.classList.add('loaded');
+        // 添加一个初始的吸引注意的动画
+        setTimeout(() => {
+          videoWidget.style.transform = 'translateY(0) scale(1.05)';
+          setTimeout(() => {
+            videoWidget.style.transform = 'translateY(0) scale(1)';
+          }, 500);
+        }, 300);
       }
-    }, 2500); // 在页面加载动画完成后显示
+    }, 2000); // 提前显示，让用户更早注意到
   }, 2000);
   
   // 确保所有产品卡片在动画完成后可见
@@ -3566,15 +3980,22 @@ class GuideSystem {
       },
       { 
         id: 'step4', 
-        element: '.btn-add-cart', 
-        hint: 'Click the "Add to Cart" button to advance conversion stage',
-        action: 'click',
+        element: '#videoPlayerWidget', 
+        hint: 'Watch the product video widget on the right side - it shows personalized content based on your intent',
+        action: 'video-watch',
         completed: false 
       },
       { 
         id: 'step5', 
-        element: '.category-tag', 
-        hint: 'Click category tags to filter products',
+        element: '#videoAddCartBtn, #videoBuyNowBtn', 
+        hint: 'Click the cart or buy button in the video widget to complete a purchase',
+        action: 'click',
+        completed: false 
+      },
+      { 
+        id: 'step6', 
+        element: '.btn-add-cart', 
+        hint: 'You can also add products to cart from the main product cards',
         action: 'click',
         completed: false 
       }
@@ -3695,6 +4116,26 @@ class GuideSystem {
         targetElement = tags[0];
         highlightElement = tags[0];
       }
+    } else if (step.element === '#videoPlayerWidget') {
+      // 对于视频widget观看步骤，高亮整个widget
+      const videoWidget = document.getElementById('videoPlayerWidget');
+      if (videoWidget) {
+        targetElement = videoWidget;
+        highlightElement = videoWidget;
+        // 添加高亮样式
+        videoWidget.classList.add('highlight');
+      }
+    } else if (step.element === '#videoAddCartBtn, #videoBuyNowBtn') {
+      // 对于视频widget按钮，优先选择购物车按钮，如果不存在则选择购买按钮
+      const addCartBtn = document.getElementById('videoAddCartBtn');
+      const buyNowBtn = document.getElementById('videoBuyNowBtn');
+      if (addCartBtn) {
+        targetElement = addCartBtn;
+        highlightElement = document.getElementById('videoPlayerWidget');
+      } else if (buyNowBtn) {
+        targetElement = buyNowBtn;
+        highlightElement = document.getElementById('videoPlayerWidget');
+      }
     } else {
       // 其他情况，使用默认逻辑
       const elements = document.querySelectorAll(step.element);
@@ -3717,6 +4158,13 @@ class GuideSystem {
   }
   
   highlightElement(targetElement, highlightElement, hint) {
+    // 获取当前步骤信息
+    const step = this.steps[this.currentStep];
+    const isVideoWidget = step && (
+      step.element === '#videoAddCartBtn, #videoBuyNowBtn' || 
+      step.element === '#videoPlayerWidget'
+    );
+    
     // 移除之前的高亮
     document.querySelectorAll('.guide-highlight').forEach(el => {
       el.classList.remove('guide-highlight');
@@ -3732,20 +4180,29 @@ class GuideSystem {
     }
     
     // 等待滚动完成后再定位箭头
+    
     setTimeout(() => {
-      // 获取目标元素的实际位置（考虑滚动）
+      // 获取目标元素的实际位置
       const rect = targetElement.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
       
-      // 计算元素中心点
-      const centerX = rect.left + scrollLeft + rect.width / 2;
-      const centerY = rect.top + scrollTop;
+      // 对于fixed定位的视频widget，使用viewport坐标；其他使用页面坐标
+      let centerX, centerY;
+      if (isVideoWidget) {
+        // fixed定位，直接使用viewport坐标
+        centerX = rect.left + rect.width / 2;
+        centerY = rect.top;
+      } else {
+        // 普通元素，考虑滚动
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        centerX = rect.left + scrollLeft + rect.width / 2;
+        centerY = rect.top + scrollTop;
+      }
       
       // 添加箭头，指向元素上方
       const arrow = document.createElement('div');
       arrow.className = 'guide-arrow';
-      arrow.style.position = 'absolute';
+      arrow.style.position = isVideoWidget ? 'fixed' : 'absolute';
       arrow.style.left = centerX - 16 + 'px';
       arrow.style.top = (centerY - 50) + 'px';
       arrow.style.transform = 'translateX(-50%)';
@@ -3760,38 +4217,42 @@ class GuideSystem {
       const hintEl = document.createElement('div');
       hintEl.className = 'guide-hint';
       hintEl.textContent = hint;
-      hintEl.style.position = 'absolute';
+      hintEl.style.position = isVideoWidget ? 'fixed' : 'absolute';
       hintEl.style.left = centerX + 'px';
       hintEl.style.top = (centerY - 80) + 'px';
       hintEl.style.transform = 'translateX(-50%)';
       document.body.appendChild(hintEl);
       
-      // 监听滚动，更新箭头位置
-      const updatePosition = () => {
-        const newRect = targetElement.getBoundingClientRect();
-        const newScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const newScrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        const newCenterX = newRect.left + newScrollLeft + newRect.width / 2;
-        const newCenterY = newRect.top + newScrollTop;
-        
-        arrow.style.left = newCenterX - 16 + 'px';
-        arrow.style.top = (newCenterY - 50) + 'px';
-        hintEl.style.left = newCenterX + 'px';
-        hintEl.style.top = (newCenterY - 80) + 'px';
-      };
-      
-      // 只在引导激活时监听滚动
-      if (this.guideActive) {
-        window.addEventListener('scroll', updatePosition, { passive: true });
-        // 存储清理函数
-        arrow._cleanup = () => {
-          window.removeEventListener('scroll', updatePosition);
+      // 监听滚动，更新箭头位置（视频widget不需要）
+      if (!isVideoWidget) {
+        const updatePosition = () => {
+          const newRect = targetElement.getBoundingClientRect();
+          const newScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const newScrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+          const newCenterX = newRect.left + newScrollLeft + newRect.width / 2;
+          const newCenterY = newRect.top + newScrollTop;
+          
+          arrow.style.left = newCenterX - 16 + 'px';
+          arrow.style.top = (newCenterY - 50) + 'px';
+          hintEl.style.left = newCenterX + 'px';
+          hintEl.style.top = (newCenterY - 80) + 'px';
         };
+        
+        // 只在引导激活时监听滚动
+        if (this.guideActive) {
+          window.addEventListener('scroll', updatePosition, { passive: true });
+          // 存储清理函数
+          arrow._cleanup = () => {
+            window.removeEventListener('scroll', updatePosition);
+          };
+        }
       }
     }, 500); // 等待滚动动画完成
     
-    // 滚动到元素位置
-    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // 滚动到元素位置（视频widget是fixed定位，不需要滚动）
+    if (!isVideoWidget) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
   
   showScrollHint() {
@@ -3823,10 +4284,22 @@ class GuideSystem {
           if (e.target === firstCartBtn || e.target.closest('.btn-add-cart') === firstCartBtn) {
             this.completeStep();
           }
+        } else if (step.element === '#videoAddCartBtn, #videoBuyNowBtn') {
+          // 对于视频widget按钮，检查是否点击了购物车或购买按钮
+          const videoAddCartBtn = document.getElementById('videoAddCartBtn');
+          const videoBuyNowBtn = document.getElementById('videoBuyNowBtn');
+          if (e.target === videoAddCartBtn || e.target === videoBuyNowBtn || 
+              e.target.closest('#videoAddCartBtn') === videoAddCartBtn ||
+              e.target.closest('#videoBuyNowBtn') === videoBuyNowBtn) {
+            this.completeStep();
+          }
         } else {
           this.completeStep();
         }
       } else if (step.action === 'hover' && e.type === 'mouseenter') {
+        this.completeStep();
+      } else if (step.action === 'video-watch') {
+        // 视频观看步骤：检测视频播放或观看事件
         this.completeStep();
       }
     };
@@ -3837,11 +4310,49 @@ class GuideSystem {
         document.querySelectorAll('.btn-add-cart').forEach(btn => {
           btn.addEventListener('click', handler, { once: true });
         });
+      } else if (step.element === '#videoAddCartBtn, #videoBuyNowBtn') {
+        // 对于视频widget按钮，监听两个按钮
+        const videoAddCartBtn = document.getElementById('videoAddCartBtn');
+        const videoBuyNowBtn = document.getElementById('videoBuyNowBtn');
+        if (videoAddCartBtn) {
+          videoAddCartBtn.addEventListener('click', handler, { once: true });
+        }
+        if (videoBuyNowBtn) {
+          videoBuyNowBtn.addEventListener('click', handler, { once: true });
+        }
       } else {
         element.addEventListener('click', handler, { once: true });
       }
     } else if (step.action === 'hover') {
       element.addEventListener('mouseenter', handler, { once: true });
+    } else if (step.action === 'video-watch') {
+      // 监听视频播放事件
+      const videoPlayer = document.getElementById('productVideo');
+      if (videoPlayer) {
+        // 监听播放事件
+        const playHandler = () => {
+          handler({ type: 'play' });
+          videoPlayer.removeEventListener('play', playHandler);
+        };
+        videoPlayer.addEventListener('play', playHandler, { once: true });
+        
+        // 如果视频已经在播放，直接完成步骤
+        if (!videoPlayer.paused) {
+          setTimeout(() => {
+            handler({ type: 'play' });
+          }, 500);
+        }
+      }
+      
+      // 也监听视频观看行为（通过intentEngine）
+      const originalRecordBehavior = intentEngine.recordBehavior.bind(intentEngine);
+      intentEngine.recordBehavior = function(type, data) {
+        if (type === 'video-play' || type === 'video-watch') {
+          handler({ type: 'video-watch' });
+          intentEngine.recordBehavior = originalRecordBehavior;
+        }
+        return originalRecordBehavior(type, data);
+      };
     }
     
     // 滚动监听
@@ -3866,10 +4377,14 @@ class GuideSystem {
       stepEl.classList.add('completed');
     }
     
-    // 清理高亮
+    // 清理高亮（包括视频widget的高亮）
     document.querySelectorAll('.guide-highlight').forEach(el => {
       el.classList.remove('guide-highlight');
     });
+    const videoWidget = document.getElementById('videoPlayerWidget');
+    if (videoWidget) {
+      videoWidget.classList.remove('highlight');
+    }
     document.querySelectorAll('.guide-arrow').forEach(el => {
       // 清理滚动监听
       if (el._cleanup) el._cleanup();
@@ -3974,15 +4489,15 @@ function showCompletion() {
   statsContainer.innerHTML = `
     <div class="completion-stat">
       <span class="completion-stat-value">${behaviors.length}</span>
-      <span class="completion-stat-label">行为事件</span>
+      <span class="completion-stat-label">Behavior Events</span>
     </div>
     <div class="completion-stat">
       <span class="completion-stat-value">${intentEngine.intentData.core_interests.length}</span>
-      <span class="completion-stat-label">兴趣标签</span>
+      <span class="completion-stat-label">Interest Tags</span>
     </div>
     <div class="completion-stat">
       <span class="completion-stat-value">${addCartCount}</span>
-      <span class="completion-stat-label">加入购物车</span>
+      <span class="completion-stat-label">Add to Cart</span>
     </div>
   `;
   
@@ -4297,6 +4812,10 @@ fullscreenBtn.addEventListener('click', (e) => {
 // 产品卡片点击事件
 if (videoProductCard) {
   videoProductCard.addEventListener('click', (e) => {
+    // 如果点击的是按钮，不触发卡片点击
+    if (e.target.closest('.video-btn-add-cart') || e.target.closest('.video-btn-buy-now')) {
+      return;
+    }
     e.stopPropagation();
     intentEngine.recordBehavior('click', {
       element: 'video-product-card',
@@ -4307,6 +4826,64 @@ if (videoProductCard) {
   });
   
   videoProductCard.style.cursor = 'pointer';
+}
+
+// 视频widget中的加入购物车按钮
+const videoAddCartBtn = document.getElementById('videoAddCartBtn');
+if (videoAddCartBtn) {
+  videoAddCartBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const product = btn.getAttribute('data-product');
+    const action = btn.getAttribute('data-action');
+    
+    intentEngine.recordBehavior('click', {
+      element: 'video-widget-button',
+      product: product,
+      action: action,
+      price: 'USD 139.0'
+    });
+    
+    // 更新按钮状态
+    btn.classList.add('added');
+    btn.innerHTML = '<span>✓</span>';
+    
+    // 显示提示
+    showTooltip(btn, 'Added to cart! Conversion stage advanced');
+    
+    // 3秒后恢复按钮
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.innerHTML = '<span>🛒</span>';
+    }, 3000);
+  });
+}
+
+// 视频widget中的立即购买按钮
+const videoBuyNowBtn = document.getElementById('videoBuyNowBtn');
+if (videoBuyNowBtn) {
+  videoBuyNowBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const product = btn.getAttribute('data-product');
+    const action = btn.getAttribute('data-action');
+    
+    intentEngine.recordBehavior('click', {
+      element: 'video-widget-button',
+      product: product,
+      action: action,
+      price: 'USD 139.0'
+    });
+    
+    // 显示提示
+    showTooltip(btn, '立即购买！转化完成');
+    
+    // 添加成功动画
+    btn.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      btn.style.transform = '';
+    }, 200);
+  });
 }
 
 // 更新静音图标状态
@@ -4336,6 +4913,7 @@ videoPlayer.addEventListener('ended', () => {
 
 <!-- 视频播放器插件（独立悬浮在模拟网页上方） -->
 <div class="video-player-widget" id="videoPlayerWidget">
+  <div class="video-attention-badge">🎬 Watch Video</div>
   <video id="productVideo" class="product-video" autoplay loop muted playsinline>
     <source src="products/product-video.mp4" type="video/mp4">
     <source src="products/product-video.webm" type="video/webm">
@@ -4395,6 +4973,14 @@ videoPlayer.addEventListener('ended', () => {
           <div class="video-product-price">
             <span class="video-product-original-price">USD 169.0</span>
             <span class="video-product-discount-price">USD 139.0</span>
+          </div>
+          <div class="video-product-actions">
+            <button class="video-btn-add-cart" id="videoAddCartBtn" data-product="F1 Floating Pillow" data-action="add-cart" title="Add to Cart">
+              <span>🛒</span>
+            </button>
+            <button class="video-btn-buy-now" id="videoBuyNowBtn" data-product="F1 Floating Pillow" data-action="buy-now" title="立即购买">
+              <span>✓</span>
+            </button>
           </div>
         </div>
       </div>
