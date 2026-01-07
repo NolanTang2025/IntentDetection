@@ -138,7 +138,13 @@
     margin-top: 80px;
   }
   
-  @media (min-width: 968px) {
+  @media (min-width: 1200px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 968px) and (max-width: 1199px) {
     .cards {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -328,6 +334,7 @@
           View Insights <span class="arrow">→</span>
         </div>
       </a>
+      
     </div>
   </div>
 </body>
