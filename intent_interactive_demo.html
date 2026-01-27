@@ -1230,7 +1230,7 @@
     position: fixed;
     bottom: 20px;
     right: calc(50% + 20px);
-    width: 180px;
+    width: 220px;
     aspect-ratio: 9 / 16;
     z-index: 10000;
     overflow: hidden;
@@ -1308,7 +1308,7 @@
     align-items: flex-start;
     justify-content: space-between;
     pointer-events: auto;
-    z-index: 10;
+    z-index: 20;
   }
   
   .video-controls-top-left {
@@ -1400,10 +1400,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-    padding: 16px 12px 12px;
+    background: transparent;
+    padding: 8px 6px;
     pointer-events: auto;
-    z-index: 10;
+    z-index: 15;
+    overflow: visible;
   }
   
   .video-product-text {
@@ -1415,36 +1416,60 @@
   }
   
   .video-product-card {
-    background: rgba(60, 60, 60, 0.95);
-    border-radius: 8px;
+    background: #ffffff;
+    border-radius: 14px;
     padding: 10px;
     display: flex;
     gap: 10px;
-    align-items: center;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+    width: calc(100% - 12px);
+    max-width: calc(100% - 12px);
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow: visible;
   }
   
   .video-product-thumbnail {
-    width: 50px;
-    height: 50px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #7da6ff 0%, #60a5fa 100%);
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    max-width: 55px;
+    border-radius: 10px;
+    background: #e3f2fd;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     overflow: hidden;
     position: relative;
+    padding: 3px;
+    box-sizing: border-box;
+  }
+  
+  .video-product-thumbnail::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+    border-radius: 7px;
+    z-index: 0;
   }
   
   .video-product-thumbnail img {
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
     object-fit: cover;
     display: block;
     position: relative;
     z-index: 2;
+    border-radius: 7px;
+    margin: 3px;
   }
   
   .video-product-thumbnail .thumbnail-placeholder {
@@ -1462,97 +1487,119 @@
   .video-product-info {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: flex-start;
+    overflow: visible;
   }
   
   .video-product-name {
-    color: #fff;
-    font-size: 13px;
+    color: #1a1a1a;
+    font-size: 11px;
     font-weight: 700;
-    margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+    margin: 0;
+  }
+  
+  .video-product-description {
+    color: #666;
+    font-size: 9px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+  }
+  
+  .video-product-price-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+    width: 100%;
   }
   
   .video-product-price {
     display: flex;
     align-items: baseline;
     gap: 6px;
+    flex: 0 1 auto;
+    min-width: 0;
   }
   
   .video-product-original-price {
     color: #999;
-    font-size: 11px;
+    font-size: 5px;
     text-decoration: line-through;
   }
   
   .video-product-discount-price {
-    color: #ff4444;
-    font-size: 16px;
+    color: #dc2626;
+    font-size: 7px;
     font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
   }
   
   .video-product-actions {
     display: flex;
     gap: 6px;
-    margin-top: 6px;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
-  }
-  
-  .video-product-card:hover .video-product-actions {
-    opacity: 1;
+    flex-shrink: 0;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex: 0 0 auto;
   }
   
   .video-btn-add-cart,
   .video-btn-buy-now {
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-    font-size: 14px;
+    padding: 2px 7px;
+    border: none;
+    border-radius: 3px;
+    font-size: 6px;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.4);
-    color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
     flex-shrink: 0;
+    white-space: nowrap;
   }
   
   .video-btn-add-cart {
-    border-color: rgba(125, 166, 255, 0.3);
-  }
-  
-  .video-btn-add-cart:hover {
-    background: rgba(125, 166, 255, 0.3);
-    border-color: rgba(125, 166, 255, 0.5);
-    transform: scale(1.1);
+    display: none;
   }
   
   .video-btn-buy-now {
-    border-color: rgba(0, 255, 136, 0.3);
-    color: rgba(0, 255, 136, 0.9);
+    background: #dc2626;
+    color: #ffffff;
+    padding: 2px 7px;
+    width: auto;
+    min-width: 31px;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
   }
   
   .video-btn-buy-now:hover {
-    background: rgba(0, 255, 136, 0.2);
-    border-color: rgba(0, 255, 136, 0.5);
-    transform: scale(1.1);
+    background: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
   }
   
-  .video-btn-add-cart:active,
   .video-btn-buy-now:active {
-    transform: scale(0.95);
-  }
-  
-  .video-btn-add-cart.added {
-    background: rgba(0, 255, 136, 0.3);
-    border-color: rgba(0, 255, 136, 0.5);
-    color: rgba(0, 255, 136, 1);
+    transform: translateY(0);
   }
   
   .video-btn-add-cart span:not(:first-child),
@@ -1568,13 +1615,13 @@
     flex-direction: column;
     gap: 10px;
     pointer-events: auto;
-    z-index: 10;
+    z-index: 20;
   }
   
   .video-control-btn {
-    width: 32px;
-    height: 32px;
-    background: rgba(0, 0, 0, 0.75);
+    width: 24px;
+    height: 24px;
+    background: rgba(60, 60, 60, 0.9);
     border: none;
     border-radius: 50%;
     display: flex;
@@ -1589,7 +1636,7 @@
   }
   
   .video-control-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(80, 80, 80, 0.95);
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   }
@@ -1599,16 +1646,50 @@
   }
   
   .video-control-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
+  }
+  
+  /* 静音/叙述按钮样式 */
+  .video-narration-btn {
+    position: absolute;
+    right: 12px;
+    top: 60px;
+    background: rgba(60, 60, 60, 0.9);
+    border: none;
+    border-radius: 15px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    font-size: 9px;
+    font-weight: 500;
+    pointer-events: auto;
+    z-index: 20;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+  }
+  
+  .video-narration-btn:hover {
+    background: rgba(80, 80, 80, 0.95);
+  }
+  
+  .video-narration-btn svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
   }
   
   .video-player-widget.zoomed {
-    width: 360px;
+    width: 440px;
   }
   
   .video-player-widget.zoomed-out {
-    width: 120px;
+    width: 150px;
   }
   
   /* Intent-based video widget styling */
@@ -1654,15 +1735,15 @@
   
   @media (max-width: 1024px) {
     .video-player-widget {
-      width: 150px;
+      width: 180px;
     }
     
     .video-player-widget.zoomed {
-      width: 300px;
+      width: 360px;
     }
     
     .video-player-widget.zoomed-out {
-      width: 100px;
+      width: 120px;
     }
     
     .video-intro-text {
@@ -4622,10 +4703,10 @@ setInterval(() => {
 // 视频播放器控制
 const videoPlayer = document.getElementById('productVideo');
 const videoWidget = document.getElementById('videoPlayerWidget');
-const zoomInBtn = document.getElementById('zoomInBtn');
-const zoomOutBtn = document.getElementById('zoomOutBtn');
-const muteBtn = document.getElementById('muteBtn');
-const muteIcon = document.getElementById('muteIcon');
+const zoomToggleBtn = document.getElementById('zoomToggleBtn');
+const narrationBtn = document.getElementById('narrationBtn');
+const narrationIcon = document.getElementById('narrationIcon');
+const narrationText = narrationBtn ? narrationBtn.querySelector('span') : null;
 const fullscreenBtn = document.getElementById('fullscreenBtn');
 const closeBtn = document.getElementById('closeBtn');
 const videoProductCard = document.querySelector('.video-product-card');
@@ -4638,176 +4719,193 @@ let videoHoverStartTime = null;
 let isVideoHovered = false;
 
 // 视频观看时长追踪
-videoPlayer.addEventListener('play', () => {
-  videoWatchStartTime = Date.now();
-  intentEngine.recordBehavior('video-play', {
-    element: 'product-video',
-    product: 'F1 Floating Pillow',
-    action: 'play'
-  });
-});
-
-videoPlayer.addEventListener('pause', () => {
-  if (videoWatchStartTime) {
-    videoWatchDuration += Date.now() - videoWatchStartTime;
-    intentEngine.recordBehavior('video-pause', {
+if (videoPlayer) {
+  videoPlayer.addEventListener('play', () => {
+    videoWatchStartTime = Date.now();
+    intentEngine.recordBehavior('video-play', {
       element: 'product-video',
       product: 'F1 Floating Pillow',
-      action: 'pause',
-      watchDuration: Math.round((Date.now() - videoWatchStartTime) / 1000)
+      action: 'play'
     });
-    videoWatchStartTime = null;
-  }
-});
+  });
 
-// 视频观看时长定期记录（每5秒）
-setInterval(() => {
-  if (videoWatchStartTime && !videoPlayer.paused) {
-    const currentWatchTime = Math.round((Date.now() - videoWatchStartTime + videoWatchDuration) / 1000);
-    if (currentWatchTime % 5 === 0) { // 每5秒记录一次
-      intentEngine.recordBehavior('video-watch', {
+  videoPlayer.addEventListener('pause', () => {
+    if (videoWatchStartTime) {
+      videoWatchDuration += Date.now() - videoWatchStartTime;
+      intentEngine.recordBehavior('video-pause', {
         element: 'product-video',
         product: 'F1 Floating Pillow',
-        action: 'watching',
-        watchDuration: currentWatchTime
+        action: 'pause',
+        watchDuration: Math.round((Date.now() - videoWatchStartTime) / 1000)
       });
+      videoWatchStartTime = null;
     }
-  }
-}, 1000);
+  });
+}
+
+// 视频观看时长定期记录（每5秒）
+if (videoPlayer) {
+  setInterval(() => {
+    if (videoWatchStartTime && !videoPlayer.paused) {
+      const currentWatchTime = Math.round((Date.now() - videoWatchStartTime + videoWatchDuration) / 1000);
+      if (currentWatchTime % 5 === 0) { // 每5秒记录一次
+        intentEngine.recordBehavior('video-watch', {
+          element: 'product-video',
+          product: 'F1 Floating Pillow',
+          action: 'watching',
+          watchDuration: currentWatchTime
+        });
+      }
+    }
+  }, 1000);
+}
 
 // 视频悬停事件
-videoWidget.addEventListener('mouseenter', () => {
-  if (!isVideoHovered) {
-    isVideoHovered = true;
-    videoHoverStartTime = Date.now();
-    intentEngine.recordBehavior('hover', {
-      element: 'product-video-widget',
-      product: 'F1 Floating Pillow',
-      type: 'video-hover'
-    });
-  }
-});
+if (videoWidget) {
+  videoWidget.addEventListener('mouseenter', () => {
+    if (!isVideoHovered) {
+      isVideoHovered = true;
+      videoHoverStartTime = Date.now();
+      intentEngine.recordBehavior('hover', {
+        element: 'product-video-widget',
+        product: 'F1 Floating Pillow',
+        type: 'video-hover'
+      });
+    }
+  });
 
-videoWidget.addEventListener('mouseleave', () => {
-  if (isVideoHovered && videoHoverStartTime) {
-    const hoverDuration = Math.round((Date.now() - videoHoverStartTime) / 1000);
-    intentEngine.recordBehavior('video-hover-end', {
-      element: 'product-video-widget',
-      product: 'F1 Floating Pillow',
-      hoverDuration: hoverDuration
-    });
-    isVideoHovered = false;
-    videoHoverStartTime = null;
-  }
-});
+  videoWidget.addEventListener('mouseleave', () => {
+    if (isVideoHovered && videoHoverStartTime) {
+      const hoverDuration = Math.round((Date.now() - videoHoverStartTime) / 1000);
+      intentEngine.recordBehavior('video-hover-end', {
+        element: 'product-video-widget',
+        product: 'F1 Floating Pillow',
+        hoverDuration: hoverDuration
+      });
+      isVideoHovered = false;
+      videoHoverStartTime = null;
+    }
+  });
+}
 
 // 视频点击事件
-videoPlayer.addEventListener('click', (e) => {
-  if (e.target === videoPlayer) {
-    intentEngine.recordBehavior('click', {
-      element: 'product-video',
-      product: 'F1 Floating Pillow',
-      action: 'video-click'
-    });
-  }
-});
+if (videoPlayer) {
+  videoPlayer.addEventListener('click', (e) => {
+    if (e.target === videoPlayer) {
+      intentEngine.recordBehavior('click', {
+        element: 'product-video',
+        product: 'F1 Floating Pillow',
+        action: 'video-click'
+      });
+    }
+  });
+}
 
 // 放大功能
-zoomInBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  videoWidget.classList.remove('zoomed-out');
-  if (currentZoom === 'normal') {
-    videoWidget.classList.add('zoomed');
-    currentZoom = 'zoomed';
-    intentEngine.recordBehavior('click', {
-      element: 'video-control',
-      action: 'zoom-in',
-      product: 'F1 Floating Pillow',
-      zoomLevel: 'zoomed'
-    });
-  } else if (currentZoom === 'zoomed-out') {
-    videoWidget.classList.remove('zoomed-out');
-    currentZoom = 'normal';
-    intentEngine.recordBehavior('click', {
-      element: 'video-control',
-      action: 'zoom-reset',
-      product: 'F1 Floating Pillow',
-      zoomLevel: 'normal'
-    });
-  }
-});
+// 放缩一体按钮功能：normal -> zoomed -> zoomed-out -> normal 循环
+if (zoomToggleBtn && videoWidget) {
+  zoomToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    if (currentZoom === 'normal') {
+      // 从正常切换到放大
+      videoWidget.classList.remove('zoomed-out');
+      videoWidget.classList.add('zoomed');
+      currentZoom = 'zoomed';
+      intentEngine.recordBehavior('click', {
+        element: 'video-control',
+        action: 'zoom-in',
+        product: 'F1 Floating Pillow',
+        zoomLevel: 'zoomed'
+      });
+    } else if (currentZoom === 'zoomed') {
+      // 从放大切换到缩小
+      videoWidget.classList.remove('zoomed');
+      videoWidget.classList.add('zoomed-out');
+      currentZoom = 'zoomed-out';
+      intentEngine.recordBehavior('click', {
+        element: 'video-control',
+        action: 'zoom-out',
+        product: 'F1 Floating Pillow',
+        zoomLevel: 'zoomed-out'
+      });
+    } else if (currentZoom === 'zoomed-out') {
+      // 从缩小切换回正常
+      videoWidget.classList.remove('zoomed-out');
+      currentZoom = 'normal';
+      intentEngine.recordBehavior('click', {
+        element: 'video-control',
+        action: 'zoom-reset',
+        product: 'F1 Floating Pillow',
+        zoomLevel: 'normal'
+      });
+    }
+  });
+}
 
-// 缩小功能
-zoomOutBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  videoWidget.classList.remove('zoomed');
-  if (currentZoom === 'normal') {
-    videoWidget.classList.add('zoomed-out');
-    currentZoom = 'zoomed-out';
-    intentEngine.recordBehavior('click', {
-      element: 'video-control',
-      action: 'zoom-out',
-      product: 'F1 Floating Pillow',
-      zoomLevel: 'zoomed-out'
-    });
-  } else if (currentZoom === 'zoomed') {
-    videoWidget.classList.remove('zoomed');
-    currentZoom = 'normal';
-    intentEngine.recordBehavior('click', {
-      element: 'video-control',
-      action: 'zoom-reset',
-      product: 'F1 Floating Pillow',
-      zoomLevel: 'normal'
-    });
-  }
-});
-
-// 静音/取消静音功能
-muteBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if (videoPlayer.muted) {
-    videoPlayer.muted = false;
-    muteIcon.innerHTML = `
-      <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
-    `;
-    isMuted = false;
-    intentEngine.recordBehavior('click', {
-      element: 'video-control',
-      action: 'unmute',
-      product: 'F1 Floating Pillow'
-    });
-  } else {
-    videoPlayer.muted = true;
-    muteIcon.innerHTML = `
-      <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
-    `;
-    isMuted = true;
-    intentEngine.recordBehavior('click', {
-      element: 'video-control',
-      action: 'mute',
-      product: 'F1 Floating Pillow'
-    });
-  }
-});
+// 静音/取消静音功能（叙述按钮）
+if (narrationBtn && videoPlayer) {
+  narrationBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (videoPlayer.muted) {
+      // 打开声音：显示扬声器图标（无斜线）
+      videoPlayer.muted = false;
+      if (narrationIcon) {
+        narrationIcon.innerHTML = `
+          <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+        `;
+      }
+      if (narrationText) {
+        narrationText.textContent = 'Close narration';
+      }
+      isMuted = false;
+      intentEngine.recordBehavior('click', {
+        element: 'video-control',
+        action: 'unmute',
+        product: 'F1 Floating Pillow'
+      });
+    } else {
+      // 静音：显示带斜线的扬声器图标
+      videoPlayer.muted = true;
+      if (narrationIcon) {
+        narrationIcon.innerHTML = `
+          <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+          <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        `;
+      }
+      if (narrationText) {
+        narrationText.textContent = 'Open narration';
+      }
+      isMuted = true;
+      intentEngine.recordBehavior('click', {
+        element: 'video-control',
+        action: 'mute',
+        product: 'F1 Floating Pillow'
+      });
+    }
+  });
+}
 
 // 全屏功能
-fullscreenBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if (videoPlayer.requestFullscreen) {
-    videoPlayer.requestFullscreen();
-  } else if (videoPlayer.webkitRequestFullscreen) {
-    videoPlayer.webkitRequestFullscreen();
-  } else if (videoPlayer.mozRequestFullScreen) {
-    videoPlayer.mozRequestFullScreen();
-  } else if (videoPlayer.msRequestFullscreen) {
-    videoPlayer.msRequestFullscreen();
-  }
-  intentEngine.recordBehavior('click', {
-    element: 'video-control',
-    action: 'fullscreen',
-    product: 'F1 Floating Pillow'
+if (fullscreenBtn && videoPlayer) {
+  fullscreenBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (videoPlayer.requestFullscreen) {
+      videoPlayer.requestFullscreen();
+    } else if (videoPlayer.webkitRequestFullscreen) {
+      videoPlayer.webkitRequestFullscreen();
+    } else if (videoPlayer.mozRequestFullScreen) {
+      videoPlayer.mozRequestFullScreen();
+    } else if (videoPlayer.msRequestFullscreen) {
+      videoPlayer.msRequestFullscreen();
+    }
+    intentEngine.recordBehavior('click', {
+      element: 'video-control',
+      action: 'fullscreen',
+      product: 'F1 Floating Pillow'
+    });
   });
-});
+}
 
 // 产品卡片点击事件
 if (videoProductCard) {
@@ -4887,28 +4985,40 @@ if (videoBuyNowBtn) {
 }
 
 // 更新静音图标状态
-videoPlayer.addEventListener('volumechange', () => {
-  if (videoPlayer.muted) {
-    muteIcon.innerHTML = `
-      <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
-    `;
-  } else {
-    muteIcon.innerHTML = `
-      <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
-    `;
-  }
-});
+if (videoPlayer) {
+  videoPlayer.addEventListener('volumechange', () => {
+    if (videoPlayer.muted) {
+      if (narrationIcon) {
+        narrationIcon.innerHTML = `
+          <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+        `;
+      }
+      if (narrationText) {
+        narrationText.textContent = 'Open narration';
+      }
+    } else {
+      if (narrationIcon) {
+        narrationIcon.innerHTML = `
+          <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
+        `;
+      }
+      if (narrationText) {
+        narrationText.textContent = 'Close narration';
+      }
+    }
+  });
 
-// 视频加载错误处理
-videoPlayer.addEventListener('error', () => {
-  console.warn('视频加载失败，请确保 products/product-video.mp4 文件存在');
-});
+  // 视频加载错误处理
+  videoPlayer.addEventListener('error', () => {
+    console.warn('视频加载失败，请确保 products/product-video.mp4 文件存在');
+  });
 
-// 确保视频循环播放
-videoPlayer.addEventListener('ended', () => {
-  videoPlayer.currentTime = 0;
-  videoPlayer.play();
-});
+  // 确保视频循环播放
+  videoPlayer.addEventListener('ended', () => {
+    videoPlayer.currentTime = 0;
+    videoPlayer.play();
+  });
+}
 </script>
 
 <!-- 视频播放器插件（独立悬浮在模拟网页上方） -->
@@ -4924,26 +5034,31 @@ videoPlayer.addEventListener('ended', () => {
     <div class="video-controls-top">
       <!-- 左上角：关闭按钮 -->
       <div class="video-controls-top-left">
-        <button class="video-control-btn" id="closeBtn" title="关闭" style="display: none;">
+        <button class="video-control-btn" id="closeBtn" title="关闭">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
         </button>
       </div>
       
-      <!-- 右上角：全屏和静音按钮 -->
+      <!-- 右上角：放缩一体按钮 -->
       <div class="video-controls-top-right">
-        <button class="video-control-btn" id="fullscreenBtn" title="全屏">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
-          </svg>
-        </button>
-        <button class="video-control-btn" id="muteBtn" title="静音/取消静音">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="muteIcon">
-            <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+        <button class="video-control-btn" id="zoomToggleBtn" title="缩放">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="6" width="12" height="12" rx="1"/>
+            <path d="M6 2v4M18 2v4M6 22v-4M18 22v-4M2 6h4M22 6h4M2 18h4M22 18h4"/>
           </svg>
         </button>
       </div>
+      
+      <!-- 右侧中间：静音/叙述按钮 -->
+      <button class="video-narration-btn" id="narrationBtn" title="Open narration">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="narrationIcon">
+          <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+          <line x1="2" y1="2" x2="22" y2="22"/>
+        </svg>
+        <span>Open narration</span>
+      </button>
     </div>
     
     <!-- 右侧垂直标签：Reviews -->
@@ -4953,54 +5068,40 @@ videoPlayer.addEventListener('ended', () => {
     <div class="video-product-overlay">
       <div class="video-product-card">
         <div class="video-product-thumbnail">
-          <img src="products/pillow.jpg" alt="F1 Floating Pillow" 
+          <img src="products/product-preview.png" alt="Product Preview" 
                onerror="this.onerror=null; this.style.display='none'; this.parentElement.querySelector('.thumbnail-placeholder').style.display='block';"
                onload="this.parentElement.classList.add('has-image'); this.parentElement.querySelector('.thumbnail-placeholder').style.display='none';">
-          <svg width="50" height="50" viewBox="0 0 50 50" class="thumbnail-placeholder" style="position: absolute; top: 0; left: 0; z-index: 1;">
+          <svg width="55" height="55" viewBox="0 0 55 55" class="thumbnail-placeholder" style="position: absolute; top: 0; left: 0; z-index: 1;">
             <defs>
               <linearGradient id="pillowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#7da6ff;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                <stop offset="0%" style="stop-color:#64b5f6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#42a5f5;stop-opacity:1" />
               </linearGradient>
             </defs>
-            <rect width="50" height="50" rx="6" fill="url(#pillowGradient)"/>
-            <rect x="8" y="12" width="34" height="26" rx="4" fill="rgba(255,255,255,0.3)"/>
-            <rect x="12" y="16" width="26" height="18" rx="3" fill="rgba(255,255,255,0.2)"/>
+            <rect width="55" height="55" rx="10" fill="#e3f2fd"/>
+            <rect x="3" y="3" width="49" height="49" rx="7" fill="url(#pillowGradient)"/>
+            <rect x="9" y="12" width="37" height="31" rx="4" fill="rgba(255,255,255,0.3)"/>
+            <rect x="12" y="16" width="31" height="23" rx="3" fill="rgba(255,255,255,0.2)"/>
           </svg>
         </div>
         <div class="video-product-info">
-          <div class="video-product-name">Nitetronic F1 Floating Pillow</div>
-          <div class="video-product-price">
-            <span class="video-product-original-price">USD 169.0</span>
-            <span class="video-product-discount-price">USD 139.0</span>
-          </div>
-          <div class="video-product-actions">
-            <button class="video-btn-add-cart" id="videoAddCartBtn" data-product="F1 Floating Pillow" data-action="add-cart" title="Add to Cart">
-              <span>🛒</span>
-            </button>
-            <button class="video-btn-buy-now" id="videoBuyNowBtn" data-product="F1 Floating Pillow" data-action="buy-now" title="立即购买">
-              <span>✓</span>
-            </button>
+          <div class="video-product-name">Ikarao Shell S1 Karaoke Mac...</div>
+          <div class="video-product-description">Immersive High-Fidelity Sound The Ikarao Shell S1 delivers impressive...</div>
+          <div class="video-product-price-row">
+            <div class="video-product-price">
+              <span class="video-product-discount-price">$279.99</span>
+              <span class="video-product-original-price">$399.99</span>
+            </div>
+            <div class="video-product-actions">
+              <button class="video-btn-buy-now" id="videoBuyNowBtn" data-product="F1 Floating Pillow" data-action="buy-now" title="Buy now">
+                <span>Buy now</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- 右侧控制按钮（缩放） -->
-    <div class="video-controls-right">
-      <button class="video-control-btn" id="zoomInBtn" title="放大">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
-        </svg>
-      </button>
-      <button class="video-control-btn" id="zoomOutBtn" title="缩小">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="M21 21l-4.35-4.35M8 11h6"/>
-        </svg>
-      </button>
-    </div>
   </div>
 </div>
 </body>
